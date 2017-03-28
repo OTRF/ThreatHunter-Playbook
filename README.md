@@ -1,2 +1,2 @@
 # ThreatHunter-Playbook
-A Threat hunter's playbook to aid the development of techniques for hunting campaigns by leveraging Windows Events and Sysmon logs.
+A Threat hunter's playbook to aid the development of techniques for hunting campaigns by leveraging Windows Events and Sysmon logs. This project will provide specific chains of events exclusively at the host level so that you can take them and develop logic to deploy queries in your preferred tool such as Splunk, Elk, etc. This repo will follow the structure of the MITRE ATT&CK framework which categorizes post-compromise adversary behavior in tactical groups. 
