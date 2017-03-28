@@ -7,14 +7,17 @@
 
 ## Events
 
-| Source | EventID | Field | Values | Reference | 
+| Source | EventID | Field | Details | Reference | 
 |--------|---------|-------|--------|-----------| 
-| Sysmon OR WinEvent | ID | Field, ALL | strings | \[Author Name\](link) |
-| Sysmon OR WinEvent | ID | Field, ALL | strings | \[Author Name\](link) |
-| Sysmon OR WinEvent | ID | Field, ALL | strings | \[Author Name\](link) |
-| Sysmon OR WinEvent | ID | Field, ALL | strings | \[Author Name\](link) |
-| Sysmon OR WinEvent | ID | Field, ALL | strings | \[Author Name\](link) |
-| Sysmon OR WinEvent | ID | Field, ALL | strings | \[Author Name\](link) |
+| Sysmon OR WinEvent | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
+| Sysmon OR WinEvent | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
+| Sysmon OR WinEvent | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
+| Sysmon OR WinEvent | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
+| Sysmon OR WinEvent | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
+| Sysmon OR WinEvent | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) 
+
+
+## Hunter Notes
 
 
 ## Hunting Techniques Recommended
