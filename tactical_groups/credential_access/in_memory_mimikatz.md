@@ -20,7 +20,7 @@ Adversaries might be executing Mimikatz in memory with the help of PowerShell in
 ## Hunter Notes
 * GrantedAccess code 0x1010 is the new permission Mimikatz v.20170327 uses for command "sekurlsa::logonpasswords"
 * GrantedAccess code 0x1010 is less common than 0x1410
-* Out of old the Modules that Mimikatz needs to function, the 5 above are the ones with less false positives
+* Out of all the Modules that Mimikatz needs to function, the 5 above are the ones with less false positives
 * WMINet_Utils.dll is optional since it is loaded by scripts developed by PowerSploit and Empire projects (Invoke-Mimikatz.ps1).
 * Look for PowerShell.exe accessing Lsass.exe with a potential CallTrace Pattern: C:\\Windows\\SYSTEM32\\ntdll\.dll\+[a-zA-Z0-9]{1,}\|C:\\Windows\\system32\\KERNELBASE\.dll\+[a-zA-Z0-9]{1,}\|UNKNOWN\([a-zA-Z0-9]{16}\)
 
