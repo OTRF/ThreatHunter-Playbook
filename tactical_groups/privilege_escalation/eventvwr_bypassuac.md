@@ -3,7 +3,7 @@
 Currently, there are a couple of public UAC bypass techniques, most of which require a privileged file copy using the IFileOperation COM object or WUSA extraction (Windows 7) to take advantage of a DLL hijack in a protected system location. All of these techniques require dropping a file to disk (for example, placing a DLL on disk to perform a DLL hijack). This technique uses eventvwr.exe and hijacked registry keys to elevate privileges. It has been tested on Windows 7 and Windows 10, but is expected to work on all versions of Windows that implement UAC.
 
 ## Hypotheis
-Avaersaries might be leveraging eventvwr.exe to bypass UAC and elevate privileges in the network.
+Adversaries might be leveraging eventvwr.exe to bypass UAC and elevate privileges in the network.
 
 ## Events
 
