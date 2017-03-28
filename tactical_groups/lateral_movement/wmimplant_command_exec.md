@@ -14,7 +14,8 @@ Adversaries might be executing WMImplant in my environment in order to facilitat
 | Sysmon | 1       | ParentImage       | powershell.exe                                                                                                         | Cyb3rWard0g | https://goo.gl/Z9aTUK |
 | Sysmon | 1       | ParentCommandLine | 'Get-C\`hildItem', 'Get-C\`ommand', 'DI\`R', 'L\`S', 'Child\`Item', 'Inv\`oke-Ex\`pression', 'IE\`X', 'G\`CI', env:, 'Co\`mmand' | Cyb3rWard0g | https://goo.gl/Z9aTUK |
 | Sysmon | 12, 13  | TargetObject      | Pattern: \\Environment\\[a-zA-Z0-9]{5}                                                                                 | Cyb3rWard0g | https://goo.gl/Z9aTUK |
-| Sysmon | 17 & 18 | PipeName          | \<Anonymous Pipes\>                                                                                                      | Cyb3rWard0g | https://goo.gl/Z9aTUK |
+| Sysmon | 13 | Details          | Strings:'Win32_OSRecoveryConfiguration', 'DebugFilePath'                                                                                                      | Cyb3rWard0g | https://goo.gl/Z9aTUK |
+| Sysmon | 17, 18 | PipeName          | \<Anonymous Pipes\>                                                                                                      | Cyb3rWard0g | https://goo.gl/Z9aTUK |
 
 
 ## Hunting Techniques Recommended
