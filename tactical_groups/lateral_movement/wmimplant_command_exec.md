@@ -12,8 +12,7 @@ Adversaries might be executing WMImplant in my environment in order to facilitat
 | Source | EventID | Field | Values | Reference | 
 |--------|---------|-------|--------|-----------| 
 | Sysmon | 1 | ParentImage | wmiprvse.exe | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_26.html) |
-| Sysmon | 1 | Image | powershell.exe | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_26.html) |
-| Sysmon | 1 | ParentImage | powershell.exe | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_26.html) |
+| Sysmon | 1 | Image OR ParentImage | powershell.exe | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_26.html) |
 | Sysmon | 1 | ParentCommandLine OR CommandLine | 'Get-C\`hildItem', 'Get-C\`ommand', 'DI\`R', 'L\`S', 'Child\`Item', 'Inv\`oke-Ex\`pression', 'IE\`X', 'G\`CI', env:, 'Co\`mmand' | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_26.html) |
 | Sysmon | 12, 13 | TargetObject | Pattern: \\Environment\\[a-zA-Z0-9]{5} | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_26.html) |
 | Sysmon | 13 | Details | 'Win32_OSRecoveryConfiguration', 'DebugFilePath' | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_26.html) |
