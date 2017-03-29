@@ -22,9 +22,11 @@ Adversaries are enumerating users and group in the network with the help of net.
 
 
 ## Hunter Notes
-* Looking for Object Type SAM_GROUP and Admin groups is really suspicious specially when the handle to the object is not being made by the DC itself.
+* EID 4661 events are generated on Domain Controllers (Target)
+* Looking for Object Type SAM_GROUP and Objet Names related to Admin groups is really suspicious specially when the handle to the object is not being made by the DC itself.
 * Same for Domain Admin and KRBTGT accounts.
 * Access Mask 0x20094 is from a regular domain user account.
+* Access Mask 0xF01BF is from users with Domain Admin rights.
 
 ## Hunting Techniques Recommended
 
