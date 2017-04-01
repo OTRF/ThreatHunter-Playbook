@@ -22,6 +22,7 @@ Adversaries might be using mimikatz to perform an OverPass-the-Hash technique do
   * 0x0010: PROCESS_VM_READ
   * 0x0020: PROCESS_VM_WRITE (Required to write to memory in a process using WriteProcessMemory)
   * 0x0008: PROCESS_VM_OPERATION (Required to perform an operation on the address space of a process)
+ * EID 4648: SecurityID different from Account Name is a sign of a user impersonating (using compromised credentials) another account.
  * EID 4768. Look for RC4 (0x17). Encryption Downgrades might be anomalies when you are not using it in your environment. Why all of the sudden one computer in HR is requesting TGTs with RC4?.
 
 ## Hunting Techniques Recommended
