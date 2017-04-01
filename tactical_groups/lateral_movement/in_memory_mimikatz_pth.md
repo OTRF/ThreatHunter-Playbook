@@ -11,7 +11,7 @@ Adversaries might be using mimikatz to perform an OverPass-the-Hash technique do
 |--------|---------|-------|--------|-----------| 
 | WinEvent | 4624 | LogonTye 9 | "NewCredentials" | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for.html) |
 | WinEvent | 4648 | Subject.SecurityID AND AccountName | "A logon was attempted using explicit credentials" | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for.html) |
-| WinEvent | 4768 | TicketEncryptionType | Hex value: 0x17. Encryption Type downgrade behavior captured by the Domain Controller | \[Author Name\](link) |
+| WinEvent | 4768 | TicketEncryptionType | Hex value: 0x17. Encryption Type downgrade behavior captured by the Domain Controller | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for.html) |
 | Sysmon | 10 | GrantedAccess | (0x1010 OR 0x1410) AND 0x1038 | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for.html) | 
 
 
