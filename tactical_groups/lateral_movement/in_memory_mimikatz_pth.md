@@ -19,6 +19,7 @@ Adversaries might be using mimikatz to perform an OverPass-the-Hash technique do
 * EID 4624 Logon Type 9 allows the caller to clone its current token and specify new credentials for outbound connections. The new logon session has the same local identify, but uses different credentials for other network connections."
 * EID 10 GrantedAccess / Permissions 0x1010,0x1410 & 0x1038. 0x1038 is almost unique in an environment and 0x1410 is from old versions of Mimikatz.
   * 0x1000: PROCESS_QUERY_LIMITED_INFORMATION
+  * 0x0400: PROCESS_QUERY_INFORMATION
   * 0x0010: PROCESS_VM_READ
   * 0x0020: PROCESS_VM_WRITE (Required to write to memory in a process using WriteProcessMemory)
   * 0x0008: PROCESS_VM_OPERATION (Required to perform an operation on the address space of a process)
