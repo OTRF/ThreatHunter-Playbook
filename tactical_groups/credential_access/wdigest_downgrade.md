@@ -5,14 +5,14 @@ Windows 8.1 introduced a registry setting that allows for disabling the storage 
 (HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest\UseLogonCredential)
 
 ## Hypotheis
-Adversaries are updating the registry value of \WDigest\UseLogonCredential to 1 in order to grab clear text passwords from lsass in my environment.
+Adversaries are updating the registry value of \WDigest\UseLogonCredential to 1 in order to grab clear text passwords from memory contents of lsass in my environment.
 
 
 ## Events
 
 | Source | EventID | Field | Details | Reference | 
 |--------|---------|-------|--------|-----------| 
-| Sysmon | 13 | TargetObject | HKLM\System\CurrentControlSet\Control\SecurityProviders\WDigst\UseLogonCredential | Cyb3rWard0g |
+| Sysmon | 13 | TargetObject | HKLM\System\CurrentControlSet\Control\SecurityProviders\WDigest\UseLogonCredential | Cyb3rWard0g |
 | Sysmon | 13 | Details | 1 | Cyb3rWard0g |
 
 
