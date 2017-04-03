@@ -1,20 +1,19 @@
-# Techniques or Tools
+# WDigest Downgrade
 ## Description
+Windows 8.1 introduced a registry setting that allows for disabling the storage of the user’s logon credential in clear text for the WDigest provider.
 
+(HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest\UseLogonCredential)
 
 ## Hypotheis
+Adversaries are updating the registry value of \WDigest\UseLogonCredential to 1 in order to grab clear text passwords from lsass in my environment.
 
 
 ## Events
 
 | Source | EventID | Field | Details | Reference | 
 |--------|---------|-------|--------|-----------| 
-| Sysmon OR WinEvent | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
-| Sysmon OR WinEvent | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
-| Sysmon OR WinEvent | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
-| Sysmon OR WinEvent | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
-| Sysmon OR WinEvent | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
-| Sysmon OR WinEvent | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) 
+| Sysmon | 13 | TargetObject | HKLM\System\CurrentControlSet\Control\SecurityProviders\WDigst\UseLogonCredential | Cyb3rWard0g |
+| Sysmon | 13 | Details | 1 | Cyb3rWard0g |
 
 
 ## Hunter Notes
@@ -22,7 +21,7 @@
 
 ## Hunting Techniques Recommended
 
-- [x] Grouping
+- [ ] Grouping
 - [x] Searching
 - [ ] Clustering
 - [ ] Stack Counting
