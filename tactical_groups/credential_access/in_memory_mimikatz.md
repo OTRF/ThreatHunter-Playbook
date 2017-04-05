@@ -3,7 +3,7 @@
 Technique of reflectively loading Mimikatz into Memory. Mainly used to dump credentials without touching disk.
 
 
-## Hypotheis
+## Hypothesis
 Adversaries might be executing Mimikatz in memory with the help of PowerShell in order to dump credentials in my environment.
 
 
