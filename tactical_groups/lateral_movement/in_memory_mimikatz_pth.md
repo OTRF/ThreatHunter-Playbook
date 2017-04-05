@@ -2,7 +2,7 @@
 ## Description
 Mimikatz can perform the well-known operation 'Pass-The-Hash' to run a process under another credentials with NTLM hash of the user's password, instead of its real password. When the user logs in, Windows creates a long term key for each encryption method supported by the client OS before requesting/obtaining the TGT. Multiple encryption types are normally available. The client should choose the strongest mutually-supported encryption type, but of course an attacker can produce a downgrade attack to choose weaker encryption.Windows 7 systems support the newer AES. However, it can also still support older RC4 algorithms. As we know, Microsoft uses the NT (NTLM) hash for Kerberos RC4 encryption which is why this attack is very easy to do. All it takes is to inject the compromised NTLM hash into a new process, downgrade the level of encryption to RC4 and obtain a TGT. 
 
-## Hypotheis
+## Hypothesis
 Adversaries might be using mimikatz to perform an OverPass-the-Hash technique downgrading the encryption algorithm used to request and obtain TGTs in order to move laterally in the network. Abusing Kerberos authentication.
 
 ## Events
