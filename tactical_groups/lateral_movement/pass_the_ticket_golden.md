@@ -2,7 +2,7 @@
 ## Description
 
 
-## Hypotheis
+## Hypothesis
 
 
 ## Events
