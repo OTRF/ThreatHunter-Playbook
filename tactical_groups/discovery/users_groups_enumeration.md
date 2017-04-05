@@ -2,7 +2,7 @@
 ## Description
 Enumerating users and groups is very useful to an adversary. Knowing usernames and the names of groups can come handy. As an attacker, you want to grab as much as you can, after all, this is the reconnaissance phase.
 
-## Hypotheis
+## Hypothesis
 Adversaries are enumerating users and group in the network with the help of net.exe and powershell scripts.
 
 ## Events
