@@ -3,7 +3,7 @@
 A PowerShell based tool that leverages WMI to both perform actions against targeted machines, but also as the C2 channel for issuing commands and receiving results. The **command_exec** command is part of the **Lateral Movement Facilitation Commands** section which allows an adversary to run command lines remotely with compromised credentials.
 
 
-## Hypotheis
+## Hypothesis
 Adversaries might be executing WMImplant in my environment in order to facilitate lateral movement by running commands remotely with compromised credentials.
 
 
