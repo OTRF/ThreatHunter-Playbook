@@ -9,9 +9,9 @@ Adversaries might be leveraging eventvwr.exe to bypass UAC and elevate privilege
 
 | Source | EventID | Field | Details | Reference | 
 |--------|---------|-------|--------|-----------| 
-| Sysmon | 1 | ParentImage | Eventvwr.exe OR (powershell.exe OR cmd.exe) | Cyb3rWard0g & MalwareSoup |
-| Sysmon | 1 | Image | Eventvwr.exe OR (powershell.exe OR cmd.exe) | Cyb3rWard0g & MalwareSoup) |
-| Sysmon | 1 | CommandLine | powershell, cmd.exe -enc, \<base64\> | Cyb3rWard0g & MalwareSoup |
+| Sysmon | 1 | ParentImage | Eventvwr.exe OR (powershell.exe OR cmd.exe (Optional)) | Cyb3rWard0g & MalwareSoup |
+| Sysmon | 1 | Image | Eventvwr.exe OR (powershell.exe OR cmd.exe (Optional)) | Cyb3rWard0g & MalwareSoup) |
+| Sysmon | 1 | CommandLine | powershell, cmd.exe -enc, \<base64\> (Optional) | Cyb3rWard0g & MalwareSoup |
 | Sysmon | 12, 13 | TargetObject | '\mscfile\shell\open\command\(Default)' OR '\\mscfile\\' | Cyb3rWard0g & MalwareSoup |
 
 
