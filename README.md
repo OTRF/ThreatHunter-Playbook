@@ -20,11 +20,11 @@ A Threat hunter's playbook to aid the development of techniques and hypothesis f
 
 
 # Author
-* Roberto Rodriguez @Cyb3rWard0g
+* Roberto Rodriguez [@Cyb3rWard0g](https://twitter.com/Cyb3rWard0g)
 
 # Contributors
-* Andy @malwaresoup
-* Michael Haggis @M_Haggis
+* Andy [@malwaresoup](https://twitter.com/malwaresoup)
+* Michael Haggis [@M_Haggis](https://twitter.com/M_Haggis)
 
 # Contributing
 Can't wait to see other hunters' pull requests with awesome ideas to detect advanced patterns of behavior. The more chains of events you contribute the better this playbook will be for the community.
