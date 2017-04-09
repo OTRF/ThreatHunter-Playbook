@@ -2,8 +2,10 @@
 ## Description
 Windows Authentication Package DLLs are loaded by the Local Security Authority (LSA) process at system start. They provide support for multiple logon processes and multiple security protocols to the operating system. Adversaries can use the autostart mechanism provided by LSA Authentication Packages for persistence by placing a reference to a binary in the Windows Registry location HKLM\SYSTEM\CurrentControlSet\Control\Lsa\ with the key value of "Authentication Packages"=<target binary>. The binary will then be executed by the system when the authentication packages are loaded.
 
+
 ## Hypothesis
 Adversaries are using LSA Authentication Packages to maintain persistence in my environment.
+
 
 ## Events
 

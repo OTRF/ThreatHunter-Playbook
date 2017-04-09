@@ -5,6 +5,7 @@ Mimikatz can perform the well-known operation 'Pass-The-Hash' to run a process u
 ## Hypothesis
 Adversaries might be using mimikatz to perform an OverPass-the-Hash technique downgrading the encryption algorithm used to request and obtain TGTs in order to move laterally in the network. Abusing Kerberos authentication.
 
+
 ## Events
 
 | Source | EventID | Field | Details | Reference | 
@@ -26,6 +27,7 @@ Adversaries might be using mimikatz to perform an OverPass-the-Hash technique do
  * EID 4648: SecurityID different from Account Name is a sign of a user impersonating (using compromised credentials) another account.
  * EID 4768. Look for RC4 (0x17). Encryption Downgrades might be anomalies when you are not using it in your environment. Why all of the sudden one computer in HR is requesting TGTs with RC4?.
 
+ 
 ## Hunting Techniques Recommended
 
 - [x] Grouping
