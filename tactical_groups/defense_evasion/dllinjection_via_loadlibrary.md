@@ -1,4 +1,4 @@
-# Remote PowerShell Sessions
+# DLL Injection via LoadLibrary API Call
 ## Description
 Microsoft Windows allows for processes to remotely create threads within other processes of the same privilege level. This functionality is provided via the Windows API CreateRemoteThread. Both adversaries and host-based security software use this functionality to inject DLLs, but for very different purposes. An adversary is likely to inject into a program to evade defenses or bypass User Account Control, but a security program might do this to gain increased monitoring of API calls. 
 
