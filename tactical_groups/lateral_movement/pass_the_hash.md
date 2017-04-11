@@ -12,6 +12,7 @@ Adversaries are moving laterally by reusing compromised hashes and authenticatin
 | Source | EventID | Field | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
 | WinEvent | 4776 | PackageName | MICROSOFT_AUTHENTICATION_PACKAGE_V1_0 | Cyb3rWard0g |
+| WinEvent | 4776 | LogonAccount/TargetUserName | Administrator (RID 500) | Cyb3rWard0g |
 | WinEvent | 4624 | Subject.SecurityID | NULL SID OR "S-1-0-0" | Cyb3rWard0g |
 | WinEvent | 4624 | LogonType | 3 | Cyb3rWard0g |
 | WinEvent | 4624 | WorkstationName | NOT Blank (localSystem) | Cyb3rWard0g |
