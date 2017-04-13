@@ -4,7 +4,7 @@ Files may be copied from one system to another to stage adversary tools or other
 
 
 ## Hypothesis
-Adversaries are copying files to $ shares via the command line to faciliate lateral movement.
+Adversaries are copying files to $ shares via the command line to facilitate lateral movement.
 
 
 ## Events
