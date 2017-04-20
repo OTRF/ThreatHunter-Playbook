@@ -32,3 +32,6 @@ Adversaries might be executing WMImplant in my environment in order to facilitat
 - [x] Searching
 - [ ] Clustering
 - [ ] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests

@@ -25,3 +25,6 @@ Attackers might be updating the DisablePasswordChange registry value to 1 in ord
 - [x] Searching
 - [ ] Clustering
 - [ ] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests

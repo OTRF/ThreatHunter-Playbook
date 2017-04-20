@@ -18,6 +18,7 @@
 
 
 ## Hunter Notes
+* Notes..
 
 
 ## Hunting Techniques Recommended
@@ -26,3 +27,6 @@
 - [x] Searching
 - [ ] Clustering
 - [ ] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests

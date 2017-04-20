@@ -70,3 +70,6 @@ Adversaries are leveraging SCM capabilities to authorize remote creation and mod
 - [x] Searching
 - [ ] Clustering
 - [ ] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests

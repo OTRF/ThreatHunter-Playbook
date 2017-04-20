@@ -26,3 +26,6 @@ Adversaries are using LSA Authentication Packages to maintain persistence in my 
 - [x] Searching
 - [ ] Clustering
 - [x] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests

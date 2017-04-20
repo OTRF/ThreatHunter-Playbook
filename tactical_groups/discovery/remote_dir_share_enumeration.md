@@ -26,3 +26,6 @@ Adversaries are enumerating remote file shares within my environment.
 - [ ] Searching
 - [ ] Clustering
 - [ ] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests

@@ -37,3 +37,6 @@ Adversaries are moving laterally by reusing compromised hashes and authenticatin
 - [x] Searching
 - [ ] Clustering
 - [ ] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests

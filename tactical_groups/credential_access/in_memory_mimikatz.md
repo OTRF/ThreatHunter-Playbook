@@ -35,3 +35,6 @@ Adversaries might be executing Mimikatz in memory with the help of PowerShell in
 - [x] Searching
 - [ ] Clustering
 - [ ] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests

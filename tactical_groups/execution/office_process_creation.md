@@ -28,3 +28,6 @@ Adversaries are likely leveraging malicious Office documents to deliver malware 
 - [x] Searching
 - [ ] Clustering
 - [ ] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests

@@ -28,3 +28,6 @@ Adversaries are using the AppInit_DLL functionality in my environment to achieve
 - [x] Searching
 - [ ] Clustering
 - [x] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests

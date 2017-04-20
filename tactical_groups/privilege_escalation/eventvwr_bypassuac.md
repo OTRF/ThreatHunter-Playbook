@@ -32,3 +32,6 @@ Adversaries might be leveraging eventvwr.exe to bypass UAC and elevate privilege
 - [x] Searching
 - [ ] Clustering
 - [ ] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests

@@ -32,3 +32,6 @@ Adversaries are copying files to $ shares via the command line to facilitate lat
 - [ ] Searching
 - [ ] Clustering
 - [ ] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests

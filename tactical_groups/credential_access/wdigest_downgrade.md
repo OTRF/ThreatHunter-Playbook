@@ -26,3 +26,6 @@ Adversaries are updating the registry value of \WDigest\UseLogonCredential to 1 
 - [x] Searching
 - [ ] Clustering
 - [ ] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests

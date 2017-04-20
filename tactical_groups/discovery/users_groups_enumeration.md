@@ -36,3 +36,6 @@ Adversaries are enumerating users and group in the network with the help of net.
 - [x] Searching
 - [ ] Clustering
 - [ ] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests

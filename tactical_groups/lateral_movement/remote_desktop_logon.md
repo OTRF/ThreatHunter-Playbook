@@ -38,3 +38,6 @@ Adversaries are moving laterally within my network through RDP connections.
 - [x] Searching
 - [ ] Clustering
 - [ ] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests

@@ -33,4 +33,7 @@ Adversaries might be using mimikatz to perform an OverPass-the-Hash technique do
 - [x] Grouping
 - [x] Searching
 - [ ] Clustering
-- [ ] Stack Counting
+- [X] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests

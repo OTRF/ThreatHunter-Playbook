@@ -29,3 +29,6 @@ Adversaries are creating persistence in my network by leveraging the process of 
 - [x] Searching
 - [ ] Clustering
 - [x] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests

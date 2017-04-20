@@ -29,3 +29,6 @@ Adversaries might be bypassing our application whitelisting controls by using Re
 - [x] Searching
 - [ ] Clustering
 - [X] Stack Counting
+- [ ] Scatter Plots
+- [ ] Box Plots
+- [ ] Isolation Forests
