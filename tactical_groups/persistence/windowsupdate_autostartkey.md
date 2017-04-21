@@ -4,7 +4,7 @@ HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Setup\ServiceStartu
 * 'CacheFile': It can be used as a persistence mechanism
 * 'TargetFile': It can also mysteriously make files re-appear on the system as the mechanism is used to update files and as such, the entries are being used to copy files during the system start (by the ‘svchost.exe -k netsvcs’ process) 
 
-Older versions of Windows (XP) allow you to use the '20MUFixUp' entry to copy the file from the CacheFile location to the TargetFile one and execute it. All it takes is a restart of Windows Update Services for this to work. In newer versions of Windows (7 & 8), you need to use the 'RegistrationFlags' and set its value to either '1' ir '2'.
+Older versions of Windows (XP) allow you to use the '20MUFixUp' entry to copy the file from the CacheFile location to the TargetFile one and execute it. All it takes is a restart of Windows Update Services for this to work. In newer versions of Windows (Tested successfully on Win 7), you need to use the 'RegistrationFlags' entry and set its value to either '1' ir '2'.
 * 'DllInstall' = dword:00000001
 * 'DllRegisterServer' = dword:00000002
 
@@ -35,7 +35,7 @@ Adversaries might be using the Windows Update Service Autostart key to maintain 
 
 
 ## Hunter Notes
-* For newer versions of Windows, look for RegistrationFlags entries.
+* For Windows 7 systems, look for RegistrationFlags entries. This persistence technique does not work on Windows 10.
 * You can group those events to hunt for this persistence technique or stack the values of the CacheFile AND TargetFile properties to find anomalies/outliers (That way we do not depend on specific file names).
 
 
