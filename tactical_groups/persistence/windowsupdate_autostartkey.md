@@ -4,7 +4,7 @@ HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Setup\ServiceStartu
 * 'CacheFile': It can be used as a persistence mechanism
 * 'TargetFile': It can also mysteriously make files re-appear on the system as the mechanism is used to update files and as such, the entries are being used to copy files during the system start (by the ‘svchost.exe -k netsvcs’ process) 
 
-Older versions of Windows (XP) allow you to use the '20MUFixUp' entry to copy the file from the CacheFile location to the TargetFile one and execute it. All it takes is a restart of Windows Update Services for this to work. In newer versions of Windows (Tested successfully on Win 7), you need to use the 'RegistrationFlags' entry and set its value to either '1' ir '2'.
+Older versions of Windows (XP) allow you to use the '20MUFixUp' entry to copy the file from the CacheFile location to the TargetFile one and execute it. All it takes is a restart of Windows Update Services for this to work. In newer versions of Windows (Tested successfully on Win 7), you need to use the 'RegistrationFlags' entry and set its value to either '1' or '2'.
 * 'DllInstall' = dword:00000001
 * 'DllRegisterServer' = dword:00000002
 
