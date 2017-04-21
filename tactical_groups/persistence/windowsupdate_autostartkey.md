@@ -35,8 +35,8 @@ Adversaries might be using the Windows Update Service Autostart key to maintain 
 
 
 ## Hunter Notes
-* For newwer versions of Windows look for RegistrationFlags entries.
-* You can group those events to hunt for this persistence behavior or stack the values of the CacheFile AND TargetFile properties to find anomalies/outliers (That way we do not depend on specific strings).
+* For newer versions of Windows, look for RegistrationFlags entries.
+* You can group those events to hunt for this persistence technique or stack the values of the CacheFile AND TargetFile properties to find anomalies/outliers (That way we do not depend on specific file names).
 
 
 ## Hunting Techniques Recommended
