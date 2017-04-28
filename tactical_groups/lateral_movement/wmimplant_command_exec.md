@@ -24,6 +24,7 @@ Adversaries might be executing WMImplant in my environment in order to facilitat
 * Environment registry keys created with a 5 Character random alphanumeric name by wmiprvse.exe
 * Values with strings 'Win32_OSRecoveryConfiguration' or 'DebugFilePath' set to the weird keys created by wmiprvse.exe
 * 2 \<Anonymous Pipes\> when WMImplant executes commands remotely to a compromised box.
+* Remember this is considering the default execution of the tool. Adversaries could change the number of characters in the Environment Variable and avoid using the ObfuscatedEnvVar parameter. If this happens, you could stack the values of the Enviroment variables and if variables are not used, you could baseline the use of WMI executing PowerShell in your organization.
 
 
 ## Hunting Techniques Recommended
