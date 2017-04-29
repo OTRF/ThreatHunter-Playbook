@@ -17,6 +17,30 @@ Adversaries might be executing Mimikatz in memory with the help of PowerShell in
 | Sysmon | 10 | CallTrace | \\\ntdll\\.dll\\+\[a-zA-Z0-9\]\{1,\}\|\\\KERNELBASE\\.dll\\+\[a-zA-Z0-9\]\{1,\}\|UNKNOWN\(\[a-zA-Z0-9\]\{16\}\) | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_22.html) |
 | Sysmon | 7 | ImageLoaded | WinSCard.dll, cryptdll.dll, hid.dll, samlib.dll, vaultcli.dll, WMINet_Utils.dll (Optional) | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html) |
 
+### EventID 10 - GrantedAccess Hunting
+The following table lists most of the calls to OpenProcess() with the opened service / process name and the associated ACCESS_MASK. 
+
+Reference: [dim0x69 - blog.3or.de](https://blog.3or.de/hunting-mimikatz-with-sysmon-monitoring-openprocess.html)
+
+
+| module | OpenProcess caller function | destination process / destination service | ACCESS\_MASK | ACCESS_MASK translated | comment |
+|---------|---------|---------|---------|---------|---------|
+| lsadump::lsa /patch | kuhl_m_lsadump_lsa_getHandle() | SamSs | PROCESS_VM_READ \| PROCESS_VM_WRITE \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION | 0x1438 |
+| lsadump::lsa /inject | kuhl_m_lsadump_lsa_getHandle() | SamSs | PROCESS_VM_READ \| PROCESS_VM_WRITE  \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION \| PROCESS_CREATE_THREAD | 0x143a |
+| lsadump::trust /patch | kuhl_m_lsadump_lsa_getHandle() | SamSs | PROCESS_VM_READ \| PROCESS_VM_WRITE \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION| 0x1438 |
+| minesweeper::infos | kuhl_m_minesweeper_infos() | minesweeper.exe | PROCESS_VM_READ \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION | 0x1418 |
+| misc:detours | kuhl_m_misc_detours_callback_process() | * |GENERIC_READ | |omitted because of the very generic ACCESS_MASK |
+| misc:memssp |  kuhl_m_misc_memssp() | lsass.exe | PROCESS_VM_READ \| PROCESS_VM_WRITE \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION | 0x1438 |
+| misc:skeleton|  kuhl_m_misc_skeleton() | lsass.exe | PROCESS_VM_READ \| PROCESS_VM_WRITE \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION | 0x1438 |
+| process::suspend, process:stop, process:resume,process:imports, process:exports |kuhl_m_process_genericOperation()|||| omitted because of the very generic ACCESS_MASKs|
+| vault::cred /patch|  kuhl_m_vault_cred() | SamSs | PROCESS_VM_READ \| PROCESS_VM_WRITE \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION | 0x1438 | |
+| sekurlsa::* | kuhl_m_sekurlsa_acquireLSA() | lsass.exe | PROCESS_VM_READ \| PROCESS_QUERY_INFORMATION | 0x1410 | for Windows Version < 5 |
+| sekurlsa::* | kuhl_m_sekurlsa_acquireLSA() | lsass.exe | PROCESS_VM_READ \| PROCESS_QUERY_LIMITED_INFORMATION | 0x1010 | for Windows Version >= 6 |
+| token::list, token::elevate, token::run | querying all processes on the system |*||first 0x1400 then 0x40| all three commands result in a call to kull_m_token_getTokens() which first iterates over **all** processes and threads with OpenProcess(PROCESS_QUERY_INFORMATION (0x1400)) (kull_m_token_getTokens_process_callback()) and then again to get the tokens OpenProcess(PROCESS_DUP_HANDLE (0x40)) (in kull_m_handle_getHandlesOfType_callback()) to duplicate the Tokens. This resultet in many thousand (!) Events with ID 10 (!)|
+| crypto::cng | kull_m_patch_genericProcessOrServiceFromBuild() via  kuhl_m_crypto_p_cng() |KeyIso | PROCESS_VM_READ \| PROCESS_VM_WRITE \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION | 0x1438 | |
+| event::drop | kull_m_patch_genericProcessOrServiceFromBuild() via  kuhl_m_event_drop() | EventLog | PROCESS_VM_READ \| PROCESS_VM_WRITE \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION | 0x1438 | ** this event does not get logged! :O mimikatz seems to be fast enough to apply the patch before the event gets logged!**|
+| misc::ncroutemon | kull_m_patch_genericProcessOrServiceFromBuild() via  kuhl_m_misc_ncroutemon() | dsNcService| PROCESS_VM_READ \| PROCESS_VM_WRITE \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION | 0x1438 | |
+| ts::multirdp| kull_m_patch_genericProcessOrServiceFromBuild() via  kuhl_m_ts_multirdp() | TermService | PROCESS_VM_READ \| PROCESS_VM_WRITE \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION | 0x1438 | |
 
 ## Hunter Notes
 * GrantedAccess code 0x1010 is the new permission Mimikatz v.20170327 uses for command "sekurlsa::logonpasswords"
@@ -37,4 +61,3 @@ Adversaries might be executing Mimikatz in memory with the help of PowerShell in
 - [ ] Stack Counting
 - [ ] Scatter Plots
 - [ ] Box Plots
-- [ ] Isolation Forests
