@@ -28,7 +28,7 @@ Adversaries might be executing Mimikatz in memory with the help of PowerShell in
 * WMINet_Utils.dll is optional since it is loaded by scripts developed by PowerSploit and Empire projects (Invoke-Mimikatz.ps1).
 * Look for PowerShell.exe accessing Lsass.exe with a potential CallTrace Pattern: C:\\Windows\\SYSTEM32\\ntdll\.dll\+[a-zA-Z0-9]{1,}\|C:\\Windows\\system32\\KERNELBASE\.dll\+[a-zA-Z0-9]{1,}\|UNKNOWN\([a-zA-Z0-9]{16}\)
 	* Remember that an attacker can easily run Mimikatz or other credential dumping tool under a different process. This hypothesis is focusing on PowerShell as a process hosting the script. However, you can change this hypothesis to look for other Microsoft signed binaries or any process in the system. The idea is to focus on the patterns of behavior.
-* The extra values for the GrantedAccess field in Sysmon EID 10 besides 0x1010 & 0x140 are the permissions needed for the rest of the modules used by Mimikatz. The following table lists most of the calls to OpenProcess() with the opened service / process name and the associated ACCESS_MASK.
+* The values for the GrantedAccess field in Sysmon EID 10 besides 0x1010 & 0x140 are the permissions needed for the rest of the modules used by Mimikatz. The following table lists most of the calls to OpenProcess() with the opened service / process name and the associated ACCESS_MASK.
 
 
 | module | OpenProcess caller function | destination process / destination service | ACCESS\_MASK | ACCESS_MASK translated | comment |
@@ -57,7 +57,7 @@ Adversaries might be executing Mimikatz in memory with the help of PowerShell in
 - [x] Grouping
 - [x] Searching
 - [ ] Clustering
-- [ ] Stack Counting
+- [x] Stack Counting
 - [ ] Scatter Plots
 - [ ] Box Plots
 - [ ] Isolation Forest
