@@ -49,7 +49,7 @@ Adversaries are leveraging SCM capabilities to authorize remote creation and mod
 * EID 4776: When a system successfully authenticates a local SAM account via NTLM (instead of Kerberos), the system logs this event. This specifies which user account was used to log on and the computer's name from which the user initiated the logon.
   * This is to look for RID 500 accounts moving laterally via this technique.
 * All the activity from EID 4624 is covered in this same tactical group under ["Pass-The-Hash"](https://github.com/VVard0g/ThreatHunter-Playbook/blob/master/tactical_groups/lateral_movement/pass_the_hash.md).
-* EID 5145: You will usually see File Shares being accessed (\\*\IPC$ OR \\*\ADMIN$ OR \\*\C$)
+* EID 5140/5145: You will usually see File Shares being accessed (\\*\IPC$ OR \\*\ADMIN$ OR \\*\C$)
   * SubjectUserName field usually has a computer name. Filter those out.
   * Source Address: Look for remote connections or other systems in your network
   * RelativeTargetName: This field gives you more information about the specific object on the share.
@@ -58,10 +58,11 @@ Adversaries are leveraging SCM capabilities to authorize remote creation and mod
 	* Sysmon EID 13 catches suspicious scripts or long commands being set to services in HKLM\\System\\CurrentControlSet\\Services\\.
 		* On the "Details" field, look for long strings (i.e. more than 35 characters) or known commands.
 		* On the "TargetObject" field, you can reduce the number of events by looking for the "ImagePath" reg key where scripts or long commands are usually set.
-	* WinEvent EIDs 7035,4697 catch suspicious scripts or long commands being set to "Service File Name".
- * Adversaries at the end usually delete the random services they create.
- * Group all those events and apply a bucket time of 1-2 seconds and see how many systems show this behavior.
- * You can start by checking long strings being set by services.exe on ImagePath properties of new or current services. This will allow you to pivot to other events in this list.
+	* WinEvent EIDs 7045,4697 catch suspicious scripts or long commands being set to "Service File Name".
+ * Adversaries at the end usually delete the random services they create so looking for "DeleteKey" events in the same 1-2 seconds bucket time when the same service is created could be interesting.
+ * Group all those events and apply a bucket time of 1-2 seconds and see how many systems show that behavior.
+ * You can start by checking long strings being set by services.exe on ImagePath properties of new or current services. This will allow you to pivot to other events in the list shown above.
+ * You could also stack new services being created in your environment to find any anomalies and start from there.
  
 
 ## Hunting Techniques Recommended
@@ -69,7 +70,7 @@ Adversaries are leveraging SCM capabilities to authorize remote creation and mod
 - [x] Grouping
 - [x] Searching
 - [ ] Clustering
-- [ ] Stack Counting
+- [x] Stack Counting
 - [ ] Scatter Plots
 - [ ] Box Plots
 - [ ] Isolation Forests
