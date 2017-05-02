@@ -14,7 +14,7 @@ Adversaries might be obtaining/requesting Kerberos service ticket(s) (TGS) for t
 | WinEvent | 4769 | TicketOptions | 0x40810000 | [@SeanMetcalf](https://adsecurity.org/?p=3458) |
 | WinEvent | 4769 | TicketEncryptionType | 0x17 | [@SeanMetcalf](https://adsecurity.org/?p=3458) |
 | WinEvent | 4769 | ClientAddress/IPAddress | NOT ::1 | [Cyb3Ward0g] |
-| WinEvent | 4769 | ServiceName | *$ | [Cyb3Ward0g] |
+| WinEvent | 4769 | ServiceName | NOT *$ | [Cyb3Ward0g] |
 
 
 ## Hunter Notes
