@@ -8,9 +8,10 @@ You can find a detailed description
 [here](https://medium.com/@esnesenon/feature-not-bug-dnsadmin-to-dc-compromise-in-one-line-a0f779b8dc83).
 
 ## Hypothesis
-And privileged User (DNSAdmin or higher) may use this technique to escalate
-privileges (from DNSAdmin to Domain Admin) and to achive persistance on the
-system.
+Adversaries might be abusing DNSAdmin privileges to escalate privileges to
+Domain Admin and achieve persistence by loading arbitary dlls as plugins into
+the DNS service in my environment.
+
 ## Events (dnscmd execution)
 
 | Source | EventID | Field | Details | Reference | 
@@ -26,6 +27,7 @@ system.
 | DNS Server | 771 | | Event gets logged when a dll plugin is loaded by the DNS service |detailed event log: [dim0x69](https://blog.3or.de/hunting-dns-server-level-plugin-dll-injection.html) |
 | DNS Server | 770 | EventData Name="DNS_EVENT_PLUGIN_DLL_LOAD_OK" | |detailed event log: [dim0x69](https://blog.3or.de/hunting-dns-server-level-plugin-dll-injection.html) |
 | DNS Server | 770 | Name="param1" \\192.168.0.149\dll\wtf.dll" | | detailed event log: [dim0x69](https://blog.3or.de/hunting-dns-server-level-plugin-dll-injection.html) |
+| Sysmon | 7 | ImageLoaded | icmp.dll, oleauth32.dll, wtf.dll (specified plugin dll) | details: [dim0x69](https://blog.3or.de/hunting-dns-server-level-plugin-dll-injection.html) |
 
 ## Events (when loading the dll failed)
 | Source | EventID | Field | Details | Reference | 
