@@ -25,7 +25,7 @@ Adversaries are leveraging SCM capabilities to authorize remote creation and mod
 | WinEvent | 5145 | SubjectUserName | NOT a ComputerName$ | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for_11.html) |
 | WinEvent | 5145 | RelativeTargetName | svcctl OR .exe OR Outlier | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for_11.html) |
 | WinEvent | 5145 | Source Address/IPAddress | NOT (::1 OR localhost) | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for_11.html) |
-| WinEvent | 18 | PipeName | \ntsvcs | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for_11.html) |
+| Sysmon | 18 | PipeName | \ntsvcs | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for_11.html) |
 | Sysmon | 12,13 | Image | "C:\\Windows\\system32\\services.exe" OR services.exe | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for_11.html) |
 | Sysmon | 12 | TargetObject | "HKLM\\System\\CurrentControlSet\\services\\[New Service]" | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for_11.html) ||
 | Sysmon | 13 | TargetObject | "HKLM\\System\\CurrentControlSet\\services\\" AND (ErrorControl OR Start OR Type OR DisplayName OR ObjectName) | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for_11.html) |
