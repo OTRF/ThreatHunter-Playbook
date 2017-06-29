@@ -44,3 +44,11 @@ Can't wait to see other hunters' pull requests with awesome ideas to detect adva
 * Highly recommend to test your chains of events or provide references to back it up before submitting a pull request (Article, whitepaper, hunter notes, etc).
   * Hunter notes are very useful and can help explaining why you would hunt for specific chains of events.
 * Feel free to submit pull requests to enhance hunting techniques. #SharingIsCaring
+
+# TO-DO
+- [X] Add hunting tools from the community
+- [X] Create a hunting techniques document
+- [ ] Improve Lateral Movement table format to show source and destination logs
+- [ ] Add PowerShell as an option for the table column "source"
+- [ ] Share HeatMap template for metrics purposes
+- [ ] Hunting in Linux & MAC
