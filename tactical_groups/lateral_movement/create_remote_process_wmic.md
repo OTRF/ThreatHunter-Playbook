@@ -4,7 +4,7 @@ wmic.exe is a powerful command line utility for interacting with WMI. It has a l
 calling the Win32_ProcessCreate method.[Source](https://www.fireeye.com/content/dam/fireeye-www/global/en/current-threats/pdfs/wp-windows-management-instrumentation.pdf)
 
 ## Hypothesis
-Adversaries might be using wmic leavering stolen credentials to perform lateral movement within my environment to create/run a process on a remote host. 
+Adversaries might be using wmic leveraging stolen credentials to perform lateral movement within my environment to create/run a process on a remote host. 
 
 ## Events
 ### Source Host
