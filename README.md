@@ -17,6 +17,8 @@ A Threat hunter's playbook to aid the development of techniques and hypothesis f
 * [Sysmon DFIR](https://github.com/MHaggis/sysmon-dfir)
 * [CyberWardog Labs Blog](https://cyberwardog.blogspot.com/)
 * [MalwareSoup Blog](https://malwaresoup.com/)
+* [Threat Hunting Academy](https://threathunting.org/)
+* [DFIR and Threat Hunting](http://findingbad.blogspot.com/)
 
 
 # Tools
@@ -27,8 +29,9 @@ A Threat hunter's playbook to aid the development of techniques and hypothesis f
 | [Clearcut](https://github.com/DavidJBianco/Clearcut) | Clearcut is a tool that uses machine learning to help you focus on the log entries that really need manual review | [@DavidJBianco](https://twitter.com/DavidJBianco) |
 | [Assimilate](https://github.com/soinull/assimilate) | Assimilate is a series of python scripts for using the Naïve Bayes algorithm to find potential malicious activity in HTTP headers | [@Soinull](https://twitter.com/Soinull) | 
 | [Appcompatprocessor](https://github.com/mbevilacqua/appcompatprocessor) | A tool designed to efficiently process and analyse ShimCache and AmCache data at scale for enterprise-wide hunting purposes | Matias Bevilacqua | 
-| [Get-InjectedThreat](https://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2) | A pure powershell tool built on PSReflect that allows a hunter to automatically analyze memory across systems and rapidly highlight injected in-memory-only attacks across systems at scale | [@jaredcatkinson](https://twitter.com/jaredcatkinson) & [@dez_](https://twitter.com/dez_) | 
-
+| [Get-InjectedThreat](https://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2) | A pure powershell tool built on PSReflect that allows a hunter to automatically analyze memory across systems and rapidly highlight injected in-memory-only attacks across systems at scale | [@jaredcatkinson](https://twitter.com/jaredcatkinson) & [@dez_](https://twitter.com/dez_) _| 
+| [ACE](https://github.com/Invoke-IR/ACE) | The Automated Collection and Enrichment (ACE) platform is a suite of tools for threat hunters to collect data from many endpoints in a network and automatically enrich the data. The data is collected by running scripts on each computer without installing any software on the target. ACE supports collecting from Windows, macOS, and Linux hosts | [@jaredcatkinson](https://twitter.com/jaredcatkinson) & [@robwinchester3](https://twitter.com/robwinchester3) |
+| [NOAH](https://github.com/giMini/NOAH) | NOAH is an agentless open source Incident Response framework based on PowerShell, called "No Agent Hunting" (NOAH), to help security investigation responders to gather a vast number of key artifacts without installing any agent on the endpoints saving precious time | [@pabraeken](https://twitter.com/pabraeken) |
 
 # Author
 * Roberto Rodriguez [@Cyb3rWard0g](https://twitter.com/Cyb3rWard0g)
