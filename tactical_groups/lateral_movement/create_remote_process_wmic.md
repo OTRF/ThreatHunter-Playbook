@@ -28,7 +28,7 @@ Adversaries might be using wmic leveraging stolen credentials to perform lateral
 |--------|---------|-------|---------|-----------| 
 | WinEvent | 4672 | SubjectAccountName | NOT Local username | Cyb3rWard0g |
 | WinEvent | 4624 | TargetUsername | NOT Local username | Cyb3rWard0g |
-| WinEvent | 4624 | SourceNetworkAddress | NOT Local IP AND Internal IPs | Cyb3rWard0g |
+| WinEvent | 4624 | SourceNetworkAddress | NOT Local IP OR Internal IPs | Cyb3rWard0g |
 | Sysmon | 1 | ParentImage | 'wmiprvse.exe' | Cyb3rWard0g, [JPCERT](https://www.jpcert.or.jp/english/pub/sr/20170612ac-ir_research_en.pdf) |
 | Sysmon | 1 | ParentCommandLine | 'C:\Windows\System32\wbem\wmiprvse.exe -secured -Embbeding' | Cyb3rWard0g, [JPCERT](https://www.jpcert.or.jp/english/pub/sr/20170612ac-ir_research_en.pdf) |
 | Sysmon | 1 | User | NOT Local user | Cyb3rWard0g, [JPCERT](https://www.jpcert.or.jp/english/pub/sr/20170612ac-ir_research_en.pdf) |

@@ -9,12 +9,12 @@ Adversaries might be bypassing application whitelisting controls within my organ
 
 | Source | EventID | Field | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
-| Sysmon | 4688 | NewProcessName | *CasPol.exe | Cyb3rWard0g |
+| WinEvent| 4688 | NewProcessName | *CasPol.exe | Cyb3rWard0g |
 | Sysmon | 1, 7 | Image | *CasPol.exe | Cyb3rWard0g |
 | Sysmon | 1 | CommandLine | *CasPol.exe AND "-s off" | Cyb3rWard0g |
 | Sysmon | 10 | TargetImage | *CasPol.exe | Cyb3rWard0g |
 | Sysmon | 10 | CallTrace | *CorperfmontExt.dll* | Cyb3rWard0g |
-| Sysmon | 4688 | NewProcessName | *IEExec.exe | Cyb3rWard0g |
+| WinEvent | 4688 | NewProcessName | *IEExec.exe | Cyb3rWard0g |
 | Sysmon | 1, 7, 12 | Image | *IEExec.exe | Cyb3rWard0g |
 | Sysmon | 1 | CommandLine | *IEExec.exe AND http* | Cyb3rWard0g |
 | Sysmon | 7 | ImageLoaded | winhttp.dll OR '\AppData\Local\Microsoft\Windows\Temporary Internet Files\' | Cyb3rWard0g |

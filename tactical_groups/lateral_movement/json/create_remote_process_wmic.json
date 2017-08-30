@@ -1,0 +1,118 @@
+{
+  "Tactic": ["Execution", "Lateral Movement"],
+  "ID":["T1047"],
+  "Reference":"https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/tactical_groups/lateral_movement/create_remote_process_wmic.md",
+  "Name":"Create Remote Process via WMIC",
+  "Description":"wmic.exe is a powerful command line utility for interacting with WMI. It has a large amount of convenient default aliases for WMI objects but you can also perform more complicated queries. wmic.exe can also execute WMI methods and is used often by attackers to perform lateral movement by calling the Win32_ProcessCreate method.",
+  "Hypothesis":"Adversaries might be using wmic leveraging stolen credentials to perform lateral movement within my environment to create/run a process on a remote host.",
+  "SourceEvents" : [
+	{
+		"Source":"WinEvent",
+		"EventId":"4688",
+		"Field":"NewProcessName",
+		"Details":"wmic"
+	},
+	{
+		"Source":"WinEvent",
+		"EventId":"4688",
+		"Field":"ProcessCommandLine",
+		"Details":"* process call create AND \/node:*"
+	},
+	{
+		"Source":"Sysmon",
+		"EventId":"1",
+		"Field":"Image",
+		"Details":"wmic"
+	},
+	{
+		"Source":"Sysmon",
+		"EventId":"1",
+		"Field":"CommandLine",
+		"Details":"* process call create AND \/node:*"
+	},
+	{
+		"Source":"WinEvent",
+		"EventId":"4674",
+		"Field":"ProcessName",
+		"Details":"wmic"
+	},
+	{
+		"Source":"Sysmon",
+		"EventId":"12",
+		"Field":"EventType",
+		"Details":"CreateKey"
+	},
+	{
+		"Source":"Sysmon",
+		"EventId":"12",
+		"Field":"Image",
+		"Details":"wmic"
+	},
+	{
+		"Source":"Sysmon",
+		"EventId":"12",
+		"Field":"CommandLine",
+		"Details":"\\CurrentControlSet\\services\\Tcpip\\Parameters"
+	},
+	{
+		"Source":"WinEvent",
+		"EventId":"4648",
+		"Field":"SubjectAccountName & TargetUserName",
+		"Details":"Different Usernames"
+	},
+	{
+		"Source":"Sysmon",
+		"EventId":"3",
+		"Field":"DestinationIp",
+		"Details":"Internal Hosts"
+	},
+	{
+		"Source":"Sysmon",
+		"EventId":"3",
+		"Field":"DestinationPort",
+		"Details":"135"
+	}],
+  "DestinationEvents" : [
+	{
+		"Source":"WinEvent",
+		"EventId":"4672",
+		"Field":"SubjectAccountName",
+		"Details":"Not Local username"
+	},
+	{
+		"Source":"WinEvent",
+		"EventId":"4624",
+		"Field":"TargetUserName",
+		"Details":"Not Local username"
+	},
+	{
+		"Source":"WinEvent",
+		"EventId":"4624",
+		"Field":"SourceNetworkAddress",
+		"Details":"NOT Local IP OR Internal Ips"
+	},
+	{
+		"Source":"Sysmon",
+		"EventId":"1",
+		"Field":"ParentImage",
+		"Details":"wmiprvse.exe"
+	},
+	{
+		"Source":"Sysmon",
+		"EventId":"1",
+		"Field":"ParentCommandLine",
+		"Details":"C:\\Windows\\System32\\wbem\\wmiprvse.exe -secured -Embbeding"
+	},
+	{
+		"Source":"Sysmon",
+		"EventId":"1",
+		"Field":"User",
+		"Details":"NOT Local user"
+	}],
+  "Hunter Notes":"When hunting for this specific technique across all your endpoints, make sure you remember what happens where (Source or Destination). On both locations, filter (localhost or ::1) on DestinationIPs fields to spot computers talking to each other within your environment. Filter out local accounts in order to catch new or explicit credentials being used to execute/create processes. On the destination host, look for processes being executed by a different user and stack the values. On the destination host, look for WmiPrvse.exe as a parent. You will be surprised how this is not a usual event. On the source host, stack proces names talking to internal systems on DestinationPort 135.",
+  "Hunting Techniques Recommended": [
+	"Grouping",
+	"Searching",
+	"Stack Counting"
+	]
+}
