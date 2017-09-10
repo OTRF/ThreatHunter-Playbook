@@ -1,6 +1,6 @@
 {
-  "Tactic": ["Credential Access","Persistence"],
-  "ID":["T1003","T1098","T1101"],
+  "Tactic": ["Credential Access"],
+  "ID":["T1003"],
   "Reference":"https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/tactical_groups/credential_access/in_memory_mimikatz.md",
   "Name":"In-Memory Mimikatz",
   "Description":"Technique of reflectively loading Mimikatz into Memory. Mainly used to dump credentials without touching disk.",
