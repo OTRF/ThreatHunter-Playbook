@@ -25,7 +25,7 @@ Adversaries are moving laterally within my network through remote PowerShell ses
 | Sysmon | 8 | StartFunction | "LoadLibraryA" OR "LoadLibraryW" | [MITRE CAR](https://car.mitre.org/wiki/CAR-2013-10-002) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T1055_LoadLibrary.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1055_LoadLibrary.xml)
 
 

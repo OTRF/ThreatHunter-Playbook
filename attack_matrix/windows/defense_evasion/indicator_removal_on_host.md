@@ -24,7 +24,7 @@ Adversaries might be deleting event logs using wevutil within my environment.
 | Sysmon | 1 | CommandLine | wevutil cl | [RedCanary-AtomicRedTeam](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Defense%20Evasion/Indicator_Removal_on_Host.md) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T1070_wevutil.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1070_wevutil.xml)
 
 

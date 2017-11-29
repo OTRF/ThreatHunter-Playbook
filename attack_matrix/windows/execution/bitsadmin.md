@@ -21,7 +21,7 @@ Adversaries might be leveraging Bitsadmin.exe to download files on compromised s
 | WinEvent | 1 | CommandLine OR ParentCommandLine | bitsadmin.exe AND (/transfer OR (/transfer AND /Download)) | [RedCanary-AtomicRedTeam](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Execution/Bitsadmin.md) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T0000_bitsadmin.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_bitsadmin.xml)
 
 

@@ -44,7 +44,7 @@ the DNS service in my environment.
 | DNS Server | 150 | Name="param1" \\192.168.0.149\dll\wtf.dll" | | detailed event log: [dim0x69](https://blog.3or.de/hunting-dns-server-level-plugin-dll-injection.html) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T0000_dns_serverdll_injection.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_dns_serverdll_injection.xml)
 
 

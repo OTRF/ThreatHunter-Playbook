@@ -47,7 +47,7 @@ Adversaries are leveraging SCM capabilities to authorize remote creation and mod
 | Sysmon | 12 | TargetObject | "HKLM\\System\\CurrentControlSet\\services\\[New Service]" | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for_11.html) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T0000_remote_execution_services.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_remote_execution_services.xml)
 
 

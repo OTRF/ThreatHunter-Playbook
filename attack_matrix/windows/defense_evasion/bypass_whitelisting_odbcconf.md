@@ -18,7 +18,7 @@ Adversaries might be using odbcconf.exe to load/register dlls and bypass applica
 | Sysmon | 1 | CommandLine OR ParentCommandLine | ("/A" AND "REGSVR" AND *.dll) OR "/F"| SubTee |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T0000_odbcconf.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_odbcconf.xml)
 
 

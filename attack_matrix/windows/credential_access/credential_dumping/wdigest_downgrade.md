@@ -21,7 +21,7 @@ Adversaries are updating the registry value of \WDigest\UseLogonCredential to 1 
 | Sysmon | 13 | Details | 1 | [Cyb3rWard0g](https://twitter.com/Cyb3rWard0g) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T1003_wdigest.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1003_wdigest.xml)
 
 

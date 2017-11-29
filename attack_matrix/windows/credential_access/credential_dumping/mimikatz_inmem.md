@@ -33,7 +33,7 @@ Adversaries might be executing Mimikatz in memory with the help of PowerShell in
 | Sysmon | 7 | ImageLoaded | WinSCard.dll, cryptdll.dll, hid.dll, samlib.dll, vaultcli.dll, WMINet_Utils.dll (Optional) | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T1003_mimikatz_inmem.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1003_mimikatzinmem.xml)
 
 

@@ -41,7 +41,7 @@ Adversaries might be using wmic leveraging stolen credentials to perform lateral
 | Sysmon | 1 | User | NOT Local user | Cyb3rWard0g, [JPCERT](https://www.jpcert.or.jp/english/pub/sr/20170612ac-ir_research_en.pdf) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T0000_wmic_remote.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_wmic_remote.xml)
 
 

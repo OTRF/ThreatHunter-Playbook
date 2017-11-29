@@ -22,7 +22,7 @@ Adversaries might be executing WMImplant in my environment in order to facilitat
 | Sysmon | 17, 18 | PipeName | \<Anonymous Pipes\> | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_26.html) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T0000_wmimplant.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_wmimplant.xml)
 
 

@@ -33,7 +33,7 @@ Adversaries might be leveraging Fodhelper.exe to bypass UAC and elevate privileg
 | Sysmon | 13 | Details | Suspicious Strings or images (<base64>, powershell.exe, cmd.exe, etc.) |[Winscripting](https://winscripting.blog/2017/05/12/first-entry-welcome-and-uac-bypass/) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T1088_foodhelper.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1088_foodhelper.xml)
 
 

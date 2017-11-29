@@ -19,7 +19,7 @@ Attackers might be updating the DisablePasswordChange registry value to 1 in ord
 | Sysmon | 13 | Details | DWORD (0x00000001) | Cyb3Ward0g |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T0000_disable_password_change.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_disable_password_change.xml)
 
 

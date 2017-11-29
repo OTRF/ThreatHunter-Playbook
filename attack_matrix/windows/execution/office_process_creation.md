@@ -22,7 +22,7 @@ Adversaries are likely leveraging malicious Office documents to deliver malware 
 | Sysmon | 1 | CommandLine | powershell | Cyb3rWard0g & [MalwareSoup](https://malwaresoup.com/detecting-some-malicious-office-documents-using-sysmon/) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T0000_office_process_creation.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_office_process_creation.xml)
 
 

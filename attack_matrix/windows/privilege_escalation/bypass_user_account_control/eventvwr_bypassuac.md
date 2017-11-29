@@ -22,7 +22,7 @@ Adversaries might be leveraging eventvwr.exe to bypass UAC and elevate privilege
 | Sysmon | 13 | Details | Suspicious Strings or images (\<base64\>, powershell.exe, cmd.exe, etc.) | Cyb3rWard0g & MalwareSoup |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T1088_eventvwr.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1088_eventvwr.xml)
 
 

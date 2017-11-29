@@ -20,7 +20,7 @@ Adversaries might be using mimikatz to perform an OverPass-the-Hash technique do
 | Sysmon | 10 | GrantedAccess | (0x1010 OR 0x1410) AND 0x1038 | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for.html) | 
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T1075_mimikatz_inmem_pth.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1075_mimikatz_inmem_pth.xml)
 
 

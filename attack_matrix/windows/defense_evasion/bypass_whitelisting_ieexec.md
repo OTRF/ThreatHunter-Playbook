@@ -30,7 +30,7 @@ Adversaries might be bypassing application whitelisting controls within my organ
 | Sysmon | 3 | DestinationIP | NOT Whitelisted IPs | [Cyb3rWard0g](https://twitter.com/Cyb3rWard0g) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T0000_ieexec.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_ieexec.xml)
 
 

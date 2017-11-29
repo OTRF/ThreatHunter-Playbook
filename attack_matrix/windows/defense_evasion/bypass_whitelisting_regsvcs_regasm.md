@@ -21,7 +21,7 @@ Adversaries might be bypassing our application whitelisting controls by using Re
 | WinEvent | 1 | Image OR ParentImage | *regsvcs.exe OR *regasm.exe | [RedCanary-AtomicRedTeam](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Execution/RegsvcsRegasm.md) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T1121_regsvcs_regasm.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1121_regsvcs_regasm.xml)
 
 

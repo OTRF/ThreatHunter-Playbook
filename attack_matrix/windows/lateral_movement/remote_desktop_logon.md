@@ -26,7 +26,7 @@ Adversaries are moving laterally within my network through RDP connections.
 | Sysmon | 12 | TargetObject | "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services" | Cyb3rWard0g |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T1076_remote_desktop.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1076_remote_desktop.xml)
 
 

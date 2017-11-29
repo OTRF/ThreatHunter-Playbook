@@ -46,7 +46,7 @@ Adversaries might be injecting a skeleton key into LSASS on Domain Controllers b
 | WinEvent | 4611 | LogonProcessName | ConsentUI | [PyroTek3](https://adsecurity.org/?p=1275) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T1098_mimikatz_inmem.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1098_mimikatz_inmem.xml)
 
 

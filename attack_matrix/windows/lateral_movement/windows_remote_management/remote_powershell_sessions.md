@@ -19,7 +19,7 @@ Adversaries are moving laterally within my network through remote PowerShell ses
 | Sysmon | 1 | ParentImage | svchost.exe | [MITRE CAR](https://car.mitre.org/wiki/CAR-2014-11-004) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T1028_remote_powershell.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1028_remote_powershell.xml)
 
 

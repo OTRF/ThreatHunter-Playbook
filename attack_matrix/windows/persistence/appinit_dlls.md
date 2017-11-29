@@ -21,7 +21,7 @@ Adversaries are using the AppInit_DLL functionality in my environment to achieve
 | Sysmon | 13 | Details | DWORD (0x00000001) (If it is not already enabled) | [Eric Merritt](https://www.trustwave.com/Resources/SpiderLabs-Blog/Shining-the-Spotlight-on-Cherry-Picker-PoS-Malware/) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [TT1103_appinit_dlls.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/TT1103_appinit_dlls.xml)
 
 

@@ -38,7 +38,7 @@ Adversaries might be using the Windows Update Service Autostart key to maintain 
 | Sysmon | 13 | Details | *.dll OR *.exe (Basic examples) | [@hexacorn](http://www.hexacorn.com/blog/2017/03/18/beyond-good-ol-run-key-part-60/) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T0000_windowsupdate_autostart.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_windowsupdate_autostart.xml)
 
 

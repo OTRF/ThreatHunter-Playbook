@@ -19,7 +19,7 @@ Adversaries might be bypassing our application whitelisting controls by using Re
 | Sysmon | 1 | CommandLine OR ParentCommandLine | scrobj.dll AND (/s /n /u /i OR /i OR http) | [Cyb3rWard0g](https://twitter.com/Cyb3rWard0g), [Keshia LeVan](https://www.redcanary.com/blog/whitelist-evasion-example-threat-detection-723) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T1117_regsvr32.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1117_regsvr32.xml)
 
 

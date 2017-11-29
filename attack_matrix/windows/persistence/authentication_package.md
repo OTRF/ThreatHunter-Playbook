@@ -19,7 +19,7 @@ Adversaries are using LSA Authentication Packages to maintain persistence in my 
 | Sysmon | 13 | Details | "Authentication Packages" * | [MITRE](https://attack.mitre.org/wiki/Technique/T1131), [Crysys](http://www.crysys.hu/skywiper/skywiper.pdf) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T1131_authentication_package.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1131_authentication_package.xml)
 
 

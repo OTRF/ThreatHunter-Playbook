@@ -27,7 +27,7 @@ Adversaries might be abusing features of the Application Compatability infrastru
 | Sysmon | 11 | TargetFilename | “C:\Windows\AppPatch\Custom” OR “C:\Windows\AppPatch\Custom64” | [Matthew McWhirt, Jon Erickson, DJ Palombo](https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T1138_appcompat.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1138_appcompat.xml.xml)
 
 

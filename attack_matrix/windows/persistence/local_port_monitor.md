@@ -21,7 +21,7 @@ Adversaries are creating persistence in my network by leveraging the process of 
 | Sysmon | 11 | TargetFileName | Pivot from dll in regkey value "Driver" | [Brady Bloxham](https://www.youtube.com/watch?v=dq2Hv7J9fvk) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T1013_localport_monitor.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/TT1013_localport_monitor.xml)
 
 

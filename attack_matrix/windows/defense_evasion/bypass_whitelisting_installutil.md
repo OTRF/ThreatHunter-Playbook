@@ -39,7 +39,7 @@ Adversaries might be bypassing application whitelisting controls within my organ
 | Sysmon | 1 | CommandLine | "/logfile= \/LogToConsole=false \/U" | [Subtee](https://twitter.com/subTee/status/896904055028461568) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 [T1118_installutil.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1118_installutil.xml)
 
 
