@@ -23,7 +23,7 @@ T0001_technique_name
 | Sysmon, WinEvent, PowerShell | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
 
 
-# Atomic Sysmon Configuration
+## Atomic Sysmon Configuration
 \[T0001_technique_name.xml\]\(https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0001_technique_name.xml\)
 
 OR None
