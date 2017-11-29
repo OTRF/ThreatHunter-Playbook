@@ -1,6 +1,11 @@
 # Users and Groups Enumeration
+## Technique ID
+T1069
+
+
 ## Description
 Enumerating users and groups is very useful to an adversary. Knowing usernames and the names of groups can come handy. As an attacker, you want to grab as much as you can, after all, this is the reconnaissance phase.
+
 
 ## Hypothesis
 Adversaries are enumerating users and group in the network with the help of net.exe and powershell scripts.
@@ -8,7 +13,7 @@ Adversaries are enumerating users and group in the network with the help of net.
 
 ## Events
 
-| Source | EventID | Field | Details | Reference | 
+| Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|--------|-----------| 
 | WinEvent | 4661 | ObjectType | SAM_GROUP (When querying Domain Admin groups) | Cyb3rWard0g |
 | WinEvent | 4661 | ObjectType | SAM_USER (When querying DCs local accounts and Domain Admins) | Cyb3rWard0g |
@@ -20,6 +25,10 @@ Adversaries are enumerating users and group in the network with the help of net.
 | WinEvent | 4661 | ObjectName | S-1-5-21domain-519 (Enterprise Admins Group) | Cyb3rWard0g |
 | WinEvent | 4661 | AccessMask | 0xF01BF (Requestor has Domain Admin Rights) | Cyb3rWard0g |
 | WinEvent | 4661 | AccessMask | 0x20094 (Requestor has Standard Domain User Rights) | Cyb3rWard0g |
+
+
+## Atomic Sysmon Configuration
+None
 
 
 ## Hunter Notes

@@ -1,4 +1,8 @@
 # AppInit DLLs
+## Technique ID
+T1103
+
+
 ## Description
 DLLs that are specified in the AppInit_DLLs value in the Registry key HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Windows are loaded by user32.dll into every process that loads user32.dll. In practice this is nearly every program. This value can be abused to obtain persistence by causing a DLL to be loaded into most processes on the computer. The AppInit DLL functionality is disabled in Windows 8 and later versions when secure boot is enabled.
 
@@ -9,12 +13,16 @@ Adversaries are using the AppInit_DLL functionality in my environment to achieve
 
 ## Events
 
-| Source | EventID | Field | Details | Reference | 
+| Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
 | Sysmon | 13 | TargetObject | HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows\\AppInit_DLLs | [Eric Merritt](https://www.trustwave.com/Resources/SpiderLabs-Blog/Shining-the-Spotlight-on-Cherry-Picker-PoS-Malware/) |
 | Sysmon | 13 | Details | %APPDATA%\\..\\[name].dll (Optional Path) | [Eric Merritt](https://www.trustwave.com/Resources/SpiderLabs-Blog/Shining-the-Spotlight-on-Cherry-Picker-PoS-Malware/) |
 | Sysmon | 13 | TargetObject | HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows\\LoadAppInit_DLLs | [Eric Merritt](https://www.trustwave.com/Resources/SpiderLabs-Blog/Shining-the-Spotlight-on-Cherry-Picker-PoS-Malware/) |
 | Sysmon | 13 | Details | DWORD (0x00000001) (If it is not already enabled) | [Eric Merritt](https://www.trustwave.com/Resources/SpiderLabs-Blog/Shining-the-Spotlight-on-Cherry-Picker-PoS-Malware/) |
+
+
+# Atomic Sysmon Configuration
+[TT1103_appinit_dlls.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/TT1103_appinit_dlls.xml)
 
 
 ## Hunter Notes

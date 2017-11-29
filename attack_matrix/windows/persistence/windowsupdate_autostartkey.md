@@ -1,4 +1,8 @@
 # Windows Update Service AutoStart Key
+## Technique ID
+T0000_windowsupdate_autostart
+
+
 ## Description
 HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Setup\ServiceStartup has two interesting properties:
 * 'CacheFile': It can be used as a persistence mechanism
@@ -26,12 +30,16 @@ Adversaries might be using the Windows Update Service Autostart key to maintain 
 
 ## Events
 
-| Source | EventID | Field | Details | Reference | 
+| Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
 | Sysmon | 13 | TargetObject | "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Setup\ServiceStartup" AND ("RegistrationFlags" OR "20MUFixUp") | [@hexacorn](http://www.hexacorn.com/blog/2017/03/18/beyond-good-ol-run-key-part-60/) |
 | Sysmon | 13 | Details | DWORD AND (0x00000001 OR 0x00000002) | [@hexacorn](http://www.hexacorn.com/blog/2017/03/18/beyond-good-ol-run-key-part-60/) |
 | Sysmon | 13 | TargetObject | "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Setup\ServiceStartup" AND CacheFile AND TargetFile | [@hexacorn](http://www.hexacorn.com/blog/2017/03/18/beyond-good-ol-run-key-part-60/) |
 | Sysmon | 13 | Details | *.dll OR *.exe (Basic examples) | [@hexacorn](http://www.hexacorn.com/blog/2017/03/18/beyond-good-ol-run-key-part-60/) |
+
+
+# Atomic Sysmon Configuration
+[T0000_windowsupdate_autostart.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_windowsupdate_autostart.xml)
 
 
 ## Hunter Notes

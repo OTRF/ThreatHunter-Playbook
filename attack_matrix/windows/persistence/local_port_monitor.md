@@ -1,4 +1,8 @@
 # Local Port Monitor
+## Technique IF
+T1013
+
+
 ## Description
 A port monitor can be set through the AddMonitor API call to set a DLL to be loaded at startup. This DLL can be located in C:\Windows\System32 and will be loaded by the print spooler service, spoolsv.exe, on boot. Alternatively, an arbitrary DLL can be loaded if permissions allow writing a fully-qualified pathname for that DLL to HKLM\SYSTEM\CurrentControlSet\Control\Print\Monitors. The spoolsv.exe process also runs under SYSTEM level permissions.
 
@@ -9,12 +13,16 @@ Adversaries are creating persistence in my network by leveraging the process of 
 
 ## Events
 
-| Source | EventID | Field | Details | Reference | 
+| Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
 | Sysmon | 12 | TargetObject | HKLM\\SYSTEM\\CurrentControlSet\\Control\\Print\\Monitors\\[New Key]\\Driver | [Brady Bloxham](https://www.youtube.com/watch?v=dq2Hv7J9fvk) |
 | Sysmon | 13 | TargetObject | HKLM\\SYSTEM\\CurrentControlSet\\Control\\Print\\Monitors\\[New Key]\\Driver | [Brady Bloxham](https://www.youtube.com/watch?v=dq2Hv7J9fvk) |
 | Sysmon | 13 | Details | Value set to a dll name| [Brady Bloxham](https://www.youtube.com/watch?v=dq2Hv7J9fvk) |
 | Sysmon | 11 | TargetFileName | Pivot from dll in regkey value "Driver" | [Brady Bloxham](https://www.youtube.com/watch?v=dq2Hv7J9fvk) |
+
+
+# Atomic Sysmon Configuration
+[T1013_localport_monitor.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/TT1013_localport_monitor.xml)
 
 
 ## Hunter Notes

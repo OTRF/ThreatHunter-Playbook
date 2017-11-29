@@ -1,4 +1,8 @@
 # Remote Desktop Logon
+## Technique ID
+T1076
+
+
 ## Description
 A remote desktop logon, through RDP, may be typical of a system administrator or IT support, but only from select workstations. Monitoring remote desktop logons and comparing to known/approved originating systems can detect lateral movement of an adversary.
 
@@ -9,7 +13,7 @@ Adversaries are moving laterally within my network through RDP connections.
 
 ## Events
 
-| Source | EventID | Field | Details | Reference | 
+| Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
 | WinEvent | 4624 | AuthenticationPackageName | Negotiate | Cyb3rWard0g |
 | WinEvent | 4624 | LogonType | 10 | Cyb3rWard0g |
@@ -20,6 +24,10 @@ Adversaries are moving laterally within my network through RDP connections.
 | WinEvent | 4776, 4624 | LogonAccount/TargetUserName | Administrator (Using RID-500) | Cyb3rWard0g |
 | Sysmon | 12 | Image | "C:\\Windows\\system32\\LogonUI.exe" | Cyb3rWard0g |
 | Sysmon | 12 | TargetObject | "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services" | Cyb3rWard0g |
+
+
+# Atomic Sysmon Configuration
+[T1076_remote_desktop.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1076_remote_desktop.xml)
 
 
 ## Hunter Notes

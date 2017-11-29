@@ -1,0 +1,36 @@
+<Sysmon schemaversion="3.4">
+   <!-- Capture all hashes -->
+   <HashAlgorithms>*</HashAlgorithms>
+   <EventFiltering>
+      <!-- Event ID 1 == Process Creation. -->
+      <ProcessCreate onmatch="include"/>
+      <!-- Event ID 2 == File Creation Time. -->
+      <FileCreateTime onmatch="include"/>
+      <!-- Event ID 3 == Network Connection. -->
+      <NetworkConnect onmatch="include"/>
+      <!-- Event ID 5 == Process Terminated. -->
+      <ProcessTerminate onmatch="include"/>
+      <!-- Event ID 6 == Driver Loaded. -->
+      <DriverLoad onmatch="include"/>
+      <!-- Event ID 7 == Image Loaded. -->
+      <ImageLoad onmatch="include"/>
+      <!-- Event ID 8 == CreateRemoteThread. -->
+      <CreateRemoteThread onmatch="include"/>
+      <!-- Event ID 9 == RawAccessRead. -->
+      <RawAccessRead onmatch="include"/>
+      <!-- Event ID 10 == ProcessAccess. -->
+      <ProcessAccess onmatch="include"/>
+      <!-- Event ID 11 == FileCreate. -->
+      <FileCreate onmatch="include"/>
+      <!-- Event ID 12,13,14 == RegObject added/deleted, RegValue Set, RegObject Renamed. -->
+      <RegistryEvent onmatch="include">
+          <TargetObject condition="begin with">HKLM\SYSTEM\CurrentControlSet\Control\Print\Monitors\</TargetObject>
+      </RegistryEvent>
+      <!-- Event ID 15 == FileStream Created. -->
+      <FileCreateStreamHash onmatch="include" />
+      <!-- Event ID 17,18 == PipeEvent. Log Named pipe created & Named pipe connected -->
+      <PipeEvent onmatch="include"/>
+      <!-- Event ID 19,20,21, == WmiEvent. Log all WmiEventFilter, WmiEventConsumer, WmiEventConsumerToFilter activity-->
+      <WmiEvent onmatch="include"/>
+  </EventFiltering>
+</Sysmon>

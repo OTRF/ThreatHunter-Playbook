@@ -1,4 +1,8 @@
 # DLL Injection via LoadLibrary API Call
+## Technique ID
+T1055_LoadLibrary
+
+
 ## Description
 Microsoft Windows allows for processes to remotely create threads within other processes of the same privilege level. This functionality is provided via the Windows API CreateRemoteThread. Both adversaries and host-based security software use this functionality to inject DLLs, but for very different purposes. An adversary is likely to inject into a program to evade defenses or bypass User Account Control, but a security program might do this to gain increased monitoring of API calls. 
 
@@ -16,9 +20,13 @@ Adversaries are moving laterally within my network through remote PowerShell ses
 
 ## Events
 
-| Source | EventID | Field | Details | Reference | 
+| Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
 | Sysmon | 8 | StartFunction | "LoadLibraryA" OR "LoadLibraryW" | [MITRE CAR](https://car.mitre.org/wiki/CAR-2013-10-002) |
+
+
+# Atomic Sysmon Configuration
+[T1055_LoadLibrary.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1055_LoadLibrary.xml)
 
 
 ## Hunter Notes

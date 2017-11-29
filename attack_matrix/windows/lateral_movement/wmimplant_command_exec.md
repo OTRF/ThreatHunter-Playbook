@@ -1,4 +1,8 @@
 # WMImplant Command_Exec
+## Technique ID
+T0000_wmimplant
+
+
 ## Description
 A PowerShell based tool that leverages WMI to both perform actions against targeted machines, but also as the C2 channel for issuing commands and receiving results. The **command_exec** command is part of the **Lateral Movement Facilitation Commands** section which allows an adversary to run command lines remotely with compromised credentials.
 
@@ -8,7 +12,7 @@ Adversaries might be executing WMImplant in my environment in order to facilitat
 
 
 ## Events
-| Source | EventID | Field | Details | Reference | 
+| Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|--------|-----------| 
 | Sysmon | 1 | ParentImage | wmiprvse.exe | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_26.html) |
 | Sysmon | 1 | Image OR ParentImage | powershell.exe (Could be renamed) | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_26.html) |
@@ -16,6 +20,10 @@ Adversaries might be executing WMImplant in my environment in order to facilitat
 | Sysmon | 12, 13 | TargetObject | Pattern: \\Environment\\[a-zA-Z0-9]{5} | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_26.html) |
 | Sysmon | 13 | Details | 'Win32_OSRecoveryConfiguration', 'DebugFilePath' | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_26.html) |
 | Sysmon | 17, 18 | PipeName | \<Anonymous Pipes\> | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_26.html) |
+
+
+# Atomic Sysmon Configuration
+[T0000_wmimplant.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_wmimplant.xml)
 
 
 ## Hunter Notes

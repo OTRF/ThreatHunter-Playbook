@@ -1,4 +1,8 @@
 # In-Memory Mimikatz
+## Technique ID
+T1003_mimikatz_inmem
+
+
 ## Description
 Technique of reflectively loading Mimikatz into Memory. Mainly used to dump credentials without touching disk.
 
@@ -12,13 +16,14 @@ Monitoring OpenProcess() : [dim0x69 - blog.3or.de](https://blog.3or.de/hunting-m
 | sekurlsa::* | kuhl_m_sekurlsa_acquireLSA() | lsass.exe | PROCESS_VM_READ \| PROCESS_QUERY_INFORMATION | 0x1410 | for Windows Version < 5 |
 | sekurlsa::* | kuhl_m_sekurlsa_acquireLSA() | lsass.exe | PROCESS_VM_READ \| PROCESS_QUERY_LIMITED_INFORMATION | 0x1010 | for Windows Version >= 6 |
 
+
 ## Hypothesis
 Adversaries might be executing Mimikatz in memory with the help of PowerShell in order to dump credentials in my environment.
 
 
 ## Events
 
-| Source | EventID | Fields | Details | Reference | 
+| Source | EventID | EventFields | Details | Reference | 
 |--------|---------|-------|--------|-----------| 
 | Sysmon | 10 | GrantedAccess | 0x1010, 0x1410 | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_22.html) |
 | Sysmon | 10 | GrantedAccess | 0x1438, 0x143a, 1418 | [dim0x69 - blog.3or.de](https://blog.3or.de/hunting-mimikatz-with-sysmon-monitoring-openprocess.html) |
@@ -26,6 +31,10 @@ Adversaries might be executing Mimikatz in memory with the help of PowerShell in
 | Sysmon | 10 | TargetImage | lsass.exe | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_22.html) |
 | Sysmon | 10 | CallTrace | \\\ntdll\\.dll\\+\[a-zA-Z0-9\]\{1,\}\|\\\KERNELBASE\\.dll\\+\[a-zA-Z0-9\]\{1,\}\|UNKNOWN\(\[a-zA-Z0-9\]\{16\}\) | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_22.html) |
 | Sysmon | 7 | ImageLoaded | WinSCard.dll, cryptdll.dll, hid.dll, samlib.dll, vaultcli.dll, WMINet_Utils.dll (Optional) | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html) |
+
+
+# Atomic Sysmon Configuration
+[T1003_mimikatz_inmem.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1003_mimikatzinmem.xml)
 
 
 ## Hunter Notes

@@ -1,14 +1,20 @@
 # Create Remote Process via WMIC
+## Technique ID
+T0000_wmic_remote
+
+
 ## Description
 wmic.exe is a powerful command line utility for interacting with WMI. It has a large amount of convenient default aliases for WMI objects but you can also perform more complicated queries. wmic.exe can also execute WMI methods and is used often by attackers to perform lateral movement by
 calling the Win32_ProcessCreate method.[Source](https://www.fireeye.com/content/dam/fireeye-www/global/en/current-threats/pdfs/wp-windows-management-instrumentation.pdf)
 
+
 ## Hypothesis
 Adversaries might be using wmic leveraging stolen credentials to perform lateral movement within my environment to create/run a process on a remote host. 
 
+
 ## Events
 ### Source Host
-| Source | EventID | Field | Details | Reference | 
+| Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
 | WinEvent | 4688 | NewProcessName | 'wmic' | [MITRE](https://car.mitre.org/wiki/CAR-2016-03-002), [JPCERT](https://www.jpcert.or.jp/english/pub/sr/20170612ac-ir_research_en.pdf) |
 | WinEvent | 4688 | ProcessCommandLine | "* process call create *" AND "* /node:*" | [MITRE](https://car.mitre.org/wiki/CAR-2016-03-002) |
@@ -23,8 +29,9 @@ Adversaries might be using wmic leveraging stolen credentials to perform lateral
 | Sysmon | 3 | DestinationIP & Destination Hostname | Internal Hosts | Cyb3rWard0g |
 | Sysmon | 3 | DestinationPort | 135 | Cyb3rWard0g |
 
+
 ### Destination Host
-| Source | EventID | Field | Details | Reference | 
+| Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
 | WinEvent | 4672 | SubjectAccountName | NOT Local username | Cyb3rWard0g |
 | WinEvent | 4624 | TargetUsername | NOT Local username | Cyb3rWard0g |
@@ -32,6 +39,10 @@ Adversaries might be using wmic leveraging stolen credentials to perform lateral
 | Sysmon | 1 | ParentImage | 'wmiprvse.exe' | Cyb3rWard0g, [JPCERT](https://www.jpcert.or.jp/english/pub/sr/20170612ac-ir_research_en.pdf) |
 | Sysmon | 1 | ParentCommandLine | 'C:\Windows\System32\wbem\wmiprvse.exe -secured -Embbeding' | Cyb3rWard0g, [JPCERT](https://www.jpcert.or.jp/english/pub/sr/20170612ac-ir_research_en.pdf) |
 | Sysmon | 1 | User | NOT Local user | Cyb3rWard0g, [JPCERT](https://www.jpcert.or.jp/english/pub/sr/20170612ac-ir_research_en.pdf) |
+
+
+# Atomic Sysmon Configuration
+[T0000_wmic_remote.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_wmic_remote.xml)
 
 
 ## Hunter Notes

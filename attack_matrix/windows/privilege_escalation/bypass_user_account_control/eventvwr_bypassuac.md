@@ -1,4 +1,8 @@
 # EventVwr BypassUAC
+## Technique ID
+T1088_eventvwr
+
+
 ## Description
 Currently, there are a couple of public UAC bypass techniques, most of which require a privileged file copy using the IFileOperation COM object or WUSA extraction (Windows 7) to take advantage of a DLL hijack in a protected system location. All of these techniques require dropping a file to disk (for example, placing a DLL on disk to perform a DLL hijack). This technique uses eventvwr.exe and hijacked registry keys to elevate privileges. It has been tested on Windows 7 and Windows 10, but is expected to work on all versions of Windows that implement UAC.
 
@@ -9,13 +13,17 @@ Adversaries might be leveraging eventvwr.exe to bypass UAC and elevate privilege
 
 ## Events
 
-| Source | EventID | Field | Details | Reference | 
+| Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|--------|-----------| 
 | Sysmon | 1 | ParentImage | Eventvwr.exe OR (powershell.exe OR cmd.exe) | Cyb3rWard0g & MalwareSoup |
 | Sysmon | 1 | Image | Eventvwr.exe OR (powershell.exe OR cmd.exe) | Cyb3rWard0g & MalwareSoup) |
 | Sysmon | 1 | CommandLine | Suspicious strings or Images(\<base64\>, powershell.exe, cmd.exe, etc.) | Cyb3rWard0g & MalwareSoup |
 | Sysmon | 12, 13 | TargetObject | '\mscfile\shell\open\command\(Default)' | Cyb3rWard0g & MalwareSoup |
 | Sysmon | 13 | Details | Suspicious Strings or images (\<base64\>, powershell.exe, cmd.exe, etc.) | Cyb3rWard0g & MalwareSoup |
+
+
+# Atomic Sysmon Configuration
+[T1088_eventvwr.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1088_eventvwr.xml)
 
 
 ## Hunter Notes

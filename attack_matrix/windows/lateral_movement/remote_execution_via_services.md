@@ -1,4 +1,8 @@
 # Remote Execution of Code via Services
+## Technique ID
+T0000_remote_execution_services
+
+
 ## Description
 There are several ways to cause code to execute on a remote host. One of the most common methods is via the Windows Service Control Manager (SCM), which allows authorized users to remotely create and modify services. Several tools, such as PsExec, use this functionality. When a client remotely communicates with the Service Control Manager, there are two observable behaviors. First, the client connects to the RPC Endpoint Mapper over 135/tcp. This handles authentication, and tells the client what port the endpoint—in this case the SCM—is listening on. Then, the client connects directly to the listening port on services.exe. If the request is to start an existing service with a known command line, the the SCM process will run the corresponding command.
 
@@ -9,7 +13,7 @@ Adversaries are leveraging SCM capabilities to authorize remote creation and mod
 
 ## Events
 
-| Source | EventID | Field | Details | Reference | 
+| Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
 | WinEvent | 4776 | PackageName | MICROSOFT_AUTHENTICATION_PACKAGE_V1_0 | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for_11.html) |
 | WinEvent | 4776 | LogonAccount/TargetUserName | Administrator (RID 500) | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for_11.html) |
@@ -41,6 +45,10 @@ Adversaries are leveraging SCM capabilities to authorize remote creation and mod
 | Sysmon | 12 | Image | C:\Windows\system32\services.exe | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for_11.html) |
 | Sysmon | 12 | EventType | DeleteKey | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for_11.html) |
 | Sysmon | 12 | TargetObject | "HKLM\\System\\CurrentControlSet\\services\\[New Service]" | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for_11.html) |
+
+
+# Atomic Sysmon Configuration
+[T0000_remote_execution_services.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_remote_execution_services.xml)
 
 
 ## Hunter Notes

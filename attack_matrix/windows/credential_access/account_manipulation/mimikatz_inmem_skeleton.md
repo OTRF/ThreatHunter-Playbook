@@ -1,4 +1,8 @@
 # Mimikatz Skeleton Key
+## Technique ID
+T1098_mimikatz_inmem
+
+
 ## Description
 Skeleton Key is used to patch an enterprise domain controller authentication process with a backdoor password. It allows adversaries to bypass the standard authentication system to use a defined password for all accounts authenticating to that domain controller [Source](http://www.secureworks.com/cyber-threat-intelligence/threats/skeleton-key-malware-analysis/).
  
@@ -30,7 +34,7 @@ Adversaries might be injecting a skeleton key into LSASS on Domain Controllers b
 
 ## Events
 
-| Source | EventID | Fields | Details | Reference | 
+| Source | EventID | EventFields | Details | Reference | 
 |--------|---------|-------|--------|-----------| 
 | Sysmon | 10 | GrantedAccess |0x1438| [dim0x69 - blog.3or.de](https://blog.3or.de/hunting-mimikatz-with-sysmon-monitoring-openprocess.html) |
 | Sysmon | 10 | SourceImage | powershell.exe OR ANY | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_22.html) |
@@ -40,6 +44,10 @@ Adversaries might be injecting a skeleton key into LSASS on Domain Controllers b
 | WinEvent | 4673 | ServiceName | LsaRegisterLogonProcess() | [PyroTek3](https://adsecurity.org/?p=1275) |
 | WinEvent | 4673 | ProcessName | lsass.exe | [PyroTek3](https://adsecurity.org/?p=1275) |
 | WinEvent | 4611 | LogonProcessName | ConsentUI | [PyroTek3](https://adsecurity.org/?p=1275) |
+
+
+# Atomic Sysmon Configuration
+[T1098_mimikatz_inmem.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1098_mimikatz_inmem.xml)
 
 
 ## Hunter Notes

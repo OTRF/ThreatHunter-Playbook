@@ -1,4 +1,8 @@
 # Bypass Application Whitelisting with InstallUtil.exe
+## Technique ID
+T1118
+
+
 ## Description
 The Installer tool is a command-line utility that allows you to install and uninstall server resources by executing the installer components in specified assemblies. This tool works in conjunction with classes in the System.Configuration.Install namespace [Source](https://docs.microsoft.com/en-us/dotnet/framework/tools/installutil-exe-installer-tool). 
 
@@ -26,12 +30,17 @@ InstallUtil.exe is digitally signed by Microsoft. Adversaries may use InstallUti
 ## Hypothesis
 Adversaries might be bypassing application whitelisting controls within my organization by using InstallUtil.exe.
 
+
 ## Events
 
-| Source | EventID | Field | Details | Reference | 
+| Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------|
-| Sysmon | 1 | Image or ParentImage | InstallUtil.exe | Subtee | 
+| Sysmon | 1 | Image or ParentImage | InstallUtil.exe | [Subtee]((https://twitter.com/subTee/status/896904055028461568)) | 
 | Sysmon | 1 | CommandLine | "/logfile= \/LogToConsole=false \/U" | [Subtee](https://twitter.com/subTee/status/896904055028461568) |
+
+
+# Atomic Sysmon Configuration
+[T1118_installutil.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1118_installutil.xml)
 
 
 ## Hunter Notes

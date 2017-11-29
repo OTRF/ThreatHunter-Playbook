@@ -1,4 +1,8 @@
 # Remote File Copy
+## Technique ID
+T1105
+
+
 ## Description
 Files may be copied from one system to another to stage adversary tools or other files over the course of an operation. Adversaries may also copy files laterally between internal victim systems to support Lateral Movement with remote Execution using inherent file sharing protocols such as file sharing over SMB to connected network shares or with authenticated connections with Windows Admin Shares or Remote Desktop Protocol.
 
@@ -9,11 +13,15 @@ Adversaries are copying files to $ shares via the command line to facilitate lat
 
 ## Events
 
-| Source | EventID | Field | Details | Reference | 
+| Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
 | WinEvent | 5145 | ObjectType | File | [Jack Crook](https://t.co/HSykx8LC6V) |
 | WinEvent | 5145 | ShareName | *$ | [Jack Crook](https://t.co/HSykx8LC6V) |
 | WinEvent | 5145 | AccessMask | 0x1000180 OR 0x80 OR 0x130197 | [Jack Crook](https://t.co/HSykx8LC6V) |
+
+
+## Atomic Sysmon Configuration
+None
 
 
 ## Hunter Notes

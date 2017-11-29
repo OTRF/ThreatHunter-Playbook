@@ -1,4 +1,8 @@
 # Msbuild
+## Technique ID
+T1127_msbuild
+
+
 ## Description
 MSBuild.exe (Microsoft Build Engine) is a software build platform used by Visual Studio. It takes XML formatted project files that define requirements for building various platforms and configurations.
 Adversaries can use MSBuild to proxy execution of code through a trusted Windows utility. The inline task capability of MSBuild that was introduced in .NET version 4 allows for C# code to be inserted into the XML project file. MSBuild will compile and execute the inline task. MSBuild.exe is a signed Microsoft binary, so when it is used this way it can execute arbitrary code and bypass application whitelisting defenses that are configured to allow MSBuild.exe execution[Source](https://attack.mitre.org/wiki/Technique/T1127).
@@ -10,10 +14,14 @@ Adversaries might be bypassing our application whitelisting controls by using ms
 
 ## Events
 
-| Source | EventID | Field | Details | Reference | 
+| Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
 | WinEvent | 4688 | NewProcessName | msbuild.exe | [RedCanary-AtomicRedTeam](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Execution/Trusted_Developer_Utilities.md) |
 | Sysmon | 1 | Image OR ParentImage | msbuild.exe | [RedCanary-AtomicRedTeam](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Execution/Trusted_Developer_Utilities.md) |
+
+
+# Atomic Sysmon Configuration
+[T1127_msbuild.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1127_msbuild.xml)
 
 
 ## Hunter Notes
