@@ -7,6 +7,13 @@
           <ParentImage condition="contains">office</ParentImage>
           <Image condition="end with">cscript.exe</Image>
           <Image condition="end with">wscript.exe</Image>
+          <Image condition="end with">cmd.exe</Image>
+          <Image condition="end with">powershell.exe</Image>
+          <Image condition="end with">sh.exe</Image>
+          <Image condition="end with">bash.exe</Image>
+          <Image condition="end with">scrcons.exe</Image>
+          <Image condition="end with">regsvr32.exe</Image>       
+          <Image condition="end with">hh.exe</Image>             
       </ProcessCreate]>
       <!-- Event ID 2 == File Creation Time. -->
       <FileCreateTime onmatch="include"/>
