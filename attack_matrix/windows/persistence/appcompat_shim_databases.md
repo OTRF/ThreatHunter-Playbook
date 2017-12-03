@@ -28,7 +28,7 @@ Adversaries might be abusing features of the Application Compatability infrastru
 
 
 ## Atomic Sysmon Configuration
-[T1138_appcompat.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1138_appcompat.xml.xml)
+[T1138_appcompat.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1138_appcompat.xml)
 
 
 ## Hunter Notes
