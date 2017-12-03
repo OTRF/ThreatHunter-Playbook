@@ -24,7 +24,7 @@
       <FileCreate onmatch="include"/>
       <!-- Event ID 12,13,14 == RegObject added/deleted, RegValue Set, RegObject Renamed. -->
       <RegistryEvent onmatch="include">
-          <TargetObject condition="is">HKLM\System\CurrentControlSet\Control\SecurityProviders\WDigest\UseLogonCredential</TargetObject>
+          <TargetObject condition="contains">\Control\SecurityProviders\WDigest</TargetObject>
       </RegistryEvent>
       <!-- Event ID 15 == FileStream Created. -->
       <FileCreateStreamHash onmatch="include" />
