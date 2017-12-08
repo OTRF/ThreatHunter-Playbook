@@ -34,7 +34,7 @@ Adversaries might be leveraging Fodhelper.exe to bypass UAC and elevate privileg
 
 
 ## Atomic Sysmon Configuration
-[T1088_foodhelper.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1088_foodhelper.xml)
+[T1088_fodhelper.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1088_fodhelper.xml)
 
 
 ## Hunter Notes
