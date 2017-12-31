@@ -6,7 +6,7 @@
       <ProcessCreate onmatch="include">
           <Image condition="end with">wevutil</Image>
           <CommandLine condition="contains">wevutil cl</CommandLine>
-      </ProcessCreate]>
+      </ProcessCreate>
       <!-- Event ID 2 == File Creation Time. -->
       <FileCreateTime onmatch="include"/>
       <!-- Event ID 3 == Network Connection. -->

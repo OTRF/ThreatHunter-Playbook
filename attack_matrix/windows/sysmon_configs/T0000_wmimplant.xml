@@ -24,7 +24,8 @@
       <FileCreate onmatch="include"/>
       <!-- Event ID 12,13,14 == RegObject added/deleted, RegValue Set, RegObject Renamed. -->
       <RegistryEvent onmatch="include">
-          <Details condition="is">Win32_OSRecoveryConfiguration</Details>
+          <!-- Win32_OSRecoveryConfiguration class C2 maps to a change in values within the following key: -->
+          <TargetObject condition="contains">SYSTEM\CurrentControlSet\Control\CrashControl</TargetObject>
       </RegistryEvent>
       <!-- Event ID 15 == FileStream Created. -->
       <FileCreateStreamHash onmatch="include" />

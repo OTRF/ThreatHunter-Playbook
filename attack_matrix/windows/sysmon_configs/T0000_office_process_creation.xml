@@ -14,7 +14,7 @@
           <Image condition="end with">scrcons.exe</Image>
           <Image condition="end with">regsvr32.exe</Image>       
           <Image condition="end with">hh.exe</Image>             
-      </ProcessCreate]>
+      </ProcessCreate>
       <!-- Event ID 2 == File Creation Time. -->
       <FileCreateTime onmatch="include"/>
       <!-- Event ID 3 == Network Connection. -->

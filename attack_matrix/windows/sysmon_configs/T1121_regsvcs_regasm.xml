@@ -6,7 +6,7 @@
       <ProcessCreate onmatch="include">
           <Image condition="end with">regsvcs.exe</Image>
           <Image condition="end with">regasm.exe</Image>
-      </ProcessCreate]>
+      </ProcessCreate>
       <!-- Event ID 2 == File Creation Time. -->
       <FileCreateTime onmatch="include"/>
       <!-- Event ID 3 == Network Connection. -->

@@ -24,7 +24,7 @@
       <ProcessAccess onmatch="include"/>
       <!-- Event ID 11 == FileCreate. -->
       <FileCreate onmatch="include">
-          <TargetFileName condition="contains">C:\Windows\AppPatch\Custom</TargetFileName>
+          <TargetFilename condition="contains">C:\Windows\AppPatch\Custom</TargetFilename>
       </FileCreate>
       <!-- Event ID 12,13,14 == RegObject added/deleted, RegValue Set, RegObject Renamed. -->
       <RegistryEvent onmatch="include">
