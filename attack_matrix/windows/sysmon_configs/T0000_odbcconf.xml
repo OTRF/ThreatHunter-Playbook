@@ -5,7 +5,7 @@
       <!-- Event ID 1 == Process Creation. -->
       <ProcessCreate onmatch="include">
           <Image condition="end with">odbcconf.exe</Image>
-      </ProcessCreate]>
+      </ProcessCreate>
       <!-- Event ID 2 == File Creation Time. -->
       <FileCreateTime onmatch="include"/>
       <!-- Event ID 3 == Network Connection. -->
