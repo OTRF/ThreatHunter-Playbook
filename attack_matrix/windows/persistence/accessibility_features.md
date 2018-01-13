@@ -23,7 +23,7 @@ Adversaries might be using accessibility feature applications in order to mainta
 
 
 ## Atomic Sysmon Configuration
-\[T1015_accessibility_features.xml\]\(https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1015_accessibility_features.xml.xml\)
+[T1015_accessibility_features.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1015_accessibility_features.xml)
 
 
 ## Hunter Notes
