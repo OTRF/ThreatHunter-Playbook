@@ -4,7 +4,7 @@
    <EventFiltering>
       <!-- Event ID 1 == Process Creation. -->
       <ProcessCreate onmatch="include">
-          <Image condition="is">C:\Windows\System\32\regsvr32.exe</Image>
+          <Image condition="is">C:\Windows\System32\regsvr32.exe</Image>
       </ProcessCreate>
       <!-- Event ID 2 == File Creation Time. -->
       <FileCreateTime onmatch="include"/>
