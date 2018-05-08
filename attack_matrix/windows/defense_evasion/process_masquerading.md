@@ -1,6 +1,6 @@
-# Adversary Technique
+# Process Masquerading
 ## Technique ID
-T1036_Masquerading
+T1036
 
 
 ## Description
@@ -16,6 +16,7 @@ Adversaries might be evading detection by "blending" into the environment by mim
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
 | Sysmon | 1 | Image, ParentImage, SID, CurrentDirectory, CommandLine, ParentCommandLine | Started with wrong parent process, Image is located in the wrong path, Misspelled process, Running under an incorrect SID, Unusual command-line arguments | [SANS "Find Evil"](https://digital-forensics.sans.org/media/poster_2014_find_evil.pdf) |
+|WinEvent|4688|Security ID, Account Name, New Process ID, New Process Name, Token Elevation Type, Mandatory Label (Win10), Creator Process ID, Creator Process Name (Win10), Process Command Line|Started with wrong creator process, Image is located in the wrong path, Misspelled process, Running under an incorrect SID, Unusual command-line arguments|[SANS "Find Evil"](https://digital-forensics.sans.org/media/poster_2014_find_evil.pdf)| 
 
 
 
