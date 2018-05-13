@@ -26,6 +26,7 @@ A Threat hunter's playbook to aid the development of techniques and hypothesis f
 # Contributors
 * Andy [@malwaresoup](https://twitter.com/malwaresoup)
 * Dimitrios Slamaris [@dim0x69](https://twitter.com/dim0x69)
+* Robin Williams [@bfuzzystr1ngs](https://twitter.com/bfuzzystr1ngs)
 
 
 # Contributing
