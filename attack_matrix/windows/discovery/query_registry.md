@@ -6,7 +6,7 @@ T1012
 ## Description
 Adversaries may interact with the Windows Registry to gather information about the system, configuration, and installed software.
 
-The Registry contains a significant amount of information about the operating system, configuration, software, and security.1 Some of the information may help adversaries to further their operation within a network.
+The Registry contains a significant amount of information about the operating system, configuration, software, and security. Some of the information may help adversaries to further their operation within a network.
 
 Source: [T1012_Query\_Registry](https://attack.mitre.org/wiki/Technique/T1012)
 
