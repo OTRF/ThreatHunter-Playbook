@@ -17,10 +17,10 @@ An attacker could query the registry to dertmine  privilege escalation and persi
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
-|Sysmon | 1 | Image| C:\Windows\System32\reg.exe | - |
-|Sysmon | 1 | CommandLine| *query, *save, *add, *export, *import  | - |
-|WinEvent | 4688 | ProcessCommandLine | *query, *save, *add, *export, *import | - |
-|WinEvent | 4688 | NewProcessName | C:\Windows\System32\reg.exe | - |
+|Sysmon | 1 | Image| C:\Windows\System32\reg.exe | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Discovery/Query_Registry.md) |
+|Sysmon | 1 | CommandLine| *query, *save, *add, *export, *import  | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Discovery/Query_Registry.md) |
+|WinEvent | 4688 | ProcessCommandLine | *query, *save, *add, *export, *import | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Discovery/Query_Registry.md)|
+|WinEvent | 4688 | NewProcessName | C:\Windows\System32\reg.exe | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Discovery/Query_Registry.md) |
 
 
  
