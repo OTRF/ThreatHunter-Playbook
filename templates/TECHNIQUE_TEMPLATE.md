@@ -48,9 +48,9 @@ OR None
 
 ## Data Analytics 
 
-| Analytic Type  | Analytic Logic | Analytic Data Object |  
-|--------|---------|---------|
-| Bhavioral Analytic | Data Dictionary info...etc | Data Objects...
+| Analytic Type  | Analytic Logic | Analytic Data Object | Behavioral | Situational Awareness | Anomaly/Outlier |
+|--------|---------|---------|---------|---------|---------|
+| Bhavioral Analytic | Data Dictionary info...etc | Data Objects... | Anaylytic behavior specific | Events occuring enironment at given time | Analytic that may detect behavior but isn't malicious but unusual and may be suspect 
 
 
 ## Hunter Notes
