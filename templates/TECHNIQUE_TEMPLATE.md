@@ -27,11 +27,6 @@ T0001_technique_name
 | Windows, etc | Sysmon | 1 | Process creation |
 
 
-## Required Configuration(s)
-\[T0001_technique_name.xml\]\(https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0001_technique_name.xml\)
-
-OR None
-
 
 ## Specific Events
 
@@ -46,6 +41,11 @@ OR None
 | Sysmon, WinEvent, PowerShell | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
 | Sysmon, WinEvent, PowerShell | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
 
+
+## Required Configuration(s)
+\[T0001_technique_name.xml\]\(https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0001_technique_name.xml\)
+
+OR None
 
 
 ## Data Analytics 
