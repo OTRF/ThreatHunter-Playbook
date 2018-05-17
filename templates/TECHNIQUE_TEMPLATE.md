@@ -14,10 +14,7 @@ T0001_technique_name
 
 [Explanation on how an adversary commonly uses the below technique / script ]
 
-
-### Technique Validation
-
-| Technique | Reference | 
+| Script  | Reference | 
 |--------|---------|
 | Technique command or script | \[Author Name\](link) |
 
@@ -51,9 +48,10 @@ OR None
 
 ## Data Analytics 
 
-| Analytic Type  | Analytic Logic | Analytic Data Source | 
+| Analytic Type  | Analytic Logic | Analytic Data Object |  
 |--------|---------|---------|
-| CIM...etc | Data Dictionary info...etc | Detection Data Model..etc
+| Bhavioral Analytic | Data Dictionary info...etc | Data Objects...
+
 
 ## Hunter Notes
 * Notes..
