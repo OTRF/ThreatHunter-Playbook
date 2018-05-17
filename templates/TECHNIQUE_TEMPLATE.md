@@ -28,14 +28,19 @@ T0001_technique_name
 
 OR None
 
+## Offensive Approach
 
-## Technique Validation
+### Technique Validation
 
 | Technique | Reference | 
 |--------|---------|
 | Technique command or script | \[Author Name\](link) |
 
+## Data Analytics 
 
+| Analytic Type  | Analytic Logic | Analytic Data Source | 
+|--------|---------|---------|
+| CIM...etc | Data Dictionary info...etc | Detection Data Model..etc
 
 ## Hunter Notes
 * Notes..
