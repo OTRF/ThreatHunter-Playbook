@@ -29,6 +29,14 @@ T0001_technique_name
 OR None
 
 
+## Technique Validation
+
+| Technique | Reference | 
+|--------|---------|
+| Technique command or script | \[Author Name\](link) |
+
+
+
 ## Hunter Notes
 * Notes..
 
