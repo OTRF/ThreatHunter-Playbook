@@ -23,7 +23,9 @@ T0001_technique_name
 
 
 ## Required Data Sources
-
+*
+*
+*
 
 
 ## Atomic Sysmon Configuration
