@@ -36,7 +36,7 @@ None
 * Look at commonly abused Registry keys 
 * Filter out known good
 * Look for odd parent processes that are spawning *reg.exe
-* Does not include other known ways to query the regitry through the Windows API 
+* Does not include other known ways to query the registry through the Windows API 
 
 
 ## Hunting Techniques Recommended
