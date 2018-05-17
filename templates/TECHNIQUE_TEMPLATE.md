@@ -20,12 +20,14 @@ T0001_technique_name
 
 
 ## Required Data Sources
-*
-*
-*
+
+| OS  | Event Log | Event ID| Description |
+|--------|---------|---------|--------------|
+| Windows, etc | Security | 4688, etc | Process creation |
+| Windows, etc | Sysmon | 1 | Process creation |
 
 
-## Atomic Sysmon Configuration
+## Required Configuration(s)
 \[T0001_technique_name.xml\]\(https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0001_technique_name.xml\)
 
 OR None
@@ -48,9 +50,9 @@ OR None
 
 ## Data Analytics 
 
-| Analytic Type  | Analytic Logic | Analytic Data Object | Behavioral | Situational Awareness | Anomaly/Outlier |
-|--------|---------|---------|---------|---------|---------|
-| Bhavioral Analytic | Data Dictionary info...etc | Data Objects... | Anaylytic behavior specific | Events occuring enironment at given time | Analytic that may detect behavior but isn't malicious but unusual and may be suspect 
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Behavioral Analytics, Situational Awareness, Anomaly/Outlier | Data Dictionary info...etc | Data Objects... | 
 
 
 ## Hunter Notes
