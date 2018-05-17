@@ -39,6 +39,7 @@ None
 ## Hunter Notes
 * Detailed command line activity auditing
 * Powershell logging
+* Odd process relations
 
 
 ## Hunting Techniques Recommended
