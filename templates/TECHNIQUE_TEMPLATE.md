@@ -9,6 +9,29 @@ T0001_technique_name
 ## Hypothesis
 
 
+
+## Attack Simulation
+
+[Explanation on how an adversary commonly uses the below technique / script ]
+
+
+### Technique Validation
+
+| Technique | Reference | 
+|--------|---------|
+| Technique command or script | \[Author Name\](link) |
+
+
+## Required Data Sources
+
+
+
+## Atomic Sysmon Configuration
+\[T0001_technique_name.xml\]\(https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0001_technique_name.xml\)
+
+OR None
+
+
 ## Events
 
 | Source | EventID | EventField | Details | Reference | 
@@ -23,20 +46,6 @@ T0001_technique_name
 | Sysmon, WinEvent, PowerShell | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
 
 
-## Atomic Sysmon Configuration
-\[T0001_technique_name.xml\]\(https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0001_technique_name.xml\)
-
-OR None
-
-## Offensive Approach
-
-[Explanation on how an adversary commonly uses the below technique / script ]
-
-### Technique Validation
-
-| Technique | Reference | 
-|--------|---------|
-| Technique command or script | \[Author Name\](link) |
 
 ## Data Analytics 
 
