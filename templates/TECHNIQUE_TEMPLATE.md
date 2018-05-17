@@ -30,6 +30,8 @@ OR None
 
 ## Offensive Approach
 
+[Explanation on how an adversary commonly uses the below technique / script ]
+
 ### Technique Validation
 
 | Technique | Reference | 
