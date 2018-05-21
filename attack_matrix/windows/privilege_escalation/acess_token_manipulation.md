@@ -13,7 +13,7 @@ Adversaries may use access tokens to operate under a different user or system se
 
 ## Attack Simulation
 
-[Explanation on how an adversary commonly uses the below technique / script ]
+Getsystem via parent process using powershell and embeded c#
 
 | Script  | Reference | 
 |--------|---------|
