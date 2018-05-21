@@ -49,7 +49,7 @@ T0001_technique_name
 ## Recommended Configuration(s)
 | Title | Description | Reference|
 |---------|---------|---------|
-| Example: Event ID 4103 - Module Logging | Example: Detailed logging of all PowerShell command input and output | \[Event ID 4103\](link)
+| Name of configuration | Brief description of what the configuration does | \[Author Name\](link)
 
 
 
@@ -57,7 +57,7 @@ T0001_technique_name
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Behavioral Analytics, Situational Awareness, Anomaly/Outlier | Example: process\_parent_name = "powershell.exe" AND process\_name = "csc.exe" WHERE file\_path = "C:\Users\\\<user>\AppData\Local\Temp\\" OR file\_name CONTAINS ".dll" OR ".cmdline" | Data Objects... | 
+| Behavioral Analytics, Situational Awareness, Anomaly/Outlier |  process_name = xxx AND process_command_line=xxx WHERE xxxxx  | Data Objects... | 
 
 
 ## Hunter Notes
