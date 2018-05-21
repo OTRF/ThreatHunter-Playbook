@@ -14,7 +14,7 @@ T0001_technique_name
 
 | Script  | Short Description | Author | 
 |---------|---------|---------|
-| \[Link to script\](Link)| Short description on how an attacker would use the script or techniquie  | \[Author Name\](Link) |
+| \[Link to script\](Link)| Short description on how an attacker would use the script | \[Author Name\](Link) |
 
 
 
