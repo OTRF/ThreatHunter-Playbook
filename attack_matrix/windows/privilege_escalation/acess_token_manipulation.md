@@ -63,8 +63,8 @@ WinEvent | 4688 | ProcessCommandLine | "C:\Windows\Microsoft.NET\Framework64\v4.
 | Anomaly/Outlier | File path that spawned/created the main process | process\_parent_name |
 | Anomaly/Outlier | The complete path and name of the executable related to the the process that spawned/created the main process (child) | process\_parent_path |
 | Anomaly/Outlier | Arguments which were passed to the executable associated with the parent process | process\_parent\_command_line |
-| Anomaly/Outlier | Name of a file without its full path | file_name |
-| Anomaly/Outlier |Full path of a file including the name of the file | file_path |
+| Anomaly/Outlier, Forensic | Name of a file without its full path | file_name |
+| Anomaly/Outlier, Forensic |Full path of a file including the name of the file | file_path |
  
 
 
