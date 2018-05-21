@@ -12,20 +12,22 @@ T0001_technique_name
 
 ## Attack Simulation
 
-[Explanation on how an adversary commonly uses the below technique / script ]
-
-| Script  | Reference | 
-|--------|---------|
-| Technique command or script | \[Author Name\](link) |
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| \[Link to script\](Link)| Short description on how an attacker would use the script or techniquie  | \[Author Name\](Link) |
 
 
 
-## Required Data Sources
+## Recommended Data Sources
 
-| OS  | Event Log | Event ID| Description |
-|--------|---------|---------|--------------|
-| Windows, etc | Security | 4688, etc | Process creation |
-| Windows, etc | Sysmon | 1 | Process creation |
+| ATT&CK Data Source | Event Log | Event ID| Description |
+|---------|---------|---------|--------------|
+|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell | ID | FileCreate, Process access, etc..  |
+|File Monitoring, Process Monitoring, etc..|Sysmon, WinEvent, PowerShell | ID | FileCreate, Process access, etc.. | 
+|File Monitoring, Process Monitoring, etc..|Sysmon, WinEvent, PowerShell | ID | FileCreate, Process access, etc.. | 
+|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell | ID | FileCreate, Process access, etc.. |
+|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell | ID | FileCreate, Process access, etc.. | 
+|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell | ID | FileCreate, Process access, etc.. | 
 
 
 
@@ -44,10 +46,10 @@ T0001_technique_name
 
 
 
-## Required Configuration(s)
-\[T0001_technique_name.xml\]\(https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0001_technique_name.xml\)
-
-OR None
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| Example: Event ID 4103 - Module Logging | Example: Detailed logging of all PowerShell command input and output | \[Event ID 4103\](link)
 
 
 
@@ -55,7 +57,7 @@ OR None
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Behavioral Analytics, Situational Awareness, Anomaly/Outlier | Data Dictionary info...etc | Data Objects... | 
+| Behavioral Analytics, Situational Awareness, Anomaly/Outlier | Example: process\_parent_name = "powershell.exe" AND process\_name = "csc.exe" WHERE file\_path = "C:\Users\\\<user>\AppData\Local\Temp\\" OR file\_name CONTAINS ".dll" OR ".cmdline" | Data Objects... | 
 
 
 ## Hunter Notes
