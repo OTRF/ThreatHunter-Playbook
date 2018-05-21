@@ -13,21 +13,20 @@ Adversaries may use access tokens to operate under a different user or system se
 
 ## Attack Simulation
 
-Getsystem via parent process using powershell and embeded c#
 
-| Script  | Reference | 
-|--------|---------|
-| . .\Get- System.ps1; [MyProcess]::CreateProcessFromParent((Get-Process lsass).Id,"cmd.exe") | [Casey Smith](https://gist.github.com/caseysmithrc/ad9d97bb54484d792572c0523c457d82) |
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| [Get-System](https://gist.github.com/caseysmithrc/ad9d97bb54484d792572c0523c457d82)| Getsystem via parent process using powershell and embeded c#  | [Casey Smith](https://twitter.com/subTee/status/996853131655958529) |
 
-## Required Data Sources
+## Recommended Data Sources
 
-| OS  | Event Log | Event ID| Description |
-|--------|---------|---------|--------------|
-| Windows | Sysmon | 11 | FileCreate  |
-| Windows | Sysmon | 10 | Process access | 
-| Windows | Sysmon | 1 | Process creation |
-| Windows | Security | 4688 | Process creation | 
-| Windows | PowerShell | 4103 | Module Logging | 
+| ATT&CK Data Source | Event Log | Event ID| Description |
+|---------|---------|---------|--------------|
+|File Monitoring| Sysmon | 11 | FileCreate  |
+|Process Monitoring| Sysmon | 10 | Process access | 
+|Process Monitoring| Sysmon | 1 | Process creation |
+|Process Monitoring| Security | 4688 | Process creation | 
+|PowerShell Logs| PowerShell | 4103 | Module Logging | 
 
 ## Specific Events
 
@@ -45,10 +44,10 @@ Getsystem via parent process using powershell and embeded c#
 WinEvent | 4688 | ProcessCommandLine | "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe" /noconfig /fullpaths @"C:\Users\<user>\AppData\Local\Temp\\*.cmdline" | - |
 
 ## Recommended Configuration(s)
-| OS | Title | Description | Reference|
-|--------|---------|---------|---------|
-| Windows | Event ID 4103 - Module Logging | Detailed logging of all PowerShell command input and output | [Event ID 4103](https://github.com/Cyb3rWard0g/OSSEM/blob/c0bf44fb8c527f6e678c4ff1321814108e024315/data_dictionaries/windows/powershell/event-4103.md)
-| Windows | Command Line Process Auditing | Audit information for command line processes | [Microsoft](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/manage/component-updates/command-line-process-auditing)
+| Title | Description | Reference|
+|---------|---------|---------|
+| Event ID 4103 - Module Logging | Detailed logging of all PowerShell command input and output | [Event ID 4103](https://github.com/Cyb3rWard0g/OSSEM/blob/c0bf44fb8c527f6e678c4ff1321814108e024315/data_dictionaries/windows/powershell/event-4103.md)
+| Command Line Process Auditing | Audit information for command line processes | [Microsoft](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/manage/component-updates/command-line-process-auditing)
 
 
 
@@ -57,19 +56,8 @@ WinEvent | 4688 | ProcessCommandLine | "C:\Windows\Microsoft.NET\Framework64\v4.
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Anomaly/Outlier | File path of the process being spawned/created. Considered also the child or source process | process_name |
-| Anomaly/Outlier | The complete path and name of the executable related to the main process in the event. Considered also the child or source process path | process_path |
-| Anomaly/Outlier | Arguments which were passed to the executable associated with the main process | process\_command_line |
-| Anomaly/Outlier | File path that spawned/created the main process | process\_parent_name |
-| Anomaly/Outlier | The complete path and name of the executable related to the the process that spawned/created the main process (child) | process\_parent_path |
-| Anomaly/Outlier | Arguments which were passed to the executable associated with the parent process | process\_parent\_command_line |
-| Anomaly/Outlier, Forensic | Name of a file without its full path | file_name |
-| Anomaly/Outlier, Forensic |Full path of a file including the name of the file | file_path |
+| Anomaly/Outlier | process\_parent_name = "powershell.exe" AND process\_name = "csc.exe" WHERE file\_path = "C:\Users\\\<user>\AppData\Local\Temp\\" OR file\_name CONTAINS ".dll" OR ".cmdline" | process, file |
  
-
-
-
-
 
 
 ## Hunter Notes
