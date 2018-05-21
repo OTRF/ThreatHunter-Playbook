@@ -20,14 +20,14 @@ T0001_technique_name
 
 ## Recommended Data Sources
 
-| ATT&CK Data Source | Event Log | Event ID| Description |
-|---------|---------|---------|--------------|
-|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell | ID | FileCreate, Process access, etc..  |
-|File Monitoring, Process Monitoring, etc..|Sysmon, WinEvent, PowerShell | ID | FileCreate, Process access, etc.. | 
-|File Monitoring, Process Monitoring, etc..|Sysmon, WinEvent, PowerShell | ID | FileCreate, Process access, etc.. | 
-|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell | ID | FileCreate, Process access, etc.. |
-|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell | ID | FileCreate, Process access, etc.. | 
-|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell | ID | FileCreate, Process access, etc.. | 
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell |
+|File Monitoring, Process Monitoring, etc..|Sysmon, WinEvent, PowerShell | 
+|File Monitoring, Process Monitoring, etc..|Sysmon, WinEvent, PowerShell |
+|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell | 
+|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell | 
+|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell |
 
 
 
