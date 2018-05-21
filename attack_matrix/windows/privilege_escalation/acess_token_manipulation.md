@@ -20,13 +20,13 @@ Adversaries may use access tokens to operate under a different user or system se
 
 ## Recommended Data Sources
 
-| ATT&CK Data Source | Event Log | Event ID| Description |
-|---------|---------|---------|--------------|
-|File Monitoring| Sysmon | 11 | FileCreate  |
-|Process Monitoring| Sysmon | 10 | Process access | 
-|Process Monitoring| Sysmon | 1 | Process creation |
-|Process Monitoring| Security | 4688 | Process creation | 
-|PowerShell Logs| PowerShell | 4103 | Module Logging | 
+| ATT&CK Data Source | Event Log | 
+|---------|---------|
+|File Monitoring| Sysmon |
+|Process Monitoring| Sysmon |
+|Process Monitoring| Sysmon |
+|Process Monitoring| Security |
+|PowerShell Logs| PowerShell | 
 
 ## Specific Events
 
