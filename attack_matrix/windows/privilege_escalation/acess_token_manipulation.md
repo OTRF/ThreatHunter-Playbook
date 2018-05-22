@@ -24,7 +24,6 @@ Adversaries may use access tokens to operate under a different user or system se
 |---------|---------|
 |File Monitoring| Sysmon |
 |Process Monitoring| Sysmon |
-|Process Monitoring| Sysmon |
 |Process Monitoring| Security |
 |PowerShell Logs| PowerShell | 
 
