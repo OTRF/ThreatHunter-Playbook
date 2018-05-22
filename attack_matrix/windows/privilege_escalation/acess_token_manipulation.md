@@ -46,6 +46,7 @@ WinEvent | 4688 | ProcessCommandLine | "C:\Windows\Microsoft.NET\Framework64\v4.
 | Title | Description | Reference|
 |---------|---------|---------|
 | Event ID 4103 - Module Logging | Detailed logging of all PowerShell command input and output | [Event ID 4103](https://github.com/Cyb3rWard0g/OSSEM/blob/c0bf44fb8c527f6e678c4ff1321814108e024315/data_dictionaries/windows/powershell/event-4103.md)
+| Event ID 4104 - Script Block Logging | Insight into script-based activity | [Event ID 4104](https://blogs.msdn.microsoft.com/powershell/2015/06/09/powershell-the-blue-team/)
 | Command Line Process Auditing | Audit information for command line processes | [Microsoft](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/manage/component-updates/command-line-process-auditing)
 
 
@@ -62,6 +63,7 @@ WinEvent | 4688 | ProcessCommandLine | "C:\Windows\Microsoft.NET\Framework64\v4.
 ## Hunter Notes
 * Detailed command line activity auditing
 * Powershell logging
+* Searches should included encoded commands, remote use of powershell, common injection methods and common execution modules
 
 
 ## Hunting Techniques Recommended
