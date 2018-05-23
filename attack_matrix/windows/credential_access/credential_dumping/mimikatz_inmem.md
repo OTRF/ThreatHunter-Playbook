@@ -1,7 +1,6 @@
 # In-Memory Mimikatz
 ## Technique ID
-T1003_mimikatz_inmem
-
+T1003
 
 ## Description
 Technique of reflectively loading Mimikatz into Memory. Mainly used to dump credentials without touching disk.
@@ -11,17 +10,35 @@ Mimikatz Command:
 
 Monitoring OpenProcess() : [dim0x69 - blog.3or.de](https://blog.3or.de/hunting-mimikatz-with-sysmon-monitoring-openprocess.html)
 
-| module | OpenProcess caller function | destination process / destination service | ACCESS\_MASK | ACCESS_MASK translated | comment |
+| module | OpenProcess caller function | destination process / destination service | ACCESS\_MASK | ACCESS\_MASK translated | comment |
 |---------|---------|---------|---------|---------|---------|
-| sekurlsa::* | kuhl_m_sekurlsa_acquireLSA() | lsass.exe | PROCESS_VM_READ \| PROCESS_QUERY_INFORMATION | 0x1410 | for Windows Version < 5 |
-| sekurlsa::* | kuhl_m_sekurlsa_acquireLSA() | lsass.exe | PROCESS_VM_READ \| PROCESS_QUERY_LIMITED_INFORMATION | 0x1010 | for Windows Version >= 6 |
+| sekurlsa::* | kuhl\_m\_sekurlsa\_acquireLSA() | lsass.exe | PROCESS\_VM\_READ \| PROCESS\_QUERY\_INFORMATION | 0x1410 | for Windows Version < 5 |
+| sekurlsa::* | kuhl\_m\_sekurlsa\_acquireLSA() | lsass.exe | PROCESS\_VM\_READ \| PROCESS\_QUERY\_LIMITED\_INFORMATION | 0x1010 | for Windows Version >= 6 |
 
 
 ## Hypothesis
 Adversaries might be executing Mimikatz in memory with the help of PowerShell in order to dump credentials in my environment.
 
 
-## Events
+## Attack Simulation
+
+
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| [mimikatz](https://github.com/gentilkiwi/mimikatz)| Credential dumper | [Benjamin Delpy](http://blog.gentilkiwi.com/) |
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log | Event ID| Description |
+|---------|---------|---------|--------------|
+|Process Monitoring| Sysmon | 10 | Process access | 
+|Process Monitoring| Sysmon | 7 | Image Loaded
+|PowerShell Logs| PowerShell | 4103 | Module Logging |
+|PowerShell Logs| PowerShell | 4104 | Script-Block Logging |
+|Sensitive Privilege Use| Windows Security Auditing | 4673 | Audit Sensitive Privilege Use |
+
+## Specific Events
 
 | Source | EventID | EventFields | Details | Reference | 
 |--------|---------|-------|--------|-----------| 
@@ -32,9 +49,19 @@ Adversaries might be executing Mimikatz in memory with the help of PowerShell in
 | Sysmon | 10 | CallTrace | \\\ntdll\\.dll\\+\[a-zA-Z0-9\]\{1,\}\|\\\KERNELBASE\\.dll\\+\[a-zA-Z0-9\]\{1,\}\|UNKNOWN\(\[a-zA-Z0-9\]\{16\}\) | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_22.html) |
 | Sysmon | 7 | ImageLoaded | WinSCard.dll, cryptdll.dll, hid.dll, samlib.dll, vaultcli.dll, WMINet_Utils.dll (Optional) | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for.html) |
 
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| Mimikatz | Sysmon configuration | [T1003\_mimikatz\_inmem.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1003_mimikatzinmem.xml)
+|  Audit Sensitive Privilege Use | You will need to enable an Audit Policy of Privilege Use Category -> Sub-category Audit Sensitive Privilege Use | [Microsoft](https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4673#security-monitoring-recommendations) |
 
-## Atomic Sysmon Configuration
-[T1003_mimikatz_inmem.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1003_mimikatzinmem.xml)
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Anomaly/Outlier | target\_process\_name = "lsass.exe" AND process\_granted\_access = "*" COUNT BY process\_name  | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/c0bf44fb8c527f6e678c4ff1321814108e024315/detection_data_model/data_objects/process.md) |
+
 
 
 ## Hunter Notes
@@ -50,19 +77,19 @@ Adversaries might be executing Mimikatz in memory with the help of PowerShell in
 
 | module | OpenProcess caller function | destination process / destination service | ACCESS\_MASK | ACCESS_MASK translated | comment |
 |---------|---------|---------|---------|---------|---------|
-| lsadump::lsa /patch | kuhl_m_lsadump_lsa_getHandle() | SamSs | PROCESS_VM_READ \| PROCESS_VM_WRITE \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION | 0x1438 |
-| lsadump::lsa /inject | kuhl_m_lsadump_lsa_getHandle() | SamSs | PROCESS_VM_READ \| PROCESS_VM_WRITE  \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION \| PROCESS_CREATE_THREAD | 0x143a |
-| lsadump::trust /patch | kuhl_m_lsadump_lsa_getHandle() | SamSs | PROCESS_VM_READ \| PROCESS_VM_WRITE \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION| 0x1438 |
-| minesweeper::infos | kuhl_m_minesweeper_infos() | minesweeper.exe | PROCESS_VM_READ \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION | 0x1418 |
-| misc:detours | kuhl_m_misc_detours_callback_process() | * |GENERIC_READ | |omitted because of the very generic ACCESS_MASK |
-| misc:memssp |  kuhl_m_misc_memssp() | lsass.exe | PROCESS_VM_READ \| PROCESS_VM_WRITE \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION | 0x1438 |
-| process::suspend, process:stop, process:resume,process:imports, process:exports |kuhl_m_process_genericOperation()|||| omitted because of the very generic ACCESS_MASKs|
-| vault::cred /patch|  kuhl_m_vault_cred() | SamSs | PROCESS_VM_READ \| PROCESS_VM_WRITE \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION | 0x1438 | |
-| token::list, token::elevate, token::run | querying all processes on the system |*||first 0x1400 then 0x40| all three commands result in a call to kull_m_token_getTokens() which first iterates over **all** processes and threads with OpenProcess(PROCESS_QUERY_INFORMATION (0x1400)) (kull_m_token_getTokens_process_callback()) and then again to get the tokens OpenProcess(PROCESS_DUP_HANDLE (0x40)) (in kull_m_handle_getHandlesOfType_callback()) to duplicate the Tokens. This resultet in many thousand (!) Events with ID 10 (!)|
-| crypto::cng | kull_m_patch_genericProcessOrServiceFromBuild() via  kuhl_m_crypto_p_cng() |KeyIso | PROCESS_VM_READ \| PROCESS_VM_WRITE \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION | 0x1438 | |
-| event::drop | kull_m_patch_genericProcessOrServiceFromBuild() via  kuhl_m_event_drop() | EventLog | PROCESS_VM_READ \| PROCESS_VM_WRITE \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION | 0x1438 | ** this event does not get logged! :O mimikatz seems to be fast enough to apply the patch before the event gets logged!**|
-| misc::ncroutemon | kull_m_patch_genericProcessOrServiceFromBuild() via  kuhl_m_misc_ncroutemon() | dsNcService| PROCESS_VM_READ \| PROCESS_VM_WRITE \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION | 0x1438 | |
-| ts::multirdp| kull_m_patch_genericProcessOrServiceFromBuild() via  kuhl_m_ts_multirdp() | TermService | PROCESS_VM_READ \| PROCESS_VM_WRITE \| PROCESS_VM_OPERATION \| PROCESS_QUERY_INFORMATION | 0x1438 | 
+| lsadump::lsa /patch | kuhl\_m\_lsadump\_lsa\_getHandle() | SamSs | PROCESS\_VM\_READ \| PROCESS\_VM_WRITE \| PROCESS\_VM\_OPERATION \| PROCESS\_QUERY\_INFORMATION | 0x1438 |
+| lsadump::lsa /inject | kuhl\_m\_lsadump\_lsa\_getHandle() | SamSs | PROCESS\_VM\_READ \| PROCESS\_VM\_WRITE  \| PROCESS\_VM\_OPERATION \| PROCESS\_QUERY\_INFORMATION \| PROCESS\_CREATE\_THREAD | 0x143a |
+| lsadump::trust /patch | kuhl_m_lsadump_lsa_getHandle() | SamSs | PROCESS_VM_READ \| PROCESS\_VM\_WRITE \| PROCESS\_VM\_OPERATION \| PROCESS\_QUERY\_INFORMATION| 0x1438 |
+| minesweeper::infos | kuhl\_m\_minesweeper\_infos() | minesweeper.exe | PROCESS\_VM\_READ \| PROCESS\_VM\_OPERATION \| PROCESS\_QUERY\_INFORMATION | 0x1418 |
+| misc:detours | kuhl\_m\_misc\_detours\_callback\_process() | * |GENERIC\_READ | |omitted because of the very generic ACCESS_MASK |
+| misc:memssp |  kuhl\_m\_misc\_memssp() | lsass.exe | PROCESS\_VM\_READ \| PROCESS\_VM\_WRITE \| PROCESS\_VM\_OPERATION \| PROCESS\_QUERY\_INFORMATION | 0x1438 |
+| process::suspend, process:stop, process:resume,process:imports, process:exports |kuhl\_m\_process\_genericOperation()|||| omitted because of the very generic ACCESS_MASKs|
+| vault::cred /patch|  kuhl\_m\_vault\_cred() | SamSs | PROCESS\_VM\_READ \| PROCESS\_VM\_WRITE \| PROCESS\_VM\_OPERATION \| PROCESS\_QUERY\_INFORMATION | 0x1438 | |
+| token::list, token::elevate, token::run | querying all processes on the system |*||first 0x1400 then 0x40| all three commands result in a call to kull\_m\_token\_getTokens() which first iterates over **all** processes and threads with OpenProcess(PROCESS\_QUERY\_INFORMATION (0x1400)) (kull\_m\_token\_getTokens\_process\_callback()) and then again to get the tokens OpenProcess(PROCESS\_DUP\_HANDLE (0x40)) (in kull\_m\_handle\_getHandlesOfType_callback()) to duplicate the Tokens. This results in many thousand (!) Events with ID 10 (!)|
+| crypto::cng | kull\_m\_patch\_genericProcessOrServiceFromBuild() via  kuhl\_m\_crypto\_p\_cng() |KeyIso | PROCESS\_VM\_READ \| PROCESS\_VM\_WRITE \| PROCESS\_VM\_OPERATION \| PROCESS\_QUERY\_INFORMATION | 0x1438 | |
+| event::drop | kull\_m\_patch\_genericProcessOrServiceFromBuild() via  kuhl\_m\_event\_drop() | EventLog | PROCESS\_VM\_READ \| PROCESS\_VM\_WRITE \| PROCESS\_VM\_OPERATION \| PROCESS\_QUERY\_INFORMATION | 0x1438 | ** this event does not get logged! :O mimikatz seems to be fast enough to apply the patch before the event gets logged!**|
+| misc::ncroutemon | kull\_m\_patch\_genericProcessOrServiceFromBuild() via  kuhl\_m\_misc\_ncroutemon() | dsNcService| PROCESS\_VM\_READ \| PROCESS\_VM\_WRITE \| PROCESS\_VM\_OPERATION \| PROCESS\_QUERY\_INFORMATION | 0x1438 | |
+| ts::multirdp| kull\_m\_patch\_genericProcessOrServiceFromBuild() via  kuhl\_m\_ts\_multirdp() | TermService | PROCESS\_VM\_READ \| PROCESS\_VM\_WRITE \| PROCESS\_VM\_OPERATION \| PROCESS\_QUERY\_INFORMATION | 0x1438 | 
 
 * You could use a stack counting technique to stack all the values of the permissions invoked by processes accessing Lsass.exe. You will have to do some filtering to reduce the number of false positives. You could then group the results with other events such as modules being loaded (EID 7). A time window of 1-2 seconds could help to get to a reasonable number of events for analysis.
 
