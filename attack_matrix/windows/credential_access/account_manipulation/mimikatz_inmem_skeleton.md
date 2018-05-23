@@ -50,7 +50,7 @@ Adversaries might be injecting a skeleton key into LSASS on Domain Controllers b
 |Process Monitoring| Security | 4688 | Process creation | 
 |PowerShell Logs| PowerShell | 4103 | Module Logging |
 |PowerShell Logs| PowerShell | 4104 | Script-Block Logging |
-
+|Sensitive Privilege Use| Windows Security Auditing | 4673 | Audit Sensitive Privilege Use |
 ## Specific Events
 
 | Source | EventID | EventFields | Details | Reference | 
@@ -68,6 +68,7 @@ Adversaries might be injecting a skeleton key into LSASS on Domain Controllers b
 | Title | Description | Reference|
 |---------|---------|---------|
 | Mimikatz in memory skeleton key | Sysmon configuration | [T1098\_mimikatz\_inmem.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1098_mimikatz_inmem.xml)
+|  Audit Sensitive Privilege Use | You will need to enable an Audit Policy of Privilege Use Category -> Sub-category Audit Sensitive Privilege Use | [Microsoft](https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4673#security-monitoring-recommendations) |
 
 
 ## Data Analytics 
