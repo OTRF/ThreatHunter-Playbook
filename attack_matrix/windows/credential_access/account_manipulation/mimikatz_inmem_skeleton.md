@@ -42,15 +42,15 @@ Adversaries might be injecting a skeleton key into LSASS on Domain Controllers b
 
 ## Recommended Data Sources
 
-| ATT&CK Data Source | Event Log | Event ID| Description |
-|---------|---------|---------|--------------|
-|Process Monitoring| Sysmon | 10 | Process access | 
-|Process Monitoring| Sysmon | 1 | Process creation |
-|Process Monitoring| Sysmon | 7 | Image Loaded
-|Process Monitoring| Security | 4688 | Process creation | 
-|PowerShell Logs| PowerShell | 4103 | Module Logging |
-|PowerShell Logs| PowerShell | 4104 | Script-Block Logging |
-|Sensitive Privilege Use| Windows Security Auditing | 4673 | Audit Sensitive Privilege Use |
+| ATT&CK Data Source | Event Log | Description |
+|---------|---------|---------|
+|Process Monitoring| Sysmon | Process access | 
+|Process Monitoring| Sysmon |Process creation |
+|Process Monitoring| Sysmon |Image Loaded
+|Process Monitoring| Security |Process creation | 
+|PowerShell Logs| PowerShell |Module Logging |
+|PowerShell Logs| PowerShell |Script-Block Logging |
+|Sensitive Privilege Use| Windows Security Auditing |Audit Sensitive Privilege Use |
 ## Specific Events
 
 | Source | EventID | EventFields | Details | Reference | 
