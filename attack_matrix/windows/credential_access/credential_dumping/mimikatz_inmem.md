@@ -30,13 +30,13 @@ Adversaries might be executing Mimikatz in memory with the help of PowerShell in
 
 ## Recommended Data Sources
 
-| ATT&CK Data Source | Event Log | Event ID| Description |
-|---------|---------|---------|--------------|
-|Process Monitoring| Sysmon | 10 | Process access | 
-|Process Monitoring| Sysmon | 7 | Image Loaded
-|PowerShell Logs| PowerShell | 4103 | Module Logging |
-|PowerShell Logs| PowerShell | 4104 | Script-Block Logging |
-|Sensitive Privilege Use| Windows Security Auditing | 4673 | Audit Sensitive Privilege Use |
+| ATT&CK Data Source | Event Log | Description |
+|---------|---------|---------|
+|Process Monitoring| Sysmon | Process access | 
+|Process Monitoring| Sysmon | Image Loaded
+|PowerShell Logs| PowerShell | Module Logging |
+|PowerShell Logs| PowerShell | Script-Block Logging |
+|Sensitive Privilege Use| Windows Security Auditing |Audit Sensitive Privilege Use |
 
 ## Specific Events
 
