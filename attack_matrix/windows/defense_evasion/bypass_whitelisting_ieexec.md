@@ -11,7 +11,21 @@ The IEExec.exe application is an undocumented Microsoft .NET Framework applicati
 Adversaries might be bypassing application whitelisting controls within my organization by levaring IEExec.exe to execute remote malicious binaries and caspol.exe to disable code access security.  
 
 
-## Events
+## Attack Simulation
+
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| [IEExec.exe](https://room362.com/post/2014/2014-01-16-application-whitelist-bypass-using-ieexec-dot-exe/)| Common technique to bypass AppLocker and other application whitelisting controls | [Casey Smith](https://room362.com/post/2014/2014-01-16-application-whitelist-bypass-using-ieexec-dot-exe/) |
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Process Monitoring| Sysmon|
+|Process Monitoring| WinEvent| 
+|Windows Registry| Sysmon|
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
@@ -30,8 +44,17 @@ Adversaries might be bypassing application whitelisting controls within my organ
 | Sysmon | 3 | DestinationIP | NOT Whitelisted IPs | [Cyb3rWard0g](https://twitter.com/Cyb3rWard0g) |
 
 
-## Atomic Sysmon Configuration
-[T0000_ieexec.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_ieexec.xml)
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| IEExec | Sysmon Configuration | [T0000_ieexec.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_ieexec.xml)|
+| Microsoft Applocker | Application Whitelisting Using Microsoft AppLocker | [IAD](https://www.iad.gov/iad/library/ia-guidance/tech-briefs/application-whitelisting-using-microsoft-applocker.cfm)
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Situational Awareness |  (process\_name = "caspol.exe" AND process\_command\_line = "*") OR (process\_name = "IEExec.exe" AND dst_ip = "\*")   | [ip](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/ip.md), [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 
 ## Hunter Notes

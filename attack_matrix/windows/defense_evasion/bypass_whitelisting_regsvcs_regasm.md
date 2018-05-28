@@ -1,4 +1,4 @@
-# Bypassing Application Whitelisting with Regsvr32.exe
+# Bypassing Application Whitelisting with Regsvcs/Regasm
 ## Technique ID
 T1121
 
@@ -12,8 +12,21 @@ Adversaries can use Regsvcs and Regasm to proxy execution of code through a trus
 ## Hypothesis
 Adversaries might be bypassing our application whitelisting controls by using Regsvcs and Regasm in order to execute malicious binaries or scripts within my environment.
 
+## Attack Simulation
 
-## Events
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| [Regsvcs / Regasm](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Execution/RegsvcsRegasm.md)| Both utilities may be used to bypass process whitelisting.  | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Execution/RegsvcsRegasm.md) |
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Process Monitoring| Sysmon|
+|Process Monitoring|WinEvent| 
+
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
@@ -21,8 +34,17 @@ Adversaries might be bypassing our application whitelisting controls by using Re
 | WinEvent | 1 | Image OR ParentImage | *regsvcs.exe OR *regasm.exe | [RedCanary-AtomicRedTeam](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Execution/RegsvcsRegasm.md) |
 
 
-## Atomic Sysmon Configuration
-[T1121_regsvcs_regasm.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1121_regsvcs_regasm.xml)
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| Regsvcs / Regasm | Sysmon Configuration | [T1121_regsvcs_regasm.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1121_regsvcs_regasm.xml)
+
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Situational Awareness|  process\_parent\_name = "regsvcs.exe OR process\_parent\_name = regasm.exe WHERE process\_name = "*"  | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 
 ## Hunter Notes
