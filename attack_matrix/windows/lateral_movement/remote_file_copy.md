@@ -10,18 +10,43 @@ Files may be copied from one system to another to stage adversary tools or other
 ## Hypothesis
 Adversaries are copying files to $ shares via the command line to facilitate lateral movement.
 
+## Attack Simulation
 
-## Events
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| \[TBD](TBD)| TBD | \[TBD\](TBD) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+| Process Monitoring|Sysmon|
+| Process Monitoring|WinEvent| 
+|File Monitoring|Sysmon|
+|Object Audit Access (File Share) | Winevent (Security)
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
 | WinEvent | 5145 | ObjectType | File | [Jack Crook](https://t.co/HSykx8LC6V) |
-| WinEvent | 5145 | ShareName | *$ | [Jack Crook](https://t.co/HSykx8LC6V) |
+| WinEvent | 5145 | ShareName | *\$ | [Jack Crook](https://t.co/HSykx8LC6V) |
 | WinEvent | 5145 | AccessMask | 0x1000180 OR 0x80 OR 0x130197 | [Jack Crook](https://t.co/HSykx8LC6V) |
 
 
-## Atomic Sysmon Configuration
-None
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| Audit File Share |Audit File Share allows you to audit events related to file shares: creation, deletion, modification, and access attempts. | [Audit File Share](https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/audit-file-share)
+
+
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Situational Awareness |  event\_id = "5145" object\_type = "File" share\_name = "*$" AND access\_mask = "0x10018" OR access\_mask = "0x80" OR access\_mask = "0x130197" WHERE src\_host\_name = "\*" | [ip](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/ip.md) | 
+
 
 
 ## Hunter Notes

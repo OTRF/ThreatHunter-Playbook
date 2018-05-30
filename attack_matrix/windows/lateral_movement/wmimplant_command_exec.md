@@ -10,8 +10,23 @@ A PowerShell based tool that leverages WMI to both perform actions against targe
 ## Hypothesis
 Adversaries might be executing WMImplant in my environment in order to facilitate lateral movement by running commands remotely with compromised credentials.
 
+## Attack Simulation
 
-## Events
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| \[TBD\](TBD)| TBD | \[TBD\](TBD) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Process Monitoring|Sysmon|
+|Process Monitoring|WinEvent| 
+
+
+## Specific Events
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|--------|-----------| 
 | Sysmon | 1 | ParentImage | wmiprvse.exe | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_26.html) |
@@ -21,9 +36,18 @@ Adversaries might be executing WMImplant in my environment in order to facilitat
 | Sysmon | 13 | Details | 'Win32_OSRecoveryConfiguration', 'DebugFilePath' | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_26.html) |
 | Sysmon | 17, 18 | PipeName | \<Anonymous Pipes\> | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_26.html) |
 
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| WMImplant | Sysmon Configuration | [T0000\_wmimplant.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_wmimplant.xml)
 
-## Atomic Sysmon Configuration
-[T0000_wmimplant.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_wmimplant.xml)
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Situational Awareness |  parent\_process\_name = "wmiprvse.exe" AND pipe\_name = "Anonymous Pipes" WHERE event\_id = "17" OR event\_id = "18" AND count = "=>2" | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md)| 
+
 
 
 ## Hunter Notes

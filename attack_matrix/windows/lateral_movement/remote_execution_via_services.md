@@ -1,6 +1,6 @@
 # Remote Execution of Code via Services
 ## Technique ID
-T0000_remote_execution_services
+T0000\_remote\_execution\_services
 
 
 ## Description
@@ -11,7 +11,26 @@ There are several ways to cause code to execute on a remote host. One of the mos
 Adversaries are leveraging SCM capabilities to authorize remote creation and modification of services to move laterally within my network.
 
 
-## Events
+## Attack Simulation
+
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| \[TBD\](TBD)| TBD | \[TBD\](TBD) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+| Process Monitoring|Sysmon|
+| Process Monitoring|WinEvent| 
+|Authentication Logs|WinEvent |
+
+
+
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
@@ -46,9 +65,19 @@ Adversaries are leveraging SCM capabilities to authorize remote creation and mod
 | Sysmon | 12 | EventType | DeleteKey | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for_11.html) |
 | Sysmon | 12 | TargetObject | "HKLM\\System\\CurrentControlSet\\services\\[New Service]" | [Cyb3rWard0g](https://cyberwardog.blogspot.com/2017/04/chronicles-of-threat-hunter-hunting-for_11.html) |
 
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| remote execution services | Sysmon Configuration | [T0000\_remote\_execution\_services.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_remote_execution_services.xml)
 
-## Atomic Sysmon Configuration
-[T0000_remote_execution_services.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_remote_execution_services.xml)
+
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+|  Anomaly/Outlier |  TBD  | TBD| 
+
 
 
 ## Hunter Notes
