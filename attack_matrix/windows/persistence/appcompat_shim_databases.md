@@ -14,8 +14,26 @@ possible solutions. These solutions are released in the form of a Shim Database 
 ## Hypothesis
 Adversaries might be abusing features of the Application Compatability infrastructure and installing/registering shim databases to maintain persistence in my environment.
 
+## Attack Simulation
 
-## Events
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| [Application Shimming](https://github.com/redcanaryco/atomic-red-team/blob/c2b3901c2865ed67adea53f38cf8f0d0bdb5da0e/atomics/T1138/T1138.md#atomic-test-1---application-shim-installation)| This test injects a DLL into a custom application | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/c2b3901c2865ed67adea53f38cf8f0d0bdb5da0e/atomics/T1138/T1138.md#atomic-test-1---application-shim-installation) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Process Monitoring|Sysmon|
+|Process Monitoring|WinEvent| 
+|Registry Monitoring|Sysmon|
+
+
+
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
@@ -26,10 +44,17 @@ Adversaries might be abusing features of the Application Compatability infrastru
 | Sysmon | 13 | TargetObject | "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\InstalledSDB" AND ("DatabaseDescription" OR "DatabaseType" OR "DatabaseDescription" OR "DatabasePath") | [Matthew McWhirt, Jon Erickson, DJ Palombo](https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html) |
 | Sysmon | 11 | TargetFilename | “C:\Windows\AppPatch\Custom” OR “C:\Windows\AppPatch\Custom64” | [Matthew McWhirt, Jon Erickson, DJ Palombo](https://www.fireeye.com/blog/threat-research/2017/05/fin7-shim-databases-persistence.html) |
 
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| appcompat | Sysmon configuration| [T1138\_appcompat.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1138_appcompat.xml)
 
-## Atomic Sysmon Configuration
-[T1138_appcompat.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1138_appcompat.xml)
 
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Anomaly/Outlier | process\_name = "sdbinst.exe" WHERE process\_command\_line = "*.sdb"  | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 ## Hunter Notes
 * Monitor for new shim database files created in the default shim database directories of “C:\Windows\AppPatch\Custom” and “C:\Windows\AppPatch\Custom\Custom64”

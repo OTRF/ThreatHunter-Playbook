@@ -1,6 +1,6 @@
 # Windows DNS Server dll injection via RPC (DnssrvOperation2)
 ## Technique ID
-T0000_dns_serverdll_injection
+T0000\_dns\_serverdll\_injection
 
 
 ## Description
@@ -17,8 +17,24 @@ Adversaries might be abusing DNSAdmin privileges to escalate privileges to
 Domain Admin and achieve persistence by loading arbitary dlls as plugins into
 the DNS service in my environment.
 
+## Attack Simulation
 
-## Events (dnscmd execution)
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| \[TBD\](TBD)| TBD | \[TBD\](TBD) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Registry Monitoring| Sysmon|
+|DNS Logs|Microsoft-Windows-DNSServer|
+|Process Monitoring|Sysmon
+
+
+## Specific Events (dnscmd execution)
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
@@ -28,7 +44,7 @@ the DNS service in my environment.
 | Microsoft-Windows-DNSServer | 541 | Data Name="NewValue" | \\192.168.0.149\dll\wtf.dll (**case insensitive**), parameter to the /serverlevelplugindll command as executed by the attacker | detailed event log: [dim0x69](https://blog.3or.de/hunting-dns-server-level-plugin-dll-injection.html) |
 
 
-## Events (DNS service restarted)
+## Specific Events (DNS service restarted)
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
 | DNS Server | 771 | | Event gets logged when a dll plugin is loaded by the DNS service |detailed event log: [dim0x69](https://blog.3or.de/hunting-dns-server-level-plugin-dll-injection.html) |
@@ -37,15 +53,22 @@ the DNS service in my environment.
 | Sysmon | 7 | ImageLoaded | icmp.dll, oleauth32.dll, wtf.dll (specified plugin dll) | details: [dim0x69](https://blog.3or.de/hunting-dns-server-level-plugin-dll-injection.html) |
 
 
-## Events (when loading the dll failed)
+## Specific Events (when loading the dll failed)
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
 | DNS Server | 150 | EventData Name="DNS_EVENT_PLUGIN_INIT_FAILED" | |detailed event log: [dim0x69](https://blog.3or.de/hunting-dns-server-level-plugin-dll-injection.html) |
 | DNS Server | 150 | Name="param1" \\192.168.0.149\dll\wtf.dll" | | detailed event log: [dim0x69](https://blog.3or.de/hunting-dns-server-level-plugin-dll-injection.html) |
 
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| dns\_serverdll\_injection | Sysmon configuration| [T0000\_dns\_serverdll\_injection.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_dns_serverdll_injection.xml)
 
-## Atomic Sysmon Configuration
-[T0000_dns_serverdll_injection.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_dns_serverdll_injection.xml)
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Behavioral Analytics|  TBD | [TBD]\(TBD\) | 
 
 
 ## Hunter Notes
