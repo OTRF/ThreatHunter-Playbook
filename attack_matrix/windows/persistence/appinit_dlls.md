@@ -10,8 +10,23 @@ DLLs that are specified in the AppInit_DLLs value in the Registry key HKEY_LOCAL
 ## Hypothesis
 Adversaries are using the AppInit_DLL functionality in my environment to achieve persistence.
 
+## Attack Simulation
 
-## Events
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| [AppInit\_DLL](https://github.com/redcanaryco/atomic-red-team/blob/225f39bbb5799fba6b8e8bdada152dd178bf2174/atomics/T1103/T1103.md#atomic-test-1---install-appinit-shim)| AppInit\_DLLs is a mechanism that allows an arbitrary list of DLLs to be loaded into each user mode process on the system.| [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/225f39bbb5799fba6b8e8bdada152dd178bf2174/atomics/T1103/T1103.md#atomic-test-1---install-appinit-shim) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Registry Monitoring| Sysmon |
+
+
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
@@ -20,9 +35,18 @@ Adversaries are using the AppInit_DLL functionality in my environment to achieve
 | Sysmon | 13 | TargetObject | HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows\\LoadAppInit_DLLs | [Eric Merritt](https://www.trustwave.com/Resources/SpiderLabs-Blog/Shining-the-Spotlight-on-Cherry-Picker-PoS-Malware/) |
 | Sysmon | 13 | Details | DWORD (0x00000001) (If it is not already enabled) | [Eric Merritt](https://www.trustwave.com/Resources/SpiderLabs-Blog/Shining-the-Spotlight-on-Cherry-Picker-PoS-Malware/) |
 
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| appinit\_dlls | Sysmon configuration | [TT1103_appinit_dlls.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/TT1103_appinit_dlls.xml)
 
-## Atomic Sysmon Configuration
-[TT1103_appinit_dlls.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/TT1103_appinit_dlls.xml)
+
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Anomaly/Outlier |  TBD  | [registry]\(TBD\) |
 
 
 ## Hunter Notes

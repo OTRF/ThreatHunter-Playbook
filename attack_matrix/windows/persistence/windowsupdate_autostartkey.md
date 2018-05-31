@@ -1,6 +1,6 @@
 # Windows Update Service AutoStart Key
 ## Technique ID
-T0000_windowsupdate_autostart
+T0000\_windowsupdate\_autostart
 
 
 ## Description
@@ -27,8 +27,23 @@ HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Setup\ServiceStartu
 ## Hypothesis
 Adversaries might be using the Windows Update Service Autostart key to maintain persistence in my environment.
 
+## Attack Simulation
 
-## Events
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| \[TBD\](TBD)| TBD | \[TBD\](TBD) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Registry Monitoring| Sysmon|
+
+
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
@@ -37,9 +52,18 @@ Adversaries might be using the Windows Update Service Autostart key to maintain 
 | Sysmon | 13 | TargetObject | "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Setup\ServiceStartup" AND CacheFile AND TargetFile | [@hexacorn](http://www.hexacorn.com/blog/2017/03/18/beyond-good-ol-run-key-part-60/) |
 | Sysmon | 13 | Details | *.dll OR *.exe (Basic examples) | [@hexacorn](http://www.hexacorn.com/blog/2017/03/18/beyond-good-ol-run-key-part-60/) |
 
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| windowsupdate\_autostart | Sysmon configuration | [T0000\_windowsupdate\_autostart.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_windowsupdate_autostart.xml)
 
-## Atomic Sysmon Configuration
-[T0000_windowsupdate_autostart.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_windowsupdate_autostart.xml)
+
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Anomaly/Outlier |  TBD  | [registry]\(TBD\) |
 
 
 ## Hunter Notes

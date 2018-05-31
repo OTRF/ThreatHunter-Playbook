@@ -1,6 +1,6 @@
 # Mimikatz Skeleton Key
 ## Technique ID
-T1098_mimikatz_inmem
+T1098
 
 
 ## Description
@@ -32,7 +32,26 @@ Monitoring OpenProcess(): [dim0x69 - blog.3or.de](https://blog.3or.de/hunting-mi
 Adversaries might be injecting a skeleton key into LSASS on Domain Controllers by running Mimikatz withing my organization
 
 
-## Events
+## Attack Simulation
+
+
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| [mimikatz](https://github.com/gentilkiwi/mimikatz)| "misc::skeleton" Inject Skeleton Key into LSASS process on Domain Controller.| [Benjamin Delpy](http://blog.gentilkiwi.com/) |
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log | Description |
+|---------|---------|---------|
+|Process Monitoring| Sysmon | Process access | 
+|Process Monitoring| Sysmon |Process creation |
+|Process Monitoring| Sysmon |Image Loaded
+|Process Monitoring| Security |Process creation | 
+|PowerShell Logs| PowerShell |Module Logging |
+|PowerShell Logs| PowerShell |Script-Block Logging |
+|Sensitive Privilege Use| Windows Security Auditing |Audit Sensitive Privilege Use |
+## Specific Events
 
 | Source | EventID | EventFields | Details | Reference | 
 |--------|---------|-------|--------|-----------| 
@@ -45,9 +64,19 @@ Adversaries might be injecting a skeleton key into LSASS on Domain Controllers b
 | WinEvent | 4673 | ProcessName | lsass.exe | [PyroTek3](https://adsecurity.org/?p=1275) |
 | WinEvent | 4611 | LogonProcessName | ConsentUI | [PyroTek3](https://adsecurity.org/?p=1275) |
 
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| Mimikatz in memory skeleton key | Sysmon configuration | [T1098\_mimikatz\_inmem.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1098_mimikatz_inmem.xml)
+|  Audit Sensitive Privilege Use | You will need to enable an Audit Policy of Privilege Use Category -> Sub-category Audit Sensitive Privilege Use | [Microsoft](https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4673#security-monitoring-recommendations) |
 
-## Atomic Sysmon Configuration
-[T1098_mimikatz_inmem.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1098_mimikatz_inmem.xml)
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Anomaly/Outlier | target\_process\_name = "lsass.exe" AND process\_granted\_access = "0x1438" WHERE image\_loaded\_name = "WinSCard.dll" AND image\_loaded\_name = "cryptdll.dll" AND image\_loaded\_name = "hid.dll" AND image\_loaded\_name = "samlib.dll" AND image\_loaded\_name = "vaultcli.dll" AND image\_loaded\_name = "WMINet_Utils.dll" | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/c0bf44fb8c527f6e678c4ff1321814108e024315/detection_data_model/data_objects/process.md) |
+
 
 
 ## Hunter Notes

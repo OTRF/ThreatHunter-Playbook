@@ -10,17 +10,40 @@ Windows Authentication Package DLLs are loaded by the Local Security Authority (
 ## Hypothesis
 Adversaries are using LSA Authentication Packages to maintain persistence in my environment.
 
+## Attack Simulation
 
-## Events
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| \[TBD\](TBD)| TBD | \[TBD\](TBD) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Registry Monitoring| Sysmon|
+
+
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
 | Sysmon | 13 | TargetObject | HKLM\SYSTEM\CurrentControlSet\Control\Lsa\ | [MITRE](https://attack.mitre.org/wiki/Technique/T1131), [Crysys](http://www.crysys.hu/skywiper/skywiper.pdf) |
 | Sysmon | 13 | Details | "Authentication Packages" * | [MITRE](https://attack.mitre.org/wiki/Technique/T1131), [Crysys](http://www.crysys.hu/skywiper/skywiper.pdf) |
 
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| authentication_package | Sysmon configuration | [T1131_authentication_package.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1131_authentication_package.xml)
 
-## Atomic Sysmon Configuration
-[T1131_authentication_package.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1131_authentication_package.xml)
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+|  Anomaly/Outlier |  event_id = "13" AND details =  ("Authentication Packages" *)  | [registry]\(TBD\) | 
 
 
 ## Hunter Notes

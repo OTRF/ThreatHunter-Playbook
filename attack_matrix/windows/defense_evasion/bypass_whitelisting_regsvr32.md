@@ -10,8 +10,24 @@ Regsvr32.exe is a command-line program used to register and unregister object li
 ## Hypothesis
 Adversaries might be bypassing our application whitelisting controls by using Regsvr32.exe in order to download and execute malicious binaries or scripts.
 
+## Attack Simulation
 
-## Events
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| [Regsvr32](https://github.com/redcanaryco/atomic-red-team/blob/a0bda9537a3486c3a0fa826419772ebcfb8cc619/atomics/T1117/T1117.md)| Local DLL, COM, and Remote COM execution|[atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/a0bda9537a3486c3a0fa826419772ebcfb8cc619/atomics/T1117/T1117.md) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Process Monitoring|Sysmon|
+|Process Monitoring |WinEvent | 
+
+
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
@@ -19,8 +35,18 @@ Adversaries might be bypassing our application whitelisting controls by using Re
 | Sysmon | 1 | CommandLine OR ParentCommandLine | scrobj.dll AND (/s /n /u /i OR /i OR http) | [Cyb3rWard0g](https://twitter.com/Cyb3rWard0g), [Keshia LeVan](https://www.redcanary.com/blog/whitelist-evasion-example-threat-detection-723) |
 
 
-## Atomic Sysmon Configuration
-[T1117_regsvr32.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1117_regsvr32.xml)
+
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| Regsvr32 | Sysmon Configuration | [T1117_regsvr32.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1117_regsvr32.xml)
+
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+|Anomaly/Outlier |  process\_parent\_name = "regsvr32.exe" AND process\_name = "*" | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 
 ## Hunter Notes

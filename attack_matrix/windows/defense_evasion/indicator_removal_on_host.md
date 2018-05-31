@@ -10,8 +10,23 @@ Adversaries may delete or alter generated event files on a host system, includin
 ## Hypothesis
 Adversaries might be deleting event logs using wevutil within my environment.
 
+## Attack Simulation
 
-## Events
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| [Wevutil](https://github.com/redcanaryco/atomic-red-team/blob/16ccafef72580539074b4e92d190a2eed1e74102/atomics/T1070/T1070.md#atomic-test-1---clear--logs)| Uses Windows native wevutil to clear Windows event logs |[atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/16ccafef72580539074b4e92d190a2eed1e74102/atomics/T1070/T1070.md#atomic-test-1---clear--logs) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Process Monitoring| Sysmon |
+| Process Monitoring|WinEvent| 
+
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
@@ -23,9 +38,18 @@ Adversaries might be deleting event logs using wevutil within my environment.
 | Sysmon | 1 | Image | wevutil | [RedCanary-AtomicRedTeam](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Defense%20Evasion/Indicator_Removal_on_Host.md) |
 | Sysmon | 1 | CommandLine | wevutil cl | [RedCanary-AtomicRedTeam](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Defense%20Evasion/Indicator_Removal_on_Host.md) |
 
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| Wevutil | Sysmon Configuration| [T1070_wevutil.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1070_wevutil.xml)
 
-## Atomic Sysmon Configuration
-[T1070_wevutil.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1070_wevutil.xml)
+
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Situational Awareness|  event\_id = "104" OR event\_id = "1102" | <TBD> | 
 
 
 ## Hunter Notes

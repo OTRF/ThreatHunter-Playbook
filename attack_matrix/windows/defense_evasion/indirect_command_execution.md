@@ -13,7 +13,24 @@ Source: [T1202_Indirect\_Command\_Execution](https://attack.mitre.org/wiki/Techn
 ## Hypothesis
 An attacker is using an alternative method to execute code.
 
-## Events
+
+## Attack Simulation
+
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| [forfiles.exe](https://github.com/pwndizzle/CodeExecutionOnWindows)| Forfiles supports the ability to execute commands and seems to be equivalent to cmd. | [pwndizzle](https://github.com/pwndizzle/CodeExecutionOnWindows) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Process Monitoring| Sysmon|
+|Process Monitoring|WinEvent| 
+
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
@@ -29,13 +46,17 @@ An attacker is using an alternative method to execute code.
 
 
  
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| forfiles.exe | [TBD] | \[TBD\]
 
 
+## Data Analytics 
 
-## Atomic Sysmon Configuration
-
-None
-
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Situational Awareness |  process\_parent\_name = "forfiles.exe" WHERE process\_name = "*"  | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 ## Hunter Notes
 * Look at process creations that include or are resulting from parameters associated with invoking programs/commands and/or spawning child processes

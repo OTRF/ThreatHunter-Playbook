@@ -10,8 +10,23 @@ Enumerating users and groups is very useful to an adversary. Knowing usernames a
 ## Hypothesis
 Adversaries are enumerating users and group in the network with the help of net.exe and powershell scripts.
 
+## Attack Simulation
 
-## Events
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| [Net utility](https://github.com/redcanaryco/atomic-red-team/blob/16ccafef72580539074b4e92d190a2eed1e74102/atomics/T1069/T1069.md#atomic-test-1---permission-groups-discovery)| Short description on how an attacker would use the script | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/16ccafef72580539074b4e92d190a2eed1e74102/atomics/T1069/T1069.md#atomic-test-1---permission-groups-discovery) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+| Process Monitoring|WinEvent|
+
+
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|--------|-----------| 
@@ -26,9 +41,19 @@ Adversaries are enumerating users and group in the network with the help of net.
 | WinEvent | 4661 | AccessMask | 0xF01BF (Requestor has Domain Admin Rights) | Cyb3rWard0g |
 | WinEvent | 4661 | AccessMask | 0x20094 (Requestor has Standard Domain User Rights) | Cyb3rWard0g |
 
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| N/A | N/A | \[N/A\](N/A)
 
-## Atomic Sysmon Configuration
-None
+
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Anomaly/Outlier |  event\_id = 4661 AND object\_type = "\*" WHERE access_mask = "\*"  | TBD | 
+
 
 
 ## Hunter Notes

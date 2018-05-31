@@ -1,6 +1,6 @@
 # Disable Password Change
 ## Technique ID
-T0000_disable_password_change
+T0000\_disable\_password\_change
 
 
 ## Description
@@ -10,17 +10,38 @@ Once the attacker has access to the computer account password hash, the account 
 ## Hypothesis
 Attackers might be updating the DisablePasswordChange registry value to 1 in order to ensure that the machine password would never be changed and maintain persistence.
 
+## Attack Simulation
 
-## Events
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| \[TBD\](TBD)| TBD | \[TBD\](TBD) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Registry Monitoring| Sysmon|
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|--------|-----------| 
 | Sysmon | 13 | TargetObject | HKLM\System\CurrentControlSet\services\Netlogon\Parameters\DisablePasswordChange | Cyb3Ward0g |
 | Sysmon | 13 | Details | DWORD (0x00000001) | Cyb3Ward0g |
 
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| disable\_password\_change | Sysmon configuration | [T0000\_disable\_password\_change.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_disable_password_change.xml)
 
-## Atomic Sysmon Configuration
-[T0000_disable_password_change.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_disable_password_change.xml)
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+|  Anomaly/Outlier |  TBD | [registry]\(TBD\) | 
 
 
 ## Hunter Notes

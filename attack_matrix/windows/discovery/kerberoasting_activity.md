@@ -1,6 +1,6 @@
 # Kerberoasting Activity
 ## Technique ID
-T0000_Kerberoasting
+T1208
 
 
 ## Description
@@ -10,8 +10,22 @@ Kerberoasting can be an effective method for extracting service account credenti
 ## Hypothesis
 Adversaries might be obtaining/requesting Kerberos service ticket(s) (TGS) for the Service Princial Name (SPN) of service accounts in my environment.
 
+## Attack Simulation
 
-## Events
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| [Invoke-Kerberoast](Lhttps://github.com/malachitheninja/Invoke-Kerberoast/blob/master/Invoke-Kerberoast.ps1)| Requests service tickets and returns crackable ticket hashes. | [@harmj0y](https://twitter.com/harmj0y) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Windows Event Logs|WinEvent|
+
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
@@ -20,6 +34,18 @@ Adversaries might be obtaining/requesting Kerberos service ticket(s) (TGS) for t
 | WinEvent | 4769 | ClientAddress/IPAddress | NOT ::1 | [Cyb3Ward0g](https://twitter.com/Cyb3rWard0g) |
 | WinEvent | 4769 | ServiceName | NOT *$ | [Cyb3Ward0g](https://twitter.com/Cyb3rWard0g) |
 
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| Audit Kerberos Service Ticket Operations | Events are generated every time Kerberos is used to authenticate a user who wants to access a protected network resource. Kerberos service ticket operation audit events can be used to track user activity. | [Microsoft](https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/audit-kerberos-service-ticket-operations)
+
+
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Anomaly/Outlier |  event\_id = "4769" AND ticket\_encryption\_type = "0x17" WHERE service\_name IS NOT "*$"    | [TBD] | 
 
 ## Atomic Sysmon Configuration
 None

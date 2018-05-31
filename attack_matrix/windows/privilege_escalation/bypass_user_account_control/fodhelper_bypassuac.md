@@ -1,6 +1,6 @@
 # Fodhelper BypassUAC
 ## Technique ID
-T1088_foodhelper
+T1088\_foodhelper
 
 
 ## Description
@@ -17,8 +17,25 @@ Once it finds the last value (DelegateExecute), it executed the contents of the 
 ## Hypothesis
 Adversaries might be leveraging Fodhelper.exe to bypass UAC and elevate privileges within my network.
 
+## Attack Simulation
 
-## Events
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| \[TBD\](TBD)| TBD | \[TBD\](TBD) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Process Monitoring| Sysmon|
+|Registry Monitoring|Sysmon | 
+
+
+
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|--------|-----------| 
@@ -33,8 +50,18 @@ Adversaries might be leveraging Fodhelper.exe to bypass UAC and elevate privileg
 | Sysmon | 13 | Details | Suspicious Strings or images (<base64>, powershell.exe, cmd.exe, etc.) |[Winscripting](https://winscripting.blog/2017/05/12/first-entry-welcome-and-uac-bypass/) |
 
 
-## Atomic Sysmon Configuration
-[T1088_fodhelper.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1088_fodhelper.xml)
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| fodhelper | Sysmon configuration | [T1088\_fodhelper.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1088_fodhelper.xml)
+
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+|  Anomaly/Outlier |  TBD | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md), [registry]\(TBD\) | 
+
 
 
 ## Hunter Notes

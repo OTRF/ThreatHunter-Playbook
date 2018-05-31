@@ -1,6 +1,6 @@
 # EventVwr BypassUAC
 ## Technique ID
-T1088_eventvwr
+T1088\_eventvwr
 
 
 ## Description
@@ -10,8 +10,24 @@ Currently, there are a couple of public UAC bypass techniques, most of which req
 ## Hypothesis
 Adversaries might be leveraging eventvwr.exe to bypass UAC and elevate privileges in the network.
 
+## Attack Simulation
 
-## Events
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| \[TBD\](TBD)| TBD | \[TBD\](TBD) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Process Monitoring| Sysmon |
+|Registry Monitoring|Sysmon| 
+
+
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|--------|-----------| 
@@ -21,9 +37,19 @@ Adversaries might be leveraging eventvwr.exe to bypass UAC and elevate privilege
 | Sysmon | 12, 13 | TargetObject | '\mscfile\shell\open\command\(Default)' | Cyb3rWard0g & MalwareSoup |
 | Sysmon | 13 | Details | Suspicious Strings or images (\<base64\>, powershell.exe, cmd.exe, etc.) | Cyb3rWard0g & MalwareSoup |
 
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| eventvwr | Sysmon configuration | [T1088\_eventvwr.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1088_eventvwr.xml)
 
-## Atomic Sysmon Configuration
-[T1088_eventvwr.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1088_eventvwr.xml)
+
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Anomaly/Outlier |  parent\_process\_name = "*" WHERE process\_name = "eventvwr.exe"  | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
+
 
 
 ## Hunter Notes

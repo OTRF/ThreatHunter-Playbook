@@ -9,7 +9,29 @@ T0001_technique_name
 ## Hypothesis
 
 
-## Events
+
+## Attack Simulation
+
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| \[Link to script\](Link)| Short description on how an attacker would use the script | \[Author Name\](Link) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell |
+|File Monitoring, Process Monitoring, etc..|Sysmon, WinEvent, PowerShell | 
+|File Monitoring, Process Monitoring, etc..|Sysmon, WinEvent, PowerShell |
+|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell | 
+|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell | 
+|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell |
+
+
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
@@ -23,10 +45,19 @@ T0001_technique_name
 | Sysmon, WinEvent, PowerShell | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
 
 
-## Atomic Sysmon Configuration
-\[T0001_technique_name.xml\]\(https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0001_technique_name.xml\)
 
-OR None
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| Name of configuration | Brief description of what the configuration does | \[Author Name\](link)
+
+
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Behavioral Analytics, Situational Awareness, Anomaly/Outlier |  process_name = xxx AND process_command_line=xxx WHERE xxxxx  | Data Objects... | 
 
 
 ## Hunter Notes

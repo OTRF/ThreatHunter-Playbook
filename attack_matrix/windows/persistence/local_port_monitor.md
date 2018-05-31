@@ -10,8 +10,21 @@ A port monitor can be set through the AddMonitor API call to set a DLL to be loa
 ## Hypothesis
 Adversaries are creating persistence in my network by leveraging the process of setting up a local port monitor and executing code at startup. 
 
+## Attack Simulation
 
-## Events
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| \[TBD\](TBD)| TBD | \[TBD\](TBD) |
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|File Monitoring| Sysmon |
+|Registry Monitoring|Sysmon|
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
@@ -20,9 +33,19 @@ Adversaries are creating persistence in my network by leveraging the process of 
 | Sysmon | 13 | Details | Value set to a dll name| [Brady Bloxham](https://www.youtube.com/watch?v=dq2Hv7J9fvk) |
 | Sysmon | 11 | TargetFileName | Pivot from dll in regkey value "Driver" | [Brady Bloxham](https://www.youtube.com/watch?v=dq2Hv7J9fvk) |
 
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| localport\_monitor | Sysmon configuration | [T1013\_localport\_monitor.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/TT1013_localport_monitor.xml)
 
-## Atomic Sysmon Configuration
-[T1013_localport_monitor.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/TT1013_localport_monitor.xml)
+
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Anomaly/Outlier |  TBD  | [file](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/file.md), [registry](TBD) | 
+
 
 
 ## Hunter Notes

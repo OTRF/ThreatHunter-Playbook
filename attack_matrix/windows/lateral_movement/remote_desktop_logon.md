@@ -11,7 +11,26 @@ A remote desktop logon, through RDP, may be typical of a system administrator or
 Adversaries are moving laterally within my network through RDP connections. 
 
 
-## Events
+## Attack Simulation
+
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| [RDP](https://github.com/redcanaryco/atomic-red-team/blob/62ffa6ccef8ec703f1d865d957c2bc895e73440c/atomics/T1076/T1076.md#atomic-test-1---rdp)| Used to hijack a users RDP session | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/62ffa6ccef8ec703f1d865d957c2bc895e73440c/atomics/T1076/T1076.md#atomic-test-1---rdp) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Process Monitoring| Sysmon|
+| Process Monitoring|WinEvent| 
+|Authentication Logs |WinEvent |
+
+
+
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
@@ -26,8 +45,18 @@ Adversaries are moving laterally within my network through RDP connections.
 | Sysmon | 12 | TargetObject | "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services" | Cyb3rWard0g |
 
 
-## Atomic Sysmon Configuration
-[T1076_remote_desktop.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1076_remote_desktop.xml)
+
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| remote desktop | Sysmon configuration | [T1076\_remote\_desktop.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1076_remote_desktop.xml)
+
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Situational Awareness |  event_id = "4624" AND logon_type = "10" WHERE user_name = "Administrator"  | TBD | 
 
 
 ## Hunter Notes

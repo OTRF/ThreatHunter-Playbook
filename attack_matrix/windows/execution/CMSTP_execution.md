@@ -13,22 +13,45 @@ CMSTP.exe can also be abused to Bypass User Account Control and execute arbitrar
 ## Hypothesis
 Use process monitoring to detect and analyze the execution and arguments of CMSTP.exe
 
-## Events
+## Attack Simulation
+
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| [CMSTP](https://github.com/redcanaryco/atomic-red-team/blob/656135067f921075446db0a654cf348972136909/atomics/T1191/T1191.md#atomic-test-1---cmstp-executing-remote-scriptlet)| Execution with INF file containing malicious commands | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/656135067f921075446db0a654cf348972136909/atomics/T1191/T1191.md#atomic-test-1---cmstp-executing-remote-scriptlet) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Process Monitoring| Sysmon |
+|Process Monitoring| WinEvent | 
+
+
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
-| Sysmon | 1 | Image | cmstp.exe | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Execution/CMSTP.md) | 
-|Sysmon | 1 | CommandLine | /s OR /ni /s | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Execution/CMSTP.md) |
-|WinEvent | 4688 | NewProcessName| cmstp.exe | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Execution/CMSTP.md) |
-|WinEvent | 4688 | ProcessCommandLine | /s OR /ni /s | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/master/Windows/Execution/CMSTP.md) |
+| Sysmon | 1 | Image | cmstp.exe | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/656135067f921075446db0a654cf348972136909/atomics/T1191/T1191.md) | 
+|Sysmon | 1 | CommandLine | /s OR /ni /s | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/656135067f921075446db0a654cf348972136909/atomics/T1191/T1191.md) |
+|WinEvent | 4688 | NewProcessName| cmstp.exe | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/656135067f921075446db0a654cf348972136909/atomics/T1191/T1191.md) |
+|WinEvent | 4688 | ProcessCommandLine | /s OR /ni /s | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/656135067f921075446db0a654cf348972136909/atomics/T1191/T1191.md) |
 
  
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| N/A | N/A | \[N/A\](N/A)
 
 
 
-## Atomic Sysmon Configuration
+## Data Analytics 
 
-None
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+|  Anomaly/Outlier |  process\_parent\_name = cmstp.exe AND process\_parent\_command_line = "*" | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 
 ## Hunter Notes
