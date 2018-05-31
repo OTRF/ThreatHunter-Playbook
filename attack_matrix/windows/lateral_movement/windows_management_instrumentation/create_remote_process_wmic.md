@@ -1,6 +1,6 @@
 # Create Remote Process via WMIC
 ## Technique ID
-T0000_wmic_remote
+T1028\_wmic\_remote
 
 
 ## Description
@@ -11,8 +11,26 @@ calling the Win32_ProcessCreate method.[Source](https://www.fireeye.com/content/
 ## Hypothesis
 Adversaries might be using wmic leveraging stolen credentials to perform lateral movement within my environment to create/run a process on a remote host. 
 
+## Attack Simulation
 
-## Events
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| [WMIC Process Call Create](https://github.com/redcanaryco/atomic-red-team/blob/20a447e63de9d5ef836534743c6f8fdef16c5874/atomics/T1028/T1028.md#atomic-test-3---wmic-process-call-create)| Utilize WMIC to start remote process | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/20a447e63de9d5ef836534743c6f8fdef16c5874/atomics/T1028/T1028.md#atomic-test-3---wmic-process-call-create) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Process Monitoring| Sysmon |
+|Process Monitoring| WinEvent| 
+|Process command-line parameters|Sysmon |
+|Authentication logs| WinEvent | 
+
+
+## Specific Events
+
 ### Source Host
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
@@ -40,9 +58,17 @@ Adversaries might be using wmic leveraging stolen credentials to perform lateral
 | Sysmon | 1 | ParentCommandLine | 'C:\Windows\System32\wbem\wmiprvse.exe -secured -Embbeding' | Cyb3rWard0g, [JPCERT](https://www.jpcert.or.jp/english/pub/sr/20170612ac-ir_research_en.pdf) |
 | Sysmon | 1 | User | NOT Local user | Cyb3rWard0g, [JPCERT](https://www.jpcert.or.jp/english/pub/sr/20170612ac-ir_research_en.pdf) |
 
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| wmic remote | Sysmon configuration | [T0000\_wmic\_remote.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_wmic_remote.xml)
 
-## Atomic Sysmon Configuration
-[T0000_wmic_remote.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T0000_wmic_remote.xml)
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+|  Situational Awareness |  parent\_process\_name = "*" AND user_name NOT "local user"| [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md)| 
 
 
 ## Hunter Notes
