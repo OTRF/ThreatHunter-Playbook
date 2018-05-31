@@ -14,7 +14,7 @@ Adversaries are moving laterally within my network through remote PowerShell ses
 
 | Script  | Short Description | Author | 
 |---------|---------|---------|
-| \[Link to script\](Link)| Short description on how an attacker would use the script | \[Author Name\](Link) |
+| [PowerShell lateral movement](https://github.com/redcanaryco/atomic-red-team/blob/20a447e63de9d5ef836534743c6f8fdef16c5874/atomics/T1028/T1028.md#atomic-test-2---powershell-lateral-movement)| Powershell lateral movement using the mmc20 application com object | [atomic-red-team](https://github.com/redcanaryco/atomic-red-team/blob/20a447e63de9d5ef836534743c6f8fdef16c5874/atomics/T1028/T1028.md#atomic-test-2---powershell-lateral-movement) |
 
 
 
