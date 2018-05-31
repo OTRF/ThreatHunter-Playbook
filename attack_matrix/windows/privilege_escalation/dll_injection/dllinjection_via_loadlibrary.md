@@ -1,6 +1,6 @@
 # DLL Injection via LoadLibrary API Call
 ## Technique ID
-T1055_LoadLibrary
+T1055\_LoadLibrary
 
 
 ## Description
@@ -17,16 +17,42 @@ This behavior can be detected by looking for thread creations across processes, 
 ## Hypothesis
 Adversaries are moving laterally within my network through remote PowerShell sessions. 
 
+## Attack Simulation
 
-## Events
+| Script  | Short Description | Author | 
+|---------|---------|---------|
+| \[TBD\](TBD)| TBD | \[TBD\](TBD) |
+
+
+
+## Recommended Data Sources
+
+| ATT&CK Data Source | Event Log |
+|---------|---------|
+|Process Monitoring| Sysmon|
+
+
+
+
+## Specific Events
 
 | Source | EventID | EventField | Details | Reference | 
 |--------|---------|-------|---------|-----------| 
 | Sysmon | 8 | StartFunction | "LoadLibraryA" OR "LoadLibraryW" | [MITRE CAR](https://car.mitre.org/wiki/CAR-2013-10-002) |
 
 
-## Atomic Sysmon Configuration
-[T1055_LoadLibrary.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1055_LoadLibrary.xml)
+## Recommended Configuration(s)
+| Title | Description | Reference|
+|---------|---------|---------|
+| LoadLibrary | Sysmon Configuration |[T1055\_LoadLibrary.xml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/blob/master/attack_matrix/windows/sysmon_configs/T1055_LoadLibrary.xml)
+
+
+
+## Data Analytics 
+
+| Analytic Type  | Analytic Logic | Analytic Data Object |
+|--------|---------|---------|
+| Situational Awareness |  event_id = "8"   | [TBD]\(TBD)| 
 
 
 ## Hunter Notes
