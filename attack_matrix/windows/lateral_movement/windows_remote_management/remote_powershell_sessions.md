@@ -44,7 +44,7 @@ Adversaries are moving laterally within my network through remote PowerShell ses
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-|  Situational Awareness |  process\_name = "wsmprovhost.exe" COUNT BY dst\_host\_name | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md), [ip](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/ip.md) | 
+|  Situational Awareness | process WHERE process\_name == "wsmprovhost.exe" COUNT BY network WHERE dst\_host\_name == "*"| [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md), [ip](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/ip.md) | 
 
 
 
