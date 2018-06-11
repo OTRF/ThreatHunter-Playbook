@@ -56,7 +56,7 @@ An attacker is using an alternative method to execute code.
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Situational Awareness |  process\_parent\_name = "forfiles.exe" WHERE process\_name = "*"  | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
+| Situational Awareness | process WHERE process\_parent\_name == "forfiles.exe" AND process\_name == "*"  | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 ## Hunter Notes
 * Look at process creations that include or are resulting from parameters associated with invoking programs/commands and/or spawning child processes

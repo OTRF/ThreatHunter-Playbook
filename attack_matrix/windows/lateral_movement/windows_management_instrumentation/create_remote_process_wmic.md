@@ -68,7 +68,7 @@ Adversaries might be using wmic leveraging stolen credentials to perform lateral
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-|  Situational Awareness |  parent\_process\_name = "*" AND user_name NOT "local user"| [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md)| 
+|  Situational Awareness | process WHERE parent\_process\_name == "*" AND user_name NOT "local user"| [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md)| 
 
 
 ## Hunter Notes

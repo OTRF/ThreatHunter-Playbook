@@ -39,7 +39,7 @@ Adversaries might be using odbcconf.exe to load/register dlls and bypass applica
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Situational Awareness |  process\_name = "odbconf.exe" AND process\_command\_line= "*"  | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
+| Situational Awareness | process WHERE process\_name == "odbconf.exe" AND process\_command\_line == "*"  | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 ## Hunter Notes
 * Subtee talked about adding confusion to command line auditing since this binary can simply register a dll and mimic, for example, powershell functionality and execute commands under a different process name or context. However, the initial registration of the arbitrary binary is what we would focus with this basic combination of events.

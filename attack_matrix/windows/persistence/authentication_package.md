@@ -43,7 +43,7 @@ Adversaries are using LSA Authentication Packages to maintain persistence in my 
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-|  Anomaly/Outlier |  event_id = "13" AND details =  ("Authentication Packages" *)  | [registry]\(TBD\) | 
+|  Anomaly/Outlier |  event WHERE event_id == "13" AND details ==  ("Authentication Packages" *)  | [registry]\(TBD\) | 
 
 
 ## Hunter Notes

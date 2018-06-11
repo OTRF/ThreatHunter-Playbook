@@ -51,7 +51,7 @@ Use process monitoring to detect and analyze the execution and arguments of CMST
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-|  Anomaly/Outlier |  process\_parent\_name = cmstp.exe AND process\_parent\_command_line = "*" | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
+|  Anomaly/Outlier |  process WHERE process\_parent\_name == "cmstp.exe" AND process\_parent\_command_line == "*" | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 
 ## Hunter Notes

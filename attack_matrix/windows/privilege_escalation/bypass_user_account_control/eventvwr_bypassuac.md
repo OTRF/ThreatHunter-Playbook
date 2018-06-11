@@ -48,7 +48,7 @@ Adversaries might be leveraging eventvwr.exe to bypass UAC and elevate privilege
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Anomaly/Outlier |  parent\_process\_name = "*" WHERE process\_name = "eventvwr.exe"  | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
+| Anomaly/Outlier |  process WHERE parent\_process\_name == "*" AND process\_name == "eventvwr.exe"  | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 
 

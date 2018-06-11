@@ -56,7 +56,7 @@ Adversaries are moving laterally within my network through RDP connections.
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Situational Awareness |  event_id = "4624" AND logon_type = "10" WHERE user_name = "Administrator"  | TBD | 
+| Situational Awareness | event WHERE event_id == "4624" AND logon_type == "10" AND user_name == "Administrator"  | TBD | 
 
 
 ## Hunter Notes

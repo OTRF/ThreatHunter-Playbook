@@ -44,7 +44,7 @@ Adversaries might be evading detection by "blending" into the environment by mim
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Anomaly/Outlier |  process\_parent\_name = "\*" OR process\_command\_line = "\*" WHERE process\_name = "*" | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
+| Anomaly/Outlier |  process WHERE process\_parent\_name == "\*" OR process\_command\_line == "\*" AND process\_name == "*" | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 
 ## Hunter Notes

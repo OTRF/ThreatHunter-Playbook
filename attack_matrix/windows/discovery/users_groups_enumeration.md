@@ -52,7 +52,7 @@ Adversaries are enumerating users and group in the network with the help of net.
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Anomaly/Outlier |  event\_id = 4661 AND object\_type = "\*" WHERE access_mask = "\*"  | TBD | 
+| Anomaly/Outlier |  event WHERE event\_id == 4661 AND object\_type == "\*" AND access_mask == "\*"  | TBD | 
 
 
 

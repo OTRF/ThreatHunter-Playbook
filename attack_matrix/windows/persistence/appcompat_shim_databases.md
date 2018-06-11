@@ -54,7 +54,7 @@ Adversaries might be abusing features of the Application Compatability infrastru
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Anomaly/Outlier | process\_name = "sdbinst.exe" WHERE process\_command\_line = "*.sdb"  | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
+| Anomaly/Outlier | process WHERE process\_name == "sdbinst.exe" AND process\_command\_line == "*.sdb"  | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 ## Hunter Notes
 * Monitor for new shim database files created in the default shim database directories of “C:\Windows\AppPatch\Custom” and “C:\Windows\AppPatch\Custom\Custom64”

@@ -44,7 +44,7 @@ Adversaries might be bypassing our application whitelisting controls by using Re
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Situational Awareness|  process\_parent\_name = "regsvcs.exe OR process\_parent\_name = regasm.exe WHERE process\_name = "*"  | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
+| Situational Awareness| process WHERE process\_parent\_name == "regsvcs.exe OR process\_parent\_name == regasm.exe AND process\_name = "*"  | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 
 ## Hunter Notes

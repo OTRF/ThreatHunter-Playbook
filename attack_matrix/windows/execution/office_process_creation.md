@@ -46,7 +46,7 @@ Adversaries are likely leveraging malicious Office documents to deliver malware 
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Anomaly/Outlier |  process\_parent\_name = "winword.exe" OR process\_parent\_name = "excel.exe" OR  process\_parent\_name = "powerpnt.exe" WHERE process\_name = "*" | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
+| Anomaly/Outlier |  process WHERE process\_parent\_name == "winword.exe" OR process\_parent\_name == "excel.exe" OR  process\_parent\_name == "powerpnt.exe" AND process\_name == "*" | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 
 

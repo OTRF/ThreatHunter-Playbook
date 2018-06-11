@@ -49,7 +49,7 @@ Adversaries might be leveraging Bitsadmin.exe to download files on compromised s
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Anomaly/Outlier |  process\_parent\_name = "bitsadmin.exe" AND process\_parent\_command_line= "*" | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
+| Anomaly/Outlier | process WHERE process\_parent\_name == "bitsadmin.exe" AND process\_parent\_command_line == "*" | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 
 

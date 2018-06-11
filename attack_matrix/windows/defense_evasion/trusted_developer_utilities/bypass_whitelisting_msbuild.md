@@ -47,7 +47,7 @@ Adversaries might be bypassing our application whitelisting controls by using ms
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Anomaly/Outlier |  process\_parent\_name = "msbuild.exe" AND process\_name = "*" |[process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
+| Anomaly/Outlier |  process WHERE process\_parent\_name == "msbuild.exe" AND process\_name == "*" |[process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 
 ## Hunter Notes

@@ -49,7 +49,7 @@ Adversaries might be deleting event logs using wevutil within my environment.
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Situational Awareness|  event\_id = "104" OR event\_id = "1102" | <TBD> | 
+| Situational Awareness|  event WHERE event\_id == "104" OR event\_id == "1102" | <TBD> | 
 
 
 ## Hunter Notes

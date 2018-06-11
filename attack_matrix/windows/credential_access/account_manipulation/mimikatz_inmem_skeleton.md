@@ -75,7 +75,7 @@ Adversaries might be injecting a skeleton key into LSASS on Domain Controllers b
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Anomaly/Outlier | target\_process\_name = "lsass.exe" AND process\_granted\_access = "0x1438" WHERE image\_loaded\_name = "WinSCard.dll" AND image\_loaded\_name = "cryptdll.dll" AND image\_loaded\_name = "hid.dll" AND image\_loaded\_name = "samlib.dll" AND image\_loaded\_name = "vaultcli.dll" AND image\_loaded\_name = "WMINet_Utils.dll" | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/c0bf44fb8c527f6e678c4ff1321814108e024315/detection_data_model/data_objects/process.md) |
+| Anomaly/Outlier | process WHERE target\_process\_name == "lsass.exe" AND process\_granted\_access == "0x1438" WHERE image\_loaded\_name == "WinSCard.dll" AND image\_loaded\_name == "cryptdll.dll" AND image\_loaded\_name == "hid.dll" AND image\_loaded\_name == "samlib.dll" AND image\_loaded\_name == "vaultcli.dll" AND image\_loaded\_name == "WMINet_Utils.dll" | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/c0bf44fb8c527f6e678c4ff1321814108e024315/detection_data_model/data_objects/process.md) |
 
 
 

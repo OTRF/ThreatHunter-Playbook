@@ -48,7 +48,7 @@ Adversaries are updating the registry value of \WDigest\UseLogonCredential to 1 
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Behavioral|  registry\_key\_path = HKLM\System\CurrentControlSet\Control\SecurityProviders\WDigest\UseLogonCredential WHERE registry\_key\_details = > 0 | [registry]\(TBD\) | 
+| Behavioral|  registry WHERE registry\_key\_path == HKLM\System\CurrentControlSet\Control\SecurityProviders\WDigest\UseLogonCredential AND registry\_key\_details => 0 | [registry]\(TBD\) | 
 
 
 ## Hunter Notes
