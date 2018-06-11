@@ -48,7 +48,7 @@ An attacker could query the registry to dertmine  privilege escalation and persi
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Situational Awareness |  process\_parent\_name = "reg.exe" AND process_command_line = "*"  | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
+| Situational Awareness | process WHERE process\_parent\_name == "reg.exe" AND process_command_line == "*"  | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 
 ## Hunter Notes
