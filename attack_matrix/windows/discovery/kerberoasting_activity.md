@@ -45,7 +45,7 @@ Adversaries might be obtaining/requesting Kerberos service ticket(s) (TGS) for t
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Anomaly/Outlier |  event\_id = "4769" AND ticket\_encryption\_type = "0x17" WHERE service\_name IS NOT "*$"    | [TBD] | 
+| Anomaly/Outlier |  event WHERE event\_id == "4769" AND ticket\_encryption\_type == "0x17" AND service\_name IS NOT "*$"    | [TBD] | 
 
 ## Atomic Sysmon Configuration
 None
