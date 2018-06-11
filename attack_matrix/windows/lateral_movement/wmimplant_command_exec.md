@@ -46,7 +46,7 @@ Adversaries might be executing WMImplant in my environment in order to facilitat
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Situational Awareness |  parent\_process\_name = "wmiprvse.exe" AND pipe\_name = "Anonymous Pipes" WHERE event\_id = "17" OR event\_id = "18" AND count = "=>2" | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md)| 
+| Situational Awareness |  process WHERE parent\_process\_name == "wmiprvse.exe" AND pipe\_name == "Anonymous Pipes" AND event WHERE event\_id == "17" OR event\_id == "18" AND count =>2 | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md)| 
 
 
 
