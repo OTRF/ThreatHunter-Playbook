@@ -60,7 +60,7 @@ Adversaries might be executing Mimikatz in memory with the help of PowerShell in
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Anomaly/Outlier | target\_process\_name = "lsass.exe" AND process\_granted\_access = "*" COUNT BY process\_name  | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/c0bf44fb8c527f6e678c4ff1321814108e024315/detection_data_model/data_objects/process.md) |
+| Anomaly/Outlier | process WHERE target\_process\_name == "lsass.exe" AND process\_granted\_access == "*" COUNT BY process\_name  | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/c0bf44fb8c527f6e678c4ff1321814108e024315/detection_data_model/data_objects/process.md) |
 
 
 
