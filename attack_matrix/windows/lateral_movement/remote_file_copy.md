@@ -45,7 +45,7 @@ Adversaries are copying files to $ shares via the command line to facilitate lat
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Situational Awareness |  event\_id = "5145" object\_type = "File" share\_name = "*$" AND access\_mask = "0x10018" OR access\_mask = "0x80" OR access\_mask = "0x130197" WHERE src\_host\_name = "\*" | [ip](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/ip.md) | 
+| Situational Awareness | event WHERE event\_id == "5145" object\_type == "File" share\_name == "*$" AND access\_mask == "0x10018" OR access\_mask == "0x80" OR access\_mask == "0x130197" AND network WHERE src\_host\_name == "\*" | [ip](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/ip.md) | 
 
 
 
