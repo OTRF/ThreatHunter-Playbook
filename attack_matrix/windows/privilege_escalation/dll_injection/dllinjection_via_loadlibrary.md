@@ -52,7 +52,7 @@ Adversaries are moving laterally within my network through remote PowerShell ses
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Situational Awareness |  event_id = "8"   | [TBD]\(TBD)| 
+| Situational Awareness | event WHERE event_id == "8"   | [TBD]\(TBD)| 
 
 
 ## Hunter Notes
