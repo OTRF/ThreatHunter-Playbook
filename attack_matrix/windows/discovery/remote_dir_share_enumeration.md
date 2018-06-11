@@ -45,7 +45,7 @@ Adversaries are enumerating remote file shares within my environment.
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Situational Awareness |  user\_name = "\*" AND share\_name = "\*c" OR share\_name = "\*ADMIN$" WHERE src_ip IS NOT 127.0.0.1 AND time\_span = 1 second | [ip](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/ip.md) | 
+| Situational Awareness |  network WHERE user\_name == "\*" AND share\_name == "\*c" OR share\_name == "\*ADMIN$" AND src_ip IS NOT 127.0.0.1 AND time\_span == 1 second | [ip](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/ip.md) | 
 
 
 ## Hunter Notes
