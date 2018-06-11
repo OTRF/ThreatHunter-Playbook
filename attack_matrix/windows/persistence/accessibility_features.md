@@ -52,7 +52,7 @@ Adversaries might be using accessibility feature applications in order to mainta
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Behavioral Analytics |  (parent\_process\_name = "setchc.exe" OR parent\_process\_name = "osk.exe" OR parent\_process\_name = "utilman.exe" OR parent\_process\_name = "Magnify.exe" OR parent\_process\_name = "DisplaySwitch.exe" OR parent\_process\_name = "AtBroker.exe") OR (process\_name = "setchc.exe" OR process\_name = "osk.exe" OR process\_name = "utilman.exe" OR process\_name = "Magnify.exe" OR process\_name = "DisplaySwitch.exe" OR process\_name = "AtBroker.exe") AND target_object CONTAINS ('HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options' AND 'Debugger')  | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md), [registry]\(TBD\) | 
+| Behavioral Analytics |  process WHERE (parent\_process\_name = "setchc.exe" OR parent\_process\_name = "osk.exe" OR parent\_process\_name = "utilman.exe" OR parent\_process\_name = "Magnify.exe" OR parent\_process\_name = "DisplaySwitch.exe" OR parent\_process\_name = "AtBroker.exe") OR (process\_name = "setchc.exe" OR process\_name = "osk.exe" OR process\_name = "utilman.exe" OR process\_name = "Magnify.exe" OR process\_name = "DisplaySwitch.exe" OR process\_name = "AtBroker.exe") AND target_object CONTAINS ('HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options' AND 'Debugger')  | [process](https://github.com/Cyb3rWard0g/OSSEM/blob/master/detection_data_model/data_objects/process.md), [registry]\(TBD\) | 
 
 
 
