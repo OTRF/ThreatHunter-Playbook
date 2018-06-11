@@ -61,7 +61,7 @@ Adversaries might be bypassing application whitelisting controls within my organ
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Situational Awareness| process WHERE process\_name == InstallUtil.exe AND process\_command\_line == "*" | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
+| Situational Awareness| process WHERE process\_name == "InstallUtil.exe" AND process\_command\_line == "*" | [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 
 ## Hunter Notes
