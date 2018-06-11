@@ -54,7 +54,7 @@ Adversaries might be bypassing application whitelisting controls within my organ
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Situational Awareness |  (process\_name = "caspol.exe" AND process\_command\_line = "*") OR (process\_name = "IEExec.exe" AND dst_ip = "\*")   | [ip](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/ip.md), [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
+| Situational Awareness | process WHERE (process\_name == "caspol.exe" AND process\_command\_line == "*") OR (process\_name == "IEExec.exe" AND network WHERE dst_ip = "\*")   | [ip](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/ip.md), [process](https://github.com/bfuzzy/OSSEM/blob/master/detection_data_model/data_objects/process.md) | 
 
 
 ## Hunter Notes
