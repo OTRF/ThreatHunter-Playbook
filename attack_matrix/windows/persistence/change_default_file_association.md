@@ -1,6 +1,6 @@
 # Change Default File Association
 ## Technique ID
-T1042\_change\_default\_file\_association
+T1042
 
 
 ## Description
