@@ -12,8 +12,8 @@ A Threat hunter's playbook to aid the development of techniques and hypothesis f
 # Resources
 * [MITRE ATT&CK](https://attack.mitre.org/wiki/Main_Page)
 * [MITRE CAR](https://car.mitre.org/wiki/Main_Page)
-* [Sqrrl Hunting Techniques](https://sqrrl.com/media/Your-Practical-Guide-to-Threat-Hunting.pdf)
-* [Sqrrl Guide to Threat Hunting](https://sqrrl.com/media/Your-Practical-Guide-to-Threat-Hunting.pdf)
+* [Sqrrl Guide to Threat Hunting](https://web.archive.org/web/20180805101931/https://sqrrl.com/media/Your-Practical-Guide-to-Threat-Hunting.pdf)
+* [Sqrrl Huntpedia: Threat Hunting Knowledge Compendium](https://web.archive.org/web/20180805101835/https://sqrrl.com/media/huntpedia-web-2.pdf)
 * [Sysmon DFIR](https://github.com/MHaggis/sysmon-dfir)
 * [CyberWardog Labs Blog](https://cyberwardog.blogspot.com/)
 * [MalwareSoup Blog](https://malwaresoup.com/)
