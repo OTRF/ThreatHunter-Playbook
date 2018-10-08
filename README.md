@@ -19,6 +19,7 @@ A Threat hunter's playbook to aid the development of techniques and hypothesis f
 * [MalwareSoup Blog](https://malwaresoup.com/)
 * [Threat Hunting Academy](https://threathunting.org/)
 * [DFIR and Threat Hunting](http://findingbad.blogspot.com/)
+* [Malware Archaeology Windows ATT&CK Logging Cheat Sheet](https://www.malwarearchaeology.com/s/Windows-ATTCK_Logging-Cheat-Sheet_ver_Sept_2018.pdf)
 
 # Author
 * Roberto Rodriguez [@Cyb3rWard0g](https://twitter.com/Cyb3rWard0g)
