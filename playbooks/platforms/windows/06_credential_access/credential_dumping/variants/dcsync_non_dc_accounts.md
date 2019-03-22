@@ -40,12 +40,12 @@ where the DRS Interface GUID is the fixed DRS RPC interface GUID, which has the 
 
 | RT Platform  | Dataset | Author |
 |---------|---------|---------|
-| Empire | [empire_dcsync](https://github.com/Cyb3rWard0g/mordor/tree/master/small_datasets/windows/credential_access/credential_dumping_T1003/credentials_from_ad) | Roberto Rodriguez [@Cyb3rWard0g](https://twitter.com/Cyb3rWard0g) |
+| Empire | [empire_dcsync](https://github.com/Cyb3rWard0g/mordor/blob/master/small_datasets/windows/credential_access/credential_dumping_T1003/credentials_from_ad/empire_dcsync.md) | Roberto Rodriguez [@Cyb3rWard0g](https://twitter.com/Cyb3rWard0g) |
 
 ## Relevant Data Sources
 
 | ATT&CK Data Source | Log Provider | Data Category | Data Sub-Category | Event ID |
-|---------|---------|----------|----------|---------|--------|
+|---------|---------|----------|----------|---------|
 |Windows Event Logs | Microsoft-Windows-Security-Auditing | Audit DS Access	| Audit Directory Service Access | [4662](https://github.com/Cyb3rWard0g/OSSEM/blob/master/data_dictionaries/windows/security/events/event-4662.md) |
 | | Microsoft-Windows-RPC | | | |
 
@@ -58,7 +58,7 @@ where the DRS Interface GUID is the fixed DRS RPC interface GUID, which has the 
 ## Data Analytics
 
 | Analytic Type  | Analytic Logic | Analytic Platform |
-|--------|---------|---------|---------|
+|--------|---------|---------|
 | Rule |  event_id:4662 NOT user_name:*$ AND object_properties:("*1131f6aa-9c07-11d1-f79f-00c04fc2dcd2*" OR "*1131f6ad-9c07-11d1-f79f-00c04fc2dcd2*" OR "*89e95b76-444d-4c62-991a-0facbeda640c*")| Kibana |
 
 ## Potential False Positives
