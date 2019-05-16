@@ -36,11 +36,15 @@ Adversaries are moving laterally within my network through RDP connections.
 |--------|---------|-------|---------|-----------| 
 | WinEvent | 4624 | AuthenticationPackageName | Negotiate | Cyb3rWard0g |
 | WinEvent | 4624 | LogonType | 10 | Cyb3rWard0g |
+| WinEvent | 4624 | LogonType | 12 | hilo21 |
+| WinEvent | 4624 | LogonType | 7 | hilo21 |
+| WinEvent | 21, 22 | Source Network Address | is NOT 'LOCAL' | hilo21 |
 | WinEvent | 4624 | ProcessName | C:\Windows\System32\winlogon.exe | Cyb3rWard0g |
 | WinEvent | 4624 | LogonProcessName | User32 | Cyb3rWard0g |
 | WinEvent | 4624 | Severity/Level | Information | Cyb3rWard0g |
 | WinEvent | 4776 | PackageName | MICROSOFT_AUTHENTICATION_PACKAGE_V1_0 (Local Accounts) | Cyb3rWard0g |
 | WinEvent | 4776, 4624 | LogonAccount/TargetUserName | Administrator (Using RID-500) | Cyb3rWard0g |
+| WinEvent | 4656 | Object Name | C:\Windows\Prefetch\RDPCLIP.EXE-\[RANDOM\].pf | hilo21 |
 | Sysmon | 12 | Image | "C:\\Windows\\system32\\LogonUI.exe" | Cyb3rWard0g |
 | Sysmon | 12 | TargetObject | "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services" | Cyb3rWard0g |
 
@@ -56,15 +60,18 @@ Adversaries are moving laterally within my network through RDP connections.
 
 | Analytic Type  | Analytic Logic | Analytic Data Object |
 |--------|---------|---------|
-| Situational Awareness | event WHERE event_id == "4624" AND logon_type == "10" AND user_name == "Administrator"  | TBD | 
+| Situational Awareness | event WHERE event_id == "4624" AND (logon_type == "10" OR logon_type == "12") AND user_name == "Administrator"  | TBD | 
 
 
 ## Hunter Notes
 * Basic combination of events to detect RDP activity.
 * Logon type 10 (RemoteInteractive): Terminal Services session that is both remote and interactive.
+* Logon type 12 (RemoteInteractive Logon Using Cached Credentials): If a domain controller is unavailable and the domain user account’s credentials cannot be validated, RemoteInteractive logon will attempt to authenticate the user using cached credentials on the destination host.
+* Logon type 7 (RemoteInteractive Logon : Workstation was Unlocked): To delineate this from non-RDP Type 7 logons in which a person was sitting at the machine and just unlocked the machine, you can look for remote non-local IP’s in the IpAddress field.
 * EID 4776 package name MICROSOFT_AUTHENTICATION_PACKAGE_V1_0 happens when the account used to create the RDP session is a local account and not a domain one.
 * EID 4776 OR 4624 Logon Account/Target user name "Administrator" could help to hunt for RDP sessions using the built-in administrator account.
 * EID 12 can be used to look for specific registry keys related to Terminal Services being used on an endpoint.
+* EID 21 and 22 provided by Microsoft-Windows-TerminalServices-LocalSessionManager/Operational give more information about the User, the Session ID and the Source Network Address.
 * You can correlate all those events with a time window of 1-3 seconds to reduce the number of false positives when hunting for RDP sessions being created in your environment.
 * All these events get created on the target system.
 
