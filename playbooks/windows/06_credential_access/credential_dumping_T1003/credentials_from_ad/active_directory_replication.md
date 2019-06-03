@@ -24,7 +24,7 @@ Active Directory replication is the process by which the changes that originate 
 
 Active Directory data takes the form of objects that have properties, or attributes. Each object is an instance of an object class, and object classes and their respective attributes are defined in the Active Directory schema. The values of the attributes define the object, and a change to a value of an attribute must be transferred from the domain controller on which it occurs to every other domain controller that stores a replica of that object.
 
-An adversary can abuse this model and request information about a specific account via the replication request. This is done from an account with sufficient permissions (usually domain admin level) to perform that request. Usually the accounts performing replication operations in a domainn are computer accounts (i.e dcaccount$). Therefore, it might be abnormal to see other non-dc-accounts doing it.
+An adversary can abuse this model and request information about a specific account via the replication request. This is done from an account with sufficient permissions (usually domain admin level) to perform that request. Usually the accounts performing replication operations in a domain are computer accounts (i.e dcaccount$). Therefore, it might be abnormal to see other non-dc-accounts doing it.
 
 The following access rights / permissions are needed for the replication request according to the domain functional level:
 
