@@ -18,7 +18,7 @@ RUN adduser --disabled-password \
     --gecos "Default user" \
     --uid ${NB_UID} \
     ${NB_USER} \
-    && apt-get install -y --no-install-recommends git-all \
+    && apt-get install -y --no-install-recommends git \
     # ********* Mordor Project Files *********
     && git clone https://github.com/Cyb3rWard0g/mordor.git ${HOME}/mordor \
     && cd ${HOME}/mordor/small_datasets/ \
