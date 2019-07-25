@@ -70,7 +70,7 @@ Remember that adversaries willing to perform a Kerberoast, only need any domain 
 
 ## Potential False Positives
 
-* Anytime a user wants access to a service a service ticket is requested. Meaning, service tickets are requested very often in enviroments. This makes this attack hard to hunt for. 
+* Anytime a user wants access to a service, a service ticket is requested. Meaning, service tickets are requested very often in enviroments. This makes this attack hard to hunt for. 
 
 ## Hunter Notes
 
