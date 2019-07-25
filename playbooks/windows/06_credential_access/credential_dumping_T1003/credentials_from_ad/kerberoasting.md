@@ -65,7 +65,7 @@ Remember that adversaries willing to perform a Kerberoast, only need any domain 
 
 | Analytic Platform | Analytic Type  | Analytic Logic |
 |--------|---------|---------|
-| Kibana | Rule | `event_id:4769 AND NOT (service_ticket_name = *$ AND service_ticket_name = krbtgt) AND failure_code = 0x0` |
+| Kibana | Rule | `event_id:4769 AND NOT (service_ticket_name = *$ OR service_ticket_name = krbtgt) AND failure_code = 0x0` |
 | Splunk | Rule | `index = wineventlog EventCode = 4769  Account_Name != "*$" AND (Service_Name != "*$" or Service_Name != "krbtgt") AND Failure_Code = 0x0`
 
 ## Potential False Positives
