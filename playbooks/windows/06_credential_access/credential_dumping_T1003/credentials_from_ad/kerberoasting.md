@@ -1,4 +1,4 @@
-# Using captured domain credentials to request Kerberos TGS tickets for accounts that are associated with a Service Principal Name (SPN)
+# Kerberoast
 
 
 ## Author
