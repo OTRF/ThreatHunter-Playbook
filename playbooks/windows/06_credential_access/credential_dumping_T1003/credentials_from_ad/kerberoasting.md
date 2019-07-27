@@ -82,7 +82,7 @@ Remember that adversaries willing to perform a Kerberoast, only need any domain 
 * An adversary can use the captured users domain credentials to request Kerberos TGS tickets for accounts that are associated with an SPN. This ticket can be requested in a specific format (RC4), so when taking it offline it is easier to crack. I have noticed however when specifying that the account requesting the service ticket isn't a `machine($)` account, the `krbtgt` account, and the `failure code` is `0x0` this either gets us to the account that the advesary was using or limits down the results to where you can pick out the false positives to find the advesary easier. 
 
 ## References
-
+* Will Schroeder (@harmj0y)
 * https://www.harmj0y.net/blog/redteaming/kerberoasting-revisited/
 * https://jsecurity101.com/2019/IOC-differences-between-Kerberoasting-and-AsRep-Roasting/
 * https://www.harmj0y.net/blog/powershell/kerberoasting-without-mimikatz/
