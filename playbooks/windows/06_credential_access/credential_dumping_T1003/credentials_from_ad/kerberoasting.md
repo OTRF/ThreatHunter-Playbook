@@ -9,6 +9,9 @@ Jonathan Johnson [@jsecurity101](https://twitter.com/jsecurity101)
 
 T1208
 
+## Permissions
+Domain User
+
 ## Hypothesis
 
 Adversaries might attempt to pull the NTLM hash of a user by using captured domain credentials to request Kerberos TGS tickets for accounts that are associated with a Service Principal Name (SPN).
@@ -18,17 +21,19 @@ Adversaries might attempt to pull the NTLM hash of a user by using captured doma
 ### Kerberos and the Kerberos ticketing system:
 A simple brief and explanation of the `Kerberos Authentication Protocol`:
 
-Kerberos is an authentication protocol that is used primarily when machines are connected through a domain. The Kerberos protocol uses `tickets` to authenticate and/or authorize domain joined users. 
+Kerberos is the primary authentication protocol used in Windows Active Directory domains. The Kerberos protocol uses `tickets` to authenticate and/or authorize domain joined users. 
 
-Inside of each domain, every Domain Controller runs a service known as the `Kerberos Distribution Center` service or `KDC.` This service is handles all of the ticket requests done within Kerberos. The KDC uses an account known as `KRBTGT` to sign all Kerberos tickets within the domain. When a user initally `logs in` or `authenticates` it will request a `ticket granting ticket(TGT)`. If the authentication is successful it will recieve the `TGT` ticket. The `TGT` ticket is encrypted/signed with the `KRBTGT` hash.
+Inside of each domain, every Domain Controller runs a service known as the `Kerberos Distribution Center` service or `KDC.` This service handles all of the ticket requests done within Kerberos. The KDC uses an account known as `KRBTGT` to sign all Kerberos tickets within the domain. When a user initally `logs in` or `authenticates` it will request a `ticket granting ticket(TGT)`. If the authentication is successful it will recieve the `TGT` ticket. The `TGT` ticket is encrypted/signed with the `KRBTGT` hash.
 
-If a domain user wants access to a service they will present their `TGT` ticket to the `DC` and request a `Service Ticket (TGS)` for the `Service Prinicipal Name (SPN)`. The SPN is used to uniquely identify a Windows Service. Kerberos authentication requires that with each service logon account there must be a SPN associated. This allows a client to request a service authentication without having the actual account name.
+If a domain user wants access to a service they will present their `TGT` ticket to the `DC` and request a `Service Ticket (TGS)` for the `Service Prinicipal Name (SPN)` of the specific service they want to access. The SPN is used to uniquely identify a Windows Service. Any service implementing Kerberos authentication is required to have a unique SPN registered in with a user or computer account in Active Directory. The encryption keys for the associated user or computer account are what's used to encrypt service tickets sent back to requesting clients.
 
-Ex: Say a user wanted access to file on a remote system they could request a `TGS` for `cifs/domain.com`.
+E.g. if a user wanted to access the file system on `server.domain.com`, they would present their `TGT` to the Domain Controller and request a service ticket for `cifs/server.domain.com`.
 
 ### Abusing the Kerberos ticketing system to capture a domain user's credentials:
 
-An adversary can use the captured users domain credentials to request Kerberos TGS tickets for accounts that are associated with the SPN records within Active Directory. The TGS tickets are signed with the targeted user or services NTLM hash. This can then be cracked offline to retrieve the clear text password. By default, the tools to automate this process will retrieve the TGS ticket in the encrypted RC4 algorithm. 
+By the design of Active Directory's Kerberos implementation (and because Kerberos handles authentication, not authorization) any user is able to request a TGS ticket for any SPN. Since the TGS returned for a specific SPN request is encrypted with the hash of the user/computer account with that SPN registered to it, this gives us a piece of information (encrypted with the linked account's encryption keys) that can be cracked by an attacker offline to reveal the account's clear text password. This attack is known as "kerberoasting".
+
+Since computer account passwords are randomized and changed every 30 days, attackers will request crackable service tickets for user accounts with SPNs registered. Attackers also prefer requesting tickets encrypted with the RC4 (NTLM) version of the account's keys, as this encryption version is the easiest to crack. User accounts, by default, use RC4 encryption by default for service ticket encryption.
 
 ### Service Tickets
 
