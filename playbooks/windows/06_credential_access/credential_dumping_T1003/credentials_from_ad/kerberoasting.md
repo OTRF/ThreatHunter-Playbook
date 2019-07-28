@@ -70,8 +70,8 @@ Remember that adversaries willing to perform a Kerberoast, only need any domain 
 
 | Analytic Platform | Analytic Type  | Analytic Logic |
 |--------|---------|---------|
-| Kibana | Rule | `event_id:4769 AND NOT (service_ticket_name = *$ OR service_ticket_name = krbtgt) AND failure_code = 0x0` |
-| Splunk | Rule | `index = wineventlog EventCode = 4769  Account_Name != "*$" AND (Service_Name != "*$" or Service_Name != "krbtgt") AND Failure_Code = 0x0`
+| Kibana | Rule | `event_id:4769 AND ticket_encryption_type_value: "RC4-HMAC" AND NOT user_name: *$ AND NOT service_ticket_name: krbtgt` |
+| Splunk | Rule | `index = wineventlog EventCode = 4769  Account_Name != "*$" AND Service_Name != "krbtgt" AND Failure_Code = 0x0 AND User_name!=*$ AND ticket_encryption_type_value= "RC4-HMAC"
 
 ## Potential False Positives
 
@@ -79,7 +79,7 @@ Remember that adversaries willing to perform a Kerberoast, only need any domain 
 
 ## Hunter Notes
 
-* An adversary can use the captured users domain credentials to request Kerberos TGS tickets for accounts that are associated with an SPN. This ticket can be requested in a specific format (RC4), so when taking it offline it is easier to crack. I have noticed however when specifying that the account requesting the service ticket isn't a `machine($)` account, the `krbtgt` account, and the `failure code` is `0x0` this either gets us to the account that the advesary was using or limits down the results to where you can pick out the false positives to find the advesary easier. 
+* An adversary can use the captured users domain credentials to request Kerberos TGS tickets for accounts that are associated with an SPN. This ticket can be requested in a specific format (RC4), so when taking it offline it is easier to crack. I have noticed however when specifying that the account requesting the service ticket isn't a `machine($)` account, the service ticket name they are trying to get access to isnt the `krbtgt` account, the `failure code` is `0x0`, and the ticket encryption is in RC4 format - this either gets us to the account that the advesary was using or limits down the results to where you can pick out the false positives to find the advesary easier. 
 
 ## References
 * Will Schroeder (@harmj0y)
