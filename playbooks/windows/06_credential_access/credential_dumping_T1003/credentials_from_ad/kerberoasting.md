@@ -79,7 +79,7 @@ Remember that adversaries willing to perform a Kerberoast, only need any domain 
 
 ## Hunter Notes
 
-* An adversary can use the captured users domain credentials to request Kerberos TGS tickets for accounts that are associated with an SPN. This ticket can be requested in a specific format (RC4), so when taking it offline it is easier to crack. I have noticed however when specifying that the account requesting the service ticket isn't a `machine($)` account, the service ticket name they are trying to get access to isnt the `krbtgt` account, the `failure code` is `0x0`, and the ticket encryption is in RC4 format - this either gets us to the account that the advesary was using or limits down the results to where you can pick out the false positives to find the advesary easier. 
+* An adversary can use the captured users domain credentials to request Kerberos TGS tickets for accounts that are associated with an SPN. This ticket can be requested in a specific format (RC4), so when taking it offline it is easier to crack. I have noticed however when specifying that the account requesting the service ticket isn't a `machine($)` account, the service ticket name they are trying to get access to typeicaly isnt going to be the `krbtgt` account, the failure code is `0x0` - ticket was granted, and the ticket encryption is typically requested in `RC4` format - this either gets us to the account that the advesary was using or limits down the results to where you can pick out the false positives to find the advesary easier. In a real enviroment this would have to be tailored to fit the enviroments paramenters and needs to better specifiy th query, but this sets a good baseline. 
 
 ## References
 * Will Schroeder (@harmj0y)
