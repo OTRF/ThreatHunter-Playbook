@@ -70,7 +70,7 @@ Remember that adversaries willing to perform a Kerberoast, only need any domain 
 
 | Analytic Platform | Analytic Type  | Analytic Logic |
 |--------|---------|---------|
-| Kibana | Rule | `event_id:4769 AND ticket_encryption_type_value: "RC4-HMAC" AND NOT (user_name: *$ OR service_ticket_name: krbtgt)` |
+| Kibana | Rule | `event_id:4769 AND ticket_encryption_type_value: "RC4-HMAC" AND NOT (user_name: *$ AND service_ticket_name: krbtgt)` |
 | Splunk | Rule | `index = wineventlog EventCode = 4769  Account_Name != "*$" AND Service_Name != "krbtgt" AND Failure_Code = 0x0 AND User_name!=*$ AND ticket_encryption_type_value= "RC4-HMAC"`
 
 ## Potential False Positives
