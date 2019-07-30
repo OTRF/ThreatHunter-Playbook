@@ -1,0 +1,53 @@
+# This file contains the order and numbering for all sections in the book.
+#
+# It is a sample TOC file to help you get started. Fill it out with entries
+# for your own content.
+#
+# Each entry has the following schema:
+#
+# - title: mytitle   # Title of chapter or section
+#   url: /myurl  # URL of section relative to the /content/ folder.
+#   sections:  # Contains a list of more entries that make up the chapter's sections
+#   not_numbered: true  # if the section shouldn't have a number in the sidebar
+#     (e.g. Introduction or appendices)
+#   expand_sections: true  # if you'd like the sections of this chapter to always
+#     be expanded in the sidebar.
+#   external: true  # Whether the URL is an external link or points to content in the book
+#
+# Below are some special values that trigger specific behavior:
+# - search: true  # Will provide a link to a search page
+# - divider: true  # Will insert a divider in the sidebar
+# - header: My Header  # Will insert a header with no link in the sidebar
+#
+# See the links below for an example.
+
+# Top-level page
+- title: Home
+  url: /intro
+  not_numbered: true
+
+# External link
+- title: GitHub repository
+  url: https://github.com/Cyb3rWard0g/ThreatHunter-Playbook
+  external: true
+  not_numbered: true
+
+# Adds a searchbar link
+- title: Search
+  search: true
+
+# Divider for meta-pages and content page
+- divider: true
+
+# Add a header and sample content section
+- header: Threat Hunting
+
+# A chapter w/ a collection of sections beneath it
+- title: Playbooks
+  url: /features/playbooks
+  not_numbered: true
+  expand_sections: true
+  sections:
+  - title: Windows
+    url: /features/windows
+    not_numbered: true

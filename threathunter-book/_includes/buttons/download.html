@@ -1,0 +1,5 @@
+{% if site.use_download_button -%}
+<a href="{{ page.interact_link | relative_url }}" download>
+<button id="interact-button-download" class="interact-button">{{ site.download_button_text }}</button>
+</a>
+{% endif %}

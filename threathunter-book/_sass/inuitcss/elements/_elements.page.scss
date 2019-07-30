@@ -1,0 +1,19 @@
+/* ==========================================================================
+   #PAGE
+   ========================================================================== */
+
+/**
+ * Simple page-level setup.
+ *
+ * 1. Set the default `font-size` and `line-height` for the entire project,
+ *    sourced from our default variables. The `font-size` is calculated to exist
+ *    in ems, the `line-height` is calculated to exist unitlessly.
+ * 2. Ensure the page always fills at least the entire height of the viewport.
+ */
+
+html,
+body {
+  font-size: ($inuit-global-font-size / 16px) * 1em; /* [1] */
+  line-height: $inuit-global-line-height / $inuit-global-font-size; /* [1] */
+  min-height: 100%; /* [2] */
+}

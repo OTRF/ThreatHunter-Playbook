@@ -1,0 +1,174 @@
+/**
+ * Styling for textbook pages. Jupyter notebooks generate their own HTML markup
+ * which we style under the #ipython-notebook selector.
+ *
+ * Most of the textbook content is styled using this component.
+ *
+ * [1]: Don't add horizontal padding since the content lies within a .o-wrapper
+ * [2]: Since we use JS to focus the page on load, hide the outline to avoid
+ *   visual cruft.
+ *
+ * Notebook styling:
+ *
+ * [4]: Some tables are too wide for the page on smaller screens so we let the
+ *   user scroll horizontally.
+ * [5]: Inline code snippets (usually variable names) should have a gray bg.
+ */
+
+.c-textbook__page {
+  /* [1] */
+  padding: $spacing-unit-small 0;
+  overflow-x: auto;
+  @include mq($from: tablet) {
+    padding-left: $spacing-unit-small;
+    padding-right: $spacing-unit;
+  }
+
+  @include mq($from: desktop) {
+    padding-right: $right-sidebar-width;
+  }
+
+  &:focus {
+    /* [2] */
+    outline: none;
+  }
+}
+
+/**
+ * Jupyter notebook styling
+ */
+
+div.highlighter-rouge {
+  // Ensures that items within this div can be positioned absolutely
+  position: relative;
+}
+
+div.c-textbook__content > div.highlighter-rouge > div.highlight pre,
+div.input_area > div.highlighter-rouge > div.highlight > pre,
+div.output_wrapper pre {
+  background-color: $color-light-gray;
+  font-size: 0.9em;
+  margin-bottom: $spacing-unit-small;
+  padding: $spacing-unit-small;
+  overflow-x: auto;
+  border: 1px solid $color-dark-gray;
+}
+
+// If we've got intentionally non-highlighted markup, make sure that the lines wrap
+pre code.language-no-highlight {
+  white-space: pre-wrap;
+}
+
+div.output_wrapper pre {
+  border: 1px solid $color-light-gray !important;
+  background-color: #fcfcfc !important;
+}
+
+.output_html {
+  /* [4] */
+  overflow-x: auto;
+}
+
+/* [5] */
+code {
+  padding: 4px;
+  overflow-x: auto;
+  @include inuit-font-size(14px);
+}
+
+pre.highlight code {
+  display: block;
+}
+
+blockquote {
+  margin: $spacing-unit-small;
+  padding: $spacing-unit-med;
+  border-left: 4px solid $color-dark-gray;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* Outputs */
+.output_stream,
+.output_data_text,
+.output_traceback_line {
+  margin-left: 2% !important;
+  border: none !important;
+  border-radius: 4px !important;
+  background-color: #fafafa !important;
+  box-shadow: none !important;
+}
+
+.output_stream:before,
+.output_data_text:before,
+.output_traceback_line:before {
+  content: none !important;
+}
+
+.output_text pre {
+  background-color: #f8f8fb !important;
+}
+
+.output_html,
+.output_png::before {
+  padding: 1em 1.5em !important;
+}
+
+.output_png img,
+p img {
+  max-width: 500px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.output_png img {
+  width: 100% !important;
+}
+
+.hl-ipython3 pre::before,
+.output_subarea pre::before,
+.output_html::before,
+.output_png::before {
+  color: #ccc !important;
+  float: left !important;
+  margin-bottom: 0.25em !important;
+  width: 100% !important;
+}
+
+/**
+  * nbinteract styling
+  */
+.cell.nbinteract-left {
+  width: 50%;
+  float: left;
+}
+
+.cell.nbinteract-right {
+  width: 50%;
+  float: right;
+}
+
+.cell.nbinteract-hide_in > .input {
+  display: none;
+}
+
+.cell.nbinteract-hide_out > .output_wrapper {
+  display: none;
+}
+
+.cell:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+div.output_subarea {
+  max-width: initial;
+}
+
+.jp-OutputPrompt {
+  display: none;
+}

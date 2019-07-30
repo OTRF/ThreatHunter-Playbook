@@ -1,0 +1,120 @@
+/**
+ * This file is the main entry point for the textbook's stylings. It uses the
+ * Inuit CSS framework: https://github.com/inuitcss/inuitcss
+ *
+ * InuitCSS only provides basic typographic stylings and helper functions. All
+ * framework files live in ./inuitcss/ . All of our custom CSS lives in one of
+ * these 7 folders:
+ *
+ * `/settings`: Global variables, site-wide settings, config switches, etc.
+ * `/tools`: Site-wide mixins and functions.
+ * `/generic`: Low-specificity, far-reaching rulesets (e.g. resets).
+ * `/elements`: Unclassed HTML elements (e.g. `a {}`, `blockquote {}`, `address {}`).
+ * `/objects`: Objects, abstractions, and design patterns (e.g. `.o-layout {}`).
+ * `/components`: Discrete, complete chunks of UI (e.g. `.c-carousel {}`).
+ * `/utilities`: High-specificity, very explicit selectors. Overrides and
+   helper classes (e.g. `.u-hidden {}`).
+ *
+ * CONTENTS
+ *
+ * SETTINGS
+ * Core.................inuitcss’ core and setup settings.
+ * Global...............Project-wide variables and settings.
+ *
+ * TOOLS
+ * Font-size............A mixin which guarantees baseline-friendly line-heights.
+ * Clearfix.............Micro clearfix mixin.
+ * Hidden...............Mixin for hiding elements.
+ * Sass MQ..............inuitcss’ default media query manager.
+ *
+ * GENERIC
+ * Box-sizing...........Better default `box-sizing`.
+ * Normalize.css........A level playing field using @necolas’ Normalize.css.
+ * Reset................A tiny reset to complement Normalize.css.
+ * Shared...............Sensibly and tersely share some global commonalities
+ *                      (particularly useful when managing vertical rhythm).
+ *
+ * ELEMENTS
+ * Page.................Set up our document’s default `font-size` and
+ *                      `line-height`.
+ * Headings.............Very minimal (i.e. only font-size information) for
+ *                      headings 1 through 6.
+ * Images...............Base image styles.
+ * Tables...............Simple table styles.
+ *
+ * OBJECTS
+ * Wrapper..............Page constraint object.
+ *
+ * COMPONENTS
+ * Buttons..............An example button component, and how it fits into the
+ *                      inuitcss framework.
+ *
+ * UTILITIES
+ * Clearfix.............Bind our clearfix onto a utility class.
+ */
+
+// SETTINGS
+@import 'inuitcss/settings/settings.core';
+@import 'settings/settings.global';
+
+// TOOLS
+@import 'inuitcss/tools/tools.font-size';
+@import 'inuitcss/tools/tools.clearfix';
+@import 'inuitcss/tools/tools.hidden';
+@import 'inuitcss/tools/tools.mq';
+
+// GENERIC
+@import 'inuitcss/generic/generic.box-sizing';
+@import 'inuitcss/generic/generic.normalize';
+@import 'inuitcss/generic/generic.reset';
+@import 'inuitcss/generic/generic.shared';
+@import 'generic/generic.phone-scrolling';
+
+// ELEMENTS
+@import 'inuitcss/elements/elements.page';
+@import 'inuitcss/elements/elements.headings';
+@import 'inuitcss/elements/elements.images';
+@import 'inuitcss/elements/elements.tables';
+@import 'elements/elements.variables';
+@import 'elements/elements.typography';
+@import 'elements/elements.syntax-highlighting';
+@import 'elements/elements.tables';
+@import 'elements/elements.links';
+
+// OBJECTS
+$inuit-wrapper-width: 800px;
+@import 'inuitcss/objects/objects.wrapper';
+@import 'inuitcss/objects/objects.layout';
+
+$hamburger-padding-x: 0;
+$hamburger-padding-y: 8px;
+$hamburger-layer-width: 20px;
+$hamburger-layer-height: 3px;
+$hamburger-layer-spacing: 3px;
+$hamburger-layer-color: $color-text;
+$hamburger-types: (arrowalt);
+@import 'hamburgers/hamburgers';
+
+@import 'objects/objects.tooltip';
+@import 'objects/objects.copy-button';
+@import 'objects/objects.thebelab-in-cell-button';
+
+// COMPONENTS
+$page-max-width: map-get($mq-breakpoints, wide);
+$sidebar-width: 300px;
+$right-sidebar-width: 220px;
+@import 'components/components.textbook';
+@import 'components/components.textbook__sidebar';
+@import 'components/components.textbook__page';
+@import 'components/components.textbook__sidebar-right';
+@import 'components/components.page__nav';
+@import 'components/components.sidebar-toggle';
+@import 'components/components.interact-button';
+@import 'components/components.thebelab';
+@import 'components/components.hidecells';
+@import 'components/components.search';
+
+// UTILITIES
+@import 'inuitcss/utilities/utilities.clearfix';
+@import 'inuitcss/utilities/utilities.hide';
+@import 'inuitcss/utilities/utilities.spacings';

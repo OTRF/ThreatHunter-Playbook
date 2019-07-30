@@ -1,0 +1,13 @@
+---
+title: 'Home'
+prev_page:
+  url: 
+  title: ''
+next_page:
+  url: https://github.com/Cyb3rWard0g/ThreatHunter-Playbook
+  title: 'GitHub repository'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
+# The ThreatHunter Playbook
+
+A Threat hunter's playbook to aid the development of techniques and hypothesis for hunting campaigns by leveraging security event logs from diverse operating systems. This project provides specific chains of events exclusively at the host and network level so that you can take them and develop logic to develop data analytics in your preferred tool or query format. This repo follows the structure of the [MITRE ATT&CK](https://attack.mitre.org/wiki/Main_Page) framework categorizing post-compromise adversary behavior in tactical groups. In addition, it will provide information about hunting tools/platforms developed by the infosec community for testing and enterprise-wide hunting.

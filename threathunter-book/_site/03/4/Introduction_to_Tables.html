@@ -1,0 +1,2435 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+
+  <title>Introduction to Tables</title>
+  <meta name="description" content="We can now apply Python to analyze data. We will work with data stored in Table structures.">
+
+  <link rel="canonical" href="https://jupyter.org/jupyter-book/03/4/Introduction_to_Tables.html">
+  <link rel="alternate" type="application/rss+xml" title="Jupyter Book" href="https://jupyter.org/jupyter-book/feed.xml">
+
+  <meta property="og:url"         content="https://jupyter.org/jupyter-book/03/4/Introduction_to_Tables.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Introduction to Tables" />
+<meta property="og:description" content="We can now apply Python to analyze data. We will work with data stored in Table structures." />
+<meta property="og:image"       content="" />
+
+
+  <script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage":
+    "https://jupyter.org/jupyter-book/03/4/Introduction_to_Tables.html",
+  "headline":
+    "Introduction to Tables",
+  "datePublished":
+    "2019-06-04T21:25:48-07:00",
+  "dateModified":
+    "2019-06-04T21:25:48-07:00",
+  "description":
+    "We can now apply Python to analyze data. We will work with data stored in Table structures.",
+  "author": {
+    "@type": "Person",
+    "name": "The Jupyter Book Community"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Data 100 at UC Berkeley",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://jupyter.org/jupyter-book",
+      "width": 60,
+      "height": 60
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://jupyter.org/jupyter-book",
+    "height": 60,
+    "width": 60
+  }
+}
+
+  </script>
+  <link rel="stylesheet" href="/jupyter-book/assets/css/styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css ">
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+
+  <!-- <link rel="manifest" href="/manifest.json"> -->
+  <!-- <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#efae0a"> -->
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#233947">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="/jupyter-book/images/logo/favicon.ico">
+
+  <!-- MathJax Config -->
+  <!-- Allow inline math using $ and automatically break long math lines -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    CommonHTML: {
+        linebreaks: {
+            automatic: true,
+        },
+    },
+});
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML' async></script>
+
+  <!-- DOM updating function -->
+  <script>
+const runWhenDOMLoaded = cb => {
+  if (document.readyState != 'loading') {
+    cb()
+  } else if (document.addEventListener) {
+    document.addEventListener('DOMContentLoaded', cb)
+  } else {
+    document.attachEvent('onreadystatechange', function() {
+      if (document.readyState == 'complete') cb()
+    })
+  }
+}
+
+// Helper function to init things quickly
+initFunction = function(myfunc) {
+  runWhenDOMLoaded(myfunc);
+  document.addEventListener('turbolinks:load', myfunc);
+};
+</script>
+
+  <!-- Define some javascript variables that will be useful in other javascript -->
+  <script>
+    const site_basename = '/jupyter-book';
+  </script>
+
+  <!-- Add AnchorJS to let headers be linked -->
+  <script src="/jupyter-book/assets/js/anchor.min.js"  type="text/javascript"></script>
+  <script>
+
+initFunction(function () {
+    anchors.add("main h1, main h2, main h3, main h4")
+});
+
+</script>
+
+  <!-- Include Turbolinks to make page loads fast -->
+  <!-- https://github.com/turbolinks/turbolinks -->
+  <script src="/jupyter-book/assets/js/turbolinks.js" async></script>
+  <meta name="turbolinks-cache-control" content="no-cache">
+
+  <!-- Load nbinteract for widgets -->
+  
+
+  <!-- Load Thebelab for interactive widgets -->
+  <!-- Include Thebelab for interactive code if it's enabled -->
+
+
+<!-- Display Thebelab button in each code cell -->
+<script>
+/**
+ * Set up thebelab button for code blocks
+ */
+
+const thebelabCellButton = id =>
+  `<a id="thebelab-cell-button-${id}" class="btn thebebtn o-tooltip--left" data-tooltip="Interactive Mode">
+    <img src="/jupyter-book/assets/images/edit-button.svg" alt="Start interactive mode">
+  </a>`
+
+
+const addThebelabButtonToCodeCells =  () => {
+
+  const codeCells = document.querySelectorAll('div.input_area > div.highlighter-rouge:not(.output) pre')
+  codeCells.forEach((codeCell, index) => {
+    const id = codeCellId(index)
+    codeCell.setAttribute('id', id)
+    if (document.getElementById("thebelab-cell-button-" + id) == null) {
+      codeCell.insertAdjacentHTML('afterend', thebelabCellButton(id));
+    }
+  })
+}
+
+initFunction(addThebelabButtonToCodeCells);
+</script>
+
+
+
+<script type="text/x-thebe-config">
+    {
+      requestKernel: true,
+      binderOptions: {
+        repo: 'jupyter/jupyter-book',
+        ref: 'gh-pages',
+      },
+      codeMirrorConfig: {
+        theme: "abcdef"
+      },
+      kernelOptions: {
+        name: 'python3',
+      }
+    }
+</script>
+<script src="https://unpkg.com/thebelab@0.4.0/lib/index.js"></script>
+<script>
+    /**
+     * Add attributes to Thebelab blocks
+     */
+
+    const initThebelab = () => {
+        const addThebelabToCodeCells = () => {
+            console.log("Adding thebelab to code cells...");
+            // If Thebelab hasn't loaded, wait a bit and try again. This
+            // happens because we load ClipboardJS asynchronously.
+            if (window.thebelab === undefined) {
+                setTimeout(addThebelabToCodeCells, 250)
+            return
+            }
+
+            // If we already detect a Thebelab cell, don't re-run
+            if (document.querySelectorAll('div.thebelab-cell').length > 0) {
+                return;
+            }
+
+            // Find all code cells, replace with Thebelab interactive code cells
+            const codeCells = document.querySelectorAll('.input_area pre')
+            codeCells.forEach((codeCell, index) => {
+                const id = codeCellId(index)
+                codeCell.setAttribute('data-executable', 'true')
+
+                // Figure out the language it uses and add this too
+                var parentDiv = codeCell.parentElement.parentElement;
+                var arrayLength = parentDiv.classList.length;
+                for (var ii = 0; ii < arrayLength; ii++) {
+                    var parts = parentDiv.classList[ii].split('language-');
+                    if (parts.length === 2) {
+                        // If found, assign dataLanguage and break the loop
+                        var dataLanguage = parts[1];
+                        break;
+                    }
+                }
+                codeCell.setAttribute('data-language', dataLanguage)
+
+                // If the code cell is hidden, show it
+                var inputCheckbox = document.querySelector(`input#hidebtn${codeCell.id}`);
+                if (inputCheckbox !== null) {
+                    setCodeCellVisibility(inputCheckbox, 'visible');
+                }
+            });
+
+            // Remove the event listener from the page so keyboard press doesn't
+            // Change page
+            document.removeEventListener('keydown', initPageNav)
+            keyboardListener = false;
+
+            // Init thebelab
+            thebelab.bootstrap();
+
+            // Remove copy buttons since they won't work anymore
+            const copyAndThebeButtons = document.querySelectorAll('.copybtn, .thebebtn')
+            copyAndThebeButtons.forEach((button, index) => {
+                button.remove();
+            });
+
+            // Remove outputs since they'll be stale
+            const outputs = document.querySelectorAll('.output *, .output')
+            outputs.forEach((output, index) => {
+                output.remove();
+            });
+        }
+
+        // Add event listener for the function to modify code cells
+        const thebelabButtons = document.querySelectorAll('[id^=thebelab], [id$=thebelab]')
+        thebelabButtons.forEach((thebelabButton,index) => {
+            if (thebelabButton === null) {
+                setTimeout(initThebelab, 250)
+                return
+            };
+            thebelabButton.addEventListener('click', addThebelabToCodeCells);
+        });
+    }
+
+    // Initialize Thebelab
+    initFunction(initThebelab);
+</script>
+
+
+
+  <!-- Load the auto-generating TOC -->
+  <script src="/jupyter-book/assets/js/tocbot.min.js"  type="text/javascript"></script>
+  <script>
+var initToc = function () {
+  tocbot.init({
+    tocSelector: 'nav.onthispage',
+    contentSelector: '.c-textbook__content',
+    headingSelector: 'h2, h3',
+    orderedList: false,
+    collapseDepth: 6,
+    listClass: 'toc__menu',
+    activeListItemClass: "",  // Not using
+    activeLinkClass: "", // Not using
+  });
+  tocbot.refresh();
+}
+initFunction(initToc);
+</script>
+
+  <!-- Google analytics -->
+  <script src="/jupyter-book/assets/js/ga.js" async></script>
+
+  <!-- Clipboard copy button -->
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" async></script>
+
+  <!-- Load JS that depends on site variables -->
+  <script>
+/**
+ * Set up copy/paste for code blocks
+ */
+const codeCellId = index => `codecell${index}`
+
+const clipboardButton = id =>
+  `<a id="copy-button-${id}" class="btn copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#${id}">
+    <img src="/jupyter-book/assets/images/copy-button.svg" alt="Copy to clipboard">
+  </a>`
+
+// Clears selected text since ClipboardJS will select the text when copying
+const clearSelection = () => {
+  if (window.getSelection) {
+    window.getSelection().removeAllRanges()
+  } else if (document.selection) {
+    document.selection.empty()
+  }
+}
+
+// Changes tooltip text for two seconds, then changes it back
+const temporarilyChangeTooltip = (el, newText) => {
+  const oldText = el.getAttribute('data-tooltip')
+  el.setAttribute('data-tooltip', newText)
+  setTimeout(() => el.setAttribute('data-tooltip', oldText), 2000)
+}
+
+const addCopyButtonToCodeCells = () => {
+  // If ClipboardJS hasn't loaded, wait a bit and try again. This
+  // happens because we load ClipboardJS asynchronously.
+  if (window.ClipboardJS === undefined) {
+    setTimeout(addCopyButtonToCodeCells, 250)
+    return
+  }
+
+  const codeCells = document.querySelectorAll('div.c-textbook__content > div.highlighter-rouge > div.highlight > pre, div.input_area pre')
+  codeCells.forEach((codeCell, index) => {
+    const id = codeCellId(index)
+    codeCell.setAttribute('id', id)
+    if (document.getElementById("copy-button" + id) == null) {
+      codeCell.insertAdjacentHTML('afterend', clipboardButton(id));
+    }
+  })
+
+  const clipboard = new ClipboardJS('.copybtn')
+  clipboard.on('success', event => {
+    clearSelection()
+    temporarilyChangeTooltip(event.trigger, 'Copied!')
+  })
+
+  clipboard.on('error', event => {
+    temporarilyChangeTooltip(event.trigger, 'Failed to copy')
+  })
+
+  // Get rid of clipboard before the next page visit to avoid memory leak
+  document.addEventListener('turbolinks:before-visit', () =>
+    clipboard.destroy()
+  )
+}
+
+initFunction(addCopyButtonToCodeCells);
+</script>
+
+
+  <!-- Hide cell code -->
+  <script>
+    /**
+    Add buttons to hide code cells
+    */
+
+
+    var setCodeCellVisibility = function (inputField, kind) {
+        // Update the image and class for hidden
+        var id = inputField.getAttribute('data-id');
+        var codeCell = document.querySelector(`#${id} div.highlight`);
+
+        if (kind === "visible") {
+            codeCell.classList.remove('hidden');
+            inputField.checked = true;
+        } else {
+            codeCell.classList.add('hidden');
+            inputField.checked = false;
+        }
+    }
+
+    var toggleCodeCellVisibility = function (event) {
+        // The label is clicked, and now we decide what to do based on the input field's clicked status
+        if (event.target.tagName === "LABEL") {
+            var inputField = event.target.previousElementSibling;
+        } else {
+            // It is the span inside the target
+            var inputField = event.target.parentElement.previousElementSibling;
+        }
+
+        if (inputField.checked === true) {
+            setCodeCellVisibility(inputField, "visible");
+        } else {
+            setCodeCellVisibility(inputField, "hidden");
+        }
+    }
+
+
+    // Button constructor
+    const hideCodeButton = id => `<input class="hidebtn" type="checkbox" id="hidebtn${id}" data-id="${id}"><label title="Toggle cell" for="hidebtn${id}" class="plusminus"><span class="pm_h"></span><span class="pm_v"></span></label>`
+
+    var addHideButton = function () {
+        // If a hide button is already added, don't add another
+        if (document.querySelector('div.hidecode input') !== null) {
+            return;
+        }
+
+        // Find the input cells and add a hide button
+        document.querySelectorAll('div.input_area').forEach(function (item, index) {
+            if (!item.classList.contains("hidecode")) {
+                // Skip the cell if it doesn't have a hidecode class
+                return;
+            }
+
+            const id = codeCellId(index)
+            item.setAttribute('id', id);
+            // Insert the button just inside the end of the next div
+            item.querySelector('div').insertAdjacentHTML('beforeend', hideCodeButton(id))
+
+            // Set up the visibility toggle
+            hideLink = document.querySelector(`#${id} div.highlight + input + label`);
+            hideLink.addEventListener('click', toggleCodeCellVisibility)
+        });
+    }
+
+
+    // Initialize the hide buttos
+    var initHiddenCells = function () {
+        // Add hide buttons to the cells
+        addHideButton();
+
+        // Toggle the code cells that should be hidden
+        document.querySelectorAll('div.hidecode input').forEach(function (item) {
+            setCodeCellVisibility(item, 'hidden');
+            item.checked = true;
+        })
+    }
+
+    initFunction(initHiddenCells);
+
+</script>
+
+  <!-- Load custom website scripts -->
+  <script src="/jupyter-book/assets/js/scripts.js" async></script>
+
+  <!-- Load custom user CSS and JS  -->
+  <script src="/jupyter-book/assets/custom/custom.js" async></script>
+  <link rel="stylesheet" href="/jupyter-book/assets/custom/custom.css">
+
+  <!-- Update interact links w/ REST param, is defined in includes so we can use templates -->
+  
+<script>
+/**
+  * To auto-embed hub URLs in interact links if given in a RESTful fashion
+ */
+
+function getJsonFromUrl(url) {
+  var query = url.split('?');
+  if (query.length < 2) {
+    // No queries so just return false
+    return false;
+  }
+  query = query[1];
+  // Collect REST params into a dictionary
+  var result = {};
+  query.split("&").forEach(function(part) {
+    var item = part.split("=");
+    result[item[0]] = decodeURIComponent(item[1]);
+  });
+  return result;
+}
+    
+function dict2param(dict) {
+    params = Object.keys(dict).map(function(k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(dict[k])
+    });
+    return params.join('&')
+}
+
+// Parse a Binder URL, converting it to the string needed for JupyterHub
+function binder2Jupyterhub(url) {
+  newUrl = {};
+  parts = url.split('v2/gh/')[1];
+  // Grab the base repo information
+  repoinfo = parts.split('?')[0];
+  var [org, repo, ref] = repoinfo.split('/');
+  newUrl['repo'] = ['https://github.com', org, repo].join('/');
+  newUrl['branch'] = ref
+  // Grab extra parameters passed
+  params = getJsonFromUrl(url);
+  if (params['filepath'] !== undefined) {
+    newUrl['subPath'] = params['filepath']
+  }
+  return dict2param(newUrl);
+}
+
+// Filter out potentially unsafe characters to prevent xss
+function safeUrl(url)
+{
+   return String(encodeURIComponent(url))
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+}
+
+function addParamToInternalLinks(hub) {
+  var links = document.querySelectorAll("a").forEach(function(link) {
+    var href = link.href;
+    // If the link is an internal link...
+    if (href.search("https://jupyter.org") !== -1 || href.startsWith('/') || href.search("127.0.0.1:") !== -1) {
+      // Assume we're an internal link, add the hub param to it
+      var params = getJsonFromUrl(href);
+      if (params !== false) {
+        // We have REST params, so append a new one
+        params['jupyterhub'] = hub;
+      } else {
+        // Create the REST params
+        params = {'jupyterhub': hub};
+      }
+      // Update the link
+      var newHref = href.split('?')[0] + '?' + dict2param(params);
+      link.setAttribute('href', decodeURIComponent(newHref));
+    }
+  });
+  return false;
+}
+
+
+// Update interact links
+function updateInteractLink() {
+    // hack to make this work since it expects a ? in the URL
+    rest = getJsonFromUrl("?" + location.search.substr(1));
+    jupyterHubUrl = rest['jupyterhub'];
+    var hubType = null;
+    var hubUrl = null;
+    if (jupyterHubUrl !== undefined) {
+      hubType = 'jupyterhub';
+      hubUrl = jupyterHubUrl;
+    }
+
+    if (hubType !== null) {
+      // Sanitize the hubUrl
+      hubUrl = safeUrl(hubUrl);
+
+      // Add HTTP text if omitted
+      if (hubUrl.indexOf('http') < 0) {hubUrl = 'http://' + hubUrl;}
+      var interactButtons = document.querySelectorAll("button.interact-button")
+      var lastButton = interactButtons[interactButtons.length-1];
+      var link = lastButton.parentElement;
+
+      // If we've already run this, skip the link updating
+      if (link.nextElementSibling !== null) {
+        return;
+      }
+
+      // Update the link and add context div
+      var href = link.getAttribute('href');
+      if (lastButton.id === 'interact-button-binder') {
+        // If binder links exist, we need to re-work them for jupyterhub
+        if (hubUrl.indexOf('http%3A%2F%2Flocalhost') > -1) {
+          // If localhost, assume we're working from a local Jupyter server and remove `/hub`
+          first = [hubUrl, 'git-sync'].join('/')
+        } else {
+          first = [hubUrl, 'hub', 'user-redirect', 'git-sync'].join('/')
+        }
+        href = first + '?' + binder2Jupyterhub(href);
+      } else {
+        // If interact button isn't binderhub, assume it's jupyterhub
+        // If JupyterHub links, we only need to replace the hub url
+        href = href.replace("", hubUrl);
+        if (hubUrl.indexOf('http%3A%2F%2Flocalhost') > -1) {
+          // Assume we're working from a local Jupyter server and remove `/hub`
+          href = href.replace("/hub/user-redirect", "");
+        }
+      }
+      link.setAttribute('href', decodeURIComponent(href));
+
+      // Add text after interact link saying where we're launching
+      hubUrlNoHttp = decodeURIComponent(hubUrl).replace('http://', '').replace('https://', '');
+      link.insertAdjacentHTML('afterend', '<div class="interact-context">on ' + hubUrlNoHttp + '</div>');
+
+      // Update internal links so we retain the hub url
+      addParamToInternalLinks(hubUrl);
+    }
+}
+
+runWhenDOMLoaded(updateInteractLink)
+document.addEventListener('turbolinks:load', updateInteractLink)
+</script>
+
+
+  <!-- Lunr search code - will only be executed on the /search page -->
+  <script src="/jupyter-book/assets/js/lunr/lunr.min.js" type="text/javascript"></script>
+  <script>var initQuery = function() {
+  // See if we have a search box
+  var searchInput = document.querySelector('input#lunr_search');
+  if (searchInput === null) {
+    return;
+  }
+
+  // Function to parse our lunr cache
+  var idx = lunr(function () {
+    this.field('title')
+    this.field('excerpt')
+    this.field('categories')
+    this.field('tags')
+    this.ref('id')
+
+    this.pipeline.remove(lunr.trimmer)
+
+    for (var item in store) {
+      this.add({
+        title: store[item].title,
+        excerpt: store[item].excerpt,
+        categories: store[item].categories,
+        tags: store[item].tags,
+        id: item
+      })
+    }
+  });
+
+  // Run search upon keyup
+  searchInput.addEventListener('keyup', function () {
+    var resultdiv = document.querySelector('#results');
+    var query = document.querySelector("input#lunr_search").value.toLowerCase();
+    var result =
+      idx.query(function (q) {
+        query.split(lunr.tokenizer.separator).forEach(function (term) {
+          q.term(term, { boost: 100 })
+          if(query.lastIndexOf(" ") != query.length-1){
+            q.term(term, {  usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING, boost: 10 })
+          }
+          if (term != ""){
+            q.term(term, {  usePipeline: false, editDistance: 1, boost: 1 })
+          }
+        })
+      });
+
+      // Empty the results div
+      while (resultdiv.firstChild) {
+        resultdiv.removeChild(resultdiv.firstChild);
+      }
+
+    resultdiv.insertAdjacentHTML('afterbegin', '<p class="results__found">'+result.length+' Result(s) found</p>');
+    for (var item in result) {
+      var ref = result[item].ref;
+      if(store[ref].teaser){
+        var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<div class="archive__item-teaser">'+
+                '<img src="'+store[ref].teaser+'" alt="">'+
+              '</div>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      else{
+    	  var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      resultdiv.insertAdjacentHTML('beforeend', searchitem);
+    }
+  });
+};
+
+initFunction(initQuery);
+</script>
+</head>
+
+  <body>
+    <!-- .js-show-sidebar shows sidebar by default -->
+    <div id="js-textbook" class="c-textbook js-show-sidebar">
+      
+
+
+
+<nav id="js-sidebar" class="c-textbook__sidebar">
+  <a href="https://jupyter.org/jupyter-book/intro.html"><img src="/jupyter-book/images/logo/logo.png" class="textbook_logo" id="sidebar-logo" data-turbolinks-permanent/></a>
+  <h2 class="c-sidebar__title">Jupyter Book</h2>
+  <ul class="c-sidebar__chapters">
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/jupyter-book/intro.html"
+        >
+          
+          Home
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+        <li class="c-sidebar__chapter"><a class="c-sidebar__entry" href="/jupyter-book/search.html">Search</a></li>
+        
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/jupyter-book/guide/01_overview.html"
+        >
+          
+          Getting started
+        </a>
+
+        
+
+          
+          
+          
+          
+
+          
+
+          <ul class="c-sidebar__sections ">
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/guide/02_create.html"
+                >
+                  
+                  Create your book
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/guide/03_build.html"
+                >
+                  
+                  Build and publish your book
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/guide/04_faq.html"
+                >
+                  
+                  FAQ
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/guide/05_advanced.html"
+                >
+                  
+                  How-to and advanced topics
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+          </ul>
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/jupyter-book/features/features.html"
+        >
+          
+          Features and customization
+        </a>
+
+        
+
+          
+          
+          
+          
+
+          
+
+          <ul class="c-sidebar__sections ">
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/features/markdown.html"
+                >
+                  
+                  Markdown files
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/features/notebooks.html"
+                >
+                  
+                  Jupyter notebooks
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/features/hiding.html"
+                >
+                  
+                  Hiding code blocks or entire cells
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/features/interact.html"
+                >
+                  
+                  Connecting content with JupyterHub and Binder
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/features/interactive_cells.html"
+                >
+                  
+                  Adding interactivity to your book pages
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/features/citations.html"
+                >
+                  
+                  Citations and bibliographies
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/features/search.html"
+                >
+                  
+                  Searching your book
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/features/limits.html"
+                >
+                  
+                  Feature Limits
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+          </ul>
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="https://github.com/jupyter/jupyter-book"
+        >
+          
+          GitHub repository
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+        <li class="c-sidebar__divider"></li>
+        
+      
+      
+        <li><h2 class="c-sidebar__title">Demo textbook</li>
+        
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/jupyter-book/01/what-is-data-science.html"
+        >
+          
+            1.
+          
+          Data Science
+        </a>
+
+        
+
+          
+          
+          
+          
+
+          
+
+          <ul class="c-sidebar__sections u-hidden-visually">
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/01/1/intro.html"
+                >
+                  
+                    1.1
+                  
+                  Introduction
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/01/2/why-data-science.html"
+                >
+                  
+                    1.2
+                  
+                  Why Data Science?
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/01/3/Plotting_the_Classics.html"
+                >
+                  
+                    1.3
+                  
+                  Plotting the Classics
+                </a>
+
+                
+                
+                  
+                  
+
+                  <li class="c-sidebar__subsection">
+                    <a class="c-sidebar__entry "
+                      href="/jupyter-book/01/3/subsection/subsections.html"
+                    >
+                      
+                        1.3.1
+                        
+                      
+                      Subsection Demo 1
+                    </a>
+                
+                  
+                  
+
+                  <li class="c-sidebar__subsection">
+                    <a class="c-sidebar__entry "
+                      href="/jupyter-book/01/3/subsection/subsectiontwo.html"
+                    >
+                      
+                        1.3.2
+                        
+                      
+                      Subsection Demo 2
+                    </a>
+                
+
+              </li>
+              
+            
+          </ul>
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/jupyter-book/02/causality-and-experiments.html"
+        >
+          
+            2.
+          
+          Causality and Experiments
+        </a>
+
+        
+
+          
+          
+          
+          
+
+          
+
+          <ul class="c-sidebar__sections u-hidden-visually">
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/02/1/observation-and-visualization-john-snow-and-the-broad-street-pump.html"
+                >
+                  
+                    2.1
+                  
+                  John Snow and the Broad Street Pump
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/02/2/snow-s-grand-experiment.html"
+                >
+                  
+                    2.2
+                  
+                  Snow’s “Grand Experiment”
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/02/3/establishing-causality.html"
+                >
+                  
+                    2.3
+                  
+                  Establishing Causality
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/02/4/randomization.html"
+                >
+                  
+                    2.4
+                  
+                  Randomization
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/02/5/endnote.html"
+                >
+                  
+                    2.5
+                  
+                  Endnote
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+          </ul>
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/jupyter-book/03/programming-in-python.html"
+        >
+          
+            3.
+          
+          Programming in Python
+        </a>
+
+        
+
+          
+          
+          
+          
+
+          
+
+          <ul class="c-sidebar__sections ">
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/03/1/Expressions.html"
+                >
+                  
+                    3.1
+                  
+                  Expressions
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/03/2/Names.html"
+                >
+                  
+                    3.2
+                  
+                  Names
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/03/3/Calls.html"
+                >
+                  
+                    3.3
+                  
+                  Call Expressions
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry c-sidebar__entry--active"
+                  href="/jupyter-book/03/4/Introduction_to_Tables.html"
+                >
+                  
+                    3.4
+                  
+                  Introduction to Tables
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+          </ul>
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/jupyter-book/04/Types.html"
+        >
+          
+            4.
+          
+          Data Types
+        </a>
+
+        
+
+          
+          
+          
+          
+
+          
+
+          <ul class="c-sidebar__sections u-hidden-visually">
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/04/1/Numbers.html"
+                >
+                  
+                    4.1
+                  
+                  Numbers
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/04/2/Strings.html"
+                >
+                  
+                    4.2
+                  
+                  Strings
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/jupyter-book/04/3/Comparison.html"
+                >
+                  
+                    4.3
+                  
+                  Comparisons
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+          </ul>
+        
+      </li>
+
+      
+    
+  </ul>
+  <p class="sidebar_footer">Powered by <a href="https://github.com/jupyter/jupyter-book">Jupyter Book</a></p>
+</nav>
+
+      
+      <!-- Empty sidebar placeholder that we'll auto-fill with javascript -->
+      <aside class="sidebar__right">
+          <header><h4 class="nav__title"><i class="fa fa-list"></i>   On this page</h4></header>
+          <nav class="onthispage">
+          </nav>
+      </aside>
+      
+      <main class="c-textbook__page" tabindex="-1">
+          <div class="o-wrapper">
+            <div class="c-sidebar-toggle">
+  <!-- We show the sidebar by default so we use .is-active -->
+  <button
+    id="js-sidebar-toggle"
+    class="hamburger hamburger--arrowalt is-active"
+  >
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
+    <span class="c-sidebar-toggle__label">Toggle Sidebar</span>
+  </button>
+</div>
+
+            
+<div class="buttons">
+<a href="/jupyter-book/content/03/4/Introduction_to_Tables.ipynb" download>
+<button id="interact-button-download" class="interact-button">Download</button>
+</a>
+
+<button id="interact-button-thebelab" class="interact-button">Thebelab</button>
+
+
+
+
+
+
+
+
+
+<a href="https://mybinder.org/v2/gh/jupyter/jupyter-book/gh-pages?filepath=content%2F03%2F4%2FIntroduction_to_Tables.ipynb"><button class="interact-button" id="interact-button-binder"><img class="interact-button-logo" src="/jupyter-book/assets/images/logo_binder.svg" alt="Interact" />Interact</button></a>
+
+
+</div>
+
+
+            <div class="c-textbook__content">
+              <p>We can now apply Python to analyze data. We will work with data stored in Table structures.</p>
+
+<p>Tables are a fundamental way of representing data sets. A table can be viewed in two ways:</p>
+<ul>
+  <li>a sequence of named columns that each describe a single attribute of all entries in a data set, or</li>
+  <li>a sequence of rows that each contain all information about a single individual in a data set.</li>
+</ul>
+
+<p>We will study tables in great detail in the next several chapters. For now, we will just introduce a few methods without going into technical details.</p>
+
+<p>The table <code class="highlighter-rouge">cones</code> has been imported for us; later we will see how, but here we will just work with it. First, let’s take a look at it.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cones</span>
+
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output output_html">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Flavor</th> <th>Color</th> <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>strawberry</td> <td>pink       </td> <td>3.55 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>light brown</td> <td>4.75 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>dark brown </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>strawberry</td> <td>pink       </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>dark brown </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>bubblegum </td> <td>pink       </td> <td>4.75 </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>The table has six rows. Each row corresponds to one ice cream cone. The ice cream cones are the <em>individuals</em>.</p>
+
+<p>Each cone has three attributes: flavor, color, and price. Each column contains the data on one of these attributes, and so all the entries of any single column are of the same kind. Each column has a label. We will refer to columns by their labels.</p>
+
+<p>A table method is just like a function, but it must operate on a table. So the call looks like</p>
+
+<p><code class="highlighter-rouge">name_of_table.method(arguments)</code></p>
+
+<p>For example, if you want to see just the first two rows of a table, you can use the table method <code class="highlighter-rouge">show</code>.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cones</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output output_html">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Flavor</th> <th>Color</th> <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>strawberry</td> <td>pink       </td> <td>3.55 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>light brown</td> <td>4.75 </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (4 rows omitted)</p>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>You can replace 2 by any number of rows. If you ask for more than six, you will only get six, because <code class="highlighter-rouge">cones</code> only has six rows.</p>
+
+<h3 id="choosing-sets-of-columns">Choosing Sets of Columns</h3>
+<p>The method <code class="highlighter-rouge">select</code> creates a new table consisting of only the specified columns.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cones</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s">'Flavor'</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output output_html">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Flavor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>strawberry</td>
+        </tr>
+        <tr>
+            <td>chocolate </td>
+        </tr>
+        <tr>
+            <td>chocolate </td>
+        </tr>
+        <tr>
+            <td>strawberry</td>
+        </tr>
+        <tr>
+            <td>chocolate </td>
+        </tr>
+        <tr>
+            <td>bubblegum </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>This leaves the original table unchanged.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cones</span>
+
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output output_html">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Flavor</th> <th>Color</th> <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>strawberry</td> <td>pink       </td> <td>3.55 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>light brown</td> <td>4.75 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>dark brown </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>strawberry</td> <td>pink       </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>dark brown </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>bubblegum </td> <td>pink       </td> <td>4.75 </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>You can select more than one column, by separating the column labels by commas.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cones</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s">'Flavor'</span><span class="p">,</span> <span class="s">'Price'</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output output_html">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Flavor</th> <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>strawberry</td> <td>3.55 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>4.75 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>strawberry</td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>bubblegum </td> <td>4.75 </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>You can also <em>drop</em> columns you don’t want. The table above can be created by dropping the <code class="highlighter-rouge">Color</code> column.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cones</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s">'Color'</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output output_html">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Flavor</th> <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>strawberry</td> <td>3.55 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>4.75 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>strawberry</td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>bubblegum </td> <td>4.75 </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>You can name this new table and look at it again by just typing its name.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">no_colors</span> <span class="o">=</span> <span class="n">cones</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s">'Color'</span><span class="p">)</span>
+
+<span class="n">no_colors</span>
+
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output output_html">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Flavor</th> <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>strawberry</td> <td>3.55 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>4.75 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>strawberry</td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>bubblegum </td> <td>4.75 </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>Like <code class="highlighter-rouge">select</code>, the <code class="highlighter-rouge">drop</code> method creates a smaller table and leaves the original table unchanged. In order to explore your data, you can create any number of smaller tables by using choosing or dropping columns. It will do no harm to your original data table.</p>
+
+<h3 id="sorting-rows">Sorting Rows</h3>
+
+<p>The <code class="highlighter-rouge">sort</code> method creates a new table by arranging the rows of the original table in ascending order of the values in the specified column. Here the <code class="highlighter-rouge">cones</code> table has been sorted in ascending order of the price of the cones.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cones</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s">'Price'</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output output_html">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Flavor</th> <th>Color</th> <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>strawberry</td> <td>pink       </td> <td>3.55 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>light brown</td> <td>4.75 </td>
+        </tr>
+        <tr>
+            <td>bubblegum </td> <td>pink       </td> <td>4.75 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>dark brown </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>strawberry</td> <td>pink       </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>dark brown </td> <td>5.25 </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>To sort in descending order, you can use an <em>optional</em> argument to <code class="highlighter-rouge">sort</code>. As the name implies, optional arguments don’t have to be used, but they can be used if you want to change the default behavior of a method.</p>
+
+<p>By default, <code class="highlighter-rouge">sort</code> sorts in increasing order of the values in the specified column. To sort in decreasing order, use the optional argument <code class="highlighter-rouge">descending=True</code>.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cones</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s">'Price'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output output_html">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Flavor</th> <th>Color</th> <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>chocolate </td> <td>dark brown </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>strawberry</td> <td>pink       </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>dark brown </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>bubblegum </td> <td>pink       </td> <td>4.75 </td>
+        </tr>
+        <tr>
+            <td>chocolate </td> <td>light brown</td> <td>4.75 </td>
+        </tr>
+        <tr>
+            <td>strawberry</td> <td>pink       </td> <td>3.55 </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>Like <code class="highlighter-rouge">select</code> and <code class="highlighter-rouge">drop</code>, the <code class="highlighter-rouge">sort</code> method leaves the original table unchanged.</p>
+
+<h3 id="selecting-rows-that-satisfy-a-condition">Selecting Rows that Satisfy a Condition</h3>
+<p>The <code class="highlighter-rouge">where</code> method creates a new table consisting only of the rows that satisfy a given condition. In this section we will work with a very simple condition, which is that the value in a specified column must be equal to a value that we also specify. Thus the <code class="highlighter-rouge">where</code> method has two arguments.</p>
+
+<p>The code in the cell below creates a table consisting only of the rows corresponding to chocolate cones.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cones</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s">'Flavor'</span><span class="p">,</span> <span class="s">'chocolate'</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output output_html">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Flavor</th> <th>Color</th> <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>chocolate</td> <td>light brown</td> <td>4.75 </td>
+        </tr>
+        <tr>
+            <td>chocolate</td> <td>dark brown </td> <td>5.25 </td>
+        </tr>
+        <tr>
+            <td>chocolate</td> <td>dark brown </td> <td>5.25 </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>The arguments, separated by a comma, are the label of the column and the value we are looking for in that column. The <code class="highlighter-rouge">where</code> method can also be used when the condition that the rows must satisfy is more complicated. In those situations the call will be a little more complicated as well.</p>
+
+<p>It is important to provide the value exactly. For example, if we specify <code class="highlighter-rouge">Chocolate</code> instead of <code class="highlighter-rouge">chocolate</code>, then <code class="highlighter-rouge">where</code> correctly finds no rows where the flavor is <code class="highlighter-rouge">Chocolate</code>.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cones</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s">'Flavor'</span><span class="p">,</span> <span class="s">'Chocolate'</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output output_html">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Flavor</th> <th>Color</th> <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>Like all the other table methods in this section, <code class="highlighter-rouge">where</code> leaves the original table unchanged.</p>
+
+<h3 id="example-salaries-in-the-nba">Example: Salaries in the NBA</h3>
+
+<p>“The NBA is the highest paying professional sports league in the world,” <a href="http://edition.cnn.com/2015/12/04/sport/gallery/highest-paid-nba-players/">reported CNN</a> in March 2016. The table <code class="highlighter-rouge">nba</code> contains the <a href="https://www.statcrunch.com/app/index.php?dataid=1843341">salaries of all National Basketball Association players</a> in 2015-2016.</p>
+
+<p>Each row represents one player. The columns are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Column Label</strong></th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">PLAYER</code></td>
+      <td>Player’s name</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">POSITION</code></td>
+      <td>Player’s position on team</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">TEAM</code></td>
+      <td>Team name</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">SALARY</code></td>
+      <td>Player’s salary in 2015-2016, in millions of dollars</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The code for the positions is PG (Point Guard), SG (Shooting Guard), PF (Power Forward), SF (Small Forward), and C (Center). But what follows doesn’t involve details about how basketball is played.</p>
+
+<p>The first row shows that Paul Millsap, Power Forward for the Atlanta Hawks, had a salary of almost $$18.7$ million in 2015-2016.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nba</span>
+
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output output_html">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>PLAYER</th> <th>POSITION</th> <th>TEAM</th> <th>SALARY</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Paul Millsap    </td> <td>PF      </td> <td>Atlanta Hawks</td> <td>18.6717</td>
+        </tr>
+        <tr>
+            <td>Al Horford      </td> <td>C       </td> <td>Atlanta Hawks</td> <td>12     </td>
+        </tr>
+        <tr>
+            <td>Tiago Splitter  </td> <td>C       </td> <td>Atlanta Hawks</td> <td>9.75625</td>
+        </tr>
+        <tr>
+            <td>Jeff Teague     </td> <td>PG      </td> <td>Atlanta Hawks</td> <td>8      </td>
+        </tr>
+        <tr>
+            <td>Kyle Korver     </td> <td>SG      </td> <td>Atlanta Hawks</td> <td>5.74648</td>
+        </tr>
+        <tr>
+            <td>Thabo Sefolosha </td> <td>SF      </td> <td>Atlanta Hawks</td> <td>4      </td>
+        </tr>
+        <tr>
+            <td>Mike Scott      </td> <td>PF      </td> <td>Atlanta Hawks</td> <td>3.33333</td>
+        </tr>
+        <tr>
+            <td>Kent Bazemore   </td> <td>SF      </td> <td>Atlanta Hawks</td> <td>2      </td>
+        </tr>
+        <tr>
+            <td>Dennis Schroder </td> <td>PG      </td> <td>Atlanta Hawks</td> <td>1.7634 </td>
+        </tr>
+        <tr>
+            <td>Tim Hardaway Jr.</td> <td>SG      </td> <td>Atlanta Hawks</td> <td>1.30452</td>
+        </tr>
+    </tbody>
+</table>
+<p>... (407 rows omitted)</p>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>Fans of Stephen Curry can find his row by using <code class="highlighter-rouge">where</code>.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s">'PLAYER'</span><span class="p">,</span> <span class="s">'Stephen Curry'</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output output_html">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>PLAYER</th> <th>POSITION</th> <th>TEAM</th> <th>SALARY</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Stephen Curry</td> <td>PG      </td> <td>Golden State Warriors</td> <td>11.3708</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>We can also create a new table called <code class="highlighter-rouge">warriors</code> consisting of just the data for the Golden State Warriors.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">warriors</span> <span class="o">=</span> <span class="n">nba</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s">'TEAM'</span><span class="p">,</span> <span class="s">'Golden State Warriors'</span><span class="p">)</span>
+<span class="n">warriors</span>
+
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output output_html">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>PLAYER</th> <th>POSITION</th> <th>TEAM</th> <th>SALARY</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Klay Thompson    </td> <td>SG      </td> <td>Golden State Warriors</td> <td>15.501 </td>
+        </tr>
+        <tr>
+            <td>Draymond Green   </td> <td>PF      </td> <td>Golden State Warriors</td> <td>14.2609</td>
+        </tr>
+        <tr>
+            <td>Andrew Bogut     </td> <td>C       </td> <td>Golden State Warriors</td> <td>13.8   </td>
+        </tr>
+        <tr>
+            <td>Andre Iguodala   </td> <td>SF      </td> <td>Golden State Warriors</td> <td>11.7105</td>
+        </tr>
+        <tr>
+            <td>Stephen Curry    </td> <td>PG      </td> <td>Golden State Warriors</td> <td>11.3708</td>
+        </tr>
+        <tr>
+            <td>Jason Thompson   </td> <td>PF      </td> <td>Golden State Warriors</td> <td>7.00847</td>
+        </tr>
+        <tr>
+            <td>Shaun Livingston </td> <td>PG      </td> <td>Golden State Warriors</td> <td>5.54373</td>
+        </tr>
+        <tr>
+            <td>Harrison Barnes  </td> <td>SF      </td> <td>Golden State Warriors</td> <td>3.8734 </td>
+        </tr>
+        <tr>
+            <td>Marreese Speights</td> <td>C       </td> <td>Golden State Warriors</td> <td>3.815  </td>
+        </tr>
+        <tr>
+            <td>Leandro Barbosa  </td> <td>SG      </td> <td>Golden State Warriors</td> <td>2.5    </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (4 rows omitted)</p>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>By default, the first 10 lines of a table are displayed. You can use <code class="highlighter-rouge">show</code> to display more or fewer. To display the entire table, use <code class="highlighter-rouge">show</code> with no argument in the parentheses.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">warriors</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output output_html">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>PLAYER</th> <th>POSITION</th> <th>TEAM</th> <th>SALARY</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Klay Thompson    </td> <td>SG      </td> <td>Golden State Warriors</td> <td>15.501  </td>
+        </tr>
+        <tr>
+            <td>Draymond Green   </td> <td>PF      </td> <td>Golden State Warriors</td> <td>14.2609 </td>
+        </tr>
+        <tr>
+            <td>Andrew Bogut     </td> <td>C       </td> <td>Golden State Warriors</td> <td>13.8    </td>
+        </tr>
+        <tr>
+            <td>Andre Iguodala   </td> <td>SF      </td> <td>Golden State Warriors</td> <td>11.7105 </td>
+        </tr>
+        <tr>
+            <td>Stephen Curry    </td> <td>PG      </td> <td>Golden State Warriors</td> <td>11.3708 </td>
+        </tr>
+        <tr>
+            <td>Jason Thompson   </td> <td>PF      </td> <td>Golden State Warriors</td> <td>7.00847 </td>
+        </tr>
+        <tr>
+            <td>Shaun Livingston </td> <td>PG      </td> <td>Golden State Warriors</td> <td>5.54373 </td>
+        </tr>
+        <tr>
+            <td>Harrison Barnes  </td> <td>SF      </td> <td>Golden State Warriors</td> <td>3.8734  </td>
+        </tr>
+        <tr>
+            <td>Marreese Speights</td> <td>C       </td> <td>Golden State Warriors</td> <td>3.815   </td>
+        </tr>
+        <tr>
+            <td>Leandro Barbosa  </td> <td>SG      </td> <td>Golden State Warriors</td> <td>2.5     </td>
+        </tr>
+        <tr>
+            <td>Festus Ezeli     </td> <td>C       </td> <td>Golden State Warriors</td> <td>2.00875 </td>
+        </tr>
+        <tr>
+            <td>Brandon Rush     </td> <td>SF      </td> <td>Golden State Warriors</td> <td>1.27096 </td>
+        </tr>
+        <tr>
+            <td>Kevon Looney     </td> <td>SF      </td> <td>Golden State Warriors</td> <td>1.13196 </td>
+        </tr>
+        <tr>
+            <td>Anderson Varejao </td> <td>PF      </td> <td>Golden State Warriors</td> <td>0.289755</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>The <code class="highlighter-rouge">nba</code> table is sorted in alphabetical order of the team names. To see how the players were paid in 2015-2016, it is useful to sort the data by salary. Remember that by default, the sorting is in increasing order.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nba</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s">'SALARY'</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output output_html">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>PLAYER</th> <th>POSITION</th> <th>TEAM</th> <th>SALARY</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Thanasis Antetokounmpo</td> <td>SF      </td> <td>New York Knicks     </td> <td>0.030888</td>
+        </tr>
+        <tr>
+            <td>Jordan McRae          </td> <td>SG      </td> <td>Phoenix Suns        </td> <td>0.049709</td>
+        </tr>
+        <tr>
+            <td>Cory Jefferson        </td> <td>PF      </td> <td>Phoenix Suns        </td> <td>0.049709</td>
+        </tr>
+        <tr>
+            <td>Elliot Williams       </td> <td>SG      </td> <td>Memphis Grizzlies   </td> <td>0.055722</td>
+        </tr>
+        <tr>
+            <td>Orlando Johnson       </td> <td>SG      </td> <td>Phoenix Suns        </td> <td>0.055722</td>
+        </tr>
+        <tr>
+            <td>Phil Pressey          </td> <td>PG      </td> <td>Phoenix Suns        </td> <td>0.055722</td>
+        </tr>
+        <tr>
+            <td>Keith Appling         </td> <td>PG      </td> <td>Orlando Magic       </td> <td>0.061776</td>
+        </tr>
+        <tr>
+            <td>Sean Kilpatrick       </td> <td>SG      </td> <td>Denver Nuggets      </td> <td>0.099418</td>
+        </tr>
+        <tr>
+            <td>Erick Green           </td> <td>PG      </td> <td>Utah Jazz           </td> <td>0.099418</td>
+        </tr>
+        <tr>
+            <td>Jeff Ayres            </td> <td>PF      </td> <td>Los Angeles Clippers</td> <td>0.111444</td>
+        </tr>
+    </tbody>
+</table>
+<p>... (407 rows omitted)</p>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>These figures are somewhat difficult to compare as some of these players changed teams during the season and received salaries from more than one team; only the salary from the last team appears in the table.</p>
+
+<p>The CNN report is about the other end of the salary scale – the players who are among the highest paid in the world. To identify these players we can sort in descending order of salary and look at the top few rows.</p>
+
+<div class="cell code_cell">
+  <div class="input_area">
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nba</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s">'SALARY'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output_subarea">
+
+      <div class="output output_html">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>PLAYER</th> <th>POSITION</th> <th>TEAM</th> <th>SALARY</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Kobe Bryant    </td> <td>SF      </td> <td>Los Angeles Lakers   </td> <td>25     </td>
+        </tr>
+        <tr>
+            <td>Joe Johnson    </td> <td>SF      </td> <td>Brooklyn Nets        </td> <td>24.8949</td>
+        </tr>
+        <tr>
+            <td>LeBron James   </td> <td>SF      </td> <td>Cleveland Cavaliers  </td> <td>22.9705</td>
+        </tr>
+        <tr>
+            <td>Carmelo Anthony</td> <td>SF      </td> <td>New York Knicks      </td> <td>22.875 </td>
+        </tr>
+        <tr>
+            <td>Dwight Howard  </td> <td>C       </td> <td>Houston Rockets      </td> <td>22.3594</td>
+        </tr>
+        <tr>
+            <td>Chris Bosh     </td> <td>PF      </td> <td>Miami Heat           </td> <td>22.1927</td>
+        </tr>
+        <tr>
+            <td>Chris Paul     </td> <td>PG      </td> <td>Los Angeles Clippers </td> <td>21.4687</td>
+        </tr>
+        <tr>
+            <td>Kevin Durant   </td> <td>SF      </td> <td>Oklahoma City Thunder</td> <td>20.1586</td>
+        </tr>
+        <tr>
+            <td>Derrick Rose   </td> <td>PG      </td> <td>Chicago Bulls        </td> <td>20.0931</td>
+        </tr>
+        <tr>
+            <td>Dwyane Wade    </td> <td>SG      </td> <td>Miami Heat           </td> <td>20     </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (407 rows omitted)</p>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<p>Kobe Bryant, since retired, was the highest earning NBA player in 2015-2016.</p>
+
+
+              <nav class="c-page__nav">
+  
+    
+    <a id="js-page__nav__prev" class="c-page__nav__prev" href="/jupyter-book/03/3/Calls">
+      〈 <span class="u-margin-right-tiny"></span> Call Expressions
+    </a>
+  
+
+  
+    
+    <a id="js-page__nav__next" class="c-page__nav__next" href="/jupyter-book/04/Types">
+      Data Types <span class="u-margin-right-tiny"></span> 〉
+    </a>
+  
+</nav>
+
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+  </body>
+</html>

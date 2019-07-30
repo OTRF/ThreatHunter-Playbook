@@ -1,0 +1,75 @@
+// Mixins and variables
+@mixin transition($in) {
+	transition:$in;
+	-webkit-transition:$in;
+	-moz-transition:$in;
+	-o-transition:$in;
+	-ms-transition:$in;
+}
+
+@mixin transform($in) {
+	transform:$in;
+	-webkit-transform:$in;
+	-moz-transform:$in;
+	-o-transform:$in;
+	-ms-transform:$in;
+}
+
+$plusminus-height: 2.5px;
+$plusminus-anim-length: .25s;
+
+// All hidden elements
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    height: 10px;
+    padding: 0px !important;
+}
+
+// Plusminus buttons
+// Adapted from https://codepen.io/FluidOfInsanity/pen/EyQGgw
+
+input[type="checkbox"] {
+    display: none;
+}
+
+.plusminus {
+    display: block;
+    position: absolute;
+    top: 9px;
+    right: -30px;
+    padding: .3em;
+
+    width: 20px;
+    height: 20px;
+    background: #d4d4d4;
+    border-radius: 25px;
+    @include transition(0.25s);
+}
+
+div.cell:hover .plusminus {
+    background: rgb(122, 130, 136);
+    @include transition(0.25s);
+}
+
+.plusminus span {
+    display: block;
+    position: absolute;
+    border-radius: 3px;
+    background: #f2f2f2;
+    @include transition(all $plusminus-anim-length ease);
+
+    margin: 0% 15%;
+    height: $plusminus-height;
+    width: 70%;
+
+    /*- half the width*/
+    left: 0px;
+    bottom:0px;
+    right:0px;
+    top: calc(50% - #{$plusminus-height} / 2);
+}
+
+input:checked ~ .plusminus span.pm_v {
+    @include transform(rotate(-90deg));
+}

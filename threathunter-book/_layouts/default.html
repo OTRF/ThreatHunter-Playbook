@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include google_analytics.html %}
+  {% include head.html %}
+  <body>
+    <!-- .js-show-sidebar shows sidebar by default -->
+    <div id="js-textbook" class="c-textbook {% if site.show_sidebar %}js-show-sidebar{% endif %}">
+      {% if site.show_sidebar == true %}{% include sidebar.html %}{% endif %}
+      {% if page.search_page != true %}
+      <!-- Empty sidebar placeholder that we'll auto-fill with javascript -->
+      <aside class="sidebar__right">
+          <header><h4 class="nav__title"><i class="fa fa-list"></i> {{ page.toc_label | default: site.data.ui-text[site.locale].toc_label }}</h4></header>
+          <nav class="onthispage">
+          </nav>
+      </aside>
+      {% endif %}
+      <main class="c-textbook__page" tabindex="-1">
+          <div class="o-wrapper">
+            {% if site.show_sidebar == true %}{% include sidebar-toggle.html %}{% endif %}
+            {% include buttons.html %}
+            <div class="c-textbook__content">
+              {{ content }}
+              {% include page-nav.html %}
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+  </body>
+</html>

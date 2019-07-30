@@ -1,0 +1,15 @@
+/* in-cell thebelab buttons */
+.thebebtn {
+  position: absolute;
+  top: 0;
+  right: $spacing-unit;
+
+  margin: $spacing-unit-tiny;
+  width: $spacing-unit;
+  height: $spacing-unit;
+  padding: 0 4px 2px;
+}
+
+.input_area .highlight {
+  position: relative;
+}

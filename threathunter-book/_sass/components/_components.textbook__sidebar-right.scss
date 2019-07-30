@@ -1,0 +1,108 @@
+/**
+ * Styling for within-page navigation.
+ *
+ * [1]: When the screen is large enough to hold the sidebar, place the sidebar
+ *   offset a bit off the right side of the screen.
+ *
+ * [2]: When the screen is large enough that the page content itself starts
+ *   having margins, use a semi-hack to position the sidebar just the right
+ *   offset from the center of the screen to be in the correct spot. We're
+ *   aiming to have the sidebar positioned just to the right of the page
+ *   content which means we take the page width without the sidebar, divide it
+ *   by 2, and add padding.
+ */
+
+/* [2] */
+$right-sidebar-center-offset: ($page-max-width - $sidebar-width) / 2 -
+    $spacing-unit-large;
+
+.sidebar__right > * {
+    direction: ltr;
+}
+
+.sidebar__right {
+    display: none;
+    overflow-x: hidden;
+    @include mq($from: desktop) {
+        display: block;
+        width: $right-sidebar-width;
+
+        position: fixed;
+        top: 3 * $spacing-unit;
+        right: 0; /* [1] */
+        padding-right: $spacing-unit;
+        overflow-y: auto;
+        max-height: 90%; // Required for scrolling to work properly
+        scrollbar-width: thin;
+        direction: rtl;
+        z-index: 1; // Keep sidebar on top of page content
+    }
+
+    @include mq($from: wide) {
+        /* [2] */
+        left: 50%;
+        transform: translateX($right-sidebar-center-offset);
+    }
+}
+
+aside.sidebar__right {
+    font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI',
+        'Helvetica Neue', 'Lucida Grande', Arial, sans-serif;
+    color: #7a8288;
+    border-left: 1px solid #c3c3c3;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+h4.nav__title {
+    color: #7a8288;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI',
+        'Helvetica Neue', 'Lucida Grande', Arial, sans-serif;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+ul.toc__menu {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    list-style: none;
+    font-size: 0.8rem;
+}
+
+ul.toc__menu a {
+    display: block;
+    padding: 0.25rem .75rem;
+    color: #898c8f;
+    font-size: 0.8em;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+.toc__menu ul {
+    margin-left: 0px;
+}
+
+.toc__menu li ul {
+    li {
+        list-style-type: none;
+        padding-left: 18px;
+    }
+
+    a {
+        font-weight: normal;
+        padding: 0.25rem .5rem;
+    }
+}
+
+// Active sidebar entries
+nav.onthispage li.active a {
+    color: #0077d8;
+}
+
+li.active {
+    border-left: 1px solid #0077d8;
+    margin-left: -1px;
+}

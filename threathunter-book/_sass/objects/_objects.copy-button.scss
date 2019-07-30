@@ -1,0 +1,15 @@
+/* Copy buttons */
+.copybtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  margin: $spacing-unit-tiny;
+  width: $spacing-unit;
+  height: $spacing-unit;
+  padding: 0 4px 2px;
+}
+
+.input_area .highlight {
+  position: relative;
+}
