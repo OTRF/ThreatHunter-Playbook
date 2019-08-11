@@ -51,7 +51,7 @@ Remember that adversaries willing to perform a Kerberoast, only need any domain 
 
 | RT Platform  | Dataset | Author |
 |---------|---------|---------|
-| Empire | [empire_kerberoast](https://github.com/Cyb3rWard0g/mordor/blob/master/small_datasets/windows/credential_access/kerberoasting_T1208/empire_kerberoast.md) | Jonathan Johnson [@jsecurity101](https://twitter.com/jsecurity101) |
+| Empire | [empire_kerberoast](https://github.com/Cyb3rWard0g/mordor/blob/master/small_datasets/windows/credential_access/credential_dumping_T1003/credentials_from_ad/empire_kerberoast.md) | Jonathan Johnson [@jsecurity101](https://twitter.com/jsecurity101) |
 
 ## Attack Detection Events
 
@@ -70,8 +70,10 @@ Remember that adversaries willing to perform a Kerberoast, only need any domain 
 
 | Analytic Platform | Analytic Type  | Analytic Logic |
 |--------|---------|---------|
-| Kibana | Rule | `event_id:4769 AND NOT (service_ticket_name = *$ OR service_ticket_name = krbtgt) AND failure_code = 0x0` |
-| Splunk | Rule | `index = wineventlog EventCode = 4769  Account_Name != "*$" AND (Service_Name != "*$" or Service_Name != "krbtgt") AND Failure_Code = 0x0`
+| Kibana | Rule | `event_id:4769 AND ticket_encryption_type_value: "RC4-HMAC" AND NOT (user_name: *$ AND service_ticket_name: krbtgt AND service_ticket_name:*$)` |
+| Splunk | Rule | `index=wineventlog EventCode=4769 Service_Name!="krbtgt" Service_Name!="*$" Failure_Code ="0x0"  Ticket_Encryption_Type="0x17" Account_Name!="*$*"` |
+
+**Note**: For `Account_Name!=*$*` enter your personalized domain so that the query is faster. Example: `Account_Name!="*$@domain.com`
 
 ## Potential False Positives
 
@@ -79,7 +81,7 @@ Remember that adversaries willing to perform a Kerberoast, only need any domain 
 
 ## Hunter Notes
 
-* An adversary can use the captured users domain credentials to request Kerberos TGS tickets for accounts that are associated with an SPN. This ticket can be requested in a specific format (RC4), so when taking it offline it is easier to crack. I have noticed however when specifying that the account requesting the service ticket isn't a `machine($)` account, the `krbtgt` account, and the `failure code` is `0x0` this either gets us to the account that the advesary was using or limits down the results to where you can pick out the false positives to find the advesary easier. 
+* An adversary can use the captured users domain credentials to request Kerberos TGS tickets for accounts that are associated with an SPN. This ticket can be requested in a specific format (RC4), so when taking it offline it is easier to crack. I have noticed however when specifying that the account requesting the service ticket isn't a `machine($)` account, the service ticket name they are trying to get access to typeicaly isnt going to be the `krbtgt` account, the failure code is `0x0` - ticket was granted, and the ticket encryption is typically requested in `RC4` format - this either gets us to the account that the advesary was using or limits down the results to where you can pick out the false positives to find the advesary easier. In a real enviroment this would have to be tailored to fit the enviroments paramenters and needs to better specifiy th query, but this sets a good baseline. 
 
 ## References
 * Will Schroeder (@harmj0y)
