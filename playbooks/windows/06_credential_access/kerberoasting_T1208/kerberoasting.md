@@ -51,7 +51,7 @@ Remember that adversaries willing to perform a Kerberoast, only need any domain 
 
 | RT Platform  | Dataset | Author |
 |---------|---------|---------|
-| Empire | [empire_kerberoast](https://github.com/Cyb3rWard0g/mordor/blob/master/small_datasets/windows/credential_access/credential_dumping_T1003/credentials_from_ad/empire_kerberoast.md) | Jonathan Johnson [@jsecurity101](https://twitter.com/jsecurity101) |
+| Empire | [empire_kerberoast](https://github.com/Cyb3rWard0g/mordor/blob/master/small_datasets/windows/credential_access/kerberoasting_T1208/empire_kerberoast.md) | Jonathan Johnson [@jsecurity101](https://twitter.com/jsecurity101) |
 
 ## Attack Detection Events
 
