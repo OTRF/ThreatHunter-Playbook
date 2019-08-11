@@ -7,4 +7,4 @@ An adversary with enough permissions can abuse active directory services to acce
 | Sub-techinque | Author | Updated |
 | ----------- | ------- | --------- | 
 | [active_directory_replication](active_directory_replication.md) | Roberto Rodriguez [@Cyb3rWard0g](https://twitter.com/Cyb3rWard0g) | 2019-03-29174830 |
-| [kerberoast](kerberoasting.md) | Jonathan Johnson [@jsecurity101](https://twitter.com/jsecurity101) | 2019-07-25200422 |
+
