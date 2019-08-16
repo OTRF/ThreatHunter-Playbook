@@ -1,0 +1,22 @@
+title: T1222 Active Directory Replication User Backdoor
+description: Detects modification of the security descriptor of a domain object to grant active directory replication permissions to any user
+status: experimental
+date: 2019/09/12
+author: Roberto Rodriguez @Cyb3rWard0g
+references:
+    - https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/playbooks/windows/05_defense_evasion/T1222_file_permissions_modification/ad_replication_user_backdoor.md
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection_one: 
+        EventID: 5136
+        AttributeLDAPDisplayName: 'ntsecuritydescriptor'
+        AttributeValue:
+            - '*1131f6aa-9c07-11d1-f79f-00c04fc2dcd2*'
+            - '*1131f6ad-9c07-11d1-f79f-00c04fc2dcd2*'
+            - '*89e95b76-444d-4c62-991a-0facbeda640c*'
+    condition: selection
+falsepositives:
+    - Unknown
+level: critical
