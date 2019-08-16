@@ -27,7 +27,7 @@ COPY . ${HOME}
 
 RUN chown ${NB_USER} /usr/local/share/jupyter/kernels/pyspark3/kernel.json \
     && cd ${HOME}/playbooks/ \
-    && find . -type f -name "*.ipynb" -exec cp -n {} . \
+    && find . -type f -name "*.ipynb" -exec cp -n {} . \; \
     && chown -R ${NB_USER}:${NB_USER} ${HOME} ${JUPYTER_DIR}
 
 WORKDIR ${HOME}
