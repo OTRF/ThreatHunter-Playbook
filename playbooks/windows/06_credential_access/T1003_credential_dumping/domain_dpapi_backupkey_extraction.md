@@ -30,8 +30,8 @@ If an adversary obtains domain admin (or equivalent) privileges, the domain back
 
 ### Additional Reading:
 
-* [Data Protection API (DPAPI)](../../../../library/data_protection_api.md)
-* [LSA Policy Objects](../../../../library/lsa_policy_objects.md)
+* [Data Protection API (DPAPI)](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/data_protection_api.md)
+* [LSA Policy Objects](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/lsa_policy_objects.md)
 
 ## Permission Required
 
@@ -54,32 +54,16 @@ Adversaries might be extracting the domain backup key to be able to decrypt any 
 | [4662](https://github.com/Cyb3rWard0g/OSSEM/blob/master/data_dictionaries/windows/security/events/event-4662.md) | An operation was performed on an object | Microsoft-Windows-Security-Auditing | DS Access | Directory Service Access | Windows Event Logs |
 | [5145](https://github.com/Cyb3rWard0g/OSSEM/blob/master/data_dictionaries/windows/security/events/event-5145.md) | A network share object was checked to see whether client can be granted desired access | Microsoft-Windows-Security-Auditing | Object Access | Detailed File Share | Windows Event Logs |
 | [4692](https://github.com/Cyb3rWard0g/OSSEM/blob/master/data_dictionaries/windows/security/events/event-4692.md) | Backup of data protection master key was attempted | Microsoft-Windows-Security-Auditing | Detailed Tracking | DPAPI Activity | Windows Event Logs |
+| [4624](https://github.com/Cyb3rWard0g/OSSEM/blob/master/data_dictionaries/windows/security/events/event-4624.md) | An account was successfully logged on | Microsoft-Windows-Security-Auditing | Audit Logon/Logoff | Audit Logon | Windows Event Logs |
 
 ## Data Analytics
 
-### SparkSQL
-
-| FP Rate | Source | Analytic Logic |
-|--------|---------|---------|
-| Low | Security | SELECT * FROM security_events WHERE event_id = 4662 AND object_type = "SecretObject" AND object_access_mask_requested = "0x2" AND object_name LIKE "%bckupkey%" |
-| Low | Security | SELECT * FROM security_events WHERE event_id = 5145 AND share_name LIKE "%IPC%" AND share_relative_target_name = "protected_storage" |
-| Low | Security | SELECT * FROM security_events WHERE event_id = 4692 |
-
-### MS Azure Kusto Query
-
-| FP Rate | Source | Analytic Logic |
-|--------|---------|---------|
-| Low | Security | SecurityEvent \| where EventId == 4662 and ObjectType == "SecretObject" and AccessMask == "0x2" and ObjectName contains "BCKUPKEY"  |
-| Low | Security | SecurityEvent \| where EventId == 5145 and ShareName contains "IPC" and RelativeTargetName == "protected_storage"  |
-| Low | Security | SecurityEvent \| where EventId == 4692 |
-
-### Kibana
-
-| FP Rate | Source | Analytic Logic |
-|--------|---------|---------|
-| Low | Security | event_id:4662 AND object_type:SecretObject AND object_server:LSA AND object_access_mask_requested:"0x2" AND object_name:\*BCKUPKEY* |
-| Low | Security | event_id:5145 AND share_name:\*IPC* AND share_relative_target_name:"protected_storage" |
-| Low | Security | event_id:4692 |
+| FP Rate | Source | Analytic Logic | Description |
+|--------|---------|---------|---------|
+| Low | Security | SELECT `@timestamp`, computer_name, ObjectServer, ObjectType, ObjectName FROM mordor_file WHERE channel = "Security" AND event_id = 4662 AND AccessMask = "0x2" AND lower(ObjectName) LIKE "%bckupkey%" | Monitor for any SecretObject with the string BCKUPKEY in the ObjectName |
+| Low | Security | SELECT o.`@timestamp`, o.computer_name, o.ObjectName, a.IpAddress FROM mordor_file o INNER JOIN \( SELECT computer_name,TargetUserName,TargetLogonId,IpAddress FROM mordor_file WHERE channel = "Security" AND LogonType = 3 AND IpAddress is not null AND NOT TargetUserName LIKE "%$" \) a ON o.SubjectLogonId = a.TargetLogonId WHERE channel = "Security" AND o.event_id = 4662 AND o.AccessMask = "0x2" AND lower(o.ObjectName) LIKE "%bckupkey%" AND o.computer_name = a.computer_name | We can get the user logon id of the user that accessed the \*bckupkey\* object and JOIN it with a successful logon event (4624) user logon id to find the source IP |
+| Low | Security | SELECT `@timestamp`, computer_name, SubjectUserName, ShareName, RelativeTargetName, AccessMask, IpAddress FROM mordor_file WHERE channel = "Security" AND event_id = 5145 AND ShareName LIKE "%IPC%" AND RelativeTargetName = "protected_storage" | Monitoring for access to the protected_storage service is very interesting to document potential DPAPI activity over the network |
+| Low | Security | SELECT `@timestamp`, computer_name, SubjectUserName, MasterKeyId, RecoveryKeyId FROM mordor_file WHERE channel = "Security" AND event_id = 4692| This event generates every time that a backup is attempted for the DPAPI Master Key. When a computer is a member of a domain, DPAPI has a backup mechanism to allow unprotection of the data. When a Master Key is generated, DPAPI communicates with a domain controller. |
 
 ## Detection Blind Spots
 
@@ -90,9 +74,11 @@ Adversaries might be extracting the domain backup key to be able to decrypt any 
 
 ## Hunt Output
 
-| Output Type | Name |
-|--------|---------|
-| Alert | [win_dpapi_domain_backupkey_extraction](../../../../signatures/win_dpapi_domain_backupkey_extraction.yml) |
+| Category | Type | Name |
+|--------|---------|---------|
+| Signature | Sigma Rule | [win_dpapi_domain_backupkey_extraction.yml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_backupkey_extraction.yml) |
+| Signature | Sigma Rule | [win_protected_storage_service_access.yml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_protected_storage_service_access.yml) |
+| Signature | Sigma Rule | [win_dpapi_domain_masterkey_backup_attempt.yml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_masterkey_backup_attempt.yml)
 
 ## Referennces
 

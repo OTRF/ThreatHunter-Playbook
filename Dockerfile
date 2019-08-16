@@ -19,18 +19,17 @@ RUN adduser --disabled-password \
     --uid ${NB_UID} \
     ${NB_USER} \
     # ********* Download and decompress mordor datasets *****************
-    && mkdir ${HOME}/datasets \
     && git clone https://github.com/Cyb3rWard0g/mordor.git ${HOME}/mordor \
-    # ********* Download ThreatHunter Playbook as a git file *****************
-    && git clone https://github.com/Cyb3rWard0g/ThreatHunter-Playbook.git ${HOME}/ThreatHunter-Playbook
+    && cd ${HOME}/mordor/small_datasets/ \
+    && find . -type f -name "*.tar.gz" -print0 | sudo xargs -0 -I{} tar xf {} -C .
 
-COPY scripts/* ${HOME}/
+COPY . ${HOME}
 
 RUN chown ${NB_USER} /usr/local/share/jupyter/kernels/pyspark3/kernel.json \
-    && chown -R ${NB_USER}:${NB_USER} ${HOME} ${JUPYTER_DIR}
+    && chown -R ${NB_USER}:${NB_USER} ${HOME} ${JUPYTER_DIR} \
+    && cd ${HOME} \
+    && find . -type f -name "*.ipynb" -exec cp -n {} .
 
 WORKDIR ${HOME}
-
-ENTRYPOINT ["./playbooks-setup.sh"]
 
 USER ${NB_USER}
