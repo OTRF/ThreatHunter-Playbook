@@ -18,6 +18,7 @@ RUN adduser --disabled-password \
     --gecos "Default user" \
     --uid ${NB_UID} \
     ${NB_USER} \
+    && python3 -m pip install openhunt \
     # ********* Download and decompress mordor datasets *****************
     && git clone https://github.com/Cyb3rWard0g/mordor.git ${HOME}/mordor \
     && cd ${HOME}/mordor/small_datasets/ \
@@ -27,7 +28,7 @@ COPY . ${HOME}
 
 RUN chown ${NB_USER} /usr/local/share/jupyter/kernels/pyspark3/kernel.json \
     && cd ${HOME}/playbooks/ \
-    && find . -type f -name "*.ipynb" -exec cp -n {} . \; \
+    && find . -type f -name "*.ipynb" -exec cp -n {} ${HOME}/ \; \
     && chown -R ${NB_USER}:${NB_USER} ${HOME} ${JUPYTER_DIR}
 
 WORKDIR ${HOME}
