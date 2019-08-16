@@ -18,19 +18,21 @@ RUN adduser --disabled-password \
     --gecos "Default user" \
     --uid ${NB_UID} \
     ${NB_USER} \
+    && python3 -m pip install openhunt \
     # ********* Download and decompress mordor datasets *****************
-    && mkdir ${HOME}/datasets \
     && git clone https://github.com/Cyb3rWard0g/mordor.git ${HOME}/mordor \
-    # ********* Download ThreatHunter Playbook as a git file *****************
-    && git clone https://github.com/Cyb3rWard0g/ThreatHunter-Playbook.git ${HOME}/ThreatHunter-Playbook
+    && cd ${HOME}/mordor/small_datasets/ \
+    && find . -type f -name "*.tar.gz" -print0 | sudo xargs -0 -I{} tar xf {} -C .
 
-COPY scripts/* ${HOME}/
+COPY . ${HOME}
 
 RUN chown ${NB_USER} /usr/local/share/jupyter/kernels/pyspark3/kernel.json \
+    && cd ${HOME}/playbooks/ \
+    && find . -type f -name "*.ipynb" -exec cp -n {} ${HOME}/ \; \
     && chown -R ${NB_USER}:${NB_USER} ${HOME} ${JUPYTER_DIR}
 
-WORKDIR ${HOME}
-
-ENTRYPOINT ["./playbooks-setup.sh"]
-
 USER ${NB_USER}
+
+RUN python3 -m pip install openhunt
+
+WORKDIR ${HOME}
