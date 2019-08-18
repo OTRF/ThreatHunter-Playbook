@@ -2,7 +2,7 @@
 # Author: Roberto Rodriguez (@Cyb3rWard0g)
 # License: GPL-3.0
 
-FROM cyb3rward0g/jupyter-hunt:0.0.3
+FROM cyb3rward0g/jupyter-hunt:0.0.4
 LABEL maintainer="Roberto Rodriguez @Cyb3rWard0g"
 LABEL description="Dockerfile ThreatHunter Playbook Project."
 
@@ -31,8 +31,6 @@ RUN chown ${NB_USER} /usr/local/share/jupyter/kernels/pyspark3/kernel.json \
     && find . -type f -name "*.ipynb" -exec cp -n {} ${HOME}/ \; \
     && chown -R ${NB_USER}:${NB_USER} ${HOME} ${JUPYTER_DIR}
 
-USER ${NB_USER}
-
-RUN python3 -m pip install openhunt
-
 WORKDIR ${HOME}
+
+USER ${NB_USER}
