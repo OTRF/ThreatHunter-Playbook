@@ -1,17 +1,17 @@
 # Kerberoast
 
 ## Playbook Tags
-**ID:** WINCRED1808152105
 
 **Author:** Jonathan Johnson [@jsecurity101](https://twitter.com/jsecurity101)
 
-**References:** WINEXEC1904101010
 
 ## ATT&CK Tags
 
 **Tactics:** Credential Access
 
 **Techniques:** Kerberoasting (T1208)
+
+## Applies To
 
 ## Techinical Description
 
