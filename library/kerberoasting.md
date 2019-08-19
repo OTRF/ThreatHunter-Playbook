@@ -25,7 +25,7 @@ Events are generated any time a service ticket is requested, assuming you have t
 * Service Information: This is where you can see the the Service Name and Service ID that the service ticket is granting access to.  
 * Additional Information: Important information here is seeing whether the failure code is `0x0` or not. If the failure code is anything other then `0x0` then the service ticket was not granted. 
 
-### Extra Notes:
+### Hunters Notes:
 Remember that adversaries willing to perform a Kerberoast, only need any domain accounts credentials. No special privileges are needed. Seeing a user account that usually doesn't have an association with a specific SPN or service is supicious. Along with, if this user is requesting multiple service tickets at once or in a short time span. 
 
 
