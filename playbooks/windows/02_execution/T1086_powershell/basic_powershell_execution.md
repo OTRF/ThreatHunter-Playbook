@@ -56,6 +56,8 @@ Adversaries might be leveraging PowerShell to execute code within my environment
 | Low | Sysmon |  SELECT `@timestamp`, computer_name, Image, PipeName FROM mordor_file WHERE channel = "Microsoft-Windows-Sysmon/Operational" AND event_id = 17 AND lower(PipeName) LIKE "\\\\pshost%" | Monitoring for PSHost* pipes is another interesting way to find PowerShell execution |
 | High | PowerShell | SELECT `@timestamp`, computer_name, param1, param2 FROM mordor_file WHERE channel = "Microsoft-Windows-PowerShell/Operational" AND event_id = 53504 | The “PowerShell Named Pipe IPC” event will indicate the name of the PowerShell AppDomain that started. Sign of PowerShell execution |
 
+## False Positives
+
 ## Detection Blind Spots
 
 ## Hunter Notes

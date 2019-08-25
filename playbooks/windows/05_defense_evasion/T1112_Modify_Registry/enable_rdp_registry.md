@@ -50,6 +50,8 @@ Adversaries might be enabling remote desktop connections by modifying registry k
 |--------|---------|---------|
 | Rule | Sysmon | SELECT `@timestamp`, computer_name, Image, TargetObject FROM mordor_file WHERE channel = "Microsoft-Windows-Sysmon/Operational" AND event_id = 13 AND (TargetObject LIKE "%fDenyTSConnections" OR TargetObject LIKE "%UserAuthentication") AND Details = "DWORD (0x00000000)" |
 
+## False Positives
+
 ## Detection Blind Spots
 
 ## Hunter Notes

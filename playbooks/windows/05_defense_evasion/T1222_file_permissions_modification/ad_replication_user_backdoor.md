@@ -64,6 +64,8 @@ Adversaries might modifying the security descriptor of the root domain to grant 
 | Rule | Security | SELECT `@timestamp`, computer_name, SubjectUserName, ObjectName, OperationType FROM mordor_file WHERE channel = "Security" AND event_id = 4662 AND ObjectServer = "DS" AND AccessMask = "0x40000" AND ObjectType LIKE "%19195a5b_6da0_11d0_afd3_00c04fd930c9%" |
 | Rule | Security | SELECT `@timestamp`, computer_name, SubjectUserName, ObjectDN, AttributeLDAPDisplayName FROM mordor_file WHERE channel = "Security" AND event_id = 5136 AND lower(AttributeLDAPDisplayName) = "ntsecuritydescriptor" AND (AttributeValue LIKE "%1131f6aa_9c07_11d1_f79f_00c04fc2dcd2%" OR AttributeValue LIKE "%1131f6ad_9c07_11d1_f79f_00c04fc2dcd2%" OR AttributeValue LIKE "%89e95b76_444d_4c62_991a_0facbeda640c%") |
 
+## False Positives
+
 ## Detection Blind Spots
 
 ## Hunter Notes

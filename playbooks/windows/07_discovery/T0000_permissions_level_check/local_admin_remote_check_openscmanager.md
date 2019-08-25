@@ -59,6 +59,8 @@ Adversaries might attempt to use the OpenSCManagerW Win32API call to establish a
 | High | Sysmon | SELECT `@timestamp`, computer_name, User, SourcePort, SourceIp, DestinationPort, DestinationIp FROM mordor_file WHERE channel = "Microsoft-Windows-Sysmon/Operational" AND event_id = 3 AND Image LIKE "%\\\services.exe" | Look for several network connection maded by services.exe from different endpoints to the same destination |
 | Low | Security | SELECT o.`@timestamp`, o.computer_name, o.SubjectUserName, o.ObjectType,o.ObjectName, o.PrivilegeList, a.IpAddress FROM mordor_file o INNER JOIN (SELECT computer_name,TargetUserName,TargetLogonId,IpAddress FROM mordor_file WHERE channel = "Security" AND LogonType = 3 AND IpAddress is not null AND NOT TargetUserName LIKE "%$") a ON o.SubjectLogonId = a.TargetLogonId WHERE o.channel = "Security" AND o.event_id = 4674 AND o.ObjectType = "SC_MANAGER OBJECT" AND o.ObjectName = "ServicesActive" AND NOT o.SubjectLogonId = "0x3e4" | Look for non-system accounts performing privileged operations on protected subsystem objects such as the SCM database from other endpoints in the network |
 
+## False Positives
+
 ## Detection Blind Spots
 
 ## Hunter Notes

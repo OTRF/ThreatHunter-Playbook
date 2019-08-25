@@ -56,6 +56,8 @@ Adversaries might be leveraging remote powershell sessions to execute code on re
 | Low | Sysmon | SELECT `@timestamp`, computer_name, ParentImage, Image FROM mordor_file WHERE channel = "Microsoft-Windows-Sysmon/Operational" AND event_id = 1 AND (ParentImage LIKE "%wsmprovhost.exe" OR Image LIKE "%wsmprovhost.exe") | Process wsmprovhost hosts the active remote session on the target. Therefore, from a process creation perspective, it is to document any instances of wsmprovhost being spawned and spawning other processes |
 | Low | Sysmon | SELECT `@timestamp`, computer_name, User, Initiated, Image, SourceIp, DestinationIp FROM mordor_file WHERE channel = "Microsoft-Windows-Sysmon/Operational" AND event_id = 3 AND (DestinationPort = 5985 OR DestinationPort = 5986) AND NOT User = "NT AUTHORITY\\\\NETWORK SERVICE" | Monitor for outbound network connection where the destination port is either 5985 or 5986 and the use is not NT AUTHORITY\NETWORK SERVICE |
 
+## False Positives
+
 ## Detection Blind Spots
 
 ## Hunter Notes

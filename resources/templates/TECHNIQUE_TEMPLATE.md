@@ -1,75 +1,71 @@
-# Adversary Technique
-## Technique ID
-T0001_technique_name
+# Technique Variation Name
 
+## Playbook Tags
 
-## Description
+**ID:** [OS+TacticNameFirstFourLetters+YYMMDDHHMM]
 
+**Author:** Roberto Rodriguez [@Cyb3rWard0g](https://twitter.com/Cyb3rWard0g)
+
+**References:** Any other related playbook ID
+
+## ATT&CK Tags
+
+**Tactic:** Tactic Name
+
+**Technique:** Technique Name (Technique ID)
+
+## Applies To
+
+## Technical Description
+
+Brief Description
+
+## Permission Required
+
+[Administrator|user|Domain Admin|]
 
 ## Hypothesis
 
+Example: Adversaries might be creating new services remotely to execute code and move laterally in my environment
 
+## Attack Simulation Dataset
 
-## Attack Simulation
+Example: 
 
-| Script  | Short Description | Author | 
-|---------|---------|---------|
-| \[Link to script\](Link)| Short description on how an attacker would use the script | \[Author Name\](Link) |
-
-
+| Environment| Name | Description |
+|--------|---------|---------|
+| [Shire](https://github.com/Cyb3rWard0g/mordor/tree/acf9f6be6a386783a20139ceb2faf8146378d603/environment/shire) | [empire_invoke_psexec](https://github.com/Cyb3rWard0g/mordor/blob/master/small_datasets/windows/execution/service_execution_T1035/empire_invoke_psexec.md) | A mordor dataset to simulate an adversary creating a service |
 
 ## Recommended Data Sources
 
-| ATT&CK Data Source | Event Log |
-|---------|---------|
-|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell |
-|File Monitoring, Process Monitoring, etc..|Sysmon, WinEvent, PowerShell | 
-|File Monitoring, Process Monitoring, etc..|Sysmon, WinEvent, PowerShell |
-|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell | 
-|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell | 
-|File Monitoring, Process Monitoring, etc..| Sysmon, WinEvent, PowerShell |
+| Event ID | Event Name | Log Provider | Audit Category | Audit Sub-Category | ATT&CK Data Source |
+|---------|---------|----------|----------|---------|---------|
+| | | | | | |
 
+## Data Analytics
 
+| FP Rate | Source | Analytic Logic | Description |
+|--------|---------|---------|---------|
+| [High|Medium|Low] | [Sysmon|Security|PowerShell]  | SQL Like Query | Description of the analytic |
 
-## Specific Events
+## False Positives
 
-| Source | EventID | EventField | Details | Reference | 
-|--------|---------|-------|---------|-----------| 
-| Sysmon, WinEvent, PowerShell | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
-| Sysmon, WinEvent, PowerShell | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
-| Sysmon, WinEvent, PowerShell | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
-| Sysmon, WinEvent, PowerShell | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
-| Sysmon, WinEvent, PowerShell | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
-| Sysmon, WinEvent, PowerShell | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
-| Sysmon, WinEvent, PowerShell | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
-| Sysmon, WinEvent, PowerShell | ID | Field, ALL | Short Description or Strings | \[Author Name\](link) |
-
-
-
-## Recommended Configuration(s)
-| Title | Description | Reference|
-|---------|---------|---------|
-| Name of configuration | Brief description of what the configuration does | \[Author Name\](link)
-
-
-
-## Data Analytics 
-
-| Analytic Type  | Analytic Logic | Analytic Data Object |
-|--------|---------|---------|
-| Behavioral Analytics, Situational Awareness, Anomaly/Outlier |  process_name = xxx AND process_command_line=xxx WHERE xxxxx  | Data Objects... | 
-
+## Detection Blind Spots
 
 ## Hunter Notes
-* Notes..
 
+* Any additional Notes
 
-## Hunting Techniques Recommended
+## Hunt Output
 
-- [x] Grouping
-- [x] Searching
-- [ ] Clustering
-- [ ] Stack Counting
-- [ ] Scatter Plots
-- [ ] Box Plots
-- [ ] Isolation Forests
+Examples:
+
+| Category | Type | Name |
+|--------|---------|---------|
+| Signature | Sigma Rule | [powershell_alternate_powershell_hosts.yml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/powershell_alternate_powershell_hosts.yml) |
+| Signature | Sigma Rule | [sysmon_alternate_powershell_hosts_moduleload.yml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_alternate_powershell_hosts_moduleload.yml) |
+| Signature | Sigma Rule | [sysmon_alternate_powershell_hosts_pipe.yml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_alternate_powershell_hosts_pipe.yml) |
+
+## References
+
+* Any Links that were Helpful

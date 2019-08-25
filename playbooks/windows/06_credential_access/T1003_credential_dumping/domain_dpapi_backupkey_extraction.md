@@ -41,6 +41,8 @@ Domain Admin
 
 Adversaries might be extracting the domain backup key to be able to decrypt any domain user master key.
 
+## False Positives
+
 ## Attack Simulation Dataset
 
 | Environment| Name | Description |

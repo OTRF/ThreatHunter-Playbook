@@ -76,6 +76,8 @@ Adversaries might be injecting a dll to another process to execute code via Crea
 | High | Sysmon | SELECT `@timestamp`, computer_name, SourceImage, TargetImage FROM mordor_file WHERE channel = "Microsoft-Windows-Sysmon/Operational" AND event_id = 8 AND lower(StartModule) LIKE "%kernel32.dll" AND StartFunction = "LoadLibraryA" | Look for any use of the CreateRemoteThread function to create a remote thread starting at the memory address (which means this will execute LoadLibrary in the remote process) |
 | Medium | Sysmon | SELECT f.`@timestamp` AS file_date, m.`@timestamp` AS module_date, f.computer_name, f.Image AS file_image, m.Image AS module_image, m.ImageLoaded, f.TargetFilename FROM mordor_file f INNER JOIN (SELECT `@timestamp`,computer_name,ImageLoaded,TargetLogonId,IpAddress FROM mordor_file WHERE channel = "Microsoft-Windows-Sysmon/Operational" AND event_id = 7) m ON f.TargetFilename = m.ImageLoaded WHERE f.channel = "Microsoft-Windows-Sysmon/Operational" AND f.event_id = 11 AND f.computer_name = m.computer_name | You can look for the same file being created and loaded. The process that creates the file and loads the file are not the same. |
 
+## False Positives
+
 ## Detection Blind Spots
 
 * Instead of passing the address of the LoadLibrary, adversaries can copy the malicious code into an existing open process and cause it to execute (either via a small shellcode, or by calling CreateRemoteThread) via a technique known as PE injection. The advantage of this is that the adversary does not have to drop a malicious DLL on the disk. Similar to the basic dll injection technique, the malware allocates memory in a host process (e.g. VirtualAllocEx), and instead of writing a “DLL path” it writes its malicious code by calling WriteProcessMemory.

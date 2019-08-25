@@ -56,6 +56,8 @@ Adversaries might attempt to pull the NTLM hash of a user via active directory r
 | Low | Security | SELECT `@timestamp`, computer_name, SubjectUserName FROM mordor_file WHERE channel = "Security" AND event_id = 4662 AND AccessMask = "0x100" AND (Properties LIKE "%1131f6aa_9c07_11d1_f79f_00c04fc2dcd2%" OR Properties LIKE "%1131f6ad_9c07_11d1_f79f_00c04fc2dcd2%" OR Properties LIKE "%89e95b76_444d_4c62_991a_0facbeda640c%") AND NOT SubjectUserName LIKE "%$" | Monitoring for non-dc machine accounts accessing active directory objects on domain controllers with replication rights might be suspicious |
 | Low | Security | SELECT o.`@timestamp`, o.computer_name, o.SubjectUserName, o.SubjectLogonId, a.IpAddress FROM mordor_file o INNER JOIN ( SELECT computer_name,TargetUserName,TargetLogonId,IpAddress FROM mordor_file WHERE channel = "Security" AND LogonType = 3 AND IpAddress is not null AND NOT TargetUserName LIKE "%\\$" ) a ON o.SubjectLogonId = a.TargetLogonId WHERE o.channel = "Security" AND o.event_id = 4662 AND o.AccessMask = "0x100" AND (o.Properties LIKE "%1131f6aa_9c07_11d1_f79f_00c04fc2dcd2%" OR o.Properties LIKE "%1131f6ad_9c07_11d1_f79f_00c04fc2dcd2%" OR o.Properties LIKE "%89e95b76_444d_4c62_991a_0facbeda640c%") AND o.computer_name = a.computer_name AND NOT o.SubjectUserName LIKE "%$" | You can use successful authentication events on the domain controller to get information about the source of the AD Replication Service request |
 
+## False Positives
+
 ## Detection Blind Spots
 
 * Adversaries could perform the replication request from a Domain Controller (DC) and with the DC machine account (*$) to make it look like usual/common replication activity. 

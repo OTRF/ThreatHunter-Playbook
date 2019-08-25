@@ -61,6 +61,8 @@ Adversaries might be injecting a dll to another process to execute code via Crea
 | Low | Sysmon | SELECT `@timestamp`, computer_name, User, Operation, Consumer, Filter FROM mordor_file WHERE channel = "Microsoft-Windows-Sysmon/Operational" AND event_id = 21 | Look for WMI consumers binding to filters |
 | Low | Sysmon | SELECT `@timestamp`, computer_name, message FROM mordor_file WHERE channel = "Microsoft-Windows-WMI-Activity/Operational" AND event_id = 5861 | Look for events related to the registration of FilterToConsumerBinding |
 
+## False Positives
+
 ## Detection Blind Spots
 
 ## Hunter Notes

@@ -57,6 +57,8 @@ Adversaries might be accessing and decrypting SAM entries after calculating the 
 |--------|---------|---------|---------|
 | Medium | Security | SELECT `@timestamp`, computer_name, SubjectUserName, ProcessName, ObjectName, AccessMask FROM mordor_file WHERE channel = "Security" AND event_id = 4656 AND ObjectType = "Key" AND lower(ObjectName) LIKE "%sam" | Monitor for any handle requested for the SAM registry hive |
 
+## False Positives
+
 ## Detection Blind Spots
 
 ## Hunter Notes

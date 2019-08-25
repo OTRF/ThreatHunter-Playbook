@@ -47,6 +47,8 @@ Adversaries might be creating new services remotely to execute code and move lat
 |--------|---------|---------|---------|
 | Low | Sysmon | SELECT o.`@timestamp`, o.computer_name, o.SubjectUserName, o.SubjectUserName, o.ServiceName, a.IpAddress FROM mordor_file o INNER JOIN (SELECT computer_name,TargetUserName,TargetLogonId,IpAddress FROM mordor_file WHERE channel = "Security" AND LogonType = 3 AND IpAddress is not null AND NOT TargetUserName LIKE "%$") a ON o.SubjectLogonId = a.TargetLogonId WHERE o.channel = "Security" AND o.event_id = 4697 | Look for new services being created in your environment under a network logon session (3). That is a sign that the service creation was performed from another endpoint in the environment  |
 
+## False Positives
+
 ## Detection Blind Spots
 
 ## Hunter Notes

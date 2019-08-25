@@ -63,6 +63,8 @@ Adversaries might be leveraging WMI Win32_Process class and method create to exe
 | Medium | Sysmon | SELECT `@timestamp`, computer_name, User, Image, CommandLine FROM mordor_file WHERE channel = "Microsoft-Windows-Sysmon/Operational" AND event_id = 1 AND lower(ParentImage) LIKE "%wmiprvse.exe" AND NOT LogonId = "0x3e7" | Look for wmiprvse.exe spawning processes that are part of non-system account sessions. |
 | Low | Security | SELECT o.`@timestamp`, o.computer_name, o.SubjectUserName, o.TargetUserName, o.NewProcessName, o.CommandLine, a.IpAddress FROM mordor_file o INNER JOIN (SELECT computer_name,TargetUserName,TargetLogonId,IpAddress FROM mordor_file WHERE channel = "Security" AND LogonType = 3 AND IpAddress is not null AND NOT TargetUserName LIKE "%$") a ON o.TargetLogonId = a.TargetLogonId WHERE o.channel = "Security" AND o.event_id = 4688 AND lower(o.ParentProcessName) LIKE "\%wmiprvse.exe" AND NOT o.TargetLogonId = "0x3e7" | Look for non-system accounts leveraging WMI over the netwotk to execute code |
 
+## False Positives
+
 ## Detection Blind Spots
 
 ## Hunter Notes

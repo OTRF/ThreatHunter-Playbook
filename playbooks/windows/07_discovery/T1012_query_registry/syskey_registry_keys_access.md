@@ -57,6 +57,8 @@ Adversaries might be calculating the SysKey from registry key values to decrypt 
 |--------|---------|---------|---------|
 | Low | Security | SELECT `@timestamp`, ProcessName, ObjectName, AccessMask, event_id FROM mordor_file WHERE channel = "Security" AND (event_id = 4656 OR event_id = 4663) AND ObjectType = "Key" AND (lower(ObjectName) LIKE "%jd" OR lower(ObjectName) LIKE "%gbg" OR lower(ObjectName) LIKE "%data" OR lower(ObjectName) LIKE "%skew1") | Look for handle requests and access operations to specific registry keys used to calculate the SysKey. SACLs are needed for them |
 
+## False Positives
+
 ## Detection Blind Spots
 
 * Apparently the registry keys needed to calculate the SysKey are accessed by processes such as smss.exe, winlogon.exe and syskey.exe, but when the system boots. An adversary can migrate to those processes to blend in.

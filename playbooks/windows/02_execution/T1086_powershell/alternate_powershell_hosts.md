@@ -57,6 +57,8 @@ Adversaries might be leveraging alternate PowerShell Hosts to execute PowerShell
 | Medium | Sysmon |  SELECT `@timestamp`, computer_name, Image, Description FROM mordor_file WHERE channel = "Microsoft-Windows-Sysmon/Operational" AND event_id = 7 AND (lower(Description) = "system.management.automation"OR lower(ImageLoaded) LIKE "%system.management.automation%") AND NOT Image LIKE "%powershell.exe"  | Looking for processes loading a specific PowerShell DLL is a very effective way to document the use of PowerShell in your environment |
 | Low | Sysmon |  SELECT `@timestamp`, computer_name, Image, PipeName FROM mordor_file WHERE channel = "Microsoft-Windows-Sysmon/Operational" AND event_id = 17 AND lower(PipeName) LIKE "\\\\\pshost%" AND NOT Image LIKE "%powershell.exe" | Monitoring for PSHost* pipes is another interesting way to find other alternate PowerShell hosts in your environment. |
 
+## False Positives
+
 ## Detection Blind Spots
 
 ## Hunter Notes
@@ -67,7 +69,7 @@ Adversaries might be leveraging alternate PowerShell Hosts to execute PowerShell
 ## Hunt Output
 
 | Category | Type | Name |
-|--------|---------|
+|--------|---------|---------|
 | Signature | Sigma Rule | [powershell_alternate_powershell_hosts.yml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/powershell_alternate_powershell_hosts.yml) |
 | Signature | Sigma Rule | [sysmon_alternate_powershell_hosts_moduleload.yml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_alternate_powershell_hosts_moduleload.yml) |
 | Signature | Sigma Rule | [sysmon_alternate_powershell_hosts_pipe.yml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_alternate_powershell_hosts_pipe.yml) |

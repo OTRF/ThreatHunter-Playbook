@@ -60,6 +60,8 @@ Adversaries might be leveraging WMI modules to execute WMI tasks bypassing contr
 |--------|---------|---------|---------|
 | Low | Sysmon | SELECT `@timestamp`, computer_name, Image, ImageLoaded FROM mordor_file WHERE channel = "Microsoft-Windows-Sysmon/Operational" AND event_id = 7 AND (lower(ImageLoaded) LIKE "%wmiclnt.dll" OR lower(ImageLoaded) LIKE "%WmiApRpl.dll" OR lower(ImageLoaded) LIKE "%wmiprov.dll" OR lower(ImageLoaded) LIKE "%wmiutils.dll" OR lower(ImageLoaded) LIKE "%wbemcomn.dll" OR lower(ImageLoaded) LIKE "%WMINet_Utils.dll" OR lower(ImageLoaded) LIKE "%wbemsvc.dll" OR lower(ImageLoaded) LIKE "%fastprox.dll" OR lower(Description) LIKE "%wmi%") AND NOT (lower(Image) LIKE "%wmiprvse.exe" OR lower(Image) LIKE "%wmiapsrv.exe" OR lower(Image) LIKE "%svchost.exe")| Look for processes (non wmiprvse.exe or WmiApSrv.exe) loading wmi modules |
 
+## False Positives
+
 ## Detection Blind Spots
 
 ## Hunter Notes

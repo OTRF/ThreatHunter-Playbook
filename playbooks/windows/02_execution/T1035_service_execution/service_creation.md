@@ -46,6 +46,8 @@ Adversaries might be creating new services to execute code on a compromised endp
 |--------|---------|---------|---------|
 | Low | Sysmon | SELECT `@timestamp`, computer_name, SubjectUserName ServiceName, ServiceType, ServiceStartType, ServiceAccount FROM mordor_file WHERE channel = "Security"AND event_id = 4697| Look for new services being created in your environment and stack the values of it |
 
+## False Positives
+
 ## Detection Blind Spots
 
 ## Hunter Notes
