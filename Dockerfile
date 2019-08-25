@@ -25,7 +25,7 @@ RUN adduser --disabled-password \
     && cd ${HOME}/mordor/small_datasets/ \
     && find . -type f -name "*.tar.gz" -print0 | sudo xargs -0 -I{} tar xf {} -C .
 
-COPY playbooks ${HOME}
+COPY . ${HOME}
 
 RUN chown ${NB_USER} /usr/local/share/jupyter/kernels/pyspark3/kernel.json \
     && cd ${HOME}/playbooks/ \

@@ -10,7 +10,7 @@
 
 A Threat hunter's playbook to aid the development of techniques and hypothesis for hunting campaigns by leveraging security event logs from diverse operating systems. This project provides specific chains of events exclusively at the host and network level so that you can take them and develop logic to develop data analytics in your preferred tool or query format. This repo follows the structure of the [MITRE ATT&CK](https://attack.mitre.org/wiki/Main_Page) framework categorizing post-compromise adversary behavior in tactical groups.
 
-In addition, the project documents detection strategies in the form of interactive notebooks to provide an easy and flexible way to visualize the expected output and be able to run the analytics against [pre-recorded mordor datasets](https://github.com/Cyb3rWard0g/mordor) through [BinderHub](https://mybinder.readthedocs.io/en/latest/index.html) cloud computing environments.
+In addition, the project documents detection strategies in the form of [interactive notebooks](https://github.com/hunters-forge/notebooks-forge#what-is-a-notebook) to provide an easy and flexible way to visualize the expected output and be able to run the analytics against [pre-recorded mordor datasets](https://github.com/Cyb3rWard0g/mordor) through [BinderHub](https://mybinder.readthedocs.io/en/latest/index.html) cloud computing environments.
 
 # Goals
 
