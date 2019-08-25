@@ -1,4 +1,5 @@
 ### Kerberos and the Kerberos ticketing system:
+
 A simple brief and explanation of the `Kerberos Authentication Protocol`:
 
 Kerberos is the primary authentication protocol used in Windows Active Directory domains. The Kerberos protocol uses `tickets` to authenticate and/or authorize domain joined users. 
@@ -32,7 +33,7 @@ Remember that adversaries willing to perform a Kerberoast, only need any domain 
 ## References
 * Will Schroeder (@harmj0y)
 * https://www.harmj0y.net/blog/redteaming/kerberoasting-revisited/
-* https://jsecurity101.com/2019/IOC-differences-between-Kerberoasting-and-AsRep-Roasting/
+* https://medium.com/@jsecurity101/ioc-differences-between-kerberoasting-and-as-rep-roasting-4ae179cdf9ec
 * https://www.harmj0y.net/blog/powershell/kerberoasting-without-mimikatz/
 * https://github.com/Cyb3rWard0g/OSSEM/blob/master/data_dictionaries/windows/security/events/event-4769.md
 * https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4769
