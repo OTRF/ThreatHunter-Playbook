@@ -31,12 +31,12 @@ A service object represents an installed service. The CreateService and OpenServ
 
 The OpenSCManager, CreateService, and OpenService functions can request different types of access to SCManager and service objects. The requested access is granted or denied depending on the access token of the calling process and the security descriptor associated with the SCManager or service object.
 
-## OpenSCManagerW function
+## OpenSCManagerA function
 
 Establishes a connection to the service control manager on the specified computer and opens the specified service control manager database.
 
 ```
-SC_HANDLE OpenSCManagerW(
+SC_HANDLE OpenSCManagerA(
   LPCWSTR lpMachineName,
   LPCWSTR lpDatabaseName,
   DWORD   dwDesiredAccess
