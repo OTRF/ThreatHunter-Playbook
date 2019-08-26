@@ -17,6 +17,12 @@ The SCM maintains a database of installed services in the registry. The database
 
 This database is also known as the `ServicesActive database` or the SCM database. You must use the functions provided by the SCM, instead of modifying the database directly.
 
+## Services and RPC/TCP
+
+Starting with Windows Vista, the service control manager (SCM) supports remote procedure calls over both Transmission Control Protocol (RPC/TCP) and named pipes (RPC/NP). Client-side SCM functions use RPC/TCP by default. RPC/TCP is appropriate for most applications that use SCM functions remotely, such as remote administration or monitoring tools. The server interface is identified by UUID 367ABB81-9844-35F1-AD32-98F038001003, version 2.0, using the RPC well-known endpoint "\PIPE\svcctl". The server MUST use RPC over SMB, ncacn_np or RPC over TCP, or ncacn_ip_tcp as the RPC protocol sequence to the RPC implementation.
+
+When a service calls a remote SCM function, the client-side SCM first attempts to use RPC/TCP to communicate with the server-side SCM. If the server is running a version of Windows that supports RPC/TCP and allows RPC/TCP traffic, the RPC/TCPP connection will succeed. If the server is running a version of Windows that does not support RPC/TCP, or supports RPC/TCP but is operating behind a firewall which allows only named pipe traffic, the RPC/TCP connection times out and the SCM retries the connection with RPC/NP.
+
 ## SCM Handles
 
 The SCM supports handle types to allow access to the following objects.
@@ -69,3 +75,5 @@ Before granting the requested access rights, the system checks the access token 
 * https://docs.microsoft.com/en-us/windows/win32/api/winsvc/nf-winsvc-openscmanagerw
 * https://docs.microsoft.com/en-us/windows/win32/services/database-of-installed-services
 * https://docs.microsoft.com/en-us/windows/win32/services/service-security-and-access-rights
+* https://docs.microsoft.com/en-us/windows/win32/services/services-and-rpc-tcp
+* https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-scmr/4c8b7701-b043-400c-9350-dc29cfaa5e7a
