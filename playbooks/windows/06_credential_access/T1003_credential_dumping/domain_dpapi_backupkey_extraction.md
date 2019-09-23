@@ -47,7 +47,7 @@ Adversaries might be extracting the domain backup key to be able to decrypt any 
 
 | Environment| Name | Description |
 |--------|---------|---------|
-| [Shire](https://github.com/Cyb3rWard0g/mordor/tree/acf9f6be6a386783a20139ceb2faf8146378d603/environment/shire) | [empire_mimikatz_export_master_key](https://github.com/Cyb3rWard0g/mordor/blob/master/small_datasets/windows/credential_access/credential_dumping_T1003/credentials_from_memory/empire_mimikatz_export_master_key.md) | A mordor dataset to simulate the extraction of the domain DPAPI backup key |
+| [Shire](https://github.com/Cyb3rWard0g/mordor/tree/acf9f6be6a386783a20139ceb2faf8146378d603/environment/shire) | [empire_mimikatz_export_master_key](https://github.com/Cyb3rWard0g/mordor/blob/master/small_datasets/windows/credential_access/credential_dumping_T1003/credentials_from_ad/empire_mimikatz_export_master_key.md) | A mordor dataset to simulate the extraction of the domain DPAPI backup key |
 
 ## Recommended Data Sources
 
