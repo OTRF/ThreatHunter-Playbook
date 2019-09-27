@@ -1,6 +1,6 @@
 # The ThreatHunter-Playbook
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Cyb3rWard0g/ThreatHunter-Playbook/master)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hunters-forge/ThreatHunter-Playbook/master)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![GitHub issues-closed](https://img.shields.io/github/issues-closed/Cyb3rward0g/ThreatHunter-Playbook.svg)](https://GitHub.com/Cyb3rWard0g/ThreatHunter-Playbook/issues?q=is%3Aissue+is%3Aclosed)
 [![Twitter](https://img.shields.io/twitter/follow/HunterPlaybook.svg?style=social&label=Follow)](https://twitter.com/HunterPlaybook)
