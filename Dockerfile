@@ -27,7 +27,7 @@ RUN python3 -m pip install openhunt==1.6.4 --user \
     && cd ${HOME}/mordor/small_datasets/ \
     && find . -type f -name "*.tar.gz" -print0 | xargs -0 -I{} tar xf {} -C .
 
-COPY playbooks ${HOME}
+COPY playbooks ${HOME}/playbooks
 
 USER root
 
