@@ -21,7 +21,7 @@ RUN adduser --disabled-password \
 
 USER ${NB_USER}
     # ********* Install OpenHunt Library *****************
-RUN python3 -m pip install openhunt==1.6.4 --user \
+RUN python3 -m pip install openhunt==1.6.4 pyarrow==0.14.1 --user \
     # ********* Download and decompress mordor datasets *****************
     && git clone https://github.com/Cyb3rWard0g/mordor.git ${HOME}/mordor \
     && cd ${HOME}/mordor/small_datasets/ \
