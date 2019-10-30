@@ -23,7 +23,7 @@ USER ${NB_USER}
     # ********* Install OpenHunt Library *****************
 RUN python3 -m pip install openhunt==1.6.4 pyarrow==0.14.1 --user \
     # ********* Download and decompress mordor datasets *****************
-    && git clone https://github.com/Cyb3rWard0g/mordor.git ${HOME}/mordor \
+    && git clone https://github.com/hunters-forge/mordor.git ${HOME}/mordor \
     && cd ${HOME}/mordor/small_datasets/ \
     && find . -type f -name "*.tar.gz" -print0 | xargs -0 -I{} tar xf {} -C .
 
