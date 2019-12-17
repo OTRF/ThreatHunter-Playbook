@@ -1,0 +1,25 @@
+///* ========================================================================
+//   #GLOBAL
+//   ======================================================================== */
+
+// The global settings file contains any project-wide variables; things that
+// need to be made available to the entire codebase.
+
+$spacing-unit-tiny: $inuit-global-spacing-unit-tiny;
+$spacing-unit-small: $inuit-global-spacing-unit-small;
+$spacing-unit-med: 0.75 * $inuit-global-spacing-unit;
+$spacing-unit: $inuit-global-spacing-unit;
+$spacing-unit-large: $inuit-global-spacing-unit-large;
+$spacing-unit-huge: $inuit-global-spacing-unit-huge;
+
+$color-light-gray: #f7f7f7;
+$color-dark-gray: #ccc;
+
+$color-text: #222;
+$color-links: #0077d8;
+
+// Text book variables
+$textbook-page-width: 100%;
+$textbook-page-with-sidebar-width: 70%;
+$book-background-color: white;
+

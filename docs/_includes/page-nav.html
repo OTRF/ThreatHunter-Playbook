@@ -1,0 +1,37 @@
+{% comment %}
+Only the URLs from the TOC are used here. The title for
+prev/next is pulled from the respective page's metadata.
+We loop through the "build" collection to determine the
+page title based on the *current* page's next/prev URL.
+{% endcomment %}
+<nav class="c-page__nav">
+  {% if page.prev_page %}
+    {% for build_page in site.build %}
+      {% if build_page.url == page.prev_page.url %}
+        {% assign prev_title = build_page.title %}
+      {% endif %}
+    {%- endfor %}
+    {% if prev_title | size > 40 %}
+      {% assign prev_title = prev_title | truncate: 37 %}
+    {% endif %}
+
+    <a id="js-page__nav__prev" class="c-page__nav__prev" href="{{ page.prev_page.url | relative_url }}">
+      〈 <span class="u-margin-right-tiny"></span> {{ prev_title }}
+    </a>
+  {% endif %}
+
+  {% if page.next_page %}
+    {% for build_page in site.build %}
+      {% if build_page.url == page.next_page.url %}
+        {% assign next_title = build_page.title %}
+      {% endif %}
+    {%- endfor %}
+
+    {% if next_title | size > 40 %}
+      {% assign next_title = next_title | truncate: 37 %}
+    {% endif %}
+    <a id="js-page__nav__next" class="c-page__nav__next" href="{{ page.next_page.url | relative_url }}">
+      {{ next_title }} <span class="u-margin-right-tiny"></span> 〉
+    </a>
+  {% endif %}
+</nav>

@@ -1,0 +1,611 @@
+---
+redirect_from:
+  - "/notebooks/windows/02-execution/execution/win-190410151110"
+interact_link: content/notebooks/windows/02_execution/execution/WIN-190410151110.ipynb
+kernel_name: 
+kernel_path: content/notebooks/windows/02_execution/execution
+has_widgets: false
+title: |-
+  Basic PowerShell Execution
+pagenum: 10
+prev_page:
+  url: /notebooks/windows/02_execution/execution/WIN-190810201010.html
+next_page:
+  url: /notebooks/windows/02_execution/execution/WIN-190813181020.html
+suffix: .ipynb
+search: powershell sigma description log windows analytic fp rate channel execution playbook microsoft operational github com master environment medium sysmon signature hunters forge threathunter tree signatures yml might analytics host filter application sign being another basic id adversaries code used within process event started high looking non interactive session executed background name data stack values command line arguments sysmonpowershellexecutionmoduleload sysmonpowershellexecutionpipe sysmonnoninteractivepowershellexecution winnoninteractivepowershell metadata win author roberto rodriguez cybrwardg creation date platform link technical perform actions including discovery information therefore important understand artifacts left hypothesis leveraging execute initialize engine download mordor file classic indicates new exe want leave without captuer every single
+
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
+
+    <main class="jupyter-page">
+    <div id="page-info"><div id="page-title">Basic PowerShell Execution</div>
+</div>
+    <div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Metadata">Metadata<a class="anchor-link" href="#Metadata"> </a></h2>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">id</td>
+<td style="text-align:left">WIN-190410151110</td>
+</tr>
+<tr>
+<td style="text-align:left">author</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">creation date</td>
+<td style="text-align:left">19/04/10</td>
+</tr>
+<tr>
+<td style="text-align:left">platform</td>
+<td style="text-align:left">Windows</td>
+</tr>
+<tr>
+<td style="text-align:left">playbook link</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Technical-Description">Technical Description<a class="anchor-link" href="#Technical-Description"> </a></h2><p>Adversaries can use PowerShell to perform a number of actions, including discovery of information and execution of code.
+Therefore, it is important to understand the basic artifacts left when PowerShell is used in your environment.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hypothesis">Hypothesis<a class="anchor-link" href="#Hypothesis"> </a></h2><p>Adversaries might be leveraging PowerShell to execute code within my environment</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Analytics">Analytics<a class="anchor-link" href="#Analytics"> </a></h2>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Initialize-Analytics-Engine">Initialize Analytics Engine<a class="anchor-link" href="#Initialize-Analytics-Engine"> </a></h3>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">spark</span> <span class="o">=</span> <span class="n">get_spark</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Download-&amp;-Process-Mordor-File">Download &amp; Process Mordor File<a class="anchor-link" href="#Download-&amp;-Process-Mordor-File"> </a></h3>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/execution/scripting_T1064/empire_launcher_vbs.tar.gz&quot;</span>
+<span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Analytic-I">Analytic I<a class="anchor-link" href="#Analytic-I"> </a></h3>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:left">FP Rate</th>
+<th style="text-align:left">Log Channel</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Medium</td>
+<td style="text-align:left">['Microsoft-Windows-PowerShell/Operational', 'PowerShell']</td>
+<td style="text-align:left">Within the classic PowerShell log, event ID 400 indicates when a new PowerShell host process has started. You can filter on powershell.exe as a host application if you want to or leave it without a filter to captuer every single PowerShell host</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, computer_name, channel</span>
+<span class="sd">FROM mordorTable</span>
+<span class="sd">WHERE (channel = &quot;Microsoft-Windows-PowerShell/Operational&quot; OR channel = &quot;Windows PowerShell&quot;)</span>
+<span class="sd">    AND (event_id = 400 OR event_id = 4103)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Analytic-II">Analytic II<a class="anchor-link" href="#Analytic-II"> </a></h3>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:left">FP Rate</th>
+<th style="text-align:left">Log Channel</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">High</td>
+<td style="text-align:left">['Security']</td>
+<td style="text-align:left">Looking for non-interactive powershell session might be a sign of PowerShell being executed by another application in the background</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, computer_name, NewProcessName, ParentProcessName</span>
+<span class="sd">FROM mordorTable</span>
+<span class="sd">WHERE channel = &quot;Security&quot;</span>
+<span class="sd">    AND event_id = 4688</span>
+<span class="sd">    AND NewProcessName LIKE &quot;%powershell.exe&quot;</span>
+<span class="sd">    AND NOT ParentProcessName LIKE &quot;%explorer.exe&quot;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Analytic-III">Analytic III<a class="anchor-link" href="#Analytic-III"> </a></h3>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:left">FP Rate</th>
+<th style="text-align:left">Log Channel</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">High</td>
+<td style="text-align:left">['Microsoft-Windows-Sysmon/Operational']</td>
+<td style="text-align:left">Looking for non-interactive powershell session might be a sign of PowerShell being executed by another application in the background</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, computer_name, Image, ParentImage</span>
+<span class="sd">FROM mordorTable</span>
+<span class="sd">WHERE channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">    AND event_id = 1</span>
+<span class="sd">    AND Image LIKE &quot;%powershell.exe&quot;</span>
+<span class="sd">    AND NOT ParentImage LIKE &quot;%explorer.exe&quot;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Analytic-IV">Analytic IV<a class="anchor-link" href="#Analytic-IV"> </a></h3>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:left">FP Rate</th>
+<th style="text-align:left">Log Channel</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Medium</td>
+<td style="text-align:left">['Microsoft-Windows-Sysmon/Operational']</td>
+<td style="text-align:left">Monitor for processes loading PowerShell DLL <em>system.management.automation</em></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, computer_name, Image, ImageLoaded</span>
+<span class="sd">FROM mordorTable</span>
+<span class="sd">WHERE channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">    AND event_id = 7</span>
+<span class="sd">    AND (lower(Description) = &quot;system.management.automation&quot; OR lower(ImageLoaded) LIKE &quot;%system.management.automation%&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Analytic-V">Analytic V<a class="anchor-link" href="#Analytic-V"> </a></h3>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:left">FP Rate</th>
+<th style="text-align:left">Log Channel</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Medium</td>
+<td style="text-align:left">['Microsoft-Windows-Sysmon/Operational']</td>
+<td style="text-align:left">Monitoring for PSHost* pipes is another interesting way to find PowerShell execution</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, computer_name, Image, PipeName</span>
+<span class="sd">FROM mordorTable</span>
+<span class="sd">WHERE channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">    AND event_id = 17</span>
+<span class="sd">    AND lower(PipeName) LIKE &quot;\\\\pshost%&quot;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Analytic-VI">Analytic VI<a class="anchor-link" href="#Analytic-VI"> </a></h3>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:left">FP Rate</th>
+<th style="text-align:left">Log Channel</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Medium</td>
+<td style="text-align:left">['Microsoft-Windows-Sysmon/Operational']</td>
+<td style="text-align:left">The “PowerShell Named Pipe IPC” event will indicate the name of the PowerShell AppDomain that started. Sign of PowerShell execution</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, computer_name, message</span>
+<span class="sd">FROM mordorTable</span>
+<span class="sd">WHERE channel = &quot;Microsoft-Windows-PowerShell/Operational&quot;</span>
+<span class="sd">    AND event_id = 53504</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Detection-Blindspots">Detection Blindspots<a class="anchor-link" href="#Detection-Blindspots"> </a></h2>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hunter-Notes">Hunter Notes<a class="anchor-link" href="#Hunter-Notes"> </a></h2><ul>
+<li>Explore the data produced in your environment with the analytics above and document what normal looks like from a PowerShell perspective.</li>
+<li>If execution of PowerShell happens all the time in your environment, I suggest to categorize the data you collect by business unit to build profiles and be able to filter out potential noise.</li>
+<li>You can also stack the values of the command line arguments being used. You can hash the command line arguments too and stack the values.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hunt-Output">Hunt Output<a class="anchor-link" href="#Hunt-Output"> </a></h2><table>
+<thead><tr>
+<th style="text-align:left">Category</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">signature</td>
+<td style="text-align:left">SIGMA</td>
+<td style="text-align:left"><a href="https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_powershell_execution_moduleload.yml">sysmon_powershell_execution_moduleload</a></td>
+</tr>
+<tr>
+<td style="text-align:left">signature</td>
+<td style="text-align:left">SIGMA</td>
+<td style="text-align:left"><a href="https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_powershell_execution_pipe.yml">sysmon_powershell_execution_pipe</a></td>
+</tr>
+<tr>
+<td style="text-align:left">signature</td>
+<td style="text-align:left">SIGMA</td>
+<td style="text-align:left"><a href="https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_non_interactive_powershell_execution.yml">sysmon_non_interactive_powershell_execution</a></td>
+</tr>
+<tr>
+<td style="text-align:left">signature</td>
+<td style="text-align:left">SIGMA</td>
+<td style="text-align:left"><a href="https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/win_non_interactive_powershell.yml">win_non_interactive_powershell</a></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="References">References<a class="anchor-link" href="#References"> </a></h2><ul>
+<li><a href="https://github.com/darkoperator/Presentations/blob/master/PSConfEU%202019%20Tracking%20PowerShell%20Usage.pdf">https://github.com/darkoperator/Presentations/blob/master/PSConfEU%202019%20Tracking%20PowerShell%20Usage.pdf</a></li>
+<li><a href="https://posts.specterops.io/abusing-powershell-desired-state-configuration-for-lateral-movement-ca42ddbe6f06">https://posts.specterops.io/abusing-powershell-desired-state-configuration-for-lateral-movement-ca42ddbe6f06</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+ 
+
+
+    </main>
+    

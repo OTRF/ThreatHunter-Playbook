@@ -1,0 +1,315 @@
+---
+redirect_from:
+  - "/notebooks/windows/07-discovery/discovery/win-190625024610"
+interact_link: content/notebooks/windows/07_discovery/discovery/WIN-190625024610.ipynb
+kernel_name: 
+kernel_path: content/notebooks/windows/07_discovery/discovery
+has_widgets: false
+title: |-
+  SysKey Registry Keys Access
+pagenum: 29
+prev_page:
+  url: /notebooks/windows/07_discovery/discovery/WIN-190725024610.html
+next_page:
+  url: /notebooks/windows/07_discovery/discovery/WIN-190826010110.html
+suffix: .ipynb
+search: system syskey registry hklm currentcontrolset control lsa keys com local security cybrwardg playbook account accounts github access windows computer database adversaries sam calculate threathunter tree master processes exe those description specific groups might mimikatz lsadump such get decrypt entries api values jd skew gbg data library md key analytics process needed boots rights accessing sigma winsyskeyregistryaccess docs microsoft en us metadata id win author roberto rodriguez creation date platform link technical every runs its own domain conceptually any sids referred because computers typically not trust information identities stay created tools commands scripts invoke powerdump mannager hive ntlm sometimes lm hashes
+
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
+
+    <main class="jupyter-page">
+    <div id="page-info"><div id="page-title">SysKey Registry Keys Access</div>
+</div>
+    <div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Metadata">Metadata<a class="anchor-link" href="#Metadata"> </a></h2>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">id</td>
+<td style="text-align:left">WIN-190625024610</td>
+</tr>
+<tr>
+<td style="text-align:left">author</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">creation date</td>
+<td style="text-align:left">19/06/25</td>
+</tr>
+<tr>
+<td style="text-align:left">platform</td>
+<td style="text-align:left">Windows</td>
+</tr>
+<tr>
+<td style="text-align:left">playbook link</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Technical-Description">Technical Description<a class="anchor-link" href="#Technical-Description"> </a></h2><p>Every computer that runs Windows has its own local domain; that is, it has an account database for accounts that are specific to that computer.
+Conceptually,this is an account database like any other with accounts, groups, SIDs, and so on. These are referred to as local accounts, local groups, and so on.
+Because computers typically do not trust each other for account information, these identities stay local to the computer on which they were created.
+Adversaries might use tools like Mimikatz with lsadump::sam commands or scripts such as Invoke-PowerDump to get the SysKey to decrypt Security Account Mannager (SAM) database entries (from registry or hive) and get NTLM, and sometimes LM hashes of local accounts passwords.
+Adversaries can calculate the Syskey by using RegOpenKeyEx/RegQueryInfoKey API calls to query the appropriate class info and values from the HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\JD, HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\Skew1, HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\GBG, and HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\Data keys.
+Additional reading</p>
+<ul>
+<li><a href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/security_account_manager_database.md">https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/security_account_manager_database.md</a></li>
+<li><a href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/syskey.md">https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/syskey.md</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hypothesis">Hypothesis<a class="anchor-link" href="#Hypothesis"> </a></h2><p>Adversaries might be calculating the SysKey from registry key values to decrypt SAM entries</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Analytics">Analytics<a class="anchor-link" href="#Analytics"> </a></h2>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Initialize-Analytics-Engine">Initialize Analytics Engine<a class="anchor-link" href="#Initialize-Analytics-Engine"> </a></h3>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">spark</span> <span class="o">=</span> <span class="n">get_spark</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Download-&amp;-Process-Mordor-File">Download &amp; Process Mordor File<a class="anchor-link" href="#Download-&amp;-Process-Mordor-File"> </a></h3>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/lateral_movement/remote_services_T1021/empire_find_local_admin.tar.gz&quot;</span>
+<span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Analytic-I">Analytic I<a class="anchor-link" href="#Analytic-I"> </a></h3>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:left">FP Rate</th>
+<th style="text-align:left">Log Channel</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Low</td>
+<td style="text-align:left">['Security']</td>
+<td style="text-align:left">Look for handle requests and access operations to specific registry keys used to calculate the SysKey. SACLs are needed for them</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, ProcessName, ObjectName, AccessMask, event_id</span>
+<span class="sd">FROM mordorTable</span>
+<span class="sd">WHERE channel = &quot;Security&quot;</span>
+<span class="sd">    AND (event_id = 4656 OR event_id = 4663)</span>
+<span class="sd">    AND ObjectType = &quot;Key&quot;</span>
+<span class="sd">    AND (</span>
+<span class="sd">        lower(ObjectName) LIKE &quot;%jd&quot;</span>
+<span class="sd">        OR lower(ObjectName) LIKE &quot;%gbg&quot;</span>
+<span class="sd">        OR lower(ObjectName) LIKE &quot;%data&quot;</span>
+<span class="sd">        OR lower(ObjectName) LIKE &quot;%skew1&quot;</span>
+<span class="sd">    )</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Detection-Blindspots">Detection Blindspots<a class="anchor-link" href="#Detection-Blindspots"> </a></h2><p>Apparently the registry keys needed to calculate the SysKey are accessed by processes such as smss.exe, winlogon.exe and syskey.exe, but when the system boots. An adversary can migrate to those processes to blend in.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hunter-Notes">Hunter Notes<a class="anchor-link" href="#Hunter-Notes"> </a></h2><ul>
+<li>An audit rule needs to be added to the SACL of the following keys to monitor for ReadKey rights<ul>
+<li>HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\JD</li>
+<li>HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\Skew1</li>
+<li>HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\GBG</li>
+<li>HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\Data</li>
+</ul>
+</li>
+<li>Defenders can correlate known processes accessing those registry keys with events that tell you when the system boots up.</li>
+<li>Look for the same process accessing all those registry keys in a short period of time.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hunt-Output">Hunt Output<a class="anchor-link" href="#Hunt-Output"> </a></h2><table>
+<thead><tr>
+<th style="text-align:left">Category</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">signature</td>
+<td style="text-align:left">SIGMA</td>
+<td style="text-align:left"><a href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_syskey_registry_access.yml">win_syskey_registry_access</a></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="References">References<a class="anchor-link" href="#References"> </a></h2><ul>
+<li><a href="https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump">https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump</a></li>
+<li><a href="https://adsecurity.org/?page_id=1821#LSADUMPSAM">https://adsecurity.org/?page_id=1821#LSADUMPSAM</a></li>
+<li><a href="http://www.harmj0y.net/blog/activedirectory/remote-hash-extraction-on-demand-via-host-security-descriptor-modification/">http://www.harmj0y.net/blog/activedirectory/remote-hash-extraction-on-demand-via-host-security-descriptor-modification/</a></li>
+<li><a href="https://docs.microsoft.com/en-us/dotnet/api/system.security.accesscontrol.registryrights?view=netframework-4.8">https://docs.microsoft.com/en-us/dotnet/api/system.security.accesscontrol.registryrights?view=netframework-4.8</a></li>
+<li><a href="https://docs.microsoft.com/en-us/windows/desktop/sysinfo/registry-key-security-and-access-rights">https://docs.microsoft.com/en-us/windows/desktop/sysinfo/registry-key-security-and-access-rights</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+ 
+
+
+    </main>
+    

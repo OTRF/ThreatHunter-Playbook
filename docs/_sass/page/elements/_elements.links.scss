@@ -1,0 +1,29 @@
+/**
+ * Styling for links
+ */
+
+a,
+a:visited {
+  color: $color-links;
+  text-decoration: none;
+}
+
+// Anchor links
+// Uncomment this after https://github.com/jupyter/nbconvert/pull/1101 is released
+// main.jupyter-page {
+//   a.anchor-link {
+//     visibility: hidden;
+//     font-size: 15px;
+//     padding-left: 5px;
+
+//     i {
+//       font-style: normal;
+//     }
+//   }
+
+//   h2, h3, h4, h5 {
+//     &:hover a.anchor-link {
+//       visibility: visible;
+//     }
+//   }
+// }

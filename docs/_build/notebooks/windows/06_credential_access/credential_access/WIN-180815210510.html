@@ -1,0 +1,389 @@
+---
+redirect_from:
+  - "/notebooks/windows/06-credential-access/credential-access/win-180815210510"
+interact_link: content/notebooks/windows/06_credential_access/credential_access/WIN-180815210510.ipynb
+kernel_name: 
+kernel_path: content/notebooks/windows/06_credential_access/credential_access
+has_widgets: false
+title: |-
+  Active Directory Replication From Non-Domain-Controller Accounts
+pagenum: 24
+prev_page:
+  url: /notebooks/windows/06_credential_access/credential_access/WIN-190725024610.html
+next_page:
+  url: /notebooks/windows/06_credential_access/credential_access/WIN-191030201010.html
+suffix: .ipynb
+search: replication domain controller windows request dc com microsoft directory active rpc accounts object docs en us non account e cybrwardg playbook description attributes information via might security events source b etw provider not id process transferred controllers data objects adversary permissions usually level perform operations github threathunter tree master adversaries analytics file analytic fp rate log channel low machine ad activity interface guid d ab cfcdcd performed endpoint where does logon type came sigma winadreplicationnonmachineaccount openspecs windowsprotocols ms desktop adschema c metadata win author roberto rodriguez creation date platform link technical changes originate automatically store same takes form properties instance
+
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
+
+    <main class="jupyter-page">
+    <div id="page-info"><div id="page-title">Active Directory Replication From Non-Domain-Controller Accounts</div>
+</div>
+    <div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Metadata">Metadata<a class="anchor-link" href="#Metadata"> </a></h2>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">id</td>
+<td style="text-align:left">WIN-180815210510</td>
+</tr>
+<tr>
+<td style="text-align:left">author</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">creation date</td>
+<td style="text-align:left">18/08/15</td>
+</tr>
+<tr>
+<td style="text-align:left">platform</td>
+<td style="text-align:left">Windows</td>
+</tr>
+<tr>
+<td style="text-align:left">playbook link</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Technical-Description">Technical Description<a class="anchor-link" href="#Technical-Description"> </a></h2><p>Active Directory replication is the process by which the changes that originate on one domain controller are automatically transferred to other domain controllers that store the same data.
+Active Directory data takes the form of objects that have properties, or attributes. Each object is an instance of an object class, and object classes and their respective attributes are defined in the Active Directory schema.
+The values of the attributes define the object, and a change to a value of an attribute must be transferred from the domain controller on which it occurs to every other domain controller that stores a replica of that object.
+An adversary can abuse this model and request information about a specific account via the replication request.
+This is done from an account with sufficient permissions (usually domain admin level) to perform that request.
+Usually the accounts performing replication operations in a domain are computer accounts (i.e dcaccount$).
+Therefore, it might be abnormal to see other non-dc-accounts doing it.</p>
+<p>Additional reading</p>
+<ul>
+<li><a href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/active_directory_replication.md">https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/active_directory_replication.md</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hypothesis">Hypothesis<a class="anchor-link" href="#Hypothesis"> </a></h2><p>Adversaries might attempt to pull the NTLM hash of a user via active directory replication apis from a non-domain-controller account with permissions to do so.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Analytics">Analytics<a class="anchor-link" href="#Analytics"> </a></h2>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Initialize-Analytics-Engine">Initialize Analytics Engine<a class="anchor-link" href="#Initialize-Analytics-Engine"> </a></h3>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">spark</span> <span class="o">=</span> <span class="n">get_spark</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Download-&amp;-Process-Mordor-File">Download &amp; Process Mordor File<a class="anchor-link" href="#Download-&amp;-Process-Mordor-File"> </a></h3>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/credential_access/credential_dumping_T1003/credentials_from_ad/empire_dcsync.tar.gz&quot;</span>
+<span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Analytic-I">Analytic I<a class="anchor-link" href="#Analytic-I"> </a></h3>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:left">FP Rate</th>
+<th style="text-align:left">Log Channel</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Low</td>
+<td style="text-align:left">['Security']</td>
+<td style="text-align:left">Monitoring for non-dc machine accounts accessing active directory objects on domain controllers with replication rights might be suspicious</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, computer_name, SubjectUserName, SubjectLogonId</span>
+<span class="sd">FROM mordorTable</span>
+<span class="sd">WHERE channel = &quot;Security&quot;</span>
+<span class="sd">    AND event_id = 4662</span>
+<span class="sd">    AND AccessMask = &quot;0x100&quot;</span>
+<span class="sd">    AND (</span>
+<span class="sd">        Properties LIKE &quot;%1131f6aa_9c07_11d1_f79f_00c04fc2dcd2%&quot;</span>
+<span class="sd">        OR Properties LIKE &quot;%1131f6ad_9c07_11d1_f79f_00c04fc2dcd2%&quot;</span>
+<span class="sd">        OR Properties LIKE &quot;%89e95b76_444d_4c62_991a_0facbeda640c%&quot;</span>
+<span class="sd">    )</span>
+<span class="sd">    AND NOT SubjectUserName LIKE &quot;%$&quot;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Analytic-II">Analytic II<a class="anchor-link" href="#Analytic-II"> </a></h3>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:left">FP Rate</th>
+<th style="text-align:left">Log Channel</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Low</td>
+<td style="text-align:left">['Security']</td>
+<td style="text-align:left">You can use successful authentication events on the domain controller to get information about the source of the AD Replication Service request</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT o.`@timestamp`, o.computer_name, o.SubjectUserName, o.SubjectLogonId, a.IpAddress</span>
+<span class="sd">FROM mordorTable o</span>
+<span class="sd">INNER JOIN (</span>
+<span class="sd">    SELECT computer_name,TargetUserName,TargetLogonId,IpAddress</span>
+<span class="sd">    FROM mordorTable</span>
+<span class="sd">    WHERE channel = &quot;Security&quot;</span>
+<span class="sd">        AND event_id = 4624</span>
+<span class="sd">        AND LogonType = 3</span>
+<span class="sd">        AND IpAddress is not null</span>
+<span class="sd">        AND NOT TargetUserName LIKE &quot;%$&quot;</span>
+<span class="sd">    ) a</span>
+<span class="sd">ON o.SubjectLogonId = a.TargetLogonId</span>
+<span class="sd">WHERE o.channel = &quot;Security&quot;</span>
+<span class="sd">    AND o.event_id = 4662</span>
+<span class="sd">    AND o.AccessMask = &quot;0x100&quot;</span>
+<span class="sd">    AND (</span>
+<span class="sd">        o.Properties LIKE &quot;%1131f6aa_9c07_11d1_f79f_00c04fc2dcd2%&quot;</span>
+<span class="sd">        OR o.Properties LIKE &quot;%1131f6ad_9c07_11d1_f79f_00c04fc2dcd2%&quot;</span>
+<span class="sd">        OR o.Properties LIKE &quot;%89e95b76_444d_4c62_991a_0facbeda640c%&quot;</span>
+<span class="sd">    )</span>
+<span class="sd">    AND o.computer_name = a.computer_name</span>
+<span class="sd">    AND NOT o.SubjectUserName LIKE &quot;%$&quot;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Detection-Blindspots">Detection Blindspots<a class="anchor-link" href="#Detection-Blindspots"> </a></h2><p>Adversaries could perform the replication request from a Domain Controller (DC) and with the DC machine account (*$) to make it look like usual/common replication activity.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hunter-Notes">Hunter Notes<a class="anchor-link" href="#Hunter-Notes"> </a></h2><ul>
+<li>As stated before, when an adversary utilizes directory replication services to connect to a DC, a RPC Client call operation with the RPC Interface GUID of E3514235-4B06-11D1-AB04-00C04FC2DCD2 is performed pointing to the targeted DC. This activity is recorded at the source endpoint, from where the replication request is being performed from, via the Microsoft-Windows-RPC ETW provider. Even though the Microsoft-Windows-RPC ETW provider provides great visibility for replication operations at the source endpoint level, it does not have an event tracing session writing events to an .evtx file which does not make it practical to use it at scale yet.</li>
+<li>You can collect information from the Microsoft-Windows-RPC ETW provider and filter on RPC Interface GUID E3514235-4B06-11D1-AB04-00C04FC2DCD2 with SilkETW. One example here &gt; <a href="https://twitter.com/FuzzySec/status/1127249052175872000">https://twitter.com/FuzzySec/status/1127249052175872000</a></li>
+<li>You can correlate security events 4662 and 4624 (Logon Type 3) by their Logon ID on the Domain Controller (DC) that received the replication request. This will tell you where the AD replication request came from. This will also allow you to know if it came from another DC or not.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hunt-Output">Hunt Output<a class="anchor-link" href="#Hunt-Output"> </a></h2><table>
+<thead><tr>
+<th style="text-align:left">Category</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">signature</td>
+<td style="text-align:left">SIGMA</td>
+<td style="text-align:left"><a href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_ad_replication_non_machine_account.yml">win_ad_replication_non_machine_account</a></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="References">References<a class="anchor-link" href="#References"> </a></h2><ul>
+<li><a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/1522b774-6464-41a3-87a5-1e5633c3fbbb">https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/1522b774-6464-41a3-87a5-1e5633c3fbbb</a></li>
+<li><a href="https://docs.microsoft.com/en-us/windows/desktop/adschema/c-domain">https://docs.microsoft.com/en-us/windows/desktop/adschema/c-domain</a></li>
+<li><a href="https://docs.microsoft.com/en-us/windows/desktop/adschema/c-domaindns">https://docs.microsoft.com/en-us/windows/desktop/adschema/c-domaindns</a></li>
+<li><a href="http://www.harmj0y.net/blog/redteaming/a-guide-to-attacking-domain-trusts/">http://www.harmj0y.net/blog/redteaming/a-guide-to-attacking-domain-trusts/</a></li>
+<li><a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc782376(v=ws.10">https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc782376(v=ws.10</a>)</li>
+<li><a href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-drsr/f977faaa-673e-4f66-b9bf-48c640241d47">https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-drsr/f977faaa-673e-4f66-b9bf-48c640241d47</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+ 
+
+
+    </main>
+    

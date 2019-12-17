@@ -1,0 +1,75 @@
+title: WMI Eventing
+id: WIN-190810170510
+author: Roberto Rodriguez @Cyb3rWard0g
+playbook_link:
+creation_date: 19/08/10
+platform: Windows
+permissions_required:
+  - Administrator
+attack_coverage:
+  - technique: T1055
+    tactics:
+      - TA0003
+hypothesis: Adversaries might be injecting a dll to another process to execute code via CreateRemoteThread and LoadLibrary functions.
+description: |-
+  WMI is the Microsoft implementation of the Web-Based Enterprise Management (WBEM) and Common Information Model (CIM). Both standards aim to provide an industry-agnostic means of collecting and transmitting information related to any managed component in an enterprise.
+  An example of a managed component in WMI would be a running process, registry key, installed service, file information, etc.
+  At a high level, Microsoft’s implementation of these standards can be summarized as follows > Managed Components Managed components are represented as WMI objects — class instances representing highly structured operating system data. Microsoft provides a wealth of WMI objects that communicate information related to the operating system. E.g. Win32_Process, Win32_Service, AntiVirusProduct, Win32_StartupCommand, etc.
+  
+  From an offensive perspective WMI has the ability to trigger off nearly any conceivable event, making it a good technique for persistence.
+  
+  Three requirements
+  * Filter – An action to trigger off of
+  * Consumer – An action to take upon triggering the filter
+  * Binding – Registers a FilterConsumer
+validation_dataset:
+  - type: mordor
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/persistence/wmi_event_subscription_T1084/empire_elevated_wmi.tar.gz
+analytics:
+  - name: Analytic I
+    data_sources:
+      - Microsoft-Windows-Sysmon/Operational
+    false_positives: Low
+    description: Look for WMI event filters registered
+    logic: |-
+      SELECT `@timestamp`, computer_name, User, EventNamespace, Name, Query
+      FROM mordorTable
+      WHERE channel = "Microsoft-Windows-Sysmon/Operational"
+          AND event_id = 19
+  - name: Analytic II
+    data_sources:
+      - Microsoft-Windows-Sysmon/Operational
+    false_positives: Low
+    description: Look for WMI event consumers registered
+    logic: |-
+      SELECT `@timestamp`, computer_name, User, Name, Type, Destination
+      FROM mordorTable
+      WHERE channel = "Microsoft-Windows-Sysmon/Operational"
+          AND event_id = 20
+  - name: Analytic III
+    data_sources:
+      - Microsoft-Windows-Sysmon/Operational
+    false_positives: Low
+    description: Look for WMI consumers binding to filters
+    logic: |-
+      SELECT `@timestamp`, computer_name, User, Operation, Consumer, Filter
+      FROM mordorTable
+      WHERE channel = "Microsoft-Windows-Sysmon/Operational"
+          AND event_id = 21
+  - name: Analytic IV
+    data_sources:
+      - Microsoft-Windows-Sysmon/Operational
+    false_positives: Low
+    description: Look for events related to the registration of FilterToConsumerBinding
+    logic: |-
+      SELECT `@timestamp`, computer_name, message
+      FROM mordorTable
+      WHERE channel = "Microsoft-Windows-WMI-Activity/Operational"
+          AND event_id = 5861
+detection_blindspots:
+hunter_notes:
+hunt_output:
+references: |-
+  * https://www.blackhat.com/docs/us-15/materials/us-15-Graeber-Abusing-Windows-Management-Instrumentation-WMI-To-Build-A-Persistent%20Asynchronous-And-Fileless-Backdoor.pdf
+  * https://twitter.com/mattifestation/status/899646620148539397
+  * https://www.darkoperator.com/blog/2017/10/14/basics-of-tracking-wmi-activity

@@ -2,7 +2,7 @@
 # Author: Roberto Rodriguez (@Cyb3rWard0g)
 # License: GPL-3.0
 
-FROM cyb3rward0g/jupyter-pyspark:0.0.2
+FROM cyb3rward0g/jupyter-pyspark:0.0.3
 LABEL maintainer="Roberto Rodriguez @Cyb3rWard0g"
 LABEL description="Dockerfile ThreatHunter Playbook Project."
 
@@ -20,20 +20,14 @@ RUN adduser --disabled-password \
     ${NB_USER}
 
 USER ${NB_USER}
-    # ********* Install OpenHunt Library *****************
-RUN python3 -m pip install openhunt==1.6.4 pyarrow==0.14.1 --user \
-    # ********* Download and decompress mordor datasets *****************
-    && git clone https://github.com/hunters-forge/mordor.git ${HOME}/mordor \
-    && cd ${HOME}/mordor/small_datasets/ \
-    && find . -type f -name "*.tar.gz" -print0 | xargs -0 -I{} tar xf {} -C .
 
-COPY playbooks ${HOME}/playbooks
+RUN python3 -m pip install openhunt==1.6.5 attackcti==0.3.0 --user
+
+COPY docs/content ${HOME}/content
 
 USER root
 
 RUN chown ${NB_USER} /usr/local/share/jupyter/kernels/pyspark3/kernel.json \
-    && cd ${HOME}/playbooks/ \
-    && find . -type f -name "*.ipynb" -exec cp -n {} ${HOME}/ \; \
     && chown -R ${NB_USER}:${NB_USER} ${HOME} ${JUPYTER_DIR}
 
 WORKDIR ${HOME}

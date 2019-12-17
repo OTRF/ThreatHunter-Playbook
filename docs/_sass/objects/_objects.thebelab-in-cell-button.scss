@@ -1,0 +1,25 @@
+/* in-cell thebelab buttons */
+.thebebtn {
+  position: absolute;
+  top: 0;
+  right: $spacing-unit;
+
+  margin: $spacing-unit-tiny/2 $spacing-unit-tiny;
+  width: $spacing-unit;
+  height: $spacing-unit;
+  padding: 0 4px 2px;
+
+  i {
+    font-style: normal;
+    color: #777777
+  }
+}
+
+.input_area .highlight {
+  position: relative;
+}
+
+// Hide code buttons
+div.jb_input div.input {
+  position: relative;
+}

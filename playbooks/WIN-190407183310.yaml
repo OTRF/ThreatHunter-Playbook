@@ -1,0 +1,55 @@
+title: Enable Remote Desktop Conections Registry
+id: WIN-190407183310
+author: Roberto Rodriguez @Cyb3rWard0g
+playbook_link:
+creation_date: 19/04/07
+platform: Windows
+permissions_required:
+  - Administrator
+attack_coverage:
+  - technique: T1112
+    tactics:
+      - TA0005
+hypothesis: Adversaries might be leveraging PowerShell to execute code within my environment
+description: |-
+  Remote desktop is a common feature in operating systems. It allows a user to log into an interactive session with a system desktop graphical user interface on a remote system.
+  Microsoft refers to its implementation of the Remote Desktop Protocol (RDP) as Remote Desktop Services (RDS).
+  
+  Adversaries may connect to a remote system over RDP/RDS to expand access if the service is enabled and allows access to accounts with known credentials.
+  There are several settings that must be configured to enable Remote Desktop connections.
+  First, you must enable Remote Desktop connections by using the fDenyTSConnections setting.
+  Setting fDenyTSConnections=False in the Microsoft-Windows-TerminalServices-LocalSessionManager component (HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server) specifies whether Remote Desktop connections are enabled.
+  
+  An adversary can also specify how users are authenticated.
+  Setting UserAuthentication=0 in the Microsoft-Windows-TerminalServices-RDP-WinStationExtensions component (HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp) helps make sure that users can connect remotely from computers that don't run Remote Desktop by using network-level authentication.
+  This is the equivalent of Allow connections from computers running any version of Remote Desktop (less secure) security setting.
+validation_dataset:
+  - type: mordor
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/defense_evasion/modify_registry_T1112/empire_enable_rdp.tar.gz
+analytics:
+  - name: Analytic I
+    data_sources:
+      - Microsoft-Windows-Sysmon/Operational
+    false_positives: Low
+    description: Look for any process updating fDenyTSConnections or UserAuthentication registry key values
+    logic: |-
+      SELECT `@timestamp`, computer_name, Image, TargetObject
+      FROM mordorTable
+      WHERE channel = "Microsoft-Windows-Sysmon/Operational"
+          AND event_id = 13
+          AND (TargetObject LIKE "%fDenyTSConnections"
+              OR TargetObject LIKE "%UserAuthentication")
+          AND Details = "DWORD (0x00000000)"
+detection_blindspots:
+hunter_notes: |-
+  * if the activity defined above happens frequently in your environment, you cshould Stack the processeses modifying the registry key values.
+hunt_output:
+  - category: signature
+    type: SIGMA
+    name: sysmon_rdp_registry_modification
+    url: https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_rdp_registry_modification.yml
+references: |-
+  * https://attack.mitre.org/techniques/T1076/
+  * https://github.com/EmpireProject/Empire/blob/master/lib/modules/powershell/management/enable_rdp.py
+  * https://docs.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-terminalservices-localsessionmanager-fdenytsconnections
+  * https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/enable-remote-desktop-by-using-an-answer-file

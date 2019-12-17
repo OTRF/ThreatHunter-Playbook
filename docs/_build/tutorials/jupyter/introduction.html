@@ -1,0 +1,54 @@
+---
+title: |-
+  Jupyter Notebooks
+pagenum: 37
+prev_page:
+  url: /notebooks/mac/mac.html
+next_page:
+  url: 
+suffix: .md
+search: jupyter notebook code data kernel notebooks model client via web process based allows e interactive documents python programming repl document live output results explain open source uses project library console operations img src images png also languages r julia work concept read evaluate print returns user perspective does clients think access interface save input execution evaluated sessions well important notes needed methodology steps taken perform specific tasks analysis application create share contain equations visualizations narrative text include cleaning transformation numerical simulation statistical modeling visualization machine learning much evolution ipython developed primarily enhance default enabling scientific advanced analytics capabilities sharable jupyteripython
+
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
+
+    <main class="jupyter-page">
+    <div id="page-info"><div id="page-title">Jupyter Notebooks</div>
+</div>
+    <div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="What-is-a-Notebook?">What is a Notebook?<a class="anchor-link" href="#What-is-a-Notebook?"> </a></h2><p>Think of a notebook as a document that you can access via a web interface that allows you to save input (i.e. live code) and output (i.e. code execution results / evaluated code output) of interactive sessions as well as important notes needed to explain the methodology and steps taken to perform specific tasks (i.e data analysis).</p>
+<h2 id="What-is-a-Jupyter-Notebook?">What is a Jupyter Notebook?<a class="anchor-link" href="#What-is-a-Jupyter-Notebook?"> </a></h2><blockquote><p>The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text. Uses include: data cleaning and transformation, numerical simulation, statistical modeling, data visualization, machine learning, and much more.</p>
+</blockquote>
+<p>The Jupyter Notebook project is the evolution of the IPython Notebook library which was developed primarily to enhance the default python interactive console by enabling scientific operations and advanced data analytics capabilities via sharable web documents.</p>
+<p><img src="../../images/JUPYTER_IPYTHON.png"></p>
+<p>Nowadays, the Jupyter Notebook project not only supports Python but also over 40 programming languages such as R, Julia, Scala and PySpark. In fact, its name was originally derived from three programming languages: Julia, Python and R which made it one of the first language-agnostic notebook applications, and now considered one of the most preferred environments for data scientists and engineers in the community to explore and analyze data.</p>
+<h2 id="How-do-Jupyter-Notebooks-work?">How do Jupyter Notebooks work?<a class="anchor-link" href="#How-do-Jupyter-Notebooks-work?"> </a></h2><p>Jupyter Notebooks work with what is called a two-process model based on a kernel-client infrastructure. This model applies a similar concept to the Read-Evaluate-Print Loop (REPL) programming environment that takes a single user’s inputs, evaluates them, and returns the result to the user.</p>
+<p>Based on the two-process model concept, we can explain the main components of Jupyter in the following way:</p>
+<p><img src="../../images/JUPYTER_ARCHITECTURE.png"></p>
+<h3 id="Jupyter-Client">Jupyter Client<a class="anchor-link" href="#Jupyter-Client"> </a></h3><ul>
+<li>It allows a user to send code to the kernel in a form of a Qt Console or a browser via notebook documents.</li>
+<li>From a REPL perspective, the client does the read and print operations.</li>
+<li>Notebooks are hosted by a Jupyter web server which uses Tornado to serve HTTP requests.</li>
+</ul>
+<h3 id="Jupyter-Kernel">Jupyter Kernel<a class="anchor-link" href="#Jupyter-Kernel"> </a></h3><ul>
+<li>It receives the code sent by the client, executes it, and returns the results back to the client for display. A kernel process can have multiple clients communicating with it which is why this model is also referred as the decoupled two-process model.</li>
+<li>From a REPL perspective, the kernel does the evaluate operation.</li>
+<li>kernel and clients communicate via an interactive computing protocol based on an asynchronous messaging library named ZeroMQ (low-level transport layer) and WebSockets (TCP-based)</li>
+</ul>
+<h3 id="Jupyter-Notebook-Document">Jupyter Notebook Document<a class="anchor-link" href="#Jupyter-Notebook-Document"> </a></h3><ul>
+<li>Notebooks are automatically saved and stored on disk in the open source JavaScript Object Notation (JSON) format and with a .ipynb extension.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+ 
+
+
+    </main>
+    

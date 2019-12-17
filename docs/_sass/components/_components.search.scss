@@ -1,0 +1,97 @@
+/* ==========================================================================
+   SEARCH
+   ========================================================================== */
+  // Taken from https://github.com/mmistakes/minimal-mistakes
+  //  Variables
+  $large: 1024px !default;
+  $x-large: 1280px !default;
+  $type-size-1: 2.441em !default;
+  $type-size-2: 1.953em !default;
+  $type-size-3: 1.563em !default;
+  $type-size-6: 0.75em !default;
+  $intro-transition: intro 0.3s both !default;
+
+  // Rules
+  .layout--search {
+    .archive__item-teaser {
+      margin-bottom: 0.25em;
+    }
+  }
+
+  .search__toggle {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border: 0;
+    outline: none;
+    color: #393e46;
+    background-color: transparent;
+    cursor: pointer;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+
+    &:hover {
+      color: #000;
+    }
+  }
+
+  .search-icon {
+    width: 100%;
+    height: 100%;
+  }
+
+  .search-content {
+    //display: none;
+    //visibility: hidden;
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+    &__inner-wrap {
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1em;
+      padding-right: 1em;
+      -webkit-animation: $intro-transition;
+      animation: $intro-transition;
+      -webkit-animation-delay: 0.15s;
+      animation-delay: 0.15s;
+
+      .search-input {
+        display: block;
+        margin-bottom: 0;
+        padding: 0;
+        border: none;
+        outline: none;
+        box-shadow: none;
+        background-color: transparent;
+        font-size: $type-size-3;
+        }
+    }
+
+    &.is--visible {
+      display: block;
+      visibility: visible;
+
+      &::after {
+        content: "";
+        display: block;
+      }
+    }
+
+    .results__found {
+      margin-top: 0.5em;
+      font-size: $type-size-6;
+    }
+
+    .archive__item {
+      margin-bottom: 2em;
+    }
+
+    .archive__item-title {
+      margin-top: 0;
+    }
+
+    .archive__item-excerpt {
+      margin-bottom: 0;
+    }
+  }

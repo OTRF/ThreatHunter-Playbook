@@ -1,0 +1,109 @@
+---
+redirect_from:
+  - "/pre-hunt/data-standardization"
+title: |-
+  Data Standardization
+pagenum: 3
+prev_page:
+  url: /pre-hunt/data_documentation.html
+next_page:
+  url: /pre-hunt/data_modeling.html
+suffix: .md
+search: data name event system windows hunters ossem com process cim sources object exe information events example e github forge sysmon standardization common model field several objects properties analytics available processname define processid f ac d schema across domain why help activity documentation scope analytic either start collect found security such fields processguid project blob master md apply schemas microsoft eventid version level task opcode eventrecordid eventdata wuauclt svchost relies heavily order facilitate normalization sets via standard parse helps correlate diverse avoid writing queries trying hit every possible assigned provides same describes things terms represented attributes relationships source www opennetworking org
+
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
+
+    <main class="jupyter-page">
+    <div id="page-info"><div id="page-title">Data Standardization</div>
+</div>
+    <div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The data standardization process relies heavily on the use of a Common Information Model (CIM) in order to facilitate the normalization of data sets via a standard way to parse data. A common schema helps hunters to correlate data from diverse data sources, and avoid writing long queries trying to hit every possible name assigned to a field that provides the same information across several data sources.</p>
+<h2 id="What-is-a-Common-Information-Model-(CIM)?">What is a Common Information Model (CIM)?<a class="anchor-link" href="#What-is-a-Common-Information-Model-(CIM)?"> </a></h2><p>An information model describes the things in a domain in terms of objects, their properties
+(represented as attributes), and their relationships. <a href="https://www.opennetworking.org/wp-content/uploads/2014/10/TR-513_CIM_Overview_1.2.pdf">source</a></p>
+<h2 id="Why?">Why?<a class="anchor-link" href="#Why?"> </a></h2><p>Understanding the standardization of events and their respective field names help hunters tremendously when developing data analytics. This activity along with data documentation help hunt teams to identify data sources that might be available but not being considered in the data scope while running analytics in production. For example, if an analytic is using the field <strong>"process_name"</strong> , but it is named <strong>"processName"</strong> or <strong>"ImageName"</strong> in several other data sources available, the the data scope will be limited and will eventually affect the fidelity of the analytic.</p>
+<h2 id="How?">How?<a class="anchor-link" href="#How?"> </a></h2><p>I recommend to first understand what it is that you are collecting. This is why the <strong>Documentation</strong> stage is very helpful and important to do either in parallel or before this activity.</p>
+<h3 id="Define-Data-Objects">Define Data Objects<a class="anchor-link" href="#Define-Data-Objects"> </a></h3><p>You should start by identifiying <strong>"Data Objeccts"</strong> in the data that you collect in the cyber domain. A CIM object is a representation of entities found across several security events such as:</p>
+<ul>
+<li>Process</li>
+<li>User</li>
+<li>E-mail</li>
+<li>IP Address</li>
+</ul>
+<h3 id="Define-Data-Object-Properties">Define Data Object Properties<a class="anchor-link" href="#Define-Data-Object-Properties"> </a></h3><p>Defining data objects allow you to categorize/group event fields and be able to define a specific schema for each data object. For example, a <strong>"Process"</strong> data object can have properties such as:</p>
+<ul>
+<li>process_name</li>
+<li>process_command_line</li>
+<li>process_guid</li>
+<li>process_id</li>
+</ul>
+<p>one example for <strong>"Process"</strong> can be found in the <a href="https://github.com/hunters-forge/OSSEM/blob/master/common_information_model/process.md">OSSEM project</a></p>
+<h3 id="Apply-CIM-to-Events">Apply CIM to Events<a class="anchor-link" href="#Apply-CIM-to-Events"> </a></h3><p>Next, you can take the schemas defined for each data object and apply them to event logs you collect.</p>
+<ul>
+<li>For example, let's say we have this event from Sysmon (Event ID 1):</li>
+</ul>
+
+<pre><code>&lt;Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event"&gt;
+  &lt;System&gt;
+    &lt;Provider Name="Microsoft-Windows-Sysmon" Guid="{5770385F-C22A-43E0-BF4C-06F5698FFBD9}" /&gt; 
+    &lt;EventID&gt;1&lt;/EventID&gt; 
+    &lt;Version&gt;5&lt;/Version&gt; 
+    &lt;Level&gt;4&lt;/Level&gt; 
+    &lt;Task&gt;1&lt;/Task&gt; 
+    &lt;Opcode&gt;0&lt;/Opcode&gt; 
+    &lt;Keywords&gt;0x8000000000000000&lt;/Keywords&gt; 
+    &lt;TimeCreated SystemTime="2019-06-12T00:48:53.300422700Z" /&gt; 
+    &lt;EventRecordID&gt;6526518&lt;/EventRecordID&gt; 
+    &lt;Correlation /&gt; 
+    &lt;Execution ProcessID="2312" ThreadID="3800" /&gt; 
+    &lt;Channel&gt;Microsoft-Windows-Sysmon/Operational&lt;/Channel&gt; 
+    &lt;Computer&gt;DESKTOP-WARDOG.RIVENDELL.local&lt;/Computer&gt; 
+    &lt;Security UserID="S-1-5-18" /&gt; 
+  &lt;/System&gt;
+  &lt;EventData&gt;
+    &lt;Data Name="RuleName" /&gt; 
+    &lt;Data Name="UtcTime"&gt;2019-06-12 00:48:53.295&lt;/Data&gt; 
+    &lt;Data Name="ProcessGuid"&gt;{A98268C1-4BF5-5D00-0000-00102A7B2B00}&lt;/Data&gt; 
+    &lt;Data Name="ProcessId"&gt;6364&lt;/Data&gt; 
+    &lt;Data Name="Image"&gt;C:\Windows\System32\wuauclt.exe&lt;/Data&gt; 
+    &lt;Data Name="FileVersion"&gt;10.0.17134.1 (WinBuild.160101.0800)&lt;/Data&gt; 
+    &lt;Data Name="Description"&gt;Windows Update&lt;/Data&gt; 
+    &lt;Data Name="Product"&gt;Microsoft® Windows® Operating System&lt;/Data&gt; 
+    &lt;Data Name="Company"&gt;Microsoft Corporation&lt;/Data&gt; 
+    &lt;Data Name="OriginalFileName"&gt;wuauclt.exe&lt;/Data&gt; 
+    &lt;Data Name="CommandLine"&gt;"C:\WINDOWS\system32\wuauclt.exe" /RunHandlerComServer&lt;/Data&gt; 
+    &lt;Data Name="CurrentDirectory"&gt;C:\WINDOWS\system32\&lt;/Data&gt; 
+    &lt;Data Name="User"&gt;NT AUTHORITY\SYSTEM&lt;/Data&gt; 
+    &lt;Data Name="LogonGuid"&gt;{A98268C1-48F4-5D00-0000-0020E7030000}&lt;/Data&gt; 
+    &lt;Data Name="LogonId"&gt;0x3e7&lt;/Data&gt; 
+    &lt;Data Name="TerminalSessionId"&gt;0&lt;/Data&gt; 
+    &lt;Data Name="IntegrityLevel"&gt;System&lt;/Data&gt; 
+    &lt;Data Name="Hashes"&gt;IMPHASH=E799C2BD8BC66603D6DDC95F2DB31A18&lt;/Data&gt; 
+    &lt;Data Name="ParentProcessGuid"&gt;{A98268C1-48F5-5D00-0000-00103C410100}&lt;/Data&gt; 
+    &lt;Data Name="ParentProcessId"&gt;1040&lt;/Data&gt; 
+    &lt;Data Name="ParentImage"&gt;C:\Windows\System32\svchost.exe&lt;/Data&gt; 
+    &lt;Data Name="ParentCommandLine"&gt;C:\WINDOWS\system32\svchost.exe -k netsvcs -p&lt;/Data&gt; 
+  &lt;/EventData&gt;
+&lt;/Event&gt;</code></pre>
+<ul>
+<li>We could easily standardize its event fields and combine them with data dictionaries as shown in <a href="https://github.com/hunters-forge/OSSEM/blob/master/data_dictionaries/windows/sysmon/event-1.md#data-dictionary">here</a> by the <a href="https://github.com/hunters-forge/OSSEM">OSSEM project</a>.</li>
+</ul>
+<h2 id="When?">When?<a class="anchor-link" href="#When?"> </a></h2><p>Depending on your priorities and the resources allocated to your team, you can either start your own CIM based on all the data soures available at once, or gradually create it from each data sources used as you build analytics.</p>
+<h2 id="References:">References:<a class="anchor-link" href="#References:"> </a></h2><ul>
+<li><a href="https://docs.oracle.com/cd/E19683-01/806-6827/6jfoa8m6v/index.html">https://docs.oracle.com/cd/E19683-01/806-6827/6jfoa8m6v/index.html</a></li>
+<li><a href="https://github.com/hunters-forge/OSSEM">https://github.com/hunters-forge/OSSEM</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+ 
+
+
+    </main>
+    

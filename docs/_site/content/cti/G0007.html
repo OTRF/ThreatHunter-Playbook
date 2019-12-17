@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+
+  <title>G0007:APT28</title>
+  <meta name="description" content="# G0007:APT28## Description[APT28](https://attack.mitre.org/groups/G0007) is a threat group that has been attributed to Russia's Main Intelligence Directorat...">
+
+  <link rel="canonical" href="http://0.0.0.0:4000/ThreatHunter-Playbook/docs/content/cti/G0007.html">
+  <link rel="alternate" type="application/rss+xml" title="Threat Hunter Playbook" href="http://0.0.0.0:4000/ThreatHunter-Playbook/docs/feed.xml">
+
+  <meta property="og:url"         content="http://0.0.0.0:4000/ThreatHunter-Playbook/docs/content/cti/G0007.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="G0007:APT28" />
+<meta property="og:description" content="# G0007:APT28## Description[APT28](https://attack.mitre.org/groups/G0007) is a threat group that has been attributed to Russia's Main Intelligence Directorat..." />
+<meta property="og:image"       content="http://0.0.0.0:4000/ThreatHunter-Playbook/docs/images/logo/logo.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  <script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": "http://0.0.0.0:4000/ThreatHunter-Playbook/docs/content/cti/G0007.html",
+  "headline": "G0007:APT28",
+  "datePublished": "2019-12-17T00:31:41-06:00",
+  "dateModified": "2019-12-17T00:31:41-06:00",
+  "description": "# G0007:APT28## Description[APT28](https://attack.mitre.org/groups/G0007) is a threat group that has been attributed to Russia's Main Intelligence Directorat...",
+  "author": {
+    "@type": "Person",
+    "name": "Roberto Rodriguez"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Data 100 at UC Berkeley",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://0.0.0.0:4000/ThreatHunter-Playbook/docs",
+      "width": 60,
+      "height": 60
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "http://0.0.0.0:4000/ThreatHunter-Playbook/docs",
+    "height": 60,
+    "width": 60
+  }
+}
+
+  </script>
+  <link rel="stylesheet" href="/ThreatHunter-Playbook/docs/assets/css/styles.css">
+
+  <!-- <link rel="manifest" href="/manifest.json"> -->
+  <!-- <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#efae0a"> -->
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#233947">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="/ThreatHunter-Playbook/docs/images/logo/favicon.ico">
+
+  <!-- MathJax Config -->
+  <!-- Allow inline math using $ and automatically break long math lines -->
+<!-- (mostly) copied from nbconvert configuration -->
+<!-- https://github.com/jupyter/nbconvert/blob/master/nbconvert/templates/html/mathjax.tpl -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    // Center justify equations in code and markdown cells. Elsewhere
+    // we use CSS to left justify single line equations in code cells.
+    displayAlign: 'center',
+    "HTML-CSS": {
+        styles: {'.MathJax_Display': {"margin": 0}},
+        linebreaks: { automatic: true },
+    },
+    
+});
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML' async></script>
+
+
+  <!-- DOM updating function -->
+  <script src="/ThreatHunter-Playbook/docs/assets/js/page/dom-update.js"></script>
+
+  <!-- Selectors for elements on the page -->
+  <script src="/ThreatHunter-Playbook/docs/assets/js/page/documentSelectors.js"></script>
+
+  <!-- Define some javascript variables that will be useful in other javascript -->
+  <script>
+    const site_basename = '/ThreatHunter-Playbook/docs';
+  </script>
+
+  <!-- Add AnchorJS to let headers be linked -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js" async></script>
+  <script src="/ThreatHunter-Playbook/docs/assets/js/page/anchors.js" async></script>
+
+  <!-- Include Turbolinks to make page loads fast -->
+  <!-- https://github.com/turbolinks/turbolinks -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js" async></script>
+  <meta name="turbolinks-cache-control" content="no-cache">
+
+  <!-- Load nbinteract for widgets -->
+  
+
+  <!-- Load Thebelab for interactive widgets -->
+  <!-- Include Thebelab for interactive code if it's enabled -->
+
+
+<!-- Display Thebelab button in each code cell -->
+<script>
+/**
+ * Set up thebelab button for code blocks
+ */
+
+const thebelabCellButton = id =>
+  `<a id="thebelab-cell-button-${id}" class="btn thebebtn o-tooltip--left" data-tooltip="Interactive Mode">
+    <img src="/ThreatHunter-Playbook/docs/assets/images/edit-button.svg" alt="Start thebelab interactive mode">
+  </a>`
+
+
+const addThebelabButtonToCodeCells =  () => {
+
+  const codeCells = document.querySelectorAll('div.input_area > div.highlight:not(.output) pre')
+  codeCells.forEach((codeCell, index) => {
+    const id = codeCellId(index)
+    codeCell.setAttribute('id', id)
+    if (document.getElementById("thebelab-cell-button-" + id) == null) {
+      codeCell.insertAdjacentHTML('afterend', thebelabCellButton(id));
+    }
+  })
+}
+
+initFunction(addThebelabButtonToCodeCells);
+</script>
+
+
+<script src="https://unpkg.com/thebelab@latest/lib/index.js" async></script>
+<script>
+    /**
+     * Add attributes to Thebelab blocks
+     */
+
+    const initThebelab = () => {
+        const addThebelabToCodeCells = () => {
+            console.log("Adding thebelab to code cells...");
+            // If Thebelab hasn't loaded, wait a bit and try again. This
+            // happens because we load ClipboardJS asynchronously.
+            if (window.thebelab === undefined) {
+                setTimeout(addThebelabToCodeCells, 250)
+            return
+            }
+
+            // If we already detect a Thebelab cell, don't re-run
+            if (document.querySelectorAll('div.thebelab-cell').length > 0) {
+                return;
+            }
+
+            // Find all code cells, replace with Thebelab interactive code cells
+            const codeCells = document.querySelectorAll('.input_area pre')
+            codeCells.forEach((codeCell, index) => {
+                const id = codeCellId(index)
+
+                // Clean up the language to make it work w/ CodeMirror and add it to the cell
+                dataLanguage = ""
+                dataLanguage = detectLanguage(dataLanguage);
+                codeCell.setAttribute('data-language', dataLanguage)
+                codeCell.setAttribute('data-executable', 'true')
+
+                // If the code cell is hidden, show it
+                var inputCheckbox = document.querySelector(`input#hidebtn${codeCell.id}`);
+                if (inputCheckbox !== null) {
+                    setCodeCellVisibility(inputCheckbox, 'visible');
+                }
+            });
+
+            // Remove the event listener from the page so keyboard press doesn't
+            // Change page
+            document.removeEventListener('keydown', initPageNav)
+            keyboardListener = false;
+
+            // Init thebelab
+            thebelab.bootstrap();
+
+            // Remove copy buttons since they won't work anymore
+            const copyAndThebeButtons = document.querySelectorAll('.copybtn, .thebebtn')
+            copyAndThebeButtons.forEach((button, index) => {
+                button.remove();
+            });
+
+            // Remove outputs since they'll be stale
+            const outputs = document.querySelectorAll('.output *, .output')
+            outputs.forEach((output, index) => {
+                output.remove();
+            });
+
+            // Find any cells with an initialization tag and ask ThebeLab to run them when ready
+            var thebeInitCells = document.querySelectorAll('div.tag_thebelab-init');
+            thebeInitCells.forEach((cell) => {
+                console.log("Initializing ThebeLab with cell: " + cell.id);
+                cell.querySelector('.thebelab-run-button').click();
+            });
+        }
+
+        // Add event listener for the function to modify code cells
+        const thebelabButtons = document.querySelectorAll('[id^=thebelab], [id$=thebelab]')
+        thebelabButtons.forEach((thebelabButton,index) => {
+            if (thebelabButton === null) {
+                setTimeout(initThebelab, 250)
+                return
+            };
+            thebelabButton.addEventListener('click', addThebelabToCodeCells);
+        });
+    }
+
+    // Initialize Thebelab
+    initFunction(initThebelab);
+
+// Helper function to munge the language name
+var detectLanguage = (language) => {
+    if (language.indexOf('python') > -1) {
+        language = "python";
+    }
+    return language;
+}
+</script>
+
+
+
+  <!-- Load the auto-generating TOC (non-async otherwise the TOC won't load w/ turbolinks) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.8.1/tocbot.min.js" async></script>
+  <script src="/ThreatHunter-Playbook/docs/assets/js/page/tocbot.js"></script>
+
+  <!-- Google analytics -->
+  
+
+
+  <!-- Clipboard copy button -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script>
+
+  <!-- Load custom website scripts -->
+  <script src="/ThreatHunter-Playbook/docs/assets/js/scripts.js" async></script>
+
+  <!-- Load custom user CSS and JS  -->
+  <script src="/ThreatHunter-Playbook/docs/assets/custom/custom.js" async></script>
+  <link rel="stylesheet" href="/ThreatHunter-Playbook/docs/assets/custom/custom.css">
+
+  <!-- Update interact links w/ REST param, is defined in includes so we can use templates -->
+  
+<script>
+/**
+  * To auto-embed hub URLs in interact links if given in a RESTful fashion
+ */
+
+function getJsonFromUrl(url) {
+  var query = url.split('?');
+  if (query.length < 2) {
+    // No queries so just return false
+    return false;
+  }
+  query = query[1];
+  // Collect REST params into a dictionary
+  var result = {};
+  query.split("&").forEach(function(part) {
+    var item = part.split("=");
+    result[item[0]] = decodeURIComponent(item[1]);
+  });
+  return result;
+}
+    
+function dict2param(dict) {
+    params = Object.keys(dict).map(function(k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(dict[k])
+    });
+    return params.join('&')
+}
+
+// Parse a Binder URL, converting it to the string needed for JupyterHub
+function binder2Jupyterhub(url) {
+  newUrl = {};
+  parts = url.split('v2/gh/')[1];
+  // Grab the base repo information
+  repoinfo = parts.split('?')[0];
+  var [org, repo, ref] = repoinfo.split('/');
+  newUrl['repo'] = ['https://github.com', org, repo].join('/');
+  newUrl['branch'] = ref
+  // Grab extra parameters passed
+  params = getJsonFromUrl(url);
+  if (params['filepath'] !== undefined) {
+    newUrl['subPath'] = params['filepath']
+  }
+  return dict2param(newUrl);
+}
+
+// Filter out potentially unsafe characters to prevent xss
+function safeUrl(url)
+{
+   return String(encodeURIComponent(url))
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+}
+
+function addParamToInternalLinks(hub) {
+  var links = document.querySelectorAll("a").forEach(function(link) {
+    var href = link.href;
+    // If the link is an internal link...
+    if (href.search("http://0.0.0.0:4000") !== -1 || href.startsWith('/') || href.search("127.0.0.1:") !== -1) {
+      // Assume we're an internal link, add the hub param to it
+      var params = getJsonFromUrl(href);
+      if (params !== false) {
+        // We have REST params, so append a new one
+        params['jupyterhub'] = hub;
+      } else {
+        // Create the REST params
+        params = {'jupyterhub': hub};
+      }
+      // Update the link
+      var newHref = href.split('?')[0] + '?' + dict2param(params);
+      link.setAttribute('href', decodeURIComponent(newHref));
+    }
+  });
+  return false;
+}
+
+
+// Update interact links
+function updateInteractLink() {
+    // hack to make this work since it expects a ? in the URL
+    rest = getJsonFromUrl("?" + location.search.substr(1));
+    jupyterHubUrl = rest['jupyterhub'];
+    var hubType = null;
+    var hubUrl = null;
+    if (jupyterHubUrl !== undefined) {
+      hubType = 'jupyterhub';
+      hubUrl = jupyterHubUrl;
+    }
+
+    if (hubType !== null) {
+      // Sanitize the hubUrl
+      hubUrl = safeUrl(hubUrl);
+
+      // Add HTTP text if omitted
+      if (hubUrl.indexOf('http') < 0) {hubUrl = 'http://' + hubUrl;}
+      var interactButtons = document.querySelectorAll("button.interact-button")
+      var lastButton = interactButtons[interactButtons.length-1];
+      var link = lastButton.parentElement;
+
+      // If we've already run this, skip the link updating
+      if (link.nextElementSibling !== null) {
+        return;
+      }
+
+      // Update the link and add context div
+      var href = link.getAttribute('href');
+      if (lastButton.id === 'interact-button-binder') {
+        // If binder links exist, we need to re-work them for jupyterhub
+        if (hubUrl.indexOf('http%3A%2F%2Flocalhost') > -1) {
+          // If localhost, assume we're working from a local Jupyter server and remove `/hub`
+          first = [hubUrl, 'git-sync'].join('/')
+        } else {
+          first = [hubUrl, 'hub', 'user-redirect', 'git-sync'].join('/')
+        }
+        href = first + '?' + binder2Jupyterhub(href);
+      } else {
+        // If interact button isn't binderhub, assume it's jupyterhub
+        // If JupyterHub links, we only need to replace the hub url
+        href = href.replace("", hubUrl);
+        if (hubUrl.indexOf('http%3A%2F%2Flocalhost') > -1) {
+          // Assume we're working from a local Jupyter server and remove `/hub`
+          href = href.replace("/hub/user-redirect", "");
+        }
+      }
+      link.setAttribute('href', decodeURIComponent(href));
+
+      // Add text after interact link saying where we're launching
+      hubUrlNoHttp = decodeURIComponent(hubUrl).replace('http://', '').replace('https://', '');
+      link.insertAdjacentHTML('afterend', '<div class="interact-context">on ' + hubUrlNoHttp + '</div>');
+
+      // Update internal links so we retain the hub url
+      addParamToInternalLinks(hubUrl);
+    }
+}
+
+runWhenDOMLoaded(updateInteractLink)
+document.addEventListener('turbolinks:load', updateInteractLink)
+</script>
+
+
+  <!-- Lunr search code - will only be executed on the /search page -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.6/lunr.min.js" async></script>
+  <script>var initQuery = function() {
+  // See if we have a search box
+  var searchInput = document.querySelector('input#lunr_search');
+  if (searchInput === null) {
+    return;
+  }
+
+  // Function to parse our lunr cache
+  var idx = lunr(function () {
+    this.field('title')
+    this.field('excerpt')
+    this.field('categories')
+    this.field('tags')
+    this.ref('id')
+
+    this.pipeline.remove(lunr.trimmer)
+
+    for (var item in store) {
+      this.add({
+        title: store[item].title,
+        excerpt: store[item].excerpt,
+        categories: store[item].categories,
+        tags: store[item].tags,
+        id: item
+      })
+    }
+  });
+
+  // Run search upon keyup
+  searchInput.addEventListener('keyup', function () {
+    var resultdiv = document.querySelector('#results');
+    var query = document.querySelector("input#lunr_search").value.toLowerCase();
+    var result =
+      idx.query(function (q) {
+        query.split(lunr.tokenizer.separator).forEach(function (term) {
+          q.term(term, { boost: 100 })
+          if(query.lastIndexOf(" ") != query.length-1){
+            q.term(term, {  usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING, boost: 10 })
+          }
+          if (term != ""){
+            q.term(term, {  usePipeline: false, editDistance: 1, boost: 1 })
+          }
+        })
+      });
+
+      // Empty the results div
+      while (resultdiv.firstChild) {
+        resultdiv.removeChild(resultdiv.firstChild);
+      }
+
+    resultdiv.insertAdjacentHTML('afterbegin', '<p class="results__found">'+result.length+' Result(s) found</p>');
+    for (var item in result) {
+      var ref = result[item].ref;
+      if(store[ref].teaser){
+        var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<div class="archive__item-teaser">'+
+                '<img src="'+store[ref].teaser+'" alt="">'+
+              '</div>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      else{
+    	  var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      resultdiv.insertAdjacentHTML('beforeend', searchitem);
+    }
+  });
+};
+
+initFunction(initQuery);
+</script>
+
+  <!-- Load JS that depends on site variables -->
+  <script src="/ThreatHunter-Playbook/docs/assets/js/page/copy-button.js" async></script>
+
+  <!-- Hide cell code -->
+  <script src="/ThreatHunter-Playbook/docs/assets/js/page/hide-cell.js" async></script>
+
+  <!-- Printing the screen -->
+  <!-- Include nbinteract for interactive widgets -->
+<script src="https://printjs-4de6.kxcdn.com/print.min.js" async></script>
+<script>
+printContent = () => {
+    // MathJax displays a second version of any math for assistive devices etc.
+    // This prevents double-rendering in the PDF output.
+    var ignoreAssistList = [];
+    assistives = document.querySelectorAll('.MathJax_Display span.MJX_Assistive_MathML').forEach((element, index) => {
+        var thisId = 'MathJax-assistive-' + index.toString();
+        element.setAttribute('id', thisId);
+        ignoreAssistList.push(thisId)
+    });
+
+    // Print the actual content object
+    printJS({
+        printable: 'textbook_content',
+        type: 'html',
+        css: "/ThreatHunter-Playbook/docs/assets/css/styles.css",
+        style: "#textbook_content {padding-top: 40px};",
+        scanStyles: false,
+        targetStyles: ["*"],
+        ignoreElements: ignoreAssistList,
+        documentTitle: "Made with Jupyter Book"
+    })
+};
+
+initPrint = () => {
+    document.querySelector('#interact-button-print').addEventListener('click', printContent)
+}
+
+initFunction(initPrint)
+</script>
+
+</head>
+
+  <body>
+    <!-- Include the ThebeLab config so it gets reloaded on each page -->
+    <script type="text/x-thebe-config">{
+    requestKernel: true,
+    binderOptions: {
+    repo: "hunters-forge/ThreatHunter-Playbook",
+    ref: "master",
+    },
+    codeMirrorConfig: {
+    theme: "abcdef",
+    mode: "python"
+    },
+    kernelOptions: {
+    kernelName: "python3",
+    path: ""
+    }
+}
+</script>
+
+    <!-- .js-show-sidebar shows sidebar by default -->
+    <div id="js-textbook" class="c-textbook js-show-sidebar">
+      
+
+
+
+<nav id="js-sidebar" class="c-textbook__sidebar">
+  <a href="https://jupyterbook.org/intro.html"><img src="/ThreatHunter-Playbook/docs/images/logo/logo.png" class="textbook_logo" id="sidebar-logo" alt="textbook logo" data-turbolinks-permanent/></a>
+  <h2 class="c-sidebar__title">Threat Hunter Playbook</h2>
+  <ul class="c-sidebar__chapters">
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/introduction">
+        <a class="c-sidebar__entry"
+          href="/ThreatHunter-Playbook/docs/introduction.html"
+        >
+          
+          Introduction
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="https://github.com/hunters-forge/ThreatHunter-Playbook">
+        <a class="c-sidebar__entry"
+          href="https://github.com/hunters-forge/ThreatHunter-Playbook"
+        >
+          
+          GitHub Repository
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        <li class="c-sidebar__divider"></li>
+        
+      
+      
+        <li><h2 class="c-sidebar__title">Pre-Hunt Activities</li>
+        
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/pre-hunt/data_management">
+        <a class="c-sidebar__entry"
+          href="/ThreatHunter-Playbook/docs/pre-hunt/data_management.html"
+        >
+          
+          Data Management
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+        
+
+        
+
+        <ul class="c-sidebar__sections u-hidden-visually">
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/pre-hunt/data_documentation">
+              <a class="c-sidebar__entry"
+                href="/ThreatHunter-Playbook/docs/pre-hunt/data_documentation.html"
+              >
+                
+                Data Documentation
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/pre-hunt/data_standardization">
+              <a class="c-sidebar__entry"
+                href="/ThreatHunter-Playbook/docs/pre-hunt/data_standardization.html"
+              >
+                
+                Data Standardization
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/pre-hunt/data_modeling">
+              <a class="c-sidebar__entry"
+                href="/ThreatHunter-Playbook/docs/pre-hunt/data_modeling.html"
+              >
+                
+                Data Modeling
+              </a>
+            </li>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/pre-hunt/data_quality">
+              <a class="c-sidebar__entry"
+                href="/ThreatHunter-Playbook/docs/pre-hunt/data_quality.html"
+              >
+                
+                Data Quality
+              </a>
+            </li>
+            
+            
+          
+        </ul>
+      
+
+      
+    
+      
+      
+        <li class="c-sidebar__divider"></li>
+        
+      
+      
+        <li><h2 class="c-sidebar__title">Hunting Notebooks</li>
+        
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/notebooks/windows/windows">
+        <a class="c-sidebar__entry"
+          href="/ThreatHunter-Playbook/docs/notebooks/windows/windows.html"
+        >
+          
+          Windows
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+        
+
+        
+
+        <ul class="c-sidebar__sections">
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/notebooks/windows/02_execution/execution">
+              <a class="c-sidebar__entry"
+                href="/ThreatHunter-Playbook/docs/notebooks/windows/02_execution/execution.html"
+              >
+                
+                Execution
+              </a>
+            </li>
+            
+              
+              <ul class='c-sidebar__subsections u-hidden-visually'>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/02_execution/execution/WIN-190815181010">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/02_execution/execution/WIN-190815181010.html"
+                  >
+                    
+                    Remote Service creation
+                  </a>
+                </li>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/02_execution/execution/WIN-190810201010">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/02_execution/execution/WIN-190810201010.html"
+                  >
+                    
+                    WMI Win32_Process Class and Create Method for Remote Execution
+                  </a>
+                </li>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/02_execution/execution/WIN-190410151110">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/02_execution/execution/WIN-190410151110.html"
+                  >
+                    
+                    Basic PowerShell Execution
+                  </a>
+                </li>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/02_execution/execution/WIN-190813181020">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/02_execution/execution/WIN-190813181020.html"
+                  >
+                    
+                    Service Creation
+                  </a>
+                </li>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/02_execution/execution/WIN-190811201010">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/02_execution/execution/WIN-190811201010.html"
+                  >
+                    
+                    WMI Module Load
+                  </a>
+                </li>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/02_execution/execution/WIN-190511223310">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/02_execution/execution/WIN-190511223310.html"
+                  >
+                    
+                    PowerShell Remote Session
+                  </a>
+                </li>
+              
+              </ul>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/notebooks/windows/03_persistence/persistence">
+              <a class="c-sidebar__entry"
+                href="/ThreatHunter-Playbook/docs/notebooks/windows/03_persistence/persistence.html"
+              >
+                
+                Persistence
+              </a>
+            </li>
+            
+              
+              <ul class='c-sidebar__subsections u-hidden-visually'>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/03_persistence/persistence/WIN-190810170510">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/03_persistence/persistence/WIN-190810170510.html"
+                  >
+                    
+                    WMI Eventing
+                  </a>
+                </li>
+              
+              </ul>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/notebooks/windows/05_defense_evasion/defense_evasion">
+              <a class="c-sidebar__entry"
+                href="/ThreatHunter-Playbook/docs/notebooks/windows/05_defense_evasion/defense_evasion.html"
+              >
+                
+                Defense Evasion
+              </a>
+            </li>
+            
+              
+              <ul class='c-sidebar__subsections u-hidden-visually'>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/05_defense_evasion/defense_evasion/WIN-180719170510">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/05_defense_evasion/defense_evasion/WIN-180719170510.html"
+                  >
+                    
+                    DLL Injection via CreateRemoteThread and LoadLibrary
+                  </a>
+                </li>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/05_defense_evasion/defense_evasion/WIN-190407183310">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/05_defense_evasion/defense_evasion/WIN-190407183310.html"
+                  >
+                    
+                    Enable Remote Desktop Conections Registry
+                  </a>
+                </li>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/05_defense_evasion/defense_evasion/WIN-190510202010">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/05_defense_evasion/defense_evasion/WIN-190510202010.html"
+                  >
+                    
+                    WDigest Downgrade
+                  </a>
+                </li>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/05_defense_evasion/defense_evasion/WIN-190101151110">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/05_defense_evasion/defense_evasion/WIN-190101151110.html"
+                  >
+                    
+                    Active Directory Replication User Backdoor
+                  </a>
+                </li>
+              
+              </ul>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/notebooks/windows/06_credential_access/credential_access">
+              <a class="c-sidebar__entry"
+                href="/ThreatHunter-Playbook/docs/notebooks/windows/06_credential_access/credential_access.html"
+              >
+                
+                Credential Access
+              </a>
+            </li>
+            
+              
+              <ul class='c-sidebar__subsections u-hidden-visually'>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/06_credential_access/credential_access/WIN-190620024610">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/06_credential_access/credential_access/WIN-190620024610.html"
+                  >
+                    
+                    Domain DPAPI Backup Key Extraction
+                  </a>
+                </li>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/06_credential_access/credential_access/WIN-190725024610">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/06_credential_access/credential_access/WIN-190725024610.html"
+                  >
+                    
+                    SAM Registry Hive Handle Request
+                  </a>
+                </li>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/06_credential_access/credential_access/WIN-180815210510">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/06_credential_access/credential_access/WIN-180815210510.html"
+                  >
+                    
+                    Active Directory Replication From Non-Domain-Controller Accounts
+                  </a>
+                </li>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/06_credential_access/credential_access/WIN-191030201010">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/06_credential_access/credential_access/WIN-191030201010.html"
+                  >
+                    
+                    Remote Interactive Task Manager LSASS Dump
+                  </a>
+                </li>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/06_credential_access/credential_access/WIN-170105221010">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/06_credential_access/credential_access/WIN-170105221010.html"
+                  >
+                    
+                    LSASS Access from Non System Account
+                  </a>
+                </li>
+              
+              </ul>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/notebooks/windows/07_discovery/discovery">
+              <a class="c-sidebar__entry"
+                href="/ThreatHunter-Playbook/docs/notebooks/windows/07_discovery/discovery.html"
+              >
+                
+                Discovery
+              </a>
+            </li>
+            
+              
+              <ul class='c-sidebar__subsections u-hidden-visually'>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/07_discovery/discovery/WIN-190725024610">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/07_discovery/discovery/WIN-190725024610.html"
+                  >
+                    
+                    SAM Registry Hive Handle Request
+                  </a>
+                </li>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/07_discovery/discovery/WIN-190625024610">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/07_discovery/discovery/WIN-190625024610.html"
+                  >
+                    
+                    SysKey Registry Keys Access
+                  </a>
+                </li>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/07_discovery/discovery/WIN-190826010110">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/07_discovery/discovery/WIN-190826010110.html"
+                  >
+                    
+                    Remote Service Control Manager Handle
+                  </a>
+                </li>
+              
+              </ul>
+            
+            
+          
+            
+            
+
+            
+            
+            
+            
+
+            <li class="c-sidebar__section" data-url="/notebooks/windows/08_lateral_movement/lateral_movement">
+              <a class="c-sidebar__entry"
+                href="/ThreatHunter-Playbook/docs/notebooks/windows/08_lateral_movement/lateral_movement.html"
+              >
+                
+                Lateral Movement
+              </a>
+            </li>
+            
+              
+              <ul class='c-sidebar__subsections u-hidden-visually'>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/08_lateral_movement/lateral_movement/WIN-190815181010">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/08_lateral_movement/lateral_movement/WIN-190815181010.html"
+                  >
+                    
+                    Remote Service creation
+                  </a>
+                </li>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/08_lateral_movement/lateral_movement/WIN-190810201010">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/08_lateral_movement/lateral_movement/WIN-190810201010.html"
+                  >
+                    
+                    WMI Win32_Process Class and Create Method for Remote Execution
+                  </a>
+                </li>
+              
+                
+                
+                
+                
+                <li class="c-sidebar__subsection" data-url="/notebooks/windows/08_lateral_movement/lateral_movement/WIN-190511223310">
+                  <a class="c-sidebar__entry"
+                    href="/ThreatHunter-Playbook/docs/notebooks/windows/08_lateral_movement/lateral_movement/WIN-190511223310.html"
+                  >
+                    
+                    PowerShell Remote Session
+                  </a>
+                </li>
+              
+              </ul>
+            
+            
+          
+        </ul>
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/notebooks/linux/linux">
+        <a class="c-sidebar__entry"
+          href="/ThreatHunter-Playbook/docs/notebooks/linux/linux.html"
+        >
+          
+          Linux
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+        
+
+        
+
+        <ul class="c-sidebar__sections">
+          
+        </ul>
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/notebooks/mac/mac">
+        <a class="c-sidebar__entry"
+          href="/ThreatHunter-Playbook/docs/notebooks/mac/mac.html"
+        >
+          
+          MAC
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+        
+
+        
+
+        <ul class="c-sidebar__sections">
+          
+        </ul>
+      
+
+      
+    
+      
+      
+        <li class="c-sidebar__divider"></li>
+        
+      
+      
+        <li><h2 class="c-sidebar__title">Tutorials</li>
+        
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/tutorials/jupyter/introduction">
+        <a class="c-sidebar__entry"
+          href="/ThreatHunter-Playbook/docs/tutorials/jupyter/introduction.html"
+        >
+          
+          Jupyter Notebooks
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+        
+
+        
+
+        <ul class="c-sidebar__sections u-hidden-visually">
+          
+        </ul>
+      
+
+      
+    
+  </ul>
+  <p class="sidebar_footer">Powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
+</nav>
+
+      
+      <div class="c-topbar" id="top-navbar">
+  <!-- We show the sidebar by default so we use .is-active -->
+  <div class="c-topbar__buttons">
+    <button
+      id="js-sidebar-toggle"
+      class="hamburger hamburger--arrowalt is-active"
+    >
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+    <div class="buttons">
+<div class="download-buttons-dropdown">
+    <button id="dropdown-button-trigger" class="interact-button"><img src="/ThreatHunter-Playbook/docs/assets/images/download-solid.svg" alt="Download" /></button>
+    <div class="download-buttons">
+        
+        <a id="interact-button-print"><button id="interact-button-download" class="interact-button">.pdf</button></a>
+    </div>
+</div>
+
+
+</div>
+
+  </div>
+  <!-- Empty sidebar placeholder that we'll auto-fill with javascript -->
+  <aside class="sidebar__right">
+    <header><h4 class="nav__title"><img src="/ThreatHunter-Playbook/docs/assets/images/list-solid.svg" alt="Search" />   On this page</h4></header>
+    <nav class="onthispage">
+    </nav>
+  </aside>
+  <a href="/ThreatHunter-Playbook/docs/search.html" class="topbar-right-button" id="search-button">
+    <img src="/ThreatHunter-Playbook/docs/assets/images/search-solid.svg" alt="Search" />
+  </a>
+</div>
+
+      <main class="c-textbook__page" tabindex="-1">
+            <div class="c-textbook__content" id="textbook_content">
+              <h1 id="g0007apt28">G0007:APT28</h1>
+
+<h2 id="description">Description</h2>
+
+<p><a href="https://attack.mitre.org/groups/G0007">APT28</a> is a threat group that has been attributed to Russia’s Main Intelligence Directorate of the Russian General Staff by a July 2018 U.S. Department of Justice indictment. This group reportedly compromised the Hillary Clinton campaign, the Democratic National Committee, and the Democratic Congressional Campaign Committee in 2016 in an attempt to interfere with the U.S. presidential election. <a href="https://attack.mitre.org/groups/G0007">APT28</a> has been active since at least 2004.(Citation: DOJ GRU Indictment Jul 2018) (Citation: Ars Technica GRU indictment Jul 2018) (Citation: Crowdstrike DNC June 2016) (Citation: FireEye APT28) (Citation: SecureWorks TG-4127) (Citation: FireEye APT28 January 2017) (Citation: GRIZZLY STEPPE JAR) (Citation: Sofacy DealersChoice) (Citation: Palo Alto Sofacy 06-2018) (Citation: Symantec APT28 Oct 2018) (Citation: ESET Zebrocy May 2019)</p>
+
+<h2 id="ttps">TTPs</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Platform</th>
+      <th>Tactic</th>
+      <th>Technique</th>
+      <th>Description</th>
+      <th>Data Sources</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/defense-evasion/">defense-evasion</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1143/">Hidden Window</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has used the WindowStyle parameter to conceal <a href="https://attack.mitre.org/techniques/T1086">PowerShell</a> windows.</td>
+      <td>Windows event logs, PowerShell logs, Process command-line parameters, Process monitoring, File monitoring</td>
+    </tr>
+    <tr>
+      <td>SaaS, Office 365, Azure AD</td>
+      <td><a href="https://attack.mitre.org/tactics/credential-access/">credential-access</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1528/">Steal Application Access Token</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has used several malicious applications to steal user OAuth access tokens including applications masquerading as “Google Defender” “Google Email Protection,” and “Google Scanner” for Gmail users. They also targeted Yahoo users with applications masquerading as “Delivery Service” and “McAfee Email Protection”.</td>
+      <td>Azure activity logs, OAuth audit logs</td>
+    </tr>
+    <tr>
+      <td>SaaS, Office 365</td>
+      <td><a href="https://attack.mitre.org/tactics/defense-evasion/">defense-evasion</a>, <a href="https://attack.mitre.org/tactics/lateral-movement/">lateral-movement</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1527/">Application Access Token</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has used several malicious applications that abused OAuth access tokens to gain access to target email accounts, including Gmail and Yahoo Mail.</td>
+      <td>OAuth audit logs, Office 365 account logs</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/command-and-control/">command-and-control</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1043/">Commonly Used Port</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has used port 443 for C2.</td>
+      <td>Packet capture, Netflow/Enclave netflow, Process use of network, Process monitoring</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/command-and-control/">command-and-control</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1024/">Custom Cryptographic Protocol</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> installed a Delphi backdoor that used a custom algorithm for C2 communications.</td>
+      <td>Packet capture, Netflow/Enclave netflow, Process use of network, Malware reverse engineering, Process monitoring</td>
+    </tr>
+    <tr>
+      <td>Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/defense-evasion/">defense-evasion</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1221/">Template Injection</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> used weaponized Microsoft Word documents abusing the remote template function to retrieve a malicious macro.</td>
+      <td>Anti-virus, Email gateway, Network intrusion detection system, Web logs</td>
+    </tr>
+    <tr>
+      <td>Linux, Windows, macOS</td>
+      <td><a href="https://attack.mitre.org/tactics/execution/">execution</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1203/">Exploitation for Client Execution</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has exploited Microsoft Office vulnerability CVE-2017-0262 for execution.</td>
+      <td>Anti-virus, System calls, Process monitoring</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/defense-evasion/">defense-evasion</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1014/">Rootkit</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has used a UEFI (Unified Extensible Firmware Interface) rootkit known as <a href="https://attack.mitre.org/software/S0397">LoJax</a>.</td>
+      <td>BIOS, MBR, System calls</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/collection/">collection</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1119/">Automated Collection</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> used a publicly available tool to gather and compress multiple documents on the DCCC and DNC networks.</td>
+      <td>File monitoring, Data loss prevention, Process command-line parameters</td>
+    </tr>
+    <tr>
+      <td>Windows, Office 365</td>
+      <td><a href="https://attack.mitre.org/tactics/collection/">collection</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1114/">Email Collection</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has collected emails from victim Microsoft Exchange servers.</td>
+      <td>Office 365 trace logs, Mail server, Email gateway, Authentication logs, File monitoring, Process monitoring, Process use of network</td>
+    </tr>
+    <tr>
+      <td>Windows, macOS, Linux, Office 365, SaaS</td>
+      <td><a href="https://attack.mitre.org/tactics/initial-access/">initial-access</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1192/">Spearphishing Link</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> sent spearphishing emails which used a URL-shortener service to masquerade as a legitimate service and to redirect targets to credential harvesting sites.</td>
+      <td>Packet capture, Web proxy, Email gateway, Detonation chamber, SSL/TLS inspection, DNS records, Mail server</td>
+    </tr>
+    <tr>
+      <td>Linux, Windows, macOS</td>
+      <td><a href="https://attack.mitre.org/tactics/exfiltration/">exfiltration</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1002/">Data Compressed</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> used a publicly available tool to gather and compress multiple documents on the DCCC and DNC networks.</td>
+      <td>Binary file metadata, File monitoring, Process command-line parameters, Process monitoring</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/execution/">execution</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1059/">Command-Line Interface</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> uses cmd.exe to execute commands and custom backdoors.</td>
+      <td>Process monitoring, Process command-line parameters</td>
+    </tr>
+    <tr>
+      <td>Linux, Windows, macOS, AWS, GCP, Azure, SaaS</td>
+      <td><a href="https://attack.mitre.org/tactics/initial-access/">initial-access</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1199/">Trusted Relationship</a></td>
+      <td>Once <a href="https://attack.mitre.org/groups/G0007">APT28</a> gained access to the DCCC network, the group then proceeded to use that access to compromise the DNC network.</td>
+      <td>Azure activity logs, Stackdriver logs, AWS CloudTrail logs, Application logs, Authentication logs, Third-party application logs</td>
+    </tr>
+    <tr>
+      <td>Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/execution/">execution</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1086/">PowerShell</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> downloads and executes PowerShell scripts.</td>
+      <td>PowerShell logs, Loaded DLLs, DLL monitoring, Windows Registry, File monitoring, Process monitoring, Process command-line parameters</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/defense-evasion/">defense-evasion</a>, <a href="https://attack.mitre.org/tactics/persistence/">persistence</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1158/">Hidden Files and Directories</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has saved files with hidden file attributes.</td>
+      <td>File monitoring, Process monitoring, Process command-line parameters</td>
+    </tr>
+    <tr>
+      <td>Linux, Windows, macOS</td>
+      <td><a href="https://attack.mitre.org/tactics/defense-evasion/">defense-evasion</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1211/">Exploitation for Defense Evasion</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has used CVE-2015-4902 to bypass security features.</td>
+      <td>Windows Error Reporting, Process monitoring, File monitoring</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows, GCP, AWS, Azure</td>
+      <td><a href="https://attack.mitre.org/tactics/collection/">collection</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1005/">Data from Local System</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has retrieved internal documents from machines inside victim environments, including by using <a href="https://attack.mitre.org/software/S0193">Forfiles</a> to stage documents before.</td>
+      <td>File monitoring, Process monitoring, Process command-line parameters</td>
+    </tr>
+    <tr>
+      <td>Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/defense-evasion/">defense-evasion</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1140/">Deobfuscate/Decode Files or Information</a></td>
+      <td>An <a href="https://attack.mitre.org/groups/G0007">APT28</a> macro uses the command <code>certutil -decode</code> to decode contents of a .txt file storing the base64 encoded payload.</td>
+      <td>File monitoring, Process monitoring, Process command-line parameters</td>
+    </tr>
+    <tr>
+      <td>Windows, macOS, Linux</td>
+      <td><a href="https://attack.mitre.org/tactics/initial-access/">initial-access</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1193/">Spearphishing Attachment</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> sent spearphishing emails containing malicious Microsoft Office attachments.</td>
+      <td>File monitoring, Packet capture, Network intrusion detection system, Detonation chamber, Email gateway, Mail server</td>
+    </tr>
+    <tr>
+      <td>Linux, Windows, macOS, SaaS, AWS, GCP, Azure</td>
+      <td><a href="https://attack.mitre.org/tactics/collection/">collection</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1213/">Data from Information Repositories</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has collected information from Microsoft SharePoint services within target networks.</td>
+      <td>Azure activity logs, AWS CloudTrail logs, Stackdriver logs, OAuth audit logs, Application logs, Authentication logs, Data loss prevention, Third-party application logs</td>
+    </tr>
+    <tr>
+      <td>macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/lateral-movement/">lateral-movement</a>, <a href="https://attack.mitre.org/tactics/persistence/">persistence</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1037/">Logon Scripts</a></td>
+      <td>An <a href="https://attack.mitre.org/groups/G0007">APT28</a> loader Trojan adds the Registry key <code>HKCU\Environment\UserInitMprLogonScript</code> to establish persistence.</td>
+      <td>File monitoring, Process monitoring</td>
+    </tr>
+    <tr>
+      <td>Linux, Windows, macOS</td>
+      <td><a href="https://attack.mitre.org/tactics/execution/">execution</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1204/">User Execution</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> attempted to get users to click on Microsoft Office attachments containing malicious macro scripts.</td>
+      <td>Anti-virus, Process command-line parameters, Process monitoring</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/defense-evasion/">defense-evasion</a>, <a href="https://attack.mitre.org/tactics/execution/">execution</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1064/">Scripting</a></td>
+      <td>An <a href="https://attack.mitre.org/groups/G0007">APT28</a> loader Trojan uses a batch script to run its payload. The group has also used macros to execute payloads.</td>
+      <td>Process monitoring, File monitoring, Process command-line parameters</td>
+    </tr>
+    <tr>
+      <td>Linux, Windows, macOS</td>
+      <td><a href="https://attack.mitre.org/tactics/lateral-movement/">lateral-movement</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1210/">Exploitation of Remote Services</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> exploited a Windows SMB Remote Code Execution Vulnerability to conduct lateral movement.</td>
+      <td>Windows Error Reporting, Process monitoring, File monitoring</td>
+    </tr>
+    <tr>
+      <td>Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/execution/">execution</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1173/">Dynamic Data Exchange</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has delivered <a href="https://attack.mitre.org/software/S0044">JHUHUGIT</a> and <a href="https://attack.mitre.org/software/S0250">Koadic</a> by executing PowerShell commands through DDE in Word documents.</td>
+      <td>API monitoring, DLL monitoring, Process monitoring, Windows Registry, Windows event logs</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/credential-access/">credential-access</a>, <a href="https://attack.mitre.org/tactics/discovery/">discovery</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1040/">Network Sniffing</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> deployed the open source tool Responder to conduct NetBIOS Name Service poisoning, which captured usernames and hashed passwords that allowed access to legitimate credentials.</td>
+      <td>Network device logs, Host network interface, Netflow/Enclave netflow, Process monitoring</td>
+    </tr>
+    <tr>
+      <td>Windows, Office 365</td>
+      <td><a href="https://attack.mitre.org/tactics/persistence/">persistence</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1137/">Office Application Startup</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has used the Office Test persistence mechanism within Microsoft Office by adding the Registry key <code>HKCU\Software\Microsoft\Office test\Special\Perf</code> to execute code.</td>
+      <td>Process monitoring, Process command-line parameters, Windows Registry, File monitoring</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/discovery/">discovery</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1083/">File and Directory Discovery</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has used <a href="https://attack.mitre.org/software/S0193">Forfiles</a> to locate PDF, Excel, and Word documents during. The group also searched a compromised DCCC computer for specific terms.</td>
+      <td>File monitoring, Process monitoring, Process command-line parameters</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows, AWS, GCP, Azure, SaaS, Office 365</td>
+      <td><a href="https://attack.mitre.org/tactics/defense-evasion/">defense-evasion</a>, <a href="https://attack.mitre.org/tactics/persistence/">persistence</a>, <a href="https://attack.mitre.org/tactics/privilege-escalation/">privilege-escalation</a>, <a href="https://attack.mitre.org/tactics/initial-access/">initial-access</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1078/">Valid Accounts</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has used legitimate credentials to gain initial access, maintain access, and exfiltrate data from a victim network. The group has specifically used credentials stolen through a spearphishing email to login to the DCCC network. The group has also leveraged default manufacturer’s passwords to gain initial access to corporate networks via IoT devices such as a VOIP phone, printer, and video decoder.</td>
+      <td>AWS CloudTrail logs, Stackdriver logs, Authentication logs, Process monitoring</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/defense-evasion/">defense-evasion</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1107/">File Deletion</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has intentionally deleted computer files to cover their tracks, including with use of the program CCleaner.</td>
+      <td>File monitoring, Process command-line parameters, Binary file metadata</td>
+    </tr>
+    <tr>
+      <td>Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/defense-evasion/">defense-evasion</a>, <a href="https://attack.mitre.org/tactics/privilege-escalation/">privilege-escalation</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1134/">Access Token Manipulation</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has used CVE-2015-1701 to access the SYSTEM token and copy it into the current process as part of privilege escalation.</td>
+      <td>API monitoring, Access tokens, Process monitoring, Process command-line parameters</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/discovery/">discovery</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1057/">Process Discovery</a></td>
+      <td>An <a href="https://attack.mitre.org/groups/G0007">APT28</a> loader Trojan will enumerate the victim’s processes searching for explorer.exe if its current process does not have necessary permissions.</td>
+      <td>Process monitoring, Process command-line parameters</td>
+    </tr>
+    <tr>
+      <td>Windows, macOS</td>
+      <td><a href="https://attack.mitre.org/tactics/discovery/">discovery</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1120/">Peripheral Device Discovery</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> uses a module to receive a notification every time a USB mass storage device is inserted into a victim.</td>
+      <td>PowerShell logs, API monitoring, Process monitoring, Process command-line parameters</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/collection/">collection</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1025/">Data from Removable Media</a></td>
+      <td>An <a href="https://attack.mitre.org/groups/G0007">APT28</a> backdoor may collect the entire contents of an inserted USB device.</td>
+      <td>File monitoring, Process monitoring, Process command-line parameters</td>
+    </tr>
+    <tr>
+      <td>Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/lateral-movement/">lateral-movement</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1075/">Pass the Hash</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has used pass the hash for lateral movement.</td>
+      <td>Authentication logs</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows, AWS, GCP, Azure</td>
+      <td><a href="https://attack.mitre.org/tactics/collection/">collection</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1074/">Data Staged</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has stored captured credential information in a file named pi.log.</td>
+      <td>File monitoring, Process monitoring, Process command-line parameters</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/command-and-control/">command-and-control</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1092/">Communication Through Removable Media</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> uses a tool that captures information from air-gapped computers via an infected USB and transfers it to network-connected computer when the USB is inserted.</td>
+      <td>File monitoring, Data loss prevention</td>
+    </tr>
+    <tr>
+      <td>Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/defense-evasion/">defense-evasion</a>, <a href="https://attack.mitre.org/tactics/persistence/">persistence</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1122/">Component Object Model Hijacking</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has used COM hijacking for persistence by replacing the legitimate <code>MMDeviceEnumerator</code> object with a payload.</td>
+      <td>Windows Registry, DLL monitoring, Loaded DLLs</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/collection/">collection</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1113/">Screen Capture</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has used tools to take screenshots from victims.</td>
+      <td>API monitoring, Process monitoring, File monitoring</td>
+    </tr>
+    <tr>
+      <td>Linux, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/persistence/">persistence</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1067/">Bootkit</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has deployed a bootkit along with <a href="https://attack.mitre.org/software/S0134">Downdelph</a> to ensure its persistence on the victim. The bootkit shares code with some variants of <a href="https://attack.mitre.org/software/S0089">BlackEnergy</a>.</td>
+      <td>API monitoring, MBR, VBR</td>
+    </tr>
+    <tr>
+      <td>Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/lateral-movement/">lateral-movement</a>, <a href="https://attack.mitre.org/tactics/initial-access/">initial-access</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1091/">Replication Through Removable Media</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> uses a tool to infect connected USB devices and transmit itself to air-gapped computers when the infected USB device is inserted.</td>
+      <td>File monitoring, Data loss prevention</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/privilege-escalation/">privilege-escalation</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1068/">Exploitation for Privilege Escalation</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has exploited CVE-2014-4076, CVE-2015-2387, CVE-2015-1701, CVE-2017-0263 to escalate privileges.</td>
+      <td>Windows Error Reporting, Process monitoring, Application logs</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/defense-evasion/">defense-evasion</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1027/">Obfuscated Files or Information</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> encrypted a .dll payload using RTL and a custom encryption algorithm. <a href="https://attack.mitre.org/groups/G0007">APT28</a> has also obfuscated payloads with base64, XOR, and RC4.</td>
+      <td>Network protocol analysis, Process use of network, File monitoring, Malware reverse engineering, Binary file metadata, Process command-line parameters, Environment variable, Process monitoring, Windows event logs, Network intrusion detection system, Email gateway, SSL/TLS inspection</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/collection/">collection</a>, <a href="https://attack.mitre.org/tactics/credential-access/">credential-access</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1056/">Input Capture</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has used tools to perform keylogging.</td>
+      <td>Windows Registry, Kernel drivers, Process monitoring, API monitoring</td>
+    </tr>
+    <tr>
+      <td>Windows, Linux, macOS</td>
+      <td><a href="https://attack.mitre.org/tactics/credential-access/">credential-access</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1003/">Credential Dumping</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> regularly deploys both publicly available and custom password retrieval tools on victims.</td>
+      <td>API monitoring, Process monitoring, PowerShell logs, Process command-line parameters</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/command-and-control/">command-and-control</a>, <a href="https://attack.mitre.org/tactics/lateral-movement/">lateral-movement</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1105/">Remote File Copy</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has downloaded additional files, including by using a first-stage downloader to contact the C2 server to obtain the second-stage implant.</td>
+      <td>File monitoring, Packet capture, Process use of network, Netflow/Enclave netflow, Network protocol analysis, Process monitoring</td>
+    </tr>
+    <tr>
+      <td>Linux, Windows, macOS</td>
+      <td><a href="https://attack.mitre.org/tactics/defense-evasion/">defense-evasion</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1099/">Timestomp</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has performed timestomping on victim files.</td>
+      <td>File monitoring, Process monitoring, Process command-line parameters</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/command-and-control/">command-and-control</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1001/">Data Obfuscation</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> added “junk data” to each encoded string, preventing trivial decoding without knowledge of the junk removal algorithm. Each implant was given a “junk length” value when created, tracked by the controller software to allow seamless communication but prevent analysis of the command protocol on the wire.</td>
+      <td>Packet capture, Process use of network, Process monitoring, Network protocol analysis</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/defense-evasion/">defense-evasion</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1070/">Indicator Removal on Host</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> has cleared event logs, including by using the commands <code>wevtutil cl System</code> and <code>wevtutil cl Security</code>.</td>
+      <td>File monitoring, Process monitoring, Process command-line parameters, API monitoring, Windows event logs</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/command-and-control/">command-and-control</a>, <a href="https://attack.mitre.org/tactics/defense-evasion/">defense-evasion</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1090/">Connection Proxy</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> used other victims as proxies to relay command traffic, for instance using a compromised Georgian military email server as a hop point to NATO victims. The group has also used a tool that acts as a proxy to allow C2 even if the victim is behind a router. <a href="https://attack.mitre.org/groups/G0007">APT28</a> has also used a machine to relay and obscure communications between <a href="https://attack.mitre.org/software/S0023">CHOPSTICK</a> and their server.</td>
+      <td>Process use of network, Process monitoring, Netflow/Enclave netflow, Packet capture</td>
+    </tr>
+    <tr>
+      <td>Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/defense-evasion/">defense-evasion</a>, <a href="https://attack.mitre.org/tactics/execution/">execution</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1085/">Rundll32</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> executed <a href="https://attack.mitre.org/software/S0023">CHOPSTICK</a> by using rundll32 commands such as <code>rundll32.exe “C:\Windows\twain_64.dll”</code>. <a href="https://attack.mitre.org/groups/G0007">APT28</a> also executed a .dll for a first stage dropper using rundll32.exe. An <a href="https://attack.mitre.org/groups/G0007">APT28</a> loader Trojan saved a batch script that uses rundll32 to execute a DLL payload.</td>
+      <td>File monitoring, Process monitoring, Process command-line parameters, Binary file metadata</td>
+    </tr>
+    <tr>
+      <td>Linux, macOS, Windows</td>
+      <td><a href="https://attack.mitre.org/tactics/command-and-control/">command-and-control</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1071/">Standard Application Layer Protocol</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> used SMTP as a communication channel in various implants, initially using self-registered Google Mail accounts and later compromised email servers of its victims. Later implants such as <a href="https://attack.mitre.org/software/S0023">CHOPSTICK</a> use a blend of HTTP and other legitimate channels, depending on module configuration.</td>
+      <td>Packet capture, Netflow/Enclave netflow, Process use of network, Malware reverse engineering, Process monitoring</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><a href="https://attack.mitre.org/tactics/establish-&amp;-maintain-infrastructure/">establish-&amp;-maintain-infrastructure</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1328/">Buy domain name</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> registered domains imitating NATO and OSCE security websites and Caucasus information resources.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><a href="https://attack.mitre.org/tactics/build-capabilities/">build-capabilities</a></td>
+      <td><a href="https://attack.mitre.org/techniques/T1346/">Obtain/re-use payloads</a></td>
+      <td><a href="https://attack.mitre.org/groups/G0007">APT28</a> reused the SOURFACE downloader as the payload of a lure document.</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+            </div>
+            <div class="c-textbook__footer" id="textbook_footer">
+              
+<nav class="c-page__nav">
+  
+
+  
+</nav>
+
+              <footer>
+  <p class="footer">This page was created by <a href="https://hunters-forge">The Hunters Forge Community</a></p>
+</footer>
+
+            </div>
+
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

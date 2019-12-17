@@ -1,0 +1,23 @@
+<div class="c-topbar" id="top-navbar">
+  <!-- We show the sidebar by default so we use .is-active -->
+  <div class="c-topbar__buttons">
+    <button
+      id="js-sidebar-toggle"
+      class="hamburger hamburger--arrowalt is-active"
+    >
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+    {% include buttons.html %}
+  </div>
+  <!-- Empty sidebar placeholder that we'll auto-fill with javascript -->
+  <aside class="sidebar__right">
+    <header><h4 class="nav__title"><img src="{{ site.images_url | relative_url }}/list-solid.svg" alt="Search" /> {{ page.toc_label | default: site.data.ui-text[site.locale].toc_label }}</h4></header>
+    <nav class="onthispage">
+    </nav>
+  </aside>
+  <a href="{{ '/search.html' | relative_url }}" class="topbar-right-button" id="search-button">
+    <img src="{{ site.images_url | relative_url }}/search-solid.svg" alt="Search" />
+  </a>
+</div>

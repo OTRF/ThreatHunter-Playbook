@@ -1,0 +1,105 @@
+---
+redirect_from:
+  - "/pre-hunt/data-documentation"
+title: |-
+  Data Documentation
+pagenum: 2
+prev_page:
+  url: /pre-hunt/data_management.html
+next_page:
+  url: /pre-hunt/data_standardization.html
+suffix: .md
+search: data name system event windows security being events exe yaml every e sysmon dictionaries process collecting resources source not information log collected task take sources document analytics fields com f level ac d hunters new organization documenting only provider environment might depending tools collect dictionary provide analytic useful detect format microsoft eventid version opcode eventrecordid processid eventdata wuauclt svchost file github forge ossem build identify creation start help documentation answer maybe need spend single onboarding already available analysts work ask am asking powershell logs also behind impossible effort beginning allocate diverse remember working commercial edr solutions vendor should providing collection
+
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
+
+    <main class="jupyter-page">
+    <div id="page-info"><div id="page-title">Data Documentation</div>
+</div>
+    <div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Do you know what it is that you are collecting in you organization?</strong> if the answer is <strong>no</strong> or <strong>maybe</strong>, then you need to spend some time and resources documenting every single data source that you are onboarding or have already available for security analysts to work with. When I ask if you know what you are collecting, I am <strong>NOT ONLY</strong> asking if you know the name of the data source provider (i.e Security, Sysmon or PowerShell logs), but also the information behind every event log collected in your environment. This is <strong>NOT</strong> an impossible task, but might take some time and effort at the beginning depending on how many resources you allocate and the number of diverse data sources you are collecting. Remember that if you are working with commercial tools (i.e EDR solutions) that collect data for you, your vendor should be providing data dictionaries for every security event.</p>
+<h2 id="What-is-a-Data-Dictionary?">What is a Data Dictionary?<a class="anchor-link" href="#What-is-a-Data-Dictionary?"> </a></h2><p>A Data Dictionary is a collection of names, definitions, and attributes about data elements that are being used or captured in a database, information system, or part of a research project.</p>
+<p><img src="../images/DATA_DICTIONARY_CONCEPT.png"></p>
+<h2 id="Why?">Why?<a class="anchor-link" href="#Why?"> </a></h2><p>Besides being best practices to document data being ingested, it is very important to know what information each event log produces while developing security analytics. Sometimes the focus is alot in the "process name" or "command line argument" or the "user name". However, there are other fields that could provide more context to the analytic being developed. If you are not aware of other useful event fields in the data that you collect, you might be missing some opportunities to improve your analytic and detect additional patterns of behavior.</p>
+<h2 id="How?">How?<a class="anchor-link" href="#How?"> </a></h2><ul>
+<li>You can take a sample of the event flowing through your pipeline in its raw format:</li>
+</ul>
+
+<pre><code>&lt;Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event"&gt;
+  &lt;System&gt;
+    &lt;Provider Name="Microsoft-Windows-Sysmon" Guid="{5770385F-C22A-43E0-BF4C-06F5698FFBD9}" /&gt; 
+    &lt;EventID&gt;1&lt;/EventID&gt; 
+    &lt;Version&gt;5&lt;/Version&gt; 
+    &lt;Level&gt;4&lt;/Level&gt; 
+    &lt;Task&gt;1&lt;/Task&gt; 
+    &lt;Opcode&gt;0&lt;/Opcode&gt; 
+    &lt;Keywords&gt;0x8000000000000000&lt;/Keywords&gt; 
+    &lt;TimeCreated SystemTime="2019-06-12T00:48:53.300422700Z" /&gt; 
+    &lt;EventRecordID&gt;6526518&lt;/EventRecordID&gt; 
+    &lt;Correlation /&gt; 
+    &lt;Execution ProcessID="2312" ThreadID="3800" /&gt; 
+    &lt;Channel&gt;Microsoft-Windows-Sysmon/Operational&lt;/Channel&gt; 
+    &lt;Computer&gt;DESKTOP-WARDOG.RIVENDELL.local&lt;/Computer&gt; 
+    &lt;Security UserID="S-1-5-18" /&gt; 
+  &lt;/System&gt;
+  &lt;EventData&gt;
+    &lt;Data Name="RuleName" /&gt; 
+    &lt;Data Name="UtcTime"&gt;2019-06-12 00:48:53.295&lt;/Data&gt; 
+    &lt;Data Name="ProcessGuid"&gt;{A98268C1-4BF5-5D00-0000-00102A7B2B00}&lt;/Data&gt; 
+    &lt;Data Name="ProcessId"&gt;6364&lt;/Data&gt; 
+    &lt;Data Name="Image"&gt;C:\Windows\System32\wuauclt.exe&lt;/Data&gt; 
+    &lt;Data Name="FileVersion"&gt;10.0.17134.1 (WinBuild.160101.0800)&lt;/Data&gt; 
+    &lt;Data Name="Description"&gt;Windows Update&lt;/Data&gt; 
+    &lt;Data Name="Product"&gt;Microsoft® Windows® Operating System&lt;/Data&gt; 
+    &lt;Data Name="Company"&gt;Microsoft Corporation&lt;/Data&gt; 
+    &lt;Data Name="OriginalFileName"&gt;wuauclt.exe&lt;/Data&gt; 
+    &lt;Data Name="CommandLine"&gt;"C:\WINDOWS\system32\wuauclt.exe" /RunHandlerComServer&lt;/Data&gt; 
+    &lt;Data Name="CurrentDirectory"&gt;C:\WINDOWS\system32\&lt;/Data&gt; 
+    &lt;Data Name="User"&gt;NT AUTHORITY\SYSTEM&lt;/Data&gt; 
+    &lt;Data Name="LogonGuid"&gt;{A98268C1-48F4-5D00-0000-0020E7030000}&lt;/Data&gt; 
+    &lt;Data Name="LogonId"&gt;0x3e7&lt;/Data&gt; 
+    &lt;Data Name="TerminalSessionId"&gt;0&lt;/Data&gt; 
+    &lt;Data Name="IntegrityLevel"&gt;System&lt;/Data&gt; 
+    &lt;Data Name="Hashes"&gt;IMPHASH=E799C2BD8BC66603D6DDC95F2DB31A18&lt;/Data&gt; 
+    &lt;Data Name="ParentProcessGuid"&gt;{A98268C1-48F5-5D00-0000-00103C410100}&lt;/Data&gt; 
+    &lt;Data Name="ParentProcessId"&gt;1040&lt;/Data&gt; 
+    &lt;Data Name="ParentImage"&gt;C:\Windows\System32\svchost.exe&lt;/Data&gt; 
+    &lt;Data Name="ParentCommandLine"&gt;C:\WINDOWS\system32\svchost.exe -k netsvcs -p&lt;/Data&gt; 
+  &lt;/EventData&gt;
+&lt;/Event&gt;</code></pre>
+<ul>
+<li>Translate useful fields to a YAML file as shown <a href="https://github.com/hunters-forge/OSSEM/blob/yaml/data_dictionaries/yaml/windows_dictionary.yml">here</a>.</li>
+<li>Take that YAML file and convert it to other formats such as Markdown. Having the data in YAML format allows you to programmatically use those dictionaries and integrate them with other tools.</li>
+</ul>
+<h2 id="When?">When?<a class="anchor-link" href="#When?"> </a></h2><p>Depending on your priorities and the resources allocated to your team, you can either document every data source being collected all at once, or gradually document each data sources as you build analytics. For example, imagine you want to detect <strong>"WMI for lateral movement"</strong>, and you identify the following data sources as good candidates to provide some level of visibility over the adversarial technique:</p>
+<ul>
+<li>Windows Security<ul>
+<li>Authentication events</li>
+<li>Process creation events</li>
+</ul>
+</li>
+<li>Sysmon<ul>
+<li>Process creation events</li>
+</ul>
+</li>
+</ul>
+<p>You could then start documenting only the events identified above and start creating your own data wiki in your organization.</p>
+<p>In this activity, hunters could build data dictionaries for each event log being collected in their environment or help data managers with the whole process. In my opinion, building data dictionaries helps tremendously to identify and explore new events that could help spark new ideas for new analytics.</p>
+<h2 id="References">References<a class="anchor-link" href="#References"> </a></h2><ul>
+<li><a href="https://github.com/hunters-forge/OSSEM">https://github.com/hunters-forge/OSSEM</a>)</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+ 
+
+
+    </main>
+    

@@ -1,0 +1,157 @@
+{% comment %}
+Partial for the textbook sidebar. Renders each chapter and its sections from
+_data/toc.yml .
+
+Much of the logic here is to add active classes to the currently active
+section. The currently active section / chapter should be highlighted in the
+sidebar.
+
+If a chapter or any of its sections are the current page, we should display the
+chapter's sections. Otherwise, we hide the sections to keep the sidebar short.
+
+We also prefix the sidebar entries with the chapter/section number. We assume
+a 1-level nesting; we will label 1.2, but not 1.2.1.
+{% endcomment %}
+
+{% assign chapter_num = 1 %}
+
+<nav id="js-sidebar" class="c-textbook__sidebar">
+  {% if site.textbook_logo %}<a href="{{ site.textbook_logo_link }}"><img src="{{ site.textbook_logo | relative_url }}" class="textbook_logo" id="sidebar-logo" alt="textbook logo" data-turbolinks-permanent/></a>{% endif %}
+  <h2 class="c-sidebar__title">{{ site.title }}</h2>
+  <ul class="c-sidebar__chapters">
+    {% for chapter in site.data.toc %}
+      {% comment %}
+      If the entry is a divider, render a divider and move to next entry.
+      {% endcomment %}
+      {% if chapter.divider %}
+        <li class="c-sidebar__divider"></li>
+        {% continue %}
+      {% elsif chapter.header %}
+        <li><h2 class="c-sidebar__title">{{ chapter.header }}</li>
+        {% continue %}
+      {% endif %}
+
+      {% comment %}
+      Find the title for this chapter
+      {% endcomment %}
+      {% assign chapter_url_html = chapter.url | append: '.html' %}
+      {% for build_page in site.build %}
+        {% if build_page.url == chapter_url_html %}
+          {% assign chapter_title = build_page.title %}
+        {% endif %}
+      {%- endfor %}
+      {% if chapter.external == true %}{% assign chapter_title = chapter.title  %}{% endif %}
+
+      {% assign topUrl = chapter.url | relative_url %}
+      {% unless chapter.external == true %}
+        {% assign topUrl = topUrl | append: '.html'  %}
+      {% endunless %}
+      <li class="c-sidebar__chapter" data-url="{{ chapter.url }}">
+        <a class="c-sidebar__entry"
+          href="{{ topUrl }}"
+        >
+          {% unless chapter.not_numbered or site.number_toc_chapters != true %}
+            {{ chapter_num }}.
+          {% endunless %}
+          {{ chapter_title }}
+        </a>
+      </li>
+
+      {% comment %}
+      Flags for whether we hide all inactive sections or sub-sections
+      {% endcomment %}
+      {% if site.collapse_inactive_chapters == true %}
+        {% assign sectionsHideClass = " u-hidden-visually" %}
+      {% else %}
+        {% assign sectionsHideClass = "" %}
+      {% endif %}
+
+      {% if site.collapse_inactive_sections == true %}
+        {% assign subSectionsHideClass = " u-hidden-visually" %}
+      {% else %}
+        {% assign subSectionsHideClass = "" %}
+      {% endif %}
+
+      {% comment %}Per-chapter overrides from TOC data{% endcomment %}
+      {% if chapter.expand_sections == true %}
+        {% assign sectionsHideClass = "" %}
+      {% endif %}
+
+      {% if chapter.sections %}
+        {% comment %}
+        By default, all sections are hidden. We show a chapter's sections
+        if the chapter or any of its sections are the current page.
+        {% endcomment %}
+
+        {% assign section_num = 1 %}
+
+        <ul class="c-sidebar__sections{{ sectionsHideClass }}">
+          {% for section in chapter.sections %}
+            {% comment %}Per-section overrides from TOC data{% endcomment %}
+            {% if section.expand_subsections == true %}
+              {% assign subSectionsHideClass = "" %}
+            {% endif %}
+
+            {% comment %}
+            Find the title for this chapter
+            {% endcomment %}
+            {% assign section_url_html = section.url | append: '.html' %}
+            {% for build_page in site.build %}
+              {% if build_page.url == section_url_html %}
+                {% assign section_title = build_page.title %}
+              {% endif %}
+            {%- endfor %}
+            {% if section.external == true %}{% assign section_title = section.title  %}{% endif %}
+
+            <li class="c-sidebar__section" data-url="{{ section.url }}">
+              <a class="c-sidebar__entry"
+                href="{{ section.url  | relative_url | append: '.html'}}"
+              >
+                {% unless chapter.not_numbered or section.not_numbered or site.number_toc_chapters != true %}
+                  {{ chapter_num }}.{{ section_num }}
+                {% endunless %}
+                {{ section_title }}
+              </a>
+            </li>
+            {% if section.subsections %}
+              {% assign subsection_num = 1 %}
+              <ul class='c-sidebar__subsections{{ subSectionsHideClass }}'>
+              {% for subsection in section.subsections %}
+                {% comment %}
+                Find the title for this sub-section
+                {% endcomment %}
+                {% assign subsection_url_html = subsection.url | append: '.html' %}
+                {% for build_page in site.build %}
+                  {% if build_page.url == subsection_url_html %}
+                    {% assign subsection_title = build_page.title %}
+                  {% endif %}
+                {%- endfor %}
+                {% if subsection.external == true %}{% assign subsection_title = subsection.title  %}{% endif %}
+                <li class="c-sidebar__subsection" data-url="{{ subsection.url }}">
+                  <a class="c-sidebar__entry"
+                    href="{{ subsection.url | relative_url | append: '.html'}}"
+                  >
+                    {% unless chapter.not_numbered or section.not_numbered or subsection.not_numbered or site.number_toc_chapters != true %}
+                      {{ chapter_num }}.{{ section_num }}.{{ subsection_num }}
+                      {% assign subsection_num = subsection_num | plus: 1 %}
+                    {% endunless %}
+                    {{ subsection_title }}
+                  </a>
+                </li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+            {% unless chapter.not_numbered or section.not_numbered %}
+              {% assign section_num = section_num | plus: 1 %}
+            {% endunless %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% unless chapter.not_numbered %}
+        {% assign chapter_num = chapter_num | plus: 1 %}
+      {% endunless %}
+    {% endfor %}
+  </ul>
+  <p class="sidebar_footer">{{ site.sidebar_footer_text }}</p>
+</nav>

@@ -1,0 +1,90 @@
+- url: /introduction
+  not_numbered: true
+- title: GitHub Repository
+  url: https://github.com/hunters-forge/ThreatHunter-Playbook
+  external: true
+  not_numbered: true
+- divider: true
+- header: Pre-Hunt Activities
+- url: /pre-hunt/data_management
+  not_numbered: true
+  sections:
+  - url: /pre-hunt/data_documentation
+  - url: /pre-hunt/data_standardization
+  - url: /pre-hunt/data_modeling
+  - url: /pre-hunt/data_quality
+- divider: true
+- header: Hunting Notebooks
+- url: /notebooks/windows/windows
+  expand_sections: true
+  not_numbered: true
+  sections:
+  - url: /notebooks/windows/02_execution/execution
+    subsections:
+    - url: /notebooks/windows/02_execution/execution/WIN-190815181010
+      not_numbered: true
+    - url: /notebooks/windows/02_execution/execution/WIN-190810201010
+      not_numbered: true
+    - url: /notebooks/windows/02_execution/execution/WIN-190410151110
+      not_numbered: true
+    - url: /notebooks/windows/02_execution/execution/WIN-190813181020
+      not_numbered: true
+    - url: /notebooks/windows/02_execution/execution/WIN-190811201010
+      not_numbered: true
+    - url: /notebooks/windows/02_execution/execution/WIN-190511223310
+      not_numbered: true
+  - url: /notebooks/windows/03_persistence/persistence
+    subsections:
+    - url: /notebooks/windows/03_persistence/persistence/WIN-190810170510
+      not_numbered: true
+  - url: /notebooks/windows/05_defense_evasion/defense_evasion
+    subsections:
+    - url: /notebooks/windows/05_defense_evasion/defense_evasion/WIN-180719170510
+      not_numbered: true
+    - url: /notebooks/windows/05_defense_evasion/defense_evasion/WIN-190407183310
+      not_numbered: true
+    - url: /notebooks/windows/05_defense_evasion/defense_evasion/WIN-190510202010
+      not_numbered: true
+    - url: /notebooks/windows/05_defense_evasion/defense_evasion/WIN-190101151110
+      not_numbered: true
+  - url: /notebooks/windows/06_credential_access/credential_access
+    subsections:
+    - url: /notebooks/windows/06_credential_access/credential_access/WIN-190620024610
+      not_numbered: true
+    - url: /notebooks/windows/06_credential_access/credential_access/WIN-190725024610
+      not_numbered: true
+    - url: /notebooks/windows/06_credential_access/credential_access/WIN-180815210510
+      not_numbered: true
+    - url: /notebooks/windows/06_credential_access/credential_access/WIN-191030201010
+      not_numbered: true
+    - url: /notebooks/windows/06_credential_access/credential_access/WIN-170105221010
+      not_numbered: true
+  - url: /notebooks/windows/07_discovery/discovery
+    subsections:
+    - url: /notebooks/windows/07_discovery/discovery/WIN-190725024610
+      not_numbered: true
+    - url: /notebooks/windows/07_discovery/discovery/WIN-190625024610
+      not_numbered: true
+    - url: /notebooks/windows/07_discovery/discovery/WIN-190826010110
+      not_numbered: true
+  - url: /notebooks/windows/08_lateral_movement/lateral_movement
+    subsections:
+    - url: /notebooks/windows/08_lateral_movement/lateral_movement/WIN-190815181010
+      not_numbered: true
+    - url: /notebooks/windows/08_lateral_movement/lateral_movement/WIN-190810201010
+      not_numbered: true
+    - url: /notebooks/windows/08_lateral_movement/lateral_movement/WIN-190511223310
+      not_numbered: true
+- url: /notebooks/linux/linux
+  expand_sections: true
+  not_numbered: true
+  sections: []
+- url: /notebooks/mac/mac
+  expand_sections: true
+  not_numbered: true
+  sections: []
+- divider: true
+- header: Tutorials
+- url: /tutorials/jupyter/introduction
+  not_numbered: true
+  sections: []
