@@ -22,8 +22,8 @@ author: Roberto Rodriguez
 description: >-
   This is the first interactive book in the infosec community.
 
-baseurl: /ThreatHunter-Playbook  # the subpath of your site, e.g. /blog. If there is no subpath for your site, use an empty string ""
-url: https://hunters-forge.github.io                  # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: ""  # the subpath of your site, e.g. /blog. If there is no subpath for your site, use an empty string ""
+url: https://threathunterplaybook.com                  # the base hostname & protocol for your site, e.g. http://example.com
 
 
 #######################################################################################
