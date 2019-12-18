@@ -1,0 +1,63 @@
+---
+redirect_from:
+  - "/tutorials/jupyter/installing-jupyter"
+title: |-
+  Installing Jupyter
+pagenum: 38
+prev_page:
+  url: /tutorials/jupyter/introduction.html
+next_page:
+  url: /tutorials/jupyter/notebooks/01_intro_to_python.html
+suffix: .md
+search: jupyter docker notebook notebooks install server binderhub forge images com compose following mybinder tutorial want directly org docs bash img src png interact binder html start capabilities system host feel via clone hunters build master base link browse demo video deploy v learn readthedocs io en latest page next going installing am sure anxious exploring its decide virtual machine container believe important give options comfortable running tool however classic follow official documents prefer share standardized working environment focus application rather spend troubleshooting installation pre requirements community edition linux ce binaries git github run image cd blob f yml d get
+
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
+
+    <main class="jupyter-page">
+    <div id="page-info"><div id="page-title">Installing Jupyter</div>
+</div>
+    <div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I am sure you are anxious to install Jupyter and start exploring its capabilities, but first you have to decide if you want to install the Jupyter Notebook server directly on your system or host it on a virtual machine or a docker container.
+I believe it is important to give you the options so that you feel comfortable running the tool however you feel like it. If you want to do a classic install directly on your system, follow the <a href="https://jupyter.org/install">official Jupyter Install documents</a>.</p>
+<h2 id="Docker">Docker<a class="anchor-link" href="#Docker"> </a></h2><p>I prefer to share a standardized and working environment via docker images to focus more on the capabilities of the application rather than spend time troubleshooting the server installation.</p>
+<h3 id="Pre-Requirements">Pre-Requirements<a class="anchor-link" href="#Pre-Requirements"> </a></h3><ul>
+<li><a href="https://docs.docker.com/install/linux/docker-ce/binaries/">Docker Community Edition</a></li>
+<li><a href="https://docs.docker.com/compose/install/">Docker Compose</a></li>
+</ul>
+<h3 id="Clone-Notebooks-Forge">Clone Notebooks Forge<a class="anchor-link" href="#Clone-Notebooks-Forge"> </a></h3><div class="highlight"><pre><span></span>git clone https://github.com/hunters-forge/notebooks-forge
+</pre></div>
+<h3 id="Build-&amp;-Run-Docker-Image">Build &amp; Run Docker Image<a class="anchor-link" href="#Build-&amp;-Run-Docker-Image"> </a></h3><div class="highlight"><pre><span></span><span class="nb">cd</span> notebooks-forge/blob/master/docker/jupyter-base
+docker-compose -f docker-compose.yml up --build -d
+</pre></div>
+<h3 id="Get-Notebook-Server-Link">Get Notebook Server Link<a class="anchor-link" href="#Get-Notebook-Server-Link"> </a></h3><div class="highlight"><pre><span></span>docker <span class="nb">exec</span> -i jupyter-base jupyter notebook list
+</pre></div>
+<h3 id="Browse-to-Link">Browse to Link<a class="anchor-link" href="#Browse-to-Link"> </a></h3><p><img src="../../images/JUPYTER_NOTEBOOK_SERVER.png"></p>
+<h3 id="Demo-Video">Demo Video<a class="anchor-link" href="#Demo-Video"> </a></h3><p>I put together the following video as a demo for the SANS Threat Hunting Summit 2019 to show you how to deploy a Jupyter Notebook server via Docker in less than 3 minutes. Enjoy!</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=-FAqQkD_G8o">https://www.youtube.com/watch?v=-FAqQkD_G8o</a> </li>
+</ul>
+<h2 id="BinderHub">BinderHub<a class="anchor-link" href="#BinderHub"> </a></h2><p>Another way to interact with a Jupyter Notebook server is by leveraging the BinderHub public computing infrastructure and a Binder Repository (i.e A Dockerfile). If you want to learn more about this, you can read the <a href="https://mybinder.readthedocs.io/en/latest/index.html">MyBinder</a> and <a href="https://binderhub.readthedocs.io/en/latest/overview.html">BinderHub</a> docs.</p>
+<p>For this tutorial, I will be using BinderHub to deploy a Jupyter notebook server and host all the material that I would like you to go over to learn a little bit more about Jupyter notebooks. Therefore, all you have to do is click on the following Badge:</p>
+<ul>
+<li><a href="https://mybinder.org/v2/gh/hunters-forge/ThreatHunter-Playbook/master"><img src="https://mybinder.org/badge_logo.svg" alt="Binder"></a></li>
+</ul>
+<p>Right after that you will see the following Binder page preparing and launching the Jupyter Notebook server:</p>
+<p><img src="../../images/JUPYTER_NOTEBOOK_BINDERHUB.png"></p>
+<p>Next, you can browse to the following path <code>content/tutorials</code> and you will find the folder for this tutorial</p>
+<p><img src="../../images/JUPYTER_NOTEBOOK_TUTORIALS.png"></p>
+<p>That's it! Now you are ready to start going through the whole Jupyter Notebooks Tutorial! One thing to mention before going to the next section is that this Jupyter Book has all the notebooks as HTML views and you can interact with the notebooks backing up the page by clicking on the <code>Interact</code> button on the top of each notebook. That is the easiest way to open notebooks in BinderHub directly for this tutorial!</p>
+
+</div>
+</div>
+</div>
+</div>
+
+ 
+
+
+    </main>
+    

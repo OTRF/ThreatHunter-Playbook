@@ -30,14 +30,14 @@ url: https://threathunterplaybook.com                  # the base hostname & pro
 # Jupyter Book settings
 
 # Main page settings
-footer_text: This page was created by <a href="https://hunters-forge">The Hunters Forge Community</a>
+footer_text: This page was created by <a href="https://twitter.com/Cyb3rWard0g">Roberto Rodriguez @Cyb3rWard0g Community</a>
 
 # Sidebar settings
 show_sidebar              : true  # Show the sidebar. Only set to false if your only wish to host a single page.
 collapse_inactive_chapters: true  # Whether to collapse the inactive chapters in the sidebar
 collapse_inactive_sections: true  # Whether to collapse the sub-sections within a non-active section in the sidebar
 textbook_logo             : images/logo/logo.png  # A logo to be displayed at the top of your textbook sidebar. Should be square
-textbook_logo_link        : https://github.com/hunters-forge/ThreatHunter-Playbook  # A link for the logo.
+textbook_logo_link        : https://threathunterplaybook.com  # A link for the logo.
 sidebar_footer_text       : 'Powered by <a href="https://jupyterbook.org">Jupyter Book</a>'
 number_toc_chapters       : true  # Whether to add numbers to chapterse in your Table of Contents. If true, you can control this at the Chapter level in _data/toc.yml
 

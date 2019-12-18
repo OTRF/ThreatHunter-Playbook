@@ -58,7 +58,7 @@ Once you identify those relationships, start documenting them in a way that it i
 
 <img src="../images/DATA_MODELING_TABLE.png">
 
-## Model Adversary Behavior
+### Model Adversary Behavior
 Once you have a good understanding of the relationships identified in the security events that you are working with to develop an analytic, you can start mapping adversary behavior to security events in an easier and more intuitive way as shown below.
 
 <img src="../images/DATA_MODELING_ADVERSARY.png">

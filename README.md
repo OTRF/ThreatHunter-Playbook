@@ -23,6 +23,12 @@ Finally, the project documents detection strategies in the form of [interactive 
 * Map pre-recorded datasets to adversarial techniques.
 * Accelerate infosec lerning through open source resources.
 
+# A Jupyter Book
+
+I converted the whole repo into a book for you to read and follow as part of the documentation
+
+* https://threathunterplaybook.com/
+
 # Author
 
 Roberto Rodriguez [@Cyb3rWard0g](https://twitter.com/Cyb3rWard0g)

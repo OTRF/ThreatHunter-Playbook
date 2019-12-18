@@ -464,7 +464,21 @@ This saves a dump file to disk with a deterministic name that includes the name 
 <span class="sd">FROM mordorTable o</span>
 <span class="sd">INNER JOIN (</span>
 <span class="sd">    SELECT LogonId, Image, CommandLine</span>
-<span class="sd">    FROM sysmon_join</span>
+<span class="sd">    FROM (</span>
+<span class="sd">        SELECT o.Image, o.LogonId, o.CommandLine</span>
+<span class="sd">        FROM mordorTable o</span>
+<span class="sd">        INNER JOIN (</span>
+<span class="sd">            SELECT computer_name,SourceProcessGUID</span>
+<span class="sd">            FROM mordorTable</span>
+<span class="sd">            WHERE channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">                AND event_id = 10</span>
+<span class="sd">                AND lower(TargetImage) LIKE &quot;%lsass.exe&quot;</span>
+<span class="sd">                AND (lower(CallTrace) RLIKE &quot;.*dbgcore\.dll.*&quot; OR lower(CallTrace) RLIKE &quot;.*dbghelp\.dll.*&quot;)</span>
+<span class="sd">            ) a</span>
+<span class="sd">        ON o.ProcessGuid = a.SourceProcessGUID</span>
+<span class="sd">        WHERE o.channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">            AND o.event_id = 1</span>
+<span class="sd">        )</span>
 <span class="sd">    ) a</span>
 <span class="sd">ON o.LogonID = a.LogonId</span>
 <span class="sd">WHERE lower(o.channel) = &quot;security&quot;</span>

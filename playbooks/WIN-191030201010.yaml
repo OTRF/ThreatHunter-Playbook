@@ -88,7 +88,21 @@ analytics:
       FROM mordorTable o
       INNER JOIN (
           SELECT LogonId, Image, CommandLine
-          FROM sysmon_join
+          FROM (
+              SELECT o.Image, o.LogonId, o.CommandLine
+              FROM mordorTable o
+              INNER JOIN (
+                  SELECT computer_name,SourceProcessGUID
+                  FROM mordorTable
+                  WHERE channel = "Microsoft-Windows-Sysmon/Operational"
+                      AND event_id = 10
+                      AND lower(TargetImage) LIKE "%lsass.exe"
+                      AND (lower(CallTrace) RLIKE ".*dbgcore\.dll.*" OR lower(CallTrace) RLIKE ".*dbghelp\.dll.*")
+                  ) a
+              ON o.ProcessGuid = a.SourceProcessGUID
+              WHERE o.channel = "Microsoft-Windows-Sysmon/Operational"
+                  AND o.event_id = 1
+              )
           ) a
       ON o.LogonID = a.LogonId
       WHERE lower(o.channel) = "security"

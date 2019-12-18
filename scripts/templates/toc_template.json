@@ -213,6 +213,19 @@
     {
         "url": "/tutorials/jupyter/introduction",
         "not_numbered": true,
-        "sections": []
+        "sections": [
+            {
+                "url": "/tutorials/jupyter/installing_jupyter"
+            },
+            {
+                "url": "/tutorials/jupyter/notebooks/01_intro_to_python"
+            },
+            {
+                "url": "/tutorials/jupyter/notebooks/02_intro_to_numpy_arrays"
+            },
+            {
+                "url": "/tutorials/jupyter/notebooks/03_intro_to_pandas"
+            }
+        ]
     }
 ]
