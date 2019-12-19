@@ -13,7 +13,7 @@ prev_page:
 next_page:
   url: /notebooks/windows/08_lateral_movement/lateral_movement/WIN-190511223310.html
 suffix: .ipynb
-search: exe wmiprvse wmi process system create method logon part description information managed session network type processes winprocess class windows playbook microsoft service via host new dcom analytic fp rate log channel spawning non remote cybrwardg implementation enterprise standards related component file etc components objects operating data user remotely created spawned svchost github com threathunter master leveraging execute analytics medium security account sessions sysmon environment events sigma sysmonwmimoduleload posts specterops io execution metadata id win author roberto rodriguez creation date platform link technical web based management wbem common model cim both aim provide industry agnostic means collecting transmitting any example running
+search: exe wmiprvse wmi process system create method logon part description information managed session network type processes winprocess class windows playbook microsoft service via host new dcom analytic fp rate log channel spawning non remote implementation enterprise standards related component file etc components objects operating data user remotely created spawned svchost github com hunters forge threathunter master leveraging execute analytics medium security account sessions sysmon environment events sigma sysmonwmimoduleload posts specterops io execution metadata id win author roberto rodriguez cybrwardg creation date platform link technical web based management wbem common model cim both aim provide industry agnostic means collecting transmitting any
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -83,7 +83,10 @@ This is because the Create method allows a user to create a process either local
 One thing to notice is that when the Create method is used on a remote system, the method is run under a host process named “Wmiprvse.exe”.</p>
 <p>The process WmiprvSE.exe is what spawns the process defined in the CommandLine parameter of the Create method. Therefore, the new process created remotely will have Wmiprvse.exe as a parent. WmiprvSE.exe is a DCOM server and it is spawned underneath the DCOM service host svchost.exe with the following parameters C:\WINDOWS\system32\svchost.exe -k DcomLaunch -p.
 From a logon session perspective, on the target, WmiprvSE.exe is spawned in a different logon session by the DCOM service host. However, whatever is executed by WmiprvSE.exe occurs on the new network type (3) logon session created by the user that authenticated from the network.</p>
-<p>Additional Reading &gt; <a href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/logon_session.md">https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/logon_session.md</a></p>
+<p>Additional Reading</p>
+<ul>
+<li><a href="https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/logon_session.md">https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/logon_session.md</a></li>
+</ul>
 
 </div>
 </div>

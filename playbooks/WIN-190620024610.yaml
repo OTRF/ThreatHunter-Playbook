@@ -10,7 +10,7 @@ attack_coverage:
   - technique: T1003
     tactics:
       - TA0006
-hypothesis: Adversaries might attempt to pull the NTLM hash of a user via active directory replication apis from a non-domain-controller account with permissions to do so.
+hypothesis: Adversaries might be extracting the DPAPI domain backup key from my DC to be able to decrypt any domain user master key files.
 description: |-
   Starting with Microsoft® Windows® 2000, the operating system began to provide a data protection application-programming interface (API).
   This Data Protection API (DPAPI) is a pair of function calls (CryptProtectData / CryptUnprotectData) that provide operating system-level data protection services to user and system processes.
@@ -24,8 +24,8 @@ description: |-
   It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) to retrieve the value for the G$BCKUPKEY_PREFERRED and G$BCKUPKEY_P LSA secrets.
   
   Additional reading
-  * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/library/data_protection_api.md
-  * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/library/lsa_policy_objects.md
+  * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/data_protection_api.md
+  * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/lsa_policy_objects.md
 validation_dataset:
   - type: mordor
     url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/credential_access/credential_dumping_T1003/credentials_from_ad/empire_mimikatz_export_master_key.tar.gz

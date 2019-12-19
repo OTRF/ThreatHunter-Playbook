@@ -13,7 +13,7 @@ prev_page:
 next_page:
   url: /notebooks/windows/08_lateral_movement/lateral_movement.html
 suffix: .ipynb
-search: scm database handle com service network security remote control endpoints manager description local system github windows access services master analytic fp rate log channel id win cybrwardg playbook current user open admin api microsoft non low same event events sigma not administrator docs en us threathunter tree get accounts exe gets name blob l metasploit www adversary endpoint privileges adversaries very identify machines administrative common attempting rights only also known servicesactive check openscmanagera winsvc connection context might environment analytics process performing privileged operations protected subsystem objects such inbound sourceaddress different generated attempts filter e join field type object signature winscmdatabasehandlefailure
+search: scm database handle com service network security remote control endpoints manager description local system github windows access services master analytic fp rate log channel id win playbook current user open admin api docs microsoft non low same event events sigma cybrwardg not administrator en us threathunter tree get accounts exe gets name blob l metasploit www adversary endpoint privileges adversaries very identify machines administrative common attempting rights only also known servicesactive check openscmanagera winsvc connection context might environment analytics process performing privileged operations protected subsystem objects such inbound sourceaddress different generated attempts filter e join field type object signature winscmdatabasehandlefailure
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -82,10 +82,10 @@ Only processes with Administrator privileges are able to open a handle to the SC
 This database is also known as the ServicesActive database.
 Therefore, it is very effective to check if the current user has administrative or local admin access to other endpoints in the network.
 An adversary can simply use the Win32 API function <a href="https://docs.microsoft.com/en-us/windows/win32/api/winsvc/nf-winsvc-openscmanagera">OpenSCManagerA</a> to attempt to establish a connection to the service control manager (SCM) on the specified computer and open the service control manager database.
-If this succeeds (A non-zero handle is returned), the current user context has local administrator acess to the remote host.
-Additional redteaming</p>
+If this succeeds (A non-zero handle is returned), the current user context has local administrator acess to the remote host.</p>
+<p>Additional reading</p>
 <ul>
-<li><a href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/service_control_manager.md">https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/service_control_manager.md</a></li>
+<li><a href="https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/service_control_manager.md">https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/service_control_manager.md</a></li>
 </ul>
 
 </div>

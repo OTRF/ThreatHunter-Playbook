@@ -13,7 +13,7 @@ prev_page:
 next_page:
   url: /notebooks/windows/07_discovery/discovery/WIN-190826010110.html
 suffix: .ipynb
-search: system syskey registry hklm currentcontrolset control lsa keys com local security cybrwardg playbook account accounts github access windows computer database adversaries sam calculate threathunter tree master processes exe those description specific groups might mimikatz lsadump such get decrypt entries api values jd skew gbg data library md key analytics process needed boots rights accessing sigma winsyskeyregistryaccess docs microsoft en us metadata id win author roberto rodriguez creation date platform link technical every runs its own domain conceptually any sids referred because computers typically not trust information identities stay created tools commands scripts invoke powerdump mannager hive ntlm sometimes lm hashes
+search: system syskey registry hklm currentcontrolset control lsa keys com local security playbook account accounts github docs access windows computer database adversaries sam calculate threathunter tree master library processes exe those cybrwardg description specific groups might mimikatz lsadump such get decrypt entries api values jd skew gbg data hunters forge content md key analytics process needed boots rights accessing sigma winsyskeyregistryaccess microsoft en us metadata id win author roberto rodriguez creation date platform link technical every runs its own domain conceptually any sids referred because computers typically not trust information identities stay created tools commands scripts invoke powerdump mannager hive ntlm
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -78,11 +78,11 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 Conceptually,this is an account database like any other with accounts, groups, SIDs, and so on. These are referred to as local accounts, local groups, and so on.
 Because computers typically do not trust each other for account information, these identities stay local to the computer on which they were created.
 Adversaries might use tools like Mimikatz with lsadump::sam commands or scripts such as Invoke-PowerDump to get the SysKey to decrypt Security Account Mannager (SAM) database entries (from registry or hive) and get NTLM, and sometimes LM hashes of local accounts passwords.
-Adversaries can calculate the Syskey by using RegOpenKeyEx/RegQueryInfoKey API calls to query the appropriate class info and values from the HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\JD, HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\Skew1, HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\GBG, and HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\Data keys.
-Additional reading</p>
+Adversaries can calculate the Syskey by using RegOpenKeyEx/RegQueryInfoKey API calls to query the appropriate class info and values from the HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\JD, HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\Skew1, HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\GBG, and HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\Data keys.</p>
+<p>Additional reading</p>
 <ul>
-<li><a href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/security_account_manager_database.md">https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/security_account_manager_database.md</a></li>
-<li><a href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/syskey.md">https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/syskey.md</a></li>
+<li><a href="https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/security_account_manager_database.md">https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/security_account_manager_database.md</a></li>
+<li><a href="https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/library/syskey.md">https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/library/syskey.md</a></li>
 </ul>
 
 </div>

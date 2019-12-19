@@ -13,7 +13,7 @@ attack_coverage:
   - technique: T1012
     tactics:
       - TA0007
-hypothesis: Adversaries might be RDPing to computers in my environment and interactively dumping the memory contents of LSASS with task manager.
+hypothesis: Adversaries might be getting a handle to the SAM database to extract credentials in my environment
 description: |-
   Every computer that runs Windows has its own local domain; that is, it has an account database for accounts that are specific to that computer.
   Conceptually,this is an account database like any other with accounts, groups, SIDs, and so on.
@@ -21,16 +21,11 @@ description: |-
   Because computers typically do not trust each other for account information, these identities stay local to the computer on which they were created.
   Adversaries might use tools like Mimikatz with lsadump::sam commands or scripts such as Invoke-PowerDump to get the SysKey to decrypt Security Account Mannager (SAM) database entries (from registry or hive) and get NTLM, and sometimes LM hashes of local accounts passwords.
   
-  In addition, adversaries can use the built-in Reg.exe utility to dump the SAM hive in order to crack it offline
-  Adversaries can calculate the Syskey by using RegOpenKeyEx/RegQueryInfoKey API calls to query the appropriate class info and values from
-  * HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\JD
-  * HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\Skew1
-  * HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\GBG
-  * HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\Data
+  In addition, adversaries can use the built-in Reg.exe utility to dump the SAM hive in order to crack it offline.
   
   Additional reading
-  * https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/security_account_manager_database.md
-  * https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/syskey.md
+  * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/security_account_manager_database.md
+  * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/syskey.md
 validation_dataset:
   - type: mordor
     url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/credential_access/credential_dumping_T1003/credentials_from_registry/empire_mimikatz_lsadump_sam.tar.gz
@@ -52,10 +47,7 @@ analytics:
           AND ObjectType = "Key"
           AND lower(ObjectName) LIKE "%sam"
 detection_blindspots:
-hunter_notes: |-
-  * Backup key can be displayed as base64 blob or exported as a .pvk file on disk (Mimikatz-like)
-  * Windows security event 4692 (Backup of data protection master key was attempted) also generates every time a new DPAPI Master Key is generated
-  * When a computer is a member of a domain, DPAPI has a backup mechanism to allow unprotection of the data. When a Master Key is generated, DPAPI communicates with a domain controller.
+hunter_notes:
 hunt_output:
   - category: signature
     type: SIGMA
@@ -66,11 +58,6 @@ hunt_output:
     name: win_sam_registry_hive_dump_via_reg_utility
     url: https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_sam_registry_hive_dump_via_reg_utility.yml
 references: |-
-  * https://www.harmj0y.net/blog/redteaming/operational-guidance-for-offensive-user-dpapi-abuse/
-  * https://digital-forensics.sans.org/summit-archives/dfirprague14/Give_Me_the_Password_and_Ill_Rule_the_World_Francesco_Picasso.pdf
-  * https://docs.microsoft.com/en-us/windows/desktop/devnotes/pstore
-  * https://github.com/gentilkiwi/mimikatz/blob/641a3b29acd326d07269300d94dceafea041f760/mimikatz/modules/kuhl_m_lsadump.c#L1907
-  * https://github.com/GhostPack/SharpDPAPI/blob/6388040a92e59fc0d5a82b4ec31599aa6778fd3b/SharpDPAPI/lib/Backup.cs#L43
-  * https://github.com/gentilkiwi/mimikatz/blob/641a3b29acd326d07269300d94dceafea041f760/mimikatz/modules/kuhl_m_lsadump.c#L1906-L1926
-  * https://github.com/gentilkiwi/mimikatz/blob/641a3b29acd326d07269300d94dceafea041f760/mimikatz/modules/kuhl_m_lsadump.c#L1758
-  * https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lsad/88c6bd18-6c40-4a82-ae19-fe7bfec5108b
+  * http://www.harmj0y.net/blog/activedirectory/remote-hash-extraction-on-demand-via-host-security-descriptor-modification/
+  * https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump
+  * https://adsecurity.org/?page_id=1821#LSADUMPSAM

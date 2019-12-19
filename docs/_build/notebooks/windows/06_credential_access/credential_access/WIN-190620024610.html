@@ -13,7 +13,7 @@ prev_page:
 next_page:
   url: /notebooks/windows/06_credential_access/credential_access/WIN-190725024610.html
 suffix: .ipynb
-search: domain key dpapi backup master com github mimikatz data user controller playbook masterkey sigma description password hunters forge threathunter tree security blob l windows protection generated analytic fp rate log channel low c id microsoft system api generates protected users used computer member mechanism allow unprotection public logon event signature signatures yml gentilkiwi abacddddceafeaf modules kuhlmlsadump operating provide pair calls called uses process directory client any ms library md analytics file bckupkey every attempted communicates windpapidomainbackupkeyextraction winprotectedstorageserviceaccess windpapidomainmasterkeybackupattempt docs en us sharpdpapi extraction metadata win author roberto rodriguez cybrwardg creation date platform link technical starting began application programming interface function
+search: key domain dpapi backup master com github mimikatz data user playbook masterkey controller sigma description password hunters forge threathunter tree security blob l windows protection generated docs analytic fp rate log channel low c id microsoft system api generates protected users used computer member mechanism allow unprotection public any logon event signature signatures yml gentilkiwi abacddddceafeaf modules kuhlmlsadump operating provide pair calls called uses process client decrypt ms content library md analytics file bckupkey every attempted communicates windpapidomainbackupkeyextraction winprotectedstorageserviceaccess windpapidomainmasterkeybackupattempt en us sharpdpapi extraction metadata win author roberto rodriguez cybrwardg creation date platform link technical starting began application programming interface
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -85,8 +85,8 @@ Tools such as Mimikatz with the method/module lsadump::backupkeys can be used to
 It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) to retrieve the value for the G$BCKUPKEY_PREFERRED and G$BCKUPKEY_P LSA secrets.</p>
 <p>Additional reading</p>
 <ul>
-<li><a href="https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/library/data_protection_api.md">https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/library/data_protection_api.md</a></li>
-<li><a href="https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/library/lsa_policy_objects.md">https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/library/lsa_policy_objects.md</a></li>
+<li><a href="https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/data_protection_api.md">https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/data_protection_api.md</a></li>
+<li><a href="https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/lsa_policy_objects.md">https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/lsa_policy_objects.md</a></li>
 </ul>
 
 </div>
@@ -98,7 +98,7 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Hypothesis">Hypothesis<a class="anchor-link" href="#Hypothesis"> </a></h2><p>Adversaries might attempt to pull the NTLM hash of a user via active directory replication apis from a non-domain-controller account with permissions to do so.</p>
+<h2 id="Hypothesis">Hypothesis<a class="anchor-link" href="#Hypothesis"> </a></h2><p>Adversaries might be extracting the DPAPI domain backup key from my DC to be able to decrypt any domain user master key files.</p>
 
 </div>
 </div>

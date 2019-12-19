@@ -10,7 +10,7 @@ attack_coverage:
   - technique: T1055
     tactics:
       - TA0003
-hypothesis: Adversaries might be injecting a dll to another process to execute code via CreateRemoteThread and LoadLibrary functions.
+hypothesis: Adversaries might be leveraging WMI eventing for persistence in my environment.
 description: |-
   WMI is the Microsoft implementation of the Web-Based Enterprise Management (WBEM) and Common Information Model (CIM). Both standards aim to provide an industry-agnostic means of collecting and transmitting information related to any managed component in an enterprise.
   An example of a managed component in WMI would be a running process, registry key, installed service, file information, etc.

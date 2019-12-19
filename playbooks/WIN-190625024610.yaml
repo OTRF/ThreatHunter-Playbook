@@ -17,9 +17,10 @@ description: |-
   Because computers typically do not trust each other for account information, these identities stay local to the computer on which they were created.
   Adversaries might use tools like Mimikatz with lsadump::sam commands or scripts such as Invoke-PowerDump to get the SysKey to decrypt Security Account Mannager (SAM) database entries (from registry or hive) and get NTLM, and sometimes LM hashes of local accounts passwords.
   Adversaries can calculate the Syskey by using RegOpenKeyEx/RegQueryInfoKey API calls to query the appropriate class info and values from the HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\JD, HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\Skew1, HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\GBG, and HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\Data keys.
+  
   Additional reading
-  * https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/security_account_manager_database.md
-  * https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/library/syskey.md
+  * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/security_account_manager_database.md
+  * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/library/syskey.md
 validation_dataset:
   - type: mordor
     url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/lateral_movement/remote_services_T1021/empire_find_local_admin.tar.gz
