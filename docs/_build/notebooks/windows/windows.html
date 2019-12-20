@@ -7,7 +7,7 @@ prev_page:
 next_page:
   url: /notebooks/windows/02_execution/execution.html
 suffix: .md
-search: windows
+search: windows threathunterplaybook com notebooks win html adversaries might roberto rodriguez cybrwardg environment execution remote powershell credentialaccess defenseevasion execute domain wmi leveraging code lateralmovement discovery key registry lsass active directory replication non user access manager service handle via account services exe system extract memory control sam persistence controller permissions admin any alternate hosts dll createremotethread loadlibrary dpapi backup able decrypt enable desktop values credentials task contents database creation creating new remotely syskey wdigest eventing winprocess class create method createdanalytichypothesisauthor accounts attempt pull ntlm hash apis backdoor enough adding acl root abuse evading traditional detections basic within injection injecting another process functions
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -15,7 +15,142 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
     <main class="jupyter-page">
     <div id="page-info"><div id="page-title">Windows</div>
 </div>
-     
+    <div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table>
+<thead><tr>
+<th style="text-align:left">Created</th>
+<th style="text-align:left">Analytic</th>
+<th style="text-align:left">Hypothesis</th>
+<th style="text-align:left">Author</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">18/08/15</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/06_credential_access/credential_access/WIN-180815210510.html">Active Directory Replication From Non-Domain-Controller Accounts</a></td>
+<td style="text-align:left">Adversaries might attempt to pull the NTLM hash of a user via active directory replication apis from a non-domain-controller account with permissions to do so.</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">19/01/01</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/defense_evasion/WIN-190101151110.html">Active Directory Replication User Backdoor</a></td>
+<td style="text-align:left">Adversaries with enough permissions (domain admin) might be adding an ACL to the Root Domain for any user to abuse active directory replication services.</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">19/06/10</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/02_execution/execution/WIN-190815181010.html">Alternate PowerShell Hosts</a></td>
+<td style="text-align:left">Adversaries might be leveraging alternate PowerShell Hosts to execute PowerShell evading traditional PowerShell detections that look for powershell.exe in my environment.</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">19/04/10</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/02_execution/execution/WIN-190410151110.html">Basic PowerShell Execution</a></td>
+<td style="text-align:left">Adversaries might be leveraging PowerShell to execute code within my environment</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">18/07/19</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/defense_evasion/WIN-180719170510.html">DLL Injection via CreateRemoteThread and LoadLibrary</a></td>
+<td style="text-align:left">Adversaries might be injecting a dll to another process to execute code via CreateRemoteThread and LoadLibrary functions.</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">19/06/20</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/06_credential_access/credential_access/WIN-190620024610.html">Domain DPAPI Backup Key Extraction</a></td>
+<td style="text-align:left">Adversaries might be extracting the DPAPI domain backup key from my DC to be able to decrypt any domain user master key files.</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">19/04/07</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/defense_evasion/WIN-190407183310.html">Enable Remote Desktop Conections Registry</a></td>
+<td style="text-align:left">Adversaries might be modifying registry key values to enable remote desktop connections in my environment</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">19/06/20</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/06_credential_access/credential_access/WIN-170105221010.html">LSASS Access from Non System Account</a></td>
+<td style="text-align:left">Adversaries might be using a non system account to access LSASS and extract credentials from memory.</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">19/06/10</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/lateral_movement/WIN-190511223310.html">PowerShell Remote Session</a></td>
+<td style="text-align:left">Adversaries might be leveraging remote powershell sessions to execute code on remote systems throughout my environment</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">19/06/20</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/06_credential_access/credential_access/WIN-191030201010.html">Remote Interactive Task Manager LSASS Dump</a></td>
+<td style="text-align:left">Adversaries might be RDPing to computers in my environment and interactively dumping the memory contents of LSASS with task manager.</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">19/08/26</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/07_discovery/discovery/WIN-190826010110.html">Remote Service Control Manager Handle</a></td>
+<td style="text-align:left">Adversaries might be attempting to open up a handle to the service control manager (SCM) database on remote endpoints to check for local admin access in my environment.</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">19/08/15</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/lateral_movement/WIN-190815181010.html">Remote Service creation</a></td>
+<td style="text-align:left">Adversaries might be creating new services remotely to execute code and move laterally in my environment</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">19/07/25</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/07_discovery/discovery/WIN-190725024610.html">SAM Registry Hive Handle Request</a></td>
+<td style="text-align:left">Adversaries might be getting a handle to the SAM database to extract credentials in my environment</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">19/08/13</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/02_execution/execution/WIN-190813181020.html">Service Creation</a></td>
+<td style="text-align:left">Adversaries might be creating new services to execute code on a compromised endpoint in my environment</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">19/06/25</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/07_discovery/discovery/WIN-190625024610.html">SysKey Registry Keys Access</a></td>
+<td style="text-align:left">Adversaries might be calculating the SysKey from registry key values to decrypt SAM entries</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">19/05/10</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/defense_evasion/WIN-190510202010.html">WDigest Downgrade</a></td>
+<td style="text-align:left">Adversaries might have updated the property value UseLogonCredential of HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest to 1 in order to be able to extract clear text passwords from memory contents of lsass.</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">19/08/10</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/03_persistence/persistence/WIN-190810170510.html">WMI Eventing</a></td>
+<td style="text-align:left">Adversaries might be leveraging WMI eventing for persistence in my environment.</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">19/08/11</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/02_execution/execution/WIN-190811201010.html">WMI Module Load</a></td>
+<td style="text-align:left">Adversaries might be leveraging WMI modules to execute WMI tasks bypassing controls monitoring for wmiprvse.exe or wmiapsrv.exe activity</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+<tr>
+<td style="text-align:left">19/08/10</td>
+<td style="text-align:left"><a href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/lateral_movement/WIN-190810201010.html">WMI Win32_Process Class and Create Method for Remote Execution</a></td>
+<td style="text-align:left">Adversaries might be leveraging WMI Win32_Process class and method Create to execute code remotely across my environment</td>
+<td style="text-align:left">Roberto Rodriguez @Cyb3rWard0g</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+ 
 
 
     </main>

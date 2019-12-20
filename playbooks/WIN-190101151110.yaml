@@ -10,7 +10,7 @@ attack_coverage:
   - technique: T1112
     tactics:
       - TA0005
-hypothesis: Adversaries might have updated the property value UseLogonCredential of HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest to 1 in order to be able to extract clear text passwords from memory contents of lsass.
+hypothesis: Adversaries with enough permissions (domain admin) might be adding an ACL to the Root Domain for any user to abuse active directory replication services.
 description: |-
   Active Directory replication is the process by which the changes that originate on one domain controller are automatically transferred to other domain controllers that store the same data.
   Active Directory data takes the form of objects that have properties, or attributes.
@@ -18,8 +18,9 @@ description: |-
   An adversary with enough permissions (domain admin) can add an ACL to the Root Domain for any user, despite being in no privileged groups, having no malicious sidHistory, and not having local admin rights on the domain controller. This is done to bypass detection rules looking for Domain Admins or the DC machine accounts performing active directory replication requests against a domain controller.
   
   The following access rights / permissions are needed for the replication request according to the domain functional level
+
   | Control access right symbol | Identifying GUID used in ACE |
-  |-----------------------------|------------------------------|
+  | :-----------------------------| :------------------------------|
   | DS-Replication-Get-Changes | 1131f6aa-9c07-11d1-f79f-00c04fc2dcd2 |
   | DS-Replication-Get-Changes-All | 1131f6ad-9c07-11d1-f79f-00c04fc2dcd2 |
   | DS-Replication-Get-Changes-In-Filtered-Set | 89e95b76-444d-4c62-991a-0facbeda640c |

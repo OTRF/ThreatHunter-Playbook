@@ -10,7 +10,7 @@ attack_coverage:
   - technique: T1112
     tactics:
       - TA0005
-hypothesis: Adversaries might be leveraging PowerShell to execute code within my environment
+hypothesis: Adversaries might be modifying registry key values to enable remote desktop connections in my environment
 description: |-
   Remote desktop is a common feature in operating systems. It allows a user to log into an interactive session with a system desktop graphical user interface on a remote system.
   Microsoft refers to its implementation of the Remote Desktop Protocol (RDP) as Remote Desktop Services (RDS).

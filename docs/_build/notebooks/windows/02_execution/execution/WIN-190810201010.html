@@ -13,7 +13,7 @@ prev_page:
 next_page:
   url: /notebooks/windows/02_execution/execution/WIN-190410151110.html
 suffix: .ipynb
-search: exe wmiprvse wmi process system create method logon part description information managed session network type processes winprocess class windows playbook microsoft service via host new dcom analytic fp rate log channel spawning non remote implementation enterprise standards related component file etc components objects operating data user remotely created spawned svchost github com hunters forge threathunter master leveraging execute analytics medium security account sessions sysmon environment events sigma sysmonwmimoduleload posts specterops io execution metadata id win author roberto rodriguez cybrwardg creation date platform link technical web based management wbem common model cim both aim provide industry agnostic means collecting transmitting any
+search: exe wmiprvse wmi create method process system logon part winprocess class description information managed session network type processes windows playbook microsoft service via remotely host new dcom environment analytic fp rate log channel spawning non remote implementation enterprise standards related component file etc components objects operating data user created spawned svchost github com hunters forge threathunter master leveraging execute code analytics medium security account sessions sysmon events sigma sysmonwmimoduleload posts specterops io execution metadata id win author roberto rodriguez cybrwardg creation date platform link technical web based management wbem common model cim both aim provide industry agnostic means collecting transmitting
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -97,7 +97,7 @@ From a logon session perspective, on the target, WmiprvSE.exe is spawned in a di
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Hypothesis">Hypothesis<a class="anchor-link" href="#Hypothesis"> </a></h2><p>Adversaries might be leveraging WMI modules to execute WMI tasks bypassing controls monitoring for wmiprvse.exe or wmiapsrv.exe activity</p>
+<h2 id="Hypothesis">Hypothesis<a class="anchor-link" href="#Hypothesis"> </a></h2><p>Adversaries might be leveraging WMI Win32_Process class and method Create to execute code remotely across my environment</p>
 
 </div>
 </div>

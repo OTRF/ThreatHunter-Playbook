@@ -3,6 +3,8 @@ import glob
 import yaml
 from os import path
 import json
+import copy
+from jinja2 import Template
 
 # ******* Paths for notebooks ********
 attack_paths = {
@@ -19,6 +21,27 @@ attack_paths = {
     "TA0010" : "10_exfiltration/exfiltration",
     "TA0040" : "12_impact/impact"
 }
+
+# ******* Analytic Summary *********
+summary_table = [
+    {
+        "platform" : "Windows",
+        "analytic" : []
+    },
+    {
+        "platform" : "Linux",
+        "analytic" : []
+    },
+    {
+        "platform" : "Mac",
+        "analytic" : []
+    },
+    {
+        "platform" : "AWS",
+        "analytic" : []
+    }
+]
+
 # ******* Initial TOC Template ********
 with open('templates/toc_template.json') as json_file:
     toc_template = json.load(json_file)
@@ -122,8 +145,17 @@ df.show(1,False)""".format(a['logic'])
     nb['cells'].append(nbf.v4.new_markdown_cell("""## References
 {}""".format(references)))
     
-    # ***** Update main TOC template and creating notebook *****
     platform = analytic['platform'].lower()
+    # ***** Update Summary Tables *******
+    for table in summary_table:
+        if platform in table['platform'].lower():
+            for attack in analytic['attack_coverage']:
+                for tactic in attack['tactics']:
+                    analytic['location'] = attack_paths[tactic]
+                    if analytic not in table['analytic']:
+                        table['analytic'].append(analytic)
+
+    # ***** Update main TOC template and creating notebook *****
     for attack in analytic['attack_coverage']:
         for to in toc_template:
             if "/notebooks/{}/{}".format(platform,platform) in to.values():
@@ -141,13 +173,22 @@ df.show(1,False)""".format(a['logic'])
                                 nbf.write(nb, "../docs/content/notebooks/{}/{}/{}.ipynb".format(platform,attack_paths[tactic],analytic['id']))
 
 # ****** Removing empty lists ********
-print("\n[+] Removing empty platforms and empty lists ..")
+print("\n[+] Removing empty platforms and empty lists..")
 for to in toc_template[:]:
     if 'sections' in to.keys() and len(to['sections']) > 0:
         for section in to['sections'][:]:
             if 'subsections' in section and not section['subsections']:
                 print("  [>>] Removing {} ..".format(section['url']))
                 to['sections'].remove(section)
+
+# ****** Creating Summary Tables ******
+print("\n[+] Creating summary tables for each platform..")
+summary_template = Template(open('templates/summary_template.md').read())
+for summary in summary_table:
+    print("  [>>] Creating summary for {} analytics..".format(summary['platform']))
+    summary_for_render = copy.deepcopy(summary)
+    markdown = summary_template.render(summary=summary_for_render)
+    open('../docs/content/notebooks/{}/{}.md'.format(summary['platform'].lower(),summary['platform'].lower()), 'w').write(markdown)
 
 # ******* Update Jupyter Book TOC File *************
 print("\n[+] Writing final TOC file for Jupyter book..")
