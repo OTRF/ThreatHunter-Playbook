@@ -2,7 +2,7 @@ title: Remote Service Control Manager Handle
 id: WIN-190826010110
 author: Roberto Rodriguez @Cyb3rWard0g
 playbook_link:
-creation_date: 19/08/26
+creation_date: 2019/08/26
 platform: Windows
 permissions_required:
   - Administrator

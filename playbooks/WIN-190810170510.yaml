@@ -2,7 +2,7 @@ title: WMI Eventing
 id: WIN-190810170510
 author: Roberto Rodriguez @Cyb3rWard0g
 playbook_link:
-creation_date: 19/08/10
+creation_date: 2019/08/10
 platform: Windows
 permissions_required:
   - Administrator

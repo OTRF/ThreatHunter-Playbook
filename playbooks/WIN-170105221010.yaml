@@ -2,7 +2,7 @@ title: LSASS Access from Non System Account
 id: WIN-170105221010
 author: Roberto Rodriguez @Cyb3rWard0g
 playbook_link: WIN-1904101010
-creation_date: 19/06/20
+creation_date: 2017/01/05
 platform: Windows
 permissions_required:
   - Administrator

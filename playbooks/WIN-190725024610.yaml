@@ -2,7 +2,7 @@ title: SAM Registry Hive Handle Request
 id: WIN-190725024610
 author: Roberto Rodriguez @Cyb3rWard0g
 playbook_link: WIN-190625024610
-creation_date: 19/07/25
+creation_date: 2019/07/25
 platform: Windows
 permissions_required:
   - System

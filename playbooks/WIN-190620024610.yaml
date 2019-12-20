@@ -2,7 +2,7 @@ title: Domain DPAPI Backup Key Extraction
 id: WIN-190620024610
 author: Roberto Rodriguez @Cyb3rWard0g
 playbook_link:
-creation_date: 19/06/20
+creation_date: 2019/06/20
 platform: Windows
 permissions_required:
   - Domain Admin

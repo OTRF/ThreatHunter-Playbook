@@ -2,7 +2,7 @@ title: Basic PowerShell Execution
 id: WIN-190410151110
 author: Roberto Rodriguez @Cyb3rWard0g
 playbook_link:
-creation_date: 19/04/10
+creation_date: 2019/04/10
 platform: Windows
 permissions_required:
   - User

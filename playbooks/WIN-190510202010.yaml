@@ -2,7 +2,7 @@ title: WDigest Downgrade
 id: WIN-190510202010
 author: Roberto Rodriguez @Cyb3rWard0g
 playbook_link:
-creation_date: 19/05/10
+creation_date: 2019/05/10
 platform: Windows
 permissions_required:
   - Administrator

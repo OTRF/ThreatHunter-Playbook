@@ -2,7 +2,7 @@ title: PowerShell Remote Session
 id: WIN-190511223310
 author: Roberto Rodriguez @Cyb3rWard0g
 playbook_link: WIN-190410151110
-creation_date: 19/06/10
+creation_date: 2019/05/11
 platform: Windows
 permissions_required:
   - Administrator

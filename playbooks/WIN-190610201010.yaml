@@ -2,7 +2,7 @@ title: Alternate PowerShell Hosts
 id: WIN-190815181010
 author: Roberto Rodriguez @Cyb3rWard0g
 playbook_link: WIN-190410151110
-creation_date: 19/06/10
+creation_date: 2019/08/15
 platform: Windows
 permissions_required:
   - User

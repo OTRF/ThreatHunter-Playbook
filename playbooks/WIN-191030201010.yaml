@@ -2,7 +2,7 @@ title: Remote Interactive Task Manager LSASS Dump
 id: WIN-191030201010
 author: Roberto Rodriguez @Cyb3rWard0g
 playbook_link: WIN-1904101010
-creation_date: 19/06/20
+creation_date: 2019/10/30
 platform: Windows
 permissions_required:
   - Administrator

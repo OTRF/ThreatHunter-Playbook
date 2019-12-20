@@ -2,7 +2,7 @@ title: Active Directory Replication User Backdoor
 id: WIN-190101151110
 author: Roberto Rodriguez @Cyb3rWard0g
 playbook_link: WIN-180815210510
-creation_date: 19/01/01
+creation_date: 2019/01/01
 platform: Windows
 permissions_required:
   - Administrator

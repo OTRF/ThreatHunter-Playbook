@@ -2,7 +2,7 @@ title: Active Directory Replication From Non-Domain-Controller Accounts
 id: WIN-180815210510
 author: Roberto Rodriguez @Cyb3rWard0g
 playbook_link:
-creation_date: 18/08/15
+creation_date: 2018/08/15
 platform: Windows
 permissions_required:
   - Domain Admin
