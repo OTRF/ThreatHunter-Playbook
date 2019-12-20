@@ -181,14 +181,69 @@ for to in toc_template[:]:
                 print("  [>>] Removing {} ..".format(section['url']))
                 to['sections'].remove(section)
 
-# ****** Creating Summary Tables ******
-print("\n[+] Creating summary tables for each platform..")
+# ****** Creating Analytics Summaries ******
+print("\n[+] Creating ATT&CK navigator layers for each platform..")
+# Reference: https://github.com/mitre-attack/car/blob/master/scripts/generate_attack_nav_layer.py#L30-L45
+for summary in summary_table:
+    if len(summary['analytic']) > 0:
+        techniques_mappings = dict()
+        for analytic in summary['analytic']:
+            metadata = dict()
+            metadata['name'] = analytic['title']
+            metadata['value'] = analytic['id'] 
+            for coverage in analytic['attack_coverage']:
+                technique = coverage['technique']
+                if technique not in techniques_mappings:
+                    techniques_mappings[technique] = []
+                    techniques_mappings[technique].append(metadata)
+                elif technique in techniques_mappings:
+                    if metadata not in techniques_mappings[technique]:
+                        techniques_mappings[technique].append(metadata)
+        
+        VERSION = "2.2"
+        NAME = "THP {} Analytics".format(summary['platform'])
+        DESCRIPTION = "Analytics covered by the Threat Hunter Playbook {} detection notebooks".format(summary['platform'])
+        DOMAIN = "mitre-enterprise"
+        PLATFORM = summary['platform'].lower()
+
+        print("  [>>] Creating navigator layer for {} analytics..".format(summary['platform']))
+        thp_layer = {
+            "description": DESCRIPTION,
+            "name": NAME,
+            "domain": DOMAIN,
+            "version": VERSION,
+            "techniques": [
+                {
+                    "score": 1,
+                    "techniqueID" : k,
+                    "metadata": v
+                } for k,v in techniques_mappings.items()
+            ],
+            "gradient": {
+                "colors": [
+                    "#ffffff",
+                    "#66fff3"
+                ],
+                "minValue": 0,
+                "maxValue": 1
+            },
+            "legendItems": [
+                {
+                    "label": "Techniques researched",
+                    "color": "#66fff3"
+                }
+            ]
+        }
+        open('../docs/content/notebooks/{}/{}.json'.format(PLATFORM,PLATFORM), 'w').write(json.dumps(thp_layer))
+    
+print("\n[+] Creating analytic summary tables for each platform..")
 summary_template = Template(open('templates/summary_template.md').read())
 for summary in summary_table:
-    print("  [>>] Creating summary for {} analytics..".format(summary['platform']))
-    summary_for_render = copy.deepcopy(summary)
-    markdown = summary_template.render(summary=summary_for_render)
-    open('../docs/content/notebooks/{}/{}.md'.format(summary['platform'].lower(),summary['platform'].lower()), 'w').write(markdown)
+    if len(summary['analytic']) > 0:
+        print("  [>>] Creating summary table for {} analytics..".format(summary['platform']))
+        summary_for_render = copy.deepcopy(summary)
+        markdown = summary_template.render(summary=summary_for_render)
+        open('../docs/content/notebooks/{}/{}.md'.format(summary['platform'].lower(),summary['platform'].lower()), 'w').write(markdown)
 
 # ******* Update Jupyter Book TOC File *************
 print("\n[+] Writing final TOC file for Jupyter book..")

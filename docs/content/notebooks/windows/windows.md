@@ -1,5 +1,11 @@
 # Windows
 
+## ATT&CK Navigator View
+
+<iframe src="https://mitre-attack.github.io/attack-navigator/enterprise/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2Fhunters-forge%2FThreatHunter-Playbook%2Fmaster%2Fdocs%2Fcontent%2Fnotebooks%2Fwindows%2Fwindows.json&tabs=false&selecting_techniques=false" width="950" height="450"></iframe>
+
+## Table View
+
 |Created|Analytic|Hypothesis|Author|
 | :---| :---| :---| :---|
 |2018/08/15 |[Active Directory Replication From Non-Domain-Controller Accounts](https://threathunterplaybook.com/notebooks/windows/06_credential_access/credential_access/WIN-180815210510.html) |Adversaries might attempt to pull the NTLM hash of a user via active directory replication apis from a non-domain-controller account with permissions to do so. |Roberto Rodriguez @Cyb3rWard0g |
