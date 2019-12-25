@@ -109,7 +109,7 @@ registerMordorSQLTable(spark, mordor_file, "mordorTable")""".format(analytic['va
 {}
     '''
 )
-df.show(1,False)""".format(a['logic'])
+df.show(10,False)""".format(a['logic'])
         ))
     # *** DETECTION BLINDSPOTS ****
     if analytic['detection_blindspots']:

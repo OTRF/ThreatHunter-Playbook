@@ -13,7 +13,7 @@ Understanding the standardization of events and their respective field names hel
 I recommend to first understand what it is that you are collecting. This is why the **Documentation** stage is very helpful and important to do either in parallel or before this activity.
 
 ### Define Data Objects
-You should start by identifiying **"Data Objeccts"** in the data that you collect in the cyber domain. A CIM object is a representation of entities found across several security events such as:
+You should start by identifiying **"Data Objects"** in the data that you collect in the cyber domain. A CIM object is a representation of entities found across several security events such as:
 
 * Process
 * User
