@@ -23,7 +23,7 @@ description: |-
   * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/library/syskey.md
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/lateral_movement/remote_services_T1021/empire_find_local_admin.tar.gz
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/credential_access/credential_dumping_T1003/credentials_from_registry/empire_mimikatz_lsadump_sam.tar.gz
 analytics:
   - name: Analytic I
     data_sources:
