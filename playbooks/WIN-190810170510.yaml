@@ -7,7 +7,7 @@ platform: Windows
 permissions_required:
   - Administrator
 attack_coverage:
-  - technique: T1055
+  - technique: T1084
     tactics:
       - TA0003
 hypothesis: Adversaries might be leveraging WMI eventing for persistence in my environment.

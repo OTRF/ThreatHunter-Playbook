@@ -7,7 +7,7 @@ references:
     - https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/playbooks/windows/05_defense_evasion/T1222_file_permissions_modification/ad_replication_user_backdoor.md
 logsource:
     product: windows
-    service: sysmon
+    service: security
 detection:
     selection_one: 
         EventID: 5136

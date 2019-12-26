@@ -64,7 +64,7 @@ hunt_output:
   - category: signature
     type: SIGMA
     name: win_ad_object_writedac_access
-    url: https://github.com/hunters-forgeThreatHunter-Playbook/tree/master/signatures/sigma/win_ad_object_writedac_access.yml
+    url: https://github.com/hunters-forge/ThreatHunter-Playbook/blob/master/signatures/sigma/win_ad_object_writedac_access.yml
   - category: signature
     type: SIGMA
     name: win_ad_replication_user_backdoor
