@@ -17,7 +17,7 @@ description: |-
   If this key does not exists, you can create it and set it to 1 to enable clear text passwords.
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/defense_evasion/modify_registry_T1112/empire_wdigest_downgrade.tar.gz
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/defense_evasion/empire_wdigest_downgrade.tar.gz
 analytics:
   - name: Analytic I
     data_sources:

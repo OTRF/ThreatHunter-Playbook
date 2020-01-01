@@ -17,9 +17,9 @@ description: |-
   This saves a dump file to disk with a deterministic name that includes the name of the process being dumped.
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/credential_access/credential_dumping_T1003/remoteinteractive_taskmngr_lsass_dump.tar.gz
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/remoteinteractive_taskmngr_lsass_dump.tar.gz
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/credential_access/credential_dumping_T1003/interactive_taskmngr_lsass_dump.tar.gz
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/interactive_taskmngr_lsass_dump.tar.gz
 analytics:
   - name: Analytic I
     data_sources:

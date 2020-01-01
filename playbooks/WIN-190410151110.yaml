@@ -16,7 +16,7 @@ description: |-
   Therefore, it is important to understand the basic artifacts left when PowerShell is used in your environment.
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/execution/scripting_T1064/empire_launcher_vbs.tar.gz
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/execution/empire_launcher_vbs.tar.gz
 analytics:
   - name: Analytic I
     data_sources:

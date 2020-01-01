@@ -19,7 +19,7 @@ description: |-
   * These may not always be “built in” binaries
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/execution/powershell_T1086/empire_invoke_psremoting.tar.gz
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/execution/empire_invoke_psremoting.tar.gz
 analytics:
   - name: Analytic I
     data_sources:

@@ -29,11 +29,11 @@ description: |-
   * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/logon_session.md
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/execution/windows_management_instrumentation_T1047/empire_invoke_wmi.tar.gz
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/execution/empire_invoke_wmi.tar.gz
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/execution/windows_management_instrumentation_T1047/empire_wmic_add_user.tar.gz
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/execution/empire_wmic_add_user.tar.gz
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/execution/windows_management_instrumentation_T1047/empire_invoke_wmi_debugger.tar.gz
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/execution/empire_invoke_wmi_debugger.tar.gz
 analytics:
   - name: Analytic I
     data_sources:

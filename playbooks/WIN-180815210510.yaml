@@ -24,7 +24,7 @@ description: |-
   * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/active_directory_replication.md
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/credential_access/credential_dumping_T1003/credentials_from_ad/empire_dcsync.tar.gz
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/empire_dcsync.tar.gz
 analytics:
   - name: Analytic I
     data_sources:

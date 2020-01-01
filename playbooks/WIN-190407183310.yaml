@@ -25,7 +25,7 @@ description: |-
   This is the equivalent of Allow connections from computers running any version of Remote Desktop (less secure) security setting.
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/defense_evasion/modify_registry_T1112/empire_enable_rdp.tar.gz
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/defense_evasion/empire_enable_rdp.tar.gz
 analytics:
   - name: Analytic I
     data_sources:

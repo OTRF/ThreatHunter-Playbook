@@ -47,7 +47,7 @@ description: |-
   LoadLibrary wants the memory address of where you wrote that DLL path from earlier, so provide CreateRemoteThread that address as well.
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/defense_evasion/process_injection_T1055/empire_dll_injection.tar.gz
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/defense_evasion/empire_dll_injection.tar.gz
 analytics:
   - name: Analytic I
     data_sources:

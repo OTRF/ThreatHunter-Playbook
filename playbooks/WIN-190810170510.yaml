@@ -24,7 +24,7 @@ description: |-
   * Binding – Registers a FilterConsumer
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/persistence/wmi_event_subscription_T1084/empire_elevated_wmi.tar.gz
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/persistence/empire_elevated_wmi.tar.gz
 analytics:
   - name: Analytic I
     data_sources:

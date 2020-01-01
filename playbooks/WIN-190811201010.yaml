@@ -24,7 +24,7 @@ description: |-
   Adversaries could leverage the WMI modules above to execute WMI tasks bypassing controls looking for wmiprvse.exe or wmiapsrv.exe activity.
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/defense_evasion/process_injection_T1055/empire_psinject.tar.gz
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/defense_evasion/empire_psinject.tar.gz
 analytics:
   - name: Analytic I
     data_sources:

@@ -28,7 +28,7 @@ description: |-
   * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/lsa_policy_objects.md
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/credential_access/credential_dumping_T1003/credentials_from_ad/empire_mimikatz_export_master_key.tar.gz
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_export_master_key.tar.gz
 analytics:
   - name: Analytic I
     data_sources:

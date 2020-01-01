@@ -16,7 +16,7 @@ description: |-
     This can be done by by adversaries creating a new service.
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/small_datasets/windows/execution/service_execution_T1035/empire_invoke_psexec.tar.gz
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/execution/empire_invoke_psexec.tar.gz
 analytics:
   - name: Analytic I
     data_sources:
