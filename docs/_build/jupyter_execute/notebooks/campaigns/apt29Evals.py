@@ -290,7 +290,7 @@ SELECT b.ScriptBlockText
 FROM apt29Host a
 INNER JOIN (
   SELECT d.ParentProcessGuid, d.ProcessId, c.ScriptBlockText
-  FROM apt29Table c
+  FROM apt29Host c
   INNER JOIN (
       SELECT ParentProcessGuid, ProcessGuid, ProcessId
       FROM apt29Host
@@ -319,7 +319,7 @@ SELECT b.ScriptBlockText
 FROM apt29Host a
 INNER JOIN (
   SELECT d.NewProcessId, d.ProcessId, c.ScriptBlockText
-  FROM apt29Table c
+  FROM apt29Host c
   INNER JOIN (
       SELECT split(NewProcessId, '0x')[1] as NewProcessId, ProcessId
       FROM apt29Host
@@ -353,13 +353,13 @@ df.show(100,truncate = False, vertical = True)
 df = spark.sql(
 '''
 SELECT b.ScriptBlockText
-FROM apt29Table a
+FROM apt29Host a
 INNER JOIN (
   SELECT d.ParentProcessGuid, d.ProcessId, c.ScriptBlockText
-  FROM apt29Table c
+  FROM apt29Host c
   INNER JOIN (
       SELECT ParentProcessGuid, ProcessGuid, ProcessId
-      FROM apt29Table
+      FROM apt29Host
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 1
       ) d
@@ -382,13 +382,13 @@ df.show(100,truncate = False, vertical = True)
 df = spark.sql(
 '''
 SELECT b.ScriptBlockText
-FROM apt29Table a
+FROM apt29Host a
 INNER JOIN (
   SELECT d.NewProcessId, d.ProcessId, c.ScriptBlockText
-  FROM apt29Table c
+  FROM apt29Host c
   INNER JOIN (
       SELECT split(NewProcessId, '0x')[1] as NewProcessId, ProcessId
-      FROM apt29Table
+      FROM apt29Host
       WHERE LOWER(Channel) = "security"
           AND EventID = 4688
       ) d
@@ -427,13 +427,13 @@ df.show(100,truncate = False, vertical = True)
 df = spark.sql(
 '''
 SELECT b.ScriptBlockText
-FROM apt29Table a
+FROM apt29Host a
 INNER JOIN (
   SELECT d.ParentProcessGuid, d.ProcessId, c.ScriptBlockText
-  FROM apt29Table c
+  FROM apt29Host c
   INNER JOIN (
       SELECT ParentProcessGuid, ProcessGuid, ProcessId
-      FROM apt29Table
+      FROM apt29Host
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 1
       ) d
@@ -456,13 +456,13 @@ df.show(100,truncate = False, vertical = True)
 df = spark.sql(
 '''
 SELECT b.ScriptBlockText
-FROM apt29Table a
+FROM apt29Host a
 INNER JOIN (
   SELECT d.NewProcessId, d.ProcessId, c.ScriptBlockText
-  FROM apt29Table c
+  FROM apt29Host c
   INNER JOIN (
       SELECT split(NewProcessId, '0x')[1] as NewProcessId, ProcessId
-      FROM apt29Table
+      FROM apt29Host
       WHERE LOWER(Channel) = "security"
           AND EventID = 4688
       ) d
@@ -493,13 +493,13 @@ df.show(100,truncate = False, vertical = True)
 df = spark.sql(
 '''
 SELECT TargetFilename
-FROM apt29Table a
+FROM apt29Host a
 INNER JOIN (
     SELECT d.ProcessGuid, d.ProcessId
-    FROM apt29Table c
+    FROM apt29Host c
     INNER JOIN (
         SELECT ProcessGuid, ProcessId
-        FROM apt29Table
+        FROM apt29Host
         WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
             AND EventID = 1
         ) d
@@ -568,10 +568,10 @@ df.show(100,truncate = False, vertical = True)
 df = spark.sql(
 '''
 SELECT d.Image, d.CommandLine, c.ScriptBlockText
-FROM apt29Table c
+FROM apt29Host c
 INNER JOIN (
     SELECT ParentProcessGuid, ProcessGuid, ProcessId, ParentImage, Image, ParentCommandLine, CommandLine
-    FROM apt29Table
+    FROM apt29Host
     WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
         AND EventID = 1
     ) d
@@ -589,10 +589,10 @@ df.show(100,truncate = False, vertical = True)
 df = spark.sql(
 '''
 SELECT d.NewProcessName, d.CommandLine, c.ScriptBlockText
-FROM apt29Table c
+FROM apt29Host c
 INNER JOIN (
     SELECT NewProcessName, CommandLine, split(NewProcessId, '0x')[1] as NewProcessId
-    FROM apt29Table
+    FROM apt29Host
     WHERE LOWER(Channel) = "security"
         AND EventID = 4688
     ) d
@@ -2224,7 +2224,7 @@ SELECT a.EventTime, o.TargetUserName, o.IpAddress, a.Message
 FROM apt29Host o
 INNER JOIN (
     SELECT Message, EventTime, SubjectLogonId
-    FROM apt29Table
+    FROM apt29Host
     WHERE lower(Channel) = "security"
         AND EventID = 4661
         AND ObjectType = "SAM_DOMAIN"

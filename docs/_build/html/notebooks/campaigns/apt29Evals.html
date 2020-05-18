@@ -1429,7 +1429,7 @@
 <span class="sd">FROM apt29Host a</span>
 <span class="sd">INNER JOIN (</span>
 <span class="sd">  SELECT d.ParentProcessGuid, d.ProcessId, c.ScriptBlockText</span>
-<span class="sd">  FROM apt29Table c</span>
+<span class="sd">  FROM apt29Host c</span>
 <span class="sd">  INNER JOIN (</span>
 <span class="sd">      SELECT ParentProcessGuid, ProcessGuid, ProcessId</span>
 <span class="sd">      FROM apt29Host</span>
@@ -1462,7 +1462,7 @@
 <span class="sd">FROM apt29Host a</span>
 <span class="sd">INNER JOIN (</span>
 <span class="sd">  SELECT d.NewProcessId, d.ProcessId, c.ScriptBlockText</span>
-<span class="sd">  FROM apt29Table c</span>
+<span class="sd">  FROM apt29Host c</span>
 <span class="sd">  INNER JOIN (</span>
 <span class="sd">      SELECT split(NewProcessId, &#39;0x&#39;)[1] as NewProcessId, ProcessId</span>
 <span class="sd">      FROM apt29Host</span>
@@ -1500,13 +1500,13 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT b.ScriptBlockText</span>
-<span class="sd">FROM apt29Table a</span>
+<span class="sd">FROM apt29Host a</span>
 <span class="sd">INNER JOIN (</span>
 <span class="sd">  SELECT d.ParentProcessGuid, d.ProcessId, c.ScriptBlockText</span>
-<span class="sd">  FROM apt29Table c</span>
+<span class="sd">  FROM apt29Host c</span>
 <span class="sd">  INNER JOIN (</span>
 <span class="sd">      SELECT ParentProcessGuid, ProcessGuid, ProcessId</span>
-<span class="sd">      FROM apt29Table</span>
+<span class="sd">      FROM apt29Host</span>
 <span class="sd">      WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
 <span class="sd">          AND EventID = 1</span>
 <span class="sd">      ) d</span>
@@ -1533,13 +1533,13 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT b.ScriptBlockText</span>
-<span class="sd">FROM apt29Table a</span>
+<span class="sd">FROM apt29Host a</span>
 <span class="sd">INNER JOIN (</span>
 <span class="sd">  SELECT d.NewProcessId, d.ProcessId, c.ScriptBlockText</span>
-<span class="sd">  FROM apt29Table c</span>
+<span class="sd">  FROM apt29Host c</span>
 <span class="sd">  INNER JOIN (</span>
 <span class="sd">      SELECT split(NewProcessId, &#39;0x&#39;)[1] as NewProcessId, ProcessId</span>
-<span class="sd">      FROM apt29Table</span>
+<span class="sd">      FROM apt29Host</span>
 <span class="sd">      WHERE LOWER(Channel) = &quot;security&quot;</span>
 <span class="sd">          AND EventID = 4688</span>
 <span class="sd">      ) d</span>
@@ -1582,13 +1582,13 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT b.ScriptBlockText</span>
-<span class="sd">FROM apt29Table a</span>
+<span class="sd">FROM apt29Host a</span>
 <span class="sd">INNER JOIN (</span>
 <span class="sd">  SELECT d.ParentProcessGuid, d.ProcessId, c.ScriptBlockText</span>
-<span class="sd">  FROM apt29Table c</span>
+<span class="sd">  FROM apt29Host c</span>
 <span class="sd">  INNER JOIN (</span>
 <span class="sd">      SELECT ParentProcessGuid, ProcessGuid, ProcessId</span>
-<span class="sd">      FROM apt29Table</span>
+<span class="sd">      FROM apt29Host</span>
 <span class="sd">      WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
 <span class="sd">          AND EventID = 1</span>
 <span class="sd">      ) d</span>
@@ -1615,13 +1615,13 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT b.ScriptBlockText</span>
-<span class="sd">FROM apt29Table a</span>
+<span class="sd">FROM apt29Host a</span>
 <span class="sd">INNER JOIN (</span>
 <span class="sd">  SELECT d.NewProcessId, d.ProcessId, c.ScriptBlockText</span>
-<span class="sd">  FROM apt29Table c</span>
+<span class="sd">  FROM apt29Host c</span>
 <span class="sd">  INNER JOIN (</span>
 <span class="sd">      SELECT split(NewProcessId, &#39;0x&#39;)[1] as NewProcessId, ProcessId</span>
-<span class="sd">      FROM apt29Table</span>
+<span class="sd">      FROM apt29Host</span>
 <span class="sd">      WHERE LOWER(Channel) = &quot;security&quot;</span>
 <span class="sd">          AND EventID = 4688</span>
 <span class="sd">      ) d</span>
@@ -1656,13 +1656,13 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT TargetFilename</span>
-<span class="sd">FROM apt29Table a</span>
+<span class="sd">FROM apt29Host a</span>
 <span class="sd">INNER JOIN (</span>
 <span class="sd">    SELECT d.ProcessGuid, d.ProcessId</span>
-<span class="sd">    FROM apt29Table c</span>
+<span class="sd">    FROM apt29Host c</span>
 <span class="sd">    INNER JOIN (</span>
 <span class="sd">        SELECT ProcessGuid, ProcessId</span>
-<span class="sd">        FROM apt29Table</span>
+<span class="sd">        FROM apt29Host</span>
 <span class="sd">        WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
 <span class="sd">            AND EventID = 1</span>
 <span class="sd">        ) d</span>
@@ -1739,10 +1739,10 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT d.Image, d.CommandLine, c.ScriptBlockText</span>
-<span class="sd">FROM apt29Table c</span>
+<span class="sd">FROM apt29Host c</span>
 <span class="sd">INNER JOIN (</span>
 <span class="sd">    SELECT ParentProcessGuid, ProcessGuid, ProcessId, ParentImage, Image, ParentCommandLine, CommandLine</span>
-<span class="sd">    FROM apt29Table</span>
+<span class="sd">    FROM apt29Host</span>
 <span class="sd">    WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
 <span class="sd">        AND EventID = 1</span>
 <span class="sd">    ) d</span>
@@ -1764,10 +1764,10 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT d.NewProcessName, d.CommandLine, c.ScriptBlockText</span>
-<span class="sd">FROM apt29Table c</span>
+<span class="sd">FROM apt29Host c</span>
 <span class="sd">INNER JOIN (</span>
 <span class="sd">    SELECT NewProcessName, CommandLine, split(NewProcessId, &#39;0x&#39;)[1] as NewProcessId</span>
-<span class="sd">    FROM apt29Table</span>
+<span class="sd">    FROM apt29Host</span>
 <span class="sd">    WHERE LOWER(Channel) = &quot;security&quot;</span>
 <span class="sd">        AND EventID = 4688</span>
 <span class="sd">    ) d</span>
@@ -3555,7 +3555,7 @@
 <span class="sd">FROM apt29Host o</span>
 <span class="sd">INNER JOIN (</span>
 <span class="sd">    SELECT Message, EventTime, SubjectLogonId</span>
-<span class="sd">    FROM apt29Table</span>
+<span class="sd">    FROM apt29Host</span>
 <span class="sd">    WHERE lower(Channel) = &quot;security&quot;</span>
 <span class="sd">        AND EventID = 4661</span>
 <span class="sd">        AND ObjectType = &quot;SAM_DOMAIN&quot;</span>

@@ -22,7 +22,7 @@ detections:
           FROM apt29Host a
           INNER JOIN (
             SELECT d.ParentProcessGuid, d.ProcessId, c.ScriptBlockText
-            FROM apt29Table c
+            FROM apt29Host c
             INNER JOIN (
                 SELECT ParentProcessGuid, ProcessGuid, ProcessId
                 FROM apt29Host
@@ -50,7 +50,7 @@ detections:
           FROM apt29Host a
           INNER JOIN (
             SELECT d.NewProcessId, d.ProcessId, c.ScriptBlockText
-            FROM apt29Table c
+            FROM apt29Host c
             INNER JOIN (
                 SELECT split(NewProcessId, '0x')[1] as NewProcessId, ProcessId
                 FROM apt29Host
