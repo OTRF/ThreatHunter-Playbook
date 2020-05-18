@@ -22,7 +22,7 @@ detections:
           WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
             AND EventID = 1
             AND ParentImage LIKE '%services.exe'
-            AND Image LIKE '%javamtsup.exe
+            AND Image LIKE '%javamtsup.exe'
         output: |
           Process Create:
           RuleName: -
