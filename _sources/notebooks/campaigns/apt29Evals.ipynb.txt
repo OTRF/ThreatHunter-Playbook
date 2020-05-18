@@ -6758,7 +6758,7 @@
     "WHERE Channel = \"Microsoft-Windows-Sysmon/Operational\"\n",
     "  AND EventID = 1\n",
     "  AND ParentImage LIKE '%services.exe'\n",
-    "  AND Image LIKE '%javamtsup.exe\n",
+    "  AND Image LIKE '%javamtsup.exe'\n",
     "\n",
     "'''\n",
     ")\n",
