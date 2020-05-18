@@ -5,7 +5,7 @@
 [![Twitter](https://img.shields.io/twitter/follow/HunterPlaybook.svg?style=social&label=Follow)](https://twitter.com/HunterPlaybook)
 [![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
-<img src="docs/content/images/logo/logo.png" width=200>
+<img src="docs/images/logo/logo.png" width=200>
 
 The Threat Hunter Playbook is a community-based open source project developed to share threat hunting concepts and aid the development of techniques and hypothesis for hunting campaigns by leveraging security event logs from diverse operating systems. This project provides not only information about detections, but also other very important activites when developing analytics such as data documentation, data modeling and even data quality assessments.
 
