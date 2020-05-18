@@ -1,0 +1,78 @@
+/* Visibility of the target */
+.toggle {
+    transition: opacity .5s;
+}
+
+.toggle-hidden {
+    visibility: hidden;
+    opacity: 0;
+    height: 1.5em;
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+/* Toggle buttons inside admonitions so we see the title */
+.toggle-body {
+    position: relative;
+}
+
+.toggle-body .admonition-title:after {
+    content: "";
+}
+
+.toggle-body button.toggle-button {
+    margin-right: 0.5em;
+    right: 0em;
+    position: absolute;
+    top: .3em;
+}
+
+/* These should be totally hidden since they're inside an admonition */
+
+.toggle-body .toggle-hidden * {
+    margin: 0em;
+    padding: 0em;
+}
+
+
+/* General button style */
+button.toggle-button {
+    background: #999;
+    border: none;
+    z-index: 999;
+    font-size: 0.7em;
+    right: -2.5em;
+    margin-left: -2.5em; /* A hack to keep code blocks from being pushed left */
+    position: relative;
+    float: right;
+    border-radius: 100%;
+    width: 23px;
+    height: 23px;
+    padding: 0px;
+}
+
+button.toggle-button.toggle-button-hidden:before {
+    content: "Click to show";
+    position: absolute;
+    left: -6.5em;
+    bottom: .4em;
+}
+
+/* Plus / minus toggles */
+.toggle-button .bar {
+    background-color: white;
+    position: absolute;
+    left: 15%;
+    top: 43%;
+    width: 16px;
+    height: 3px;
+}
+
+.toggle-button .vertical {
+    transition: all 0.25s ease-in-out;
+    transform-origin: center;
+}
+
+.toggle-button-hidden .vertical {
+    transform: rotate(-90deg);
+}

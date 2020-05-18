@@ -1,0 +1,82 @@
+# 719618E8-9EE7-4693-937E-1FD39228DEBC
+
+## Data Sources
+* Microsoft-Windows-Sysmon/Operational<br>
+
+## Logic
+
+```
+SELECT Message
+FROM apt29Host h
+INNER JOIN (
+  SELECT f.ProcessGuid
+  FROM apt29Host f
+  INNER JOIN (
+    SELECT d.ProcessId, d.ProcessGuid
+    FROM apt29Host d
+    INNER JOIN (
+      SELECT a.ProcessGuid, a.ParentProcessGuid
+      FROM apt29Host a
+      INNER JOIN (
+        SELECT ProcessGuid
+        FROM apt29Host
+        WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+            AND EventID = 1
+            AND LOWER(Image) LIKE "%control.exe"
+            AND LOWER(ParentImage) LIKE "%sdclt.exe"
+      ) b
+      ON a.ParentProcessGuid = b.ProcessGuid
+      WHERE a.Channel = "Microsoft-Windows-Sysmon/Operational"
+        AND a.EventID = 1
+        AND a.IntegrityLevel = "High"
+    ) c
+    ON d.ParentProcessGuid= c.ProcessGuid
+    WHERE d.Channel = "Microsoft-Windows-Sysmon/Operational"
+      AND d.EventID = 1
+      AND d.Image LIKE '%powershell.exe'
+  ) e
+  ON f.ParentProcessGuid = e.ProcessGuid
+  WHERE f.Channel = "Microsoft-Windows-Sysmon/Operational"
+    AND f.EventID = 1
+    AND LOWER(f.Image) LIKE '%sdelete%'
+    AND LOWER(f.CommandLine) LIKE '%draft.zip%'
+) g
+ON h.ProcessGuid = g.ProcessGuid
+WHERE h.Channel = "Microsoft-Windows-Sysmon/Operational"
+  AND h.EventID in (12,13)
+  AND LOWER(h.TargetObject) RLIKE '.*\\\\\\\\software\\\\\\\\sysinternals\\\\\\\\sdelete.*'
+
+```
+
+## Output
+
+```
+|Registry value set:
+RuleName: -
+EventType: SetValue
+UtcTime: 2020-05-02 03:03:14.702
+ProcessGuid: {47ab858c-e2f2-5eac-d203-000000000400}
+ProcessId: 8760
+Image: C:\Program Files\SysinternalsSuite\sdelete64.exe
+TargetObject: HKU\S-1-5-21-1830255721-3727074217-2423397540-1107\Software\Sysinternals\SDelete\EulaAccepted
+Details: DWORD (0x00000001)|
+
+|Registry object added or deleted:
+RuleName: -
+EventType: CreateKey
+UtcTime: 2020-05-02 03:03:14.702
+ProcessGuid: {47ab858c-e2f2-5eac-d203-000000000400}
+ProcessId: 8760
+Image: C:\Program Files\SysinternalsSuite\sdelete64.exe
+TargetObject: HKU\S-1-5-21-1830255721-3727074217-2423397540-1107\Software\Sysinternals\SDelete                           |
+
+|Registry object added or deleted:
+RuleName: -
+EventType: CreateKey
+UtcTime: 2020-05-02 03:03:14.702
+ProcessGuid: {47ab858c-e2f2-5eac-d203-000000000400}
+ProcessId: 8760
+Image: C:\Program Files\SysinternalsSuite\sdelete64.exe
+TargetObject: HKU\S-1-5-21-1830255721-3727074217-2423397540-1107\Software\Sysinternals\SDelete
+
+```

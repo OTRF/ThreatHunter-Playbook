@@ -1,0 +1,89 @@
+# A16CE10D-6EE3-4611-BE9B-B023F36E2DFF
+
+## Data Sources
+* Microsoft-Windows-Sysmon/Operational<br>
+
+## Logic
+
+```
+SELECT Message
+FROM apt29Host
+WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+  AND EventID IN (12,13,14)
+  AND (LOWER(TargetObject) LIKE "%javamtsup%" OR LOWER(Details) LIKE "%javamtsup%")
+
+```
+
+## Output
+
+```
+Message | Registry object added or deleted:
+RuleName: -
+EventType: CreateKey
+UtcTime: 2020-05-02 03:04:15.421
+ProcessGuid: {47ab858c-cad9-5eac-0b00-000000000400}
+ProcessId: 720
+Image: C:\windows\system32\services.exe
+TargetObject: HKLM\System\CurrentControlSet\Services\javamtsup                                                 
+
+Message | Registry value set:
+RuleName: -
+EventType: SetValue
+UtcTime: 2020-05-02 03:04:15.421
+ProcessGuid: {47ab858c-cad9-5eac-0b00-000000000400}
+ProcessId: 720
+Image: C:\windows\system32\services.exe
+TargetObject: HKLM\System\CurrentControlSet\Services\javamtsup\Type
+Details: DWORD (0x00000010)                              
+
+Message | Registry value set:
+RuleName: -
+EventType: SetValue
+UtcTime: 2020-05-02 03:04:15.421
+ProcessGuid: {47ab858c-cad9-5eac-0b00-000000000400}
+ProcessId: 720
+Image: C:\windows\system32\services.exe
+TargetObject: HKLM\System\CurrentControlSet\Services\javamtsup\Start
+Details: DWORD (0x00000002)                             
+
+Message | Registry value set:
+RuleName: -
+EventType: SetValue
+UtcTime: 2020-05-02 03:04:15.421
+ProcessGuid: {47ab858c-cad9-5eac-0b00-000000000400}
+ProcessId: 720
+Image: C:\windows\system32\services.exe
+TargetObject: HKLM\System\CurrentControlSet\Services\javamtsup\ErrorControl
+Details: DWORD (0x00000001)                      
+
+Message | Registry value set:
+RuleName: -
+EventType: SetValue
+UtcTime: 2020-05-02 03:04:15.421
+ProcessGuid: {47ab858c-cad9-5eac-0b00-000000000400}
+ProcessId: 720
+Image: C:\windows\system32\services.exe
+TargetObject: HKLM\System\CurrentControlSet\Services\javamtsup\ImagePath
+Details: C:\Windows\System32\javamtsup.exe          
+
+Message | Registry value set:
+RuleName: -
+EventType: SetValue
+UtcTime: 2020-05-02 03:04:15.421
+ProcessGuid: {47ab858c-cad9-5eac-0b00-000000000400}
+ProcessId: 720
+Image: C:\windows\system32\services.exe
+TargetObject: HKLM\System\CurrentControlSet\Services\javamtsup\DisplayName
+Details: Java(TM) Virtual Machine Support Service 
+
+Message | Registry value set:
+RuleName: -
+EventType: SetValue
+UtcTime: 2020-05-02 03:04:15.421
+ProcessGuid: {47ab858c-cad9-5eac-0b00-000000000400}
+ProcessId: 720
+Image: C:\windows\system32\services.exe
+TargetObject: HKLM\System\CurrentControlSet\Services\javamtsup\ObjectName
+Details: LocalSystem
+
+```

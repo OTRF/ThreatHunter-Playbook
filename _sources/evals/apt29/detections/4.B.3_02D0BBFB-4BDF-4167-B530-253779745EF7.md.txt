@@ -1,0 +1,66 @@
+# 02D0BBFB-4BDF-4167-B530-253779745EF7
+
+## Data Sources
+* Microsoft-Windows-Sysmon/Operational<br>
+
+## Logic
+
+```
+SELECT Message, g.CommandLine
+FROM apt29Host h
+INNER JOIN (
+  SELECT f.ProcessGuid, f.CommandLine
+  FROM apt29Host f
+  INNER JOIN (
+    SELECT d.ProcessId, d.ProcessGuid
+    FROM apt29Host d
+    INNER JOIN (
+      SELECT a.ProcessGuid, a.ParentProcessGuid
+      FROM apt29Host a
+      INNER JOIN (
+        SELECT ProcessGuid
+        FROM apt29Host
+        WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+            AND EventID = 1
+            AND LOWER(Image) LIKE "%control.exe"
+            AND LOWER(ParentImage) LIKE "%sdclt.exe"
+      ) b
+      ON a.ParentProcessGuid = b.ProcessGuid
+      WHERE a.Channel = "Microsoft-Windows-Sysmon/Operational"
+        AND a.EventID = 1
+        AND a.IntegrityLevel = "High"
+    ) c
+    ON d.ParentProcessGuid= c.ProcessGuid
+    WHERE d.Channel = "Microsoft-Windows-Sysmon/Operational"
+      AND d.EventID = 1
+      AND d.Image LIKE '%powershell.exe'
+  ) e
+  ON f.ParentProcessGuid = e.ProcessGuid
+  WHERE f.Channel = "Microsoft-Windows-Sysmon/Operational"
+    AND f.EventID = 1
+    AND LOWER(f.Image) LIKE '%sdelete%'
+    AND LOWER(f.CommandLine) LIKE '%draft.zip%'
+) g
+ON h.ProcessGuid = g.ProcessGuid
+WHERE h.Channel = "Microsoft-Windows-Sysmon/Operational"
+  AND h.EventID = 23
+
+```
+
+## Output
+
+```
+Message     | File Delete:
+RuleName: -
+UtcTime: 2020-05-02 03:03:14.765
+ProcessGuid: {47ab858c-e2f2-5eac-d203-000000000400}
+ProcessId: 8760
+User: DMEVALS\pbeesly
+Image: C:\Program Files\SysinternalsSuite\sdelete64.exe
+TargetFilename: C:\Users\pbeesly\ZZZZZZZZZZZZZZZZZZZZZ.ZZZ
+Hashes: SHA1=B639091A8FA004CAA8E2D95DF4476374D7D09221,MD5=160FF0AB6AADF8ECD579C7667E4B2248,SHA256=EE85EAC531896E2203E33242A698EDB91305A6C124A98DF81F5FFF0341220150,IMPHASH=00000000000000000000000000000000
+IsExecutable: false
+Archived: true 
+ CommandLine | "C:\Program Files\SysinternalsSuite\sdelete64.exe" /accepteula C:\Users\pbeesly\AppData\Roaming\Draft.Zip                          
+
+```

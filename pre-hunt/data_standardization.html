@@ -1,0 +1,383 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Data Standardization &#8212; Threat Hunter Playbook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/mystnb.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .secondtoggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="../_static/thebelab.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="canonical" href="https://threathunterplaybook.com/pre-hunt/data_standardization.html" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Data Modeling" href="data_modeling.html" />
+    <link rel="prev" title="Data Documentation" href="data_documentation.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+<!-- Put requirejs at the end so it's always after bootstrap -->
+<!-- TODO: remove this once https://github.com/pandas-dev/pydata-sphinx-theme/pull/149 is merged -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://threathunterplaybook.com/pre-hunt/data_standardization.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Data Standardization" />
+<meta property="og:description" content="Data Standardization  The data standardization process relies heavily on the use of a Common Information Model (CIM) in order to facilitate the normalization of" />
+<meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Threat Hunter Playbook</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  
+  <ul class="nav sidenav_l1">
+<li class="navbar-special">
+<p class="margin-caption">Pre-Hunt Activities</p>
+</li>
+  <li class="active">
+    <a href="data_management.html">Data Management</a>
+  <ul class="nav sidenav_l2">
+    <li class="">
+      <a href="data_documentation.html">Data Documentation</a>
+    </li>
+    <li class="active">
+      <a href="">Data Standardization</a>
+    </li>
+    <li class="">
+      <a href="data_modeling.html">Data Modeling</a>
+    </li>
+    <li class="">
+      <a href="data_quality.html">Data Quality</a>
+    </li>
+  </ul>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Campaign Notebooks</p>
+</li>
+  <li class="">
+    <a href="../evals/intro.html">ATT&CK Evaluations</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Targeted Notebooks</p>
+</li>
+  <li class="">
+    <a href="../notebooks/windows/windows.html">Windows</a>
+  </li>
+  <li class="">
+    <a href="../notebooks/linux/linux.html">Linux</a>
+  </li>
+  <li class="">
+    <a href="../notebooks/mac/mac.html">Mac</a>
+  </li>
+</ul>
+</nav>
+<p class="navbar_footer">Powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse" data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu" aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation" title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i class="fas fa-download"></i></button>
+
+            
+            <div class="dropdown-buttons">
+                <!-- ipynb file if we had a myst markdown file -->
+                
+                <!-- Download raw file -->
+                <a class="dropdown-buttons" href="../_sources/pre-hunt/data_standardization.md.txt"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.md</button></a>
+                <!-- Download PDF via print -->
+                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+            </div>
+            
+        </div>
+
+        <!-- Edit this page -->
+        <a class="edit-button" href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/pre-hunt/data_standardization.md"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" title="Edit this page"><i class="fas fa-pencil-alt"></i></button></a>
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+        
+
+        
+    </div>
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#what-is-a-common-information-model-cim" class="nav-link">What is a Common Information Model (CIM)?</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#why" class="nav-link">Why?</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#how" class="nav-link">How?</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#define-data-objects" class="nav-link">Define Data Objects</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#define-data-object-properties" class="nav-link">Define Data Object Properties</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#apply-cim-to-events" class="nav-link">Apply CIM to Events</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#when" class="nav-link">When?</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#references" class="nav-link">References:</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/pre-hunt/data_standardization.md">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 col-xxl-7 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="data-standardization">
+<h1>Data Standardization<a class="headerlink" href="#data-standardization" title="Permalink to this headline">¶</a></h1>
+<p>The data standardization process relies heavily on the use of a Common Information Model (CIM) in order to facilitate the normalization of data sets via a standard way to parse data. A common schema helps hunters to correlate data from diverse data sources, and avoid writing long queries trying to hit every possible name assigned to a field that provides the same information across several data sources.</p>
+<div class="section" id="what-is-a-common-information-model-cim">
+<h2>What is a Common Information Model (CIM)?<a class="headerlink" href="#what-is-a-common-information-model-cim" title="Permalink to this headline">¶</a></h2>
+<p>An information model describes the things in a domain in terms of objects, their properties
+(represented as attributes), and their relationships. <a class="reference external" href="https://www.opennetworking.org/wp-content/uploads/2014/10/TR-513_CIM_Overview_1.2.pdf">source</a></p>
+</div>
+<div class="section" id="why">
+<h2>Why?<a class="headerlink" href="#why" title="Permalink to this headline">¶</a></h2>
+<p>Understanding the standardization of events and their respective field names help hunters tremendously when developing data analytics. This activity along with data documentation help hunt teams to identify data sources that might be available but not being considered in the data scope while running analytics in production. For example, if an analytic is using the field <strong>“process_name”</strong> , but it is named <strong>“processName”</strong> or <strong>“ImageName”</strong> in several other data sources available, the the data scope will be limited and will eventually affect the fidelity of the analytic.</p>
+</div>
+<div class="section" id="how">
+<h2>How?<a class="headerlink" href="#how" title="Permalink to this headline">¶</a></h2>
+<p>I recommend to first understand what it is that you are collecting. This is why the <strong>Documentation</strong> stage is very helpful and important to do either in parallel or before this activity.</p>
+<div class="section" id="define-data-objects">
+<h3>Define Data Objects<a class="headerlink" href="#define-data-objects" title="Permalink to this headline">¶</a></h3>
+<p>You should start by identifiying <strong>“Data Objects”</strong> in the data that you collect in the cyber domain. A CIM object is a representation of entities found across several security events such as:</p>
+<ul class="simple">
+<li><p>Process</p></li>
+<li><p>User</p></li>
+<li><p>E-mail</p></li>
+<li><p>IP Address</p></li>
+</ul>
+</div>
+<div class="section" id="define-data-object-properties">
+<h3>Define Data Object Properties<a class="headerlink" href="#define-data-object-properties" title="Permalink to this headline">¶</a></h3>
+<p>Defining data objects allow you to categorize/group event fields and be able to define a specific schema for each data object. For example, a <strong>“Process”</strong> data object can have properties such as:</p>
+<ul class="simple">
+<li><p>process_name</p></li>
+<li><p>process_command_line</p></li>
+<li><p>process_guid</p></li>
+<li><p>process_id</p></li>
+</ul>
+<p>one example for <strong>“Process”</strong> can be found in the <a class="reference external" href="https://github.com/hunters-forge/OSSEM/blob/master/common_information_model/process.md">OSSEM project</a></p>
+</div>
+<div class="section" id="apply-cim-to-events">
+<h3>Apply CIM to Events<a class="headerlink" href="#apply-cim-to-events" title="Permalink to this headline">¶</a></h3>
+<p>Next, you can take the schemas defined for each data object and apply them to event logs you collect.</p>
+<ul class="simple">
+<li><p>For example, let’s say we have this event from Sysmon (Event ID 1):</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;Event xmlns=&quot;http://schemas.microsoft.com/win/2004/08/events/event&quot;&gt;
+  &lt;System&gt;
+    &lt;Provider Name=&quot;Microsoft-Windows-Sysmon&quot; Guid=&quot;{5770385F-C22A-43E0-BF4C-06F5698FFBD9}&quot; /&gt; 
+    &lt;EventID&gt;1&lt;/EventID&gt; 
+    &lt;Version&gt;5&lt;/Version&gt; 
+    &lt;Level&gt;4&lt;/Level&gt; 
+    &lt;Task&gt;1&lt;/Task&gt; 
+    &lt;Opcode&gt;0&lt;/Opcode&gt; 
+    &lt;Keywords&gt;0x8000000000000000&lt;/Keywords&gt; 
+    &lt;TimeCreated SystemTime=&quot;2019-06-12T00:48:53.300422700Z&quot; /&gt; 
+    &lt;EventRecordID&gt;6526518&lt;/EventRecordID&gt; 
+    &lt;Correlation /&gt; 
+    &lt;Execution ProcessID=&quot;2312&quot; ThreadID=&quot;3800&quot; /&gt; 
+    &lt;Channel&gt;Microsoft-Windows-Sysmon/Operational&lt;/Channel&gt; 
+    &lt;Computer&gt;DESKTOP-WARDOG.RIVENDELL.local&lt;/Computer&gt; 
+    &lt;Security UserID=&quot;S-1-5-18&quot; /&gt; 
+  &lt;/System&gt;
+  &lt;EventData&gt;
+    &lt;Data Name=&quot;RuleName&quot; /&gt; 
+    &lt;Data Name=&quot;UtcTime&quot;&gt;2019-06-12 00:48:53.295&lt;/Data&gt; 
+    &lt;Data Name=&quot;ProcessGuid&quot;&gt;{A98268C1-4BF5-5D00-0000-00102A7B2B00}&lt;/Data&gt; 
+    &lt;Data Name=&quot;ProcessId&quot;&gt;6364&lt;/Data&gt; 
+    &lt;Data Name=&quot;Image&quot;&gt;C:\Windows\System32\wuauclt.exe&lt;/Data&gt; 
+    &lt;Data Name=&quot;FileVersion&quot;&gt;10.0.17134.1 (WinBuild.160101.0800)&lt;/Data&gt; 
+    &lt;Data Name=&quot;Description&quot;&gt;Windows Update&lt;/Data&gt; 
+    &lt;Data Name=&quot;Product&quot;&gt;Microsoft® Windows® Operating System&lt;/Data&gt; 
+    &lt;Data Name=&quot;Company&quot;&gt;Microsoft Corporation&lt;/Data&gt; 
+    &lt;Data Name=&quot;OriginalFileName&quot;&gt;wuauclt.exe&lt;/Data&gt; 
+    &lt;Data Name=&quot;CommandLine&quot;&gt;&quot;C:\WINDOWS\system32\wuauclt.exe&quot; /RunHandlerComServer&lt;/Data&gt; 
+    &lt;Data Name=&quot;CurrentDirectory&quot;&gt;C:\WINDOWS\system32\&lt;/Data&gt; 
+    &lt;Data Name=&quot;User&quot;&gt;NT AUTHORITY\SYSTEM&lt;/Data&gt; 
+    &lt;Data Name=&quot;LogonGuid&quot;&gt;{A98268C1-48F4-5D00-0000-0020E7030000}&lt;/Data&gt; 
+    &lt;Data Name=&quot;LogonId&quot;&gt;0x3e7&lt;/Data&gt; 
+    &lt;Data Name=&quot;TerminalSessionId&quot;&gt;0&lt;/Data&gt; 
+    &lt;Data Name=&quot;IntegrityLevel&quot;&gt;System&lt;/Data&gt; 
+    &lt;Data Name=&quot;Hashes&quot;&gt;IMPHASH=E799C2BD8BC66603D6DDC95F2DB31A18&lt;/Data&gt; 
+    &lt;Data Name=&quot;ParentProcessGuid&quot;&gt;{A98268C1-48F5-5D00-0000-00103C410100}&lt;/Data&gt; 
+    &lt;Data Name=&quot;ParentProcessId&quot;&gt;1040&lt;/Data&gt; 
+    &lt;Data Name=&quot;ParentImage&quot;&gt;C:\Windows\System32\svchost.exe&lt;/Data&gt; 
+    &lt;Data Name=&quot;ParentCommandLine&quot;&gt;C:\WINDOWS\system32\svchost.exe -k netsvcs -p&lt;/Data&gt; 
+  &lt;/EventData&gt;
+&lt;/Event&gt;
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>We could easily standardize its event fields and combine them with data dictionaries as shown in <a class="reference external" href="https://github.com/hunters-forge/OSSEM/blob/master/data_dictionaries/windows/sysmon/event-1.md#data-dictionary">here</a> by the <a class="reference external" href="https://github.com/hunters-forge/OSSEM">OSSEM project</a>.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="when">
+<h2>When?<a class="headerlink" href="#when" title="Permalink to this headline">¶</a></h2>
+<p>Depending on your priorities and the resources allocated to your team, you can either start your own CIM based on all the data soures available at once, or gradually create it from each data sources used as you build analytics.</p>
+</div>
+<div class="section" id="references">
+<h2>References:<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>https://docs.oracle.com/cd/E19683-01/806-6827/6jfoa8m6v/index.html</p></li>
+<li><p>https://github.com/hunters-forge/OSSEM</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "hunters-forge/ThreatHunter-Playbook",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "pre-hunt"
+        }
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="data_documentation.html" title="previous page">Data Documentation</a>
+    <a class='right-next' id="next-link" href="data_modeling.html" title="next page">Data Modeling</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.1.<br/>
+    </p>
+  </div>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

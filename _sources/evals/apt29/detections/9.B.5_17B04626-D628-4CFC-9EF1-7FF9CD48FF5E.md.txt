@@ -1,0 +1,58 @@
+# 17B04626-D628-4CFC-9EF1-7FF9CD48FF5E
+
+## Data Sources
+* Microsoft-Windows-Sysmon/Operational<br>
+
+## Logic
+
+```
+SELECT h.Message
+FROM apt29Host h
+INNER JOIN (
+    SELECT f.ProcessGuid
+    FROM apt29Host f
+    INNER JOIN (
+      SELECT d.ProcessGuid
+      FROM apt29Host d
+      INNER JOIN (
+          SELECT b.ProcessGuid
+          FROM apt29Host b
+          INNER JOIN (
+            SELECT ProcessGuid
+            FROM apt29Host
+            WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                AND EventID = 1
+                AND ParentImage LIKE '%services.exe'
+          ) a
+          ON b.ParentProcessGuid = a.ProcessGuid
+          WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+            AND Image LIKE '%python.exe'
+      ) c
+      ON d.ParentProcessGuid = c.ProcessGuid
+      WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+          AND EventID = 1
+    ) e
+    ON f.ParentProcessGuid = e.ProcessGuid
+    WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+      AND EventID = 1
+      AND Image LIKE '%powershell.exe'
+) g
+ON h.ProcessGuid = g.ProcessGuid
+WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+    AND h.EventID = 11
+    AND LOWER(h.TargetFilename) LIKE "%working.zip"
+
+```
+
+## Output
+
+```
+File created:
+RuleName: -
+UtcTime: 2020-05-02 03:16:00.353
+ProcessGuid: {5aa8ec29-e5e4-5eac-7a03-000000000400}
+ProcessId: 4876
+Image: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe
+TargetFilename: C:\Users\pbeesly\AppData\Roaming\working.zip
+CreationUtcTime: 2020-05-02 03:16:00.353
+```

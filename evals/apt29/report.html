@@ -1,0 +1,731 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>All Results - Report &#8212; Threat Hunter Playbook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/sphinx-book-theme.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/mystnb.js"></script>
+    <script src="../../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .secondtoggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="../../_static/thebelab.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="canonical" href="https://threathunterplaybook.com/evals/apt29/report.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Free Telemetry Notebook" href="../../notebooks/campaigns/apt29Evals.html" />
+    <link rel="prev" title="APT 29" href="intro.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+<!-- Put requirejs at the end so it's always after bootstrap -->
+<!-- TODO: remove this once https://github.com/pandas-dev/pydata-sphinx-theme/pull/149 is merged -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://threathunterplaybook.com/evals/apt29/report.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="All Results - Report" />
+<meta property="og:description" content="All Results - Report            Step  Procedure  Criteria  Technique  Detections  1.A.1  User Pam executed payload rcs.3aka3.doc  The rcs.3aka3.doc process spaw" />
+<meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Threat Hunter Playbook</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  
+  <ul class="nav sidenav_l1">
+<li class="navbar-special">
+<p class="margin-caption">Pre-Hunt Activities</p>
+</li>
+  <li class="">
+    <a href="../../pre-hunt/data_management.html">Data Management</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Campaign Notebooks</p>
+</li>
+  <li class="active">
+    <a href="../intro.html">ATT&CK Evaluations</a>
+  <ul class="nav sidenav_l2">
+    <li class="active">
+      <a href="intro.html">APT 29</a>
+      <ul class="nav sidenav_l3">
+      <li class="active">
+        <a href="">All Results - Report</a>
+      </li>
+      <li class="">
+        <a href="../../notebooks/campaigns/apt29Evals.html">Free Telemetry Notebook</a>
+      </li>
+    </ul>
+    </li>
+  </ul>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Targeted Notebooks</p>
+</li>
+  <li class="">
+    <a href="../../notebooks/windows/windows.html">Windows</a>
+  </li>
+  <li class="">
+    <a href="../../notebooks/linux/linux.html">Linux</a>
+  </li>
+  <li class="">
+    <a href="../../notebooks/mac/mac.html">Mac</a>
+  </li>
+</ul>
+</nav>
+<p class="navbar_footer">Powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse" data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu" aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation" title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i class="fas fa-download"></i></button>
+
+            
+            <div class="dropdown-buttons">
+                <!-- ipynb file if we had a myst markdown file -->
+                
+                <!-- Download raw file -->
+                <a class="dropdown-buttons" href="../../_sources/evals/apt29/report.md.txt"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.md</button></a>
+                <!-- Download PDF via print -->
+                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+            </div>
+            
+        </div>
+
+        <!-- Edit this page -->
+        <a class="edit-button" href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/evals/apt29/report.md"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" title="Edit this page"><i class="fas fa-pencil-alt"></i></button></a>
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+        
+
+        
+    </div>
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+    </ul>
+</nav>
+
+
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/evals/apt29/report.md">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 col-xxl-7 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="all-results-report">
+<h1>All Results - Report<a class="headerlink" href="#all-results-report" title="Permalink to this headline">¶</a></h1>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Step</p></th>
+<th class="text-align:left head"><p>Procedure</p></th>
+<th class="text-align:left head"><p>Criteria</p></th>
+<th class="text-align:left head"><p>Technique</p></th>
+<th class="text-align:left head"><p>Detections</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>1.A.1</p></td>
+<td class="text-align:left"><p>User Pam executed payload rcs.3aka3.doc</p></td>
+<td class="text-align:left"><p>The rcs.3aka3.doc process spawning from explorer.exe</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1204">User Execution</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry</td><td>Telemetry showed explorer.exe executing rcs.3aka3.doc [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/1.A.1_204B00B6-A92B-4EF7-8510-4FB237703147.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/1.A.1_52540C1E-DD76-41B2-93ED-CFBA2B94ECF7.html">2</a>]</td></tr><tr><td>General</td><td>A General detection can be created to show new applications executed on the endpoint by leveraging registry modifications to \Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Compatibility Assistant\Store\ [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/1.A.1_DFD6A782-9BDB-4550-AB6B-525E825B095E.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>1.A.2</p></td>
+<td class="text-align:left"><p>Used unicode right-to-left override (RTLO) character to obfuscate file name rcs.3aka3.doc (originally cod.3aka.scr)</p></td>
+<td class="text-align:left"><p>Evidence of the right-to-left override character (U+202E) in the rcs.3aka.doc process ​OR the original filename (cod.3aka.scr)</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1036">Masquerading</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry</td><td>Telemetry shows RTLO character by looking for bi-derectional text control characters on the file name backing up the Image [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/1.A.2_F4C71BF4-E068-493D-ABAA-0C5DFA02875D.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/1.A.2_D94222A0-72F9-4F1E-84A9-F14CA1098D44.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>1.A.3</p></td>
+<td class="text-align:left"><p>Established C2 channel (192.168.0.5) via rcs.3aka3.doc payload over TCP port 1234</p></td>
+<td class="text-align:left"><p>Established network channel over port 1234</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1065">Uncommonly Used Port</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry</td><td>Telemetry showed rcs.3aka3.doc connected to 192.168.0.5 over port 1234 [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/1.A.3_B53A710B-43AB-4B57-BD92-4E787D494978.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/1.A.3_1BAC5645-83CD-4D6F-A4F8-659084401F47.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>1.A.4</p></td>
+<td class="text-align:left"><p>Used RC4 stream cipher to encrypt C2 (192.168.0.5) traffic</p></td>
+<td class="text-align:left"><p>Evidence that the network data sent over the C2 channel is encrypted</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1032">Standard Cryptographic Protocol</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>None</td><td>No detection capability demonstrated for this procedure, though data showed rcs.3aka3.doc loading cryptographic libraries. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/1.A.4_E12B701E-1222-413C-BCAF-F357CB769B3E.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>1.B.1</p></td>
+<td class="text-align:left"><p>Spawned interactive cmd.exe</p></td>
+<td class="text-align:left"><p>cmd.exe spawning from the rcs.3aka3.doc​ process</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1059">Command-Line Interface</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed cmd.exe spawning from rcs.3aka3.doc​. This event was correlated to a Technique detection for masquerading. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/1.B.1_4799C203-573A-49CB-ACE4-8C4C5CD3862A.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/1.B.1_C8D664CD-48EE-4663-AE49-D5B0B19014C7.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>1.B.2</p></td>
+<td class="text-align:left"><p>Spawned interactive powershell.exe</p></td>
+<td class="text-align:left"><p>powershell.exe spawning from cmd.exe</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1086">PowerShell</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed cmd.exe executing powershell.exe. The telemetry was correlated to a parent alert for malicious file execution. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/1.B.2_C1DBF5F2-21D5-45E4-8D9A-44905F1F8242.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/1.B.2_43B46661-3407-4302-BA8C-EE772C677DCB.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2.A.1</p></td>
+<td class="text-align:left"><p>Searched filesystem for document and media files using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing (Get-)ChildItem</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1083">File and Directory Discovery</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing ChildItem. The detection was correlated to a parent alert identifying rcs.3aka3.doc as suspicious. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/2.A.1_10C87900-CC2F-4EE1-A2F2-1832A761B050.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/2.A.1_26F6963D-00D5-466A-B4BA-59DA30892B26.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2.A.2</p></td>
+<td class="text-align:left"><p>Scripted search of filesystem for document and media files using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing (Get-)ChildItem</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1119">Automated Collection</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing ChildItem. The event was correlated to a parent General detection for malicious file execution. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/2.A.2_F96EA21C-1EB4-4988-8F98-BD018717EE2D.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/2.A.2_EAD989D4-8886-46DC-BC8C-780C10760E93.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2.A.3</p></td>
+<td class="text-align:left"><p>Recursively collected files found in C:\Users\Pam\ using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe reading files in C:\Users\Pam\</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1005">Data from Local System</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>None</td><td>No detection capability demonstrated for this procedure.</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2.A.4</p></td>
+<td class="text-align:left"><p>Compressed and stored files into ZIP (Draft.zip) using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing Compress-Archive</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1002">Data Compressed</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe compressing via Compress-Archive. The event was correlated to a parent General detection for malicious file execution. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/2.A.4_6CDEBEBF-387F-4A40-A4E8-8D4DF3A8F897.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/2.A.4_621F8EE7-E9D8-417C-9FE5-5A0D89C3736A.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2.A.5</p></td>
+<td class="text-align:left"><p>Staged files for exfiltration into ZIP (Draft.zip) using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe creating the file draft.zip</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1074">Data Staged</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed file creation of Draft.zip. This was correlated to prior a detection of the parent PowerShell process. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/2.A.5_76154CEC-1E01-4D3A-B9ED-C78978597C2B.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2.B.1</p></td>
+<td class="text-align:left"><p>Read and downloaded ZIP (Draft.zip) over C2 channel (192.168.0.5 over TCP port 1234)</p></td>
+<td class="text-align:left"><p>The rcs.3aka3.doc process reading the file draft.zip while connected to the C2 channel</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1041">Exfiltration Over Command and Control Channel</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>None</td><td>No detection capability demonstrated for this procedure.</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>3.A.1</p></td>
+<td class="text-align:left"><p>Dropped stage 2 payload (monkey.png) to disk</p></td>
+<td class="text-align:left"><p>The rcs.3aka3.doc process creating the file monkey.png</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1105">Remote File Copy</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed rcs.3aka3.doc creating monkey.png. The detection was correlated to a parent alert identifying rcs.3aka3.doc as suspicious [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/3.A.1_64249901-ADF8-4E5D-8BB4-70540A45E26C.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>3.A.2</p></td>
+<td class="text-align:left"><p>Embedded PowerShell payload in monkey.png using steganography</p></td>
+<td class="text-align:left"><p>Evidence that a PowerShell payload was within monkey.png</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1027">Obfuscated Files or Information</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry</td><td>Telemetry showed PowerShell extracting and executing the code embedded within monkey.png. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/3.A.2_0F10E1D1-EDF8-4B9F-B879-3651598D528A.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/3.A.2_94F9B4F2-1C52-4A47-BF47-C786513A05AA.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>3.B.1</p></td>
+<td class="text-align:left"><p>Modified the Registry to enable COM hijacking of sdclt.exe using PowerShell</p></td>
+<td class="text-align:left"><p>Addition of the DelegateExecute ​subkey in ​HKCU\Software\Classes\Folder\shell\open\​​command​​</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1122">Component Object Model Hijacking</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry</td><td>Telemetry showed the addition of the DelegateExecute Registry Value. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/3.B.1_04EB334D-A304-40D9-B177-0BB6E95FC23E.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>3.B.2</p></td>
+<td class="text-align:left"><p>Executed elevated PowerShell payload</p></td>
+<td class="text-align:left"><p>High integrity powershell.exe spawning from control.exe​​ (spawned from sdclt.exe)</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1088">Bypass User Account Control</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry</td><td>Telemetry showed control.exe creating a high integrity powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/3.B.2_6C8780E9-E6AF-4210-8EA0-72E9017CEE7D.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/3.B.2_EE34D18C-0549-4AFB-8B98-01160B0C9094.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>3.B.3</p></td>
+<td class="text-align:left"><p>Established C2 channel (192.168.0.5) via PowerShell payload over TCP port 443</p></td>
+<td class="text-align:left"><p>Established network channel over port 443</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1043">Commonly Used Port</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe connecting to 192.168.0.5 on port 443. The event was correlated to a parent technique detection for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/3.B.3_E209D0C5-5A2B-4AEC-92B0-1510165B8EC7.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/3.B.3_2E9B9ADC-2426-419F-8E6E-2D9338384F80.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>3.B.4</p></td>
+<td class="text-align:left"><p>Used HTTPS to transport C2 (192.168.0.5) traffic</p></td>
+<td class="text-align:left"><p>Evidence that the network data sent over the C2 channel is HTTPS</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1071">Standard Application Layer Protocol</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>None</td><td>No detection capability demonstrated for this procedure.</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>3.B.5</p></td>
+<td class="text-align:left"><p>Used HTTPS to encrypt C2 (192.168.0.5) traffic</p></td>
+<td class="text-align:left"><p>Evidence that the network data sent over the C2 channel is encrypted</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1032">Standard Cryptographic Protocol</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>None</td><td>No detection capability demonstrated for this procedure.</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>3.C.1</p></td>
+<td class="text-align:left"><p>Modified the Registry to remove artifacts of COM hijacking</p></td>
+<td class="text-align:left"><p>Deletion of of the HKCU\Software\Classes\Folder\shell\Open\command subkey</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1112">Modify Registry</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed the deletion of the command subkey. The detection was correlated to a parent alert identifying rcs.3aka3.doc as suspicious [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/3.C.1_22A46621-7A92-48C1-81BF-B3937EB4FDC3.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>4.A.1</p></td>
+<td class="text-align:left"><p>Dropped additional tools (SysinternalsSuite.zip) to disk over C2 channel (192.168.0.5)</p></td>
+<td class="text-align:left"><p>powershell.exe creating the file SysinternalsSuite.zip</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1105">Remote File Copy</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed the file write of the ZIP by PowerShell. The detection was correlated to a parent alert identifying rcs.3aka3.doc as suspicious. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.A.1_337EA65D-55A7-4890-BB2A-6A08BB9703E2.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>4.A.2</p></td>
+<td class="text-align:left"><p>Spawned interactive powershell.exe</p></td>
+<td class="text-align:left"><p>powershell.exe spawning from powershell.exe</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1086">PowerShell</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed a new powershell.exe spawning from powershell.exe. The detection was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.A.2_B86F90BD-716C-4432-AE97-901174F111A8.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.A.2_FA520225-1813-4EF2-BA58-98CB59C897D7.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>4.A.3</p></td>
+<td class="text-align:left"><p>Decompressed ZIP (SysinternalsSuite.zip) file using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing Expand-Archive</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1140">Deobfuscate/Decode Files or Information</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed PowerShell decompressing the ZIP via Expand-Archive and corresponding file writes. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.A.3_09F29912-8E93-461E-9E89-3F06F6763383.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.A.3_4310F2AF-11EF-4EAC-A968-3436FE5F6140.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>4.B.1</p></td>
+<td class="text-align:left"><p>Enumerated current running processes using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing Get-Process</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1057">Process Discovery</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing Get-Process. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.B.1_CE6D61C3-C3B5-43D2-BD3C-4C1711A822DA.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.B.1_294DFB34-1FA8-464D-B85C-F2AE163DB4A9.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>4.B.2</p></td>
+<td class="text-align:left"><p>Deleted rcs.3aka3.doc on disk using SDelete</p></td>
+<td class="text-align:left"><p>sdelete64.exe deleting the file rcs.3aka3.doc</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1107">File Deletion</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed sdelete.exe running with command-line arguments to delete the file. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.B.2_5EED5350-0BFD-4501-8B2D-4CE4F8F9E948.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.B.2_59A9AC92-124D-4C4B-A6BF-3121C98677C3.html">2</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.B.2_3A1DC1C2-B640-4FCE-A71F-2F65AB060A8C.html">3</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>4.B.3</p></td>
+<td class="text-align:left"><p>Deleted Draft.zip on disk using SDelete</p></td>
+<td class="text-align:left"><p>sdelete64.exe deleting the file draft.zip</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1107">File Deletion</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed sdelete.exe running with command-line arguments to delete the file. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.B.3_02D0BBFB-4BDF-4167-B530-253779745EF7.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.B.3_719618E8-9EE7-4693-937E-1FD39228DEBC.html">2</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.B.3_5A19E46B-8328-4867-81CF-87518A3784B1.html">3</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>4.B.4</p></td>
+<td class="text-align:left"><p>Deleted SysinternalsSuite.zip on disk using SDelete</p></td>
+<td class="text-align:left"><p>sdelete64.exe deleting the file SysinternalsSuite.zip</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1107">File Deletion</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed sdelete.exe running with command-line arguments to delete the file. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.B.4_83D62033-105A-4A02-8B75-DAB52D8D51EC.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.B.4_AC2ECFF0-D817-4893-BDED-F16B837C4DBA.html">2</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.B.4_4D6DE690-E92C-4D60-93E6-8E5C7C4DF143.html">3</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>4.C.1</p></td>
+<td class="text-align:left"><p>Enumerated user’s temporary directory path using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing $env:TEMP</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1083">File and Directory Discovery</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing $env:TEMP. The detection was correlated to a parent grouping of malicious activity. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.1_85BFD73C-875E-4208-AD9E-1922D4D4D991.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.1_D18CF7B9-CBF0-40CE-9D07-12DC83AF3B2F.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>4.C.2</p></td>
+<td class="text-align:left"><p>Enumerated the current username using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing $env:USERNAME</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1033">System Owner/User Discovery</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing $env:USERNAME. The detection was correlated to a parent grouping of malicious activity. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.2_A45F53ED-65CB-4739-A4D3-F2B0F08F86F8.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.2_6F3D1615-69D6-41C6-90D0-39ACA14941BD.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>4.C.3</p></td>
+<td class="text-align:left"><p>Enumerated the computer hostname using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing $env:COMPUTERNAME</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1082">System Information Discovery</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing $env:COMPUTERNAME. The detection was correlated to a parent grouping of malicious activity. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.3_9B610803-2B27-4DA4-9AAC-C859F48510DA.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.3_1BA09833-CDF3-44BE-86D0-6F5B1C66D151.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>4.C.4</p></td>
+<td class="text-align:left"><p>Enumerated the current domain name using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing $env:USERDOMAIN</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1016">System Network Configuration Discovery</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing $env:USERDOMAIN. The detection was correlated to a parent grouping of malicious activity. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.4_1418A09E-BC90-4BC5-A0BC-1ECC4283ACF4.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.4_8D215D46-CE33-4CB7-9934-FF9205971570.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>4.C.5</p></td>
+<td class="text-align:left"><p>Enumerated the current process ID using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing $PID</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1057">Process Discovery</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing $PID. The detection was correlated to a parent grouping of malicious activity. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.5_2DBE08DB-BADD-40AD-A037-DEBD29E207C6.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.5_9CFC783B-2DC8-4A3D-AC7B-2DF890827E2E.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>4.C.6</p></td>
+<td class="text-align:left"><p>Enumerated the OS version using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing​ Gwmi Win32_OperatingSystem</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1082">System Information Discovery</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing Gwmi Win32_OperatingSystem. The detection was correlated to a parent grouping of malicious activity. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.6_5A2B7006-A887-465F-9D41-AED8F6AECBE1.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.6_69A3B3AC-42BE-44F6-A418-C2356894F745.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>4.C.7</p></td>
+<td class="text-align:left"><p>Enumerated anti-virus software using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing​ Get-WmiObject …​ -Class AntiVirusProduct</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1063">Security Software Discovery</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing Get-WmiObject …​ -Class AntiVirusProduct. The detection was correlated to a parent grouping of malicious activity. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.7_E1E0849D-1771-438B-9D8F-A67B7EC48B97.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.7_956D78C8-FCB5-440D-B059-6790F729D02D.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>4.C.8</p></td>
+<td class="text-align:left"><p>Enumerated firewall software using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing Get-WmiObject …​​ -Class FireWallProduct</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1063">Security Software Discovery</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing Get-WmiObject …​​ -Class FireWallProduct. The detection was correlated to a parent grouping of malicious activity. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.8_9F924458-73AD-42C8-B98E-0CB4B4355B9B.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.8_B7549913-AF53-4F9A-9C3F-4106578EA5F2.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>4.C.9</p></td>
+<td class="text-align:left"><p>Enumerated user’s domain group membership via the NetUserGetGroups API</p></td>
+<td class="text-align:left"><p>powershell.exe executing the NetUserGetGroups API</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1069">Permission Groups Discovery</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>technique(alert)</td><td>A technique alert can be generated by looking for domain users (non *$) requesting handles to SAM_DOMAIN objects from the DC. This can be correlated with network logon sessions created by the user performing the action remotely. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.9_FA458669-1C94-4150-AFFC-A3236FC6B275.html">1</a>]</td></tr><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing:​ Invoke-NetUserGetGroups. The detection was correlated to a parent grouping of malicious activity. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.9_11827B7C-8010-443C-9116-500289E0ED57.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.9_52E7DFEA-05BC-4B81-BFE9-DE6085FA8228.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>4.C.10</p></td>
+<td class="text-align:left"><p>Executed API call by reflectively loading Netapi32.dll</p></td>
+<td class="text-align:left"><p>The NetUserGetGroups API function loaded into powershell.exe from Netapi32.dll</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1106">Execution through API</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed Netapi32.dll loaded into powershell.exe. The detection was correlated to a parent grouping of malicious activity. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.10_0B50643F-98FA-4F4A-8E22-9257D85AD7C5.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>4.C.11</p></td>
+<td class="text-align:left"><p>Enumerated user’s local group membership via the NetUserGetLocalGroups API</p></td>
+<td class="text-align:left"><p>powershell.exe executing the NetUserGetLocalGroups API</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1069">Permission Groups Discovery</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing:​ Invoke-NetUserGetLocalGroups. The detection was correlated to a parent grouping of malicious activity. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.11_1CD16ED8-C812-40B1-B968-F0DABFC79DDF.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.11_F0AC46E2-63EA-4C8E-AF39-6631444451E5.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>4.C.12</p></td>
+<td class="text-align:left"><p>Executed API call by reflectively loading Netapi32.dll</p></td>
+<td class="text-align:left"><p>The NetUserGetLocalGroups API function loaded into powershelle.exe from Netapi32.dll</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1106">Execution through API</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed Netapi32.dll loaded into powershell.exe. The detection was correlated to a parent grouping of malicious activity. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/4.C.12_53CEF026-66EF-4B26-B5C9-10D4BBA3F9E8.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>5.A.1</p></td>
+<td class="text-align:left"><p>Created a new service (javamtsup) that executes a service binary (javamtsup.exe) at system startup</p></td>
+<td class="text-align:left"><p>powershell.exe creating the Javamtsup service</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1050">New Service</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry</td><td>Telemetry showed a registry event for the creation of javamtsup service. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/5.A.1_A16CE10D-6EE3-4611-BE9B-B023F36E2DFF.html">1</a>]</td></tr><tr><td>Telemetry(Correlated)</td><td>Telemetry showed PowerShell created the new service javamtsup. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/5.A.1_E76C4174-C24A-4CA3-9EA8-46C5286D3B6F.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/5.A.1_AA3EF640-2720-4E8A-B86D-DFCF2FDB86BD.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>5.B.1</p></td>
+<td class="text-align:left"><p>Created a LNK file (hostui.lnk) in the Startup folder that executes on login</p></td>
+<td class="text-align:left"><p>powershell.exe creating the file hostui.lnk in the Startup folder</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1060">Registry Run Keys / Startup Folder</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed the file write of hostui.lnk in the Startup folder. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/5.B.1_611FCA99-97D0-4873-9E51-1C1BA2DBB40D.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>6.A.1</p></td>
+<td class="text-align:left"><p>Read the Chrome SQL database file to extract encrypted credentials</p></td>
+<td class="text-align:left"><p>accesschk.exe reading files within %APPDATALOCAL%\Google\chrome\user data\default\</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1081">Credentials in Files</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>None</td><td>No detection capability demonstrated for this procedure. However, with a SACL on %APPDATALOCAL%\Google\chrome\user data\default, it would generate an event.</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>6.A.2</p></td>
+<td class="text-align:left"><p>Executed the CryptUnprotectedData API call to decrypt Chrome passwords</p></td>
+<td class="text-align:left"><p>accesschk.exe executing the CryptUnprotectedData API</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1003">Credential Dumping</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>None</td><td>No detection capability demonstrated for this procedure.</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>6.A.3</p></td>
+<td class="text-align:left"><p>Masqueraded a Chrome password dump tool as accesscheck.exe, a legitimate Sysinternals tool</p></td>
+<td class="text-align:left"><p>Evidence that accesschk.exe is not the legitimate Sysinternals tool</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1036">Masquerading</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed hash of accesschk.exe, which can be used to verify it is not the legitimate Sysinternals tool. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/6.A.3_0A19F9B7-5E17-47E5-8015-29E9ABC09ADC.html">1</a>]</td></tr><tr><td>General(Correlated)</td><td>A General alert detection can be generated for accesschk.exe execution after searching for HASH in VirusTotal. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/6.A.3_1FCE98FC-1FF9-41CB-9C25-0235729A2B01.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>6.B.1</p></td>
+<td class="text-align:left"><p>Exported a local certificate to a PFX file using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe creating a certificate file exported from the system</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1145">Private Keys</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed file create event for a $RandomFileName.pfx file by powershell.exe. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/6.B.1_6392C9F1-D975-4F75-8A70-433DEDD7F622.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>6.C.1</p></td>
+<td class="text-align:left"><p>Dumped password hashes from the Windows Registry by injecting a malicious DLL into Lsass.exe</p></td>
+<td class="text-align:left"><p>powershell.exe injecting into lsass.exe OR lsass.exe reading Registry keys under HKLM:\SAM\SAM\Domains\Account\Users\</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1003">Credential Dumping</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry shows powershell.exe using CreateRemoteThread API call to inject into lsass.exe. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/6.C.1_7B2CE2A5-4386-4EED-9A03-9B7D1049C4AE.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>7.A.1</p></td>
+<td class="text-align:left"><p>Captured and saved screenshots using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing the CopyFromScreen function from System.Drawing.dll</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1113">Screen Capture</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>powershell.exe loading System.Drawing.ni.dll, indicating possible Screen Capture. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/7.A.1_3B4E5808-3C71-406A-B181-17B0CE3178C9.html">1</a>]</td></tr><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing CopyFromScreen from System.Drawing.dll. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/7.A.1_B374D3E7-3580-441F-8D6E-48C40CBA7922.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/7.A.1_2AA4D448-3893-4F31-9497-0F8E2B7E3CFD.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>7.A.2</p></td>
+<td class="text-align:left"><p>Captured clipboard contents using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing Get-Clipboard</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1115">Clipboard Data</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing Get-Clipboard. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/7.A.2_F4609F7E-C4DB-4327-91D4-59A58C962A02.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/7.A.2_6EC8D7EB-153B-459A-9333-51208449DB99.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>7.A.3</p></td>
+<td class="text-align:left"><p>Captured user keystrokes using the GetAsyncKeyState API</p></td>
+<td class="text-align:left"><p>powershell.exe executing the GetAsyncKeyState API</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1056">Input Capture</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>None</td><td>No detection capability demonstrated for this procedure.</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>7.B.1</p></td>
+<td class="text-align:left"><p>Read data in the user’s Downloads directory using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe reading files in C:\Users\pam\Downloads\</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1005">Data from Local System</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>None</td><td>No detection capability demonstrated for this procedure.</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>7.B.2</p></td>
+<td class="text-align:left"><p>Compressed data from the user’s Downloads directory into a ZIP file (OfficeSupplies.7z) using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe creating the file OfficeSupplies.7z</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1002">Data Compressed</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed the file create event for OfficeSupplies.7z. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/7.B.2_BA68938F-7506-4E20-BC06-0B44B535A0B1.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>7.B.3</p></td>
+<td class="text-align:left"><p>Encrypted data from the user’s Downloads directory using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing Compress-7Zip with the password argument used for encryption</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1022">Data Encrypted</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing Compress-7Zip with arguments for encryption. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/7.B.3_4C19DDB9-9763-4D1C-9B9D-788ECF193778.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/7.B.3_C670DAFF-B1FD-45B2-9DEB-AC5AEC273EE7.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>7.B.4</p></td>
+<td class="text-align:left"><p>Exfiltrated collection (OfficeSupplies.7z) to WebDAV network share using PowerShell</p></td>
+<td class="text-align:left"><p>powershell executing Copy-Item pointing to an attack-controlled WebDav network share (192.168.0.4:80)</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1048">Exfiltration Over Alternative Protocol</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed PoweShell Copy-Item to a remote adversary WebDav network share (192.168.0.4). The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/7.B.4_7AAC6658-2B5C-4B4A-B7C9-D42D288D5218.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/7.B.4_B19F8E16-AA6C-45C1-8A0D-92812830C237.html">2</a>]</td></tr><tr><td>technique(Alert)</td><td>A technique alert can be created for svchost.exe spawning rundll32.exe with command arguments like C:\windows\system32\davclnt.dll,DavSetCookie. This is context around the webclient used for the webdav activity. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/7.B.4_C10730EA-6345-4934-AA0F-B0EFCA0C4BA6.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>8.A.1</p></td>
+<td class="text-align:left"><p>Enumerated remote systems using LDAP queries</p></td>
+<td class="text-align:left"><p>powershell.exe making LDAP queries over port 389 to the Domain Controller (10.0.0.4)</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1018">Remote System Discovery</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe establishing a connection to NewYork (10.0.0.4) over TCP port 389. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/8.A.1_C1307FC1-19B7-467B-9705-95147B492CC7.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/8.A.1_542C2E36-0BC0-450B-A34F-C600E9DC396B.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>8.A.2</p></td>
+<td class="text-align:left"><p>Established WinRM connection to remote host NASHUA (10.0.1.6)</p></td>
+<td class="text-align:left"><p>Network connection to NASHUA (10.0.1.6) over port 5985</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1018">Remote System Discovery</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed network connection to remote host NASHUA (10.0.1.6) over port TCP 5985. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/8.A.2_0A5428EA-171D-4944-B27C-0EBC3D557FAD.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/8.A.2_0376E07E-3C48-4B89-A50D-B3FAAB23EDAB.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>8.A.3</p></td>
+<td class="text-align:left"><p>Enumerated processes on remote host Scranton (10.0.1.4) using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing Get-Process</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1057">Process Discovery</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed wsmprovhost.exe executing Get-Process. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/8.A.3_6C481791-2AE8-4F6B-9BFE-C1F6DE1E0BC0.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/8.A.3_088846AF-FF45-4FC4-896C-64F24517BBD7.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>8.B.1</p></td>
+<td class="text-align:left"><p>Copied python.exe payload from a WebDAV share (192.168.0.4) to remote host Scranton (10.0.1.4)</p></td>
+<td class="text-align:left"><p>The file python.exe created on Scranton (10.0.1.4)</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1105">Remote File Copy</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry</td><td>Telemetry showed python.exe being created on NASHUA (10.0.1.6). Windows Security event logs tells us it came from SCRANTON (10.0.1.4) and via ADMIN$ share. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/8.B.1_97402495-2449-415F-BDAD-5CC8EFC1E1B5.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/8.B.1_D804F2D8-C65B-42D6-A731-C13BE2BDB441.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>8.B.2</p></td>
+<td class="text-align:left"><p>python.exe payload was packed with UPX</p></td>
+<td class="text-align:left"><p>Evidence that the file python.exe is packed</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1045">Software Packing</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>None</td><td>No detection capability demonstrated for this procedure.</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>8.C.1</p></td>
+<td class="text-align:left"><p>Logged on to remote host NASHUA (10.0.1.6) using valid credentials for user Pam</p></td>
+<td class="text-align:left"><p>Successful logon as user Pam on NASHUA (10.0.1.6)</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1078">Valid Accounts</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry</td><td>Telemetry showed a valid logon on NASHUA (10.0.1.6) as user Pam from SCRANTON (10.0.1.4). [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/8.C.1_AF5E8E22-DEC8-40AF-98AD-84BE1AC3F34C.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>8.C.2</p></td>
+<td class="text-align:left"><p>Established SMB session to remote host NASHUA’s (10.0.1.6) IPC$ share using PsExec</p></td>
+<td class="text-align:left"><p>SMB session to NASHUA (10.0.1.6) over TCP port 445/135 OR evidence of usage of a Windows share</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1077">Windows Admin Shares</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry</td><td>Telemetry showed PsExec (PSEXESVC) stablishing an SMB session to remote host NASHUAs (10.0.1.6) IPC$ share. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/8.C.2_C91A4BF2-22B1-421B-B1DE-626778AD3BBB.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>8.C.3</p></td>
+<td class="text-align:left"><p>Executed python.exe using PSExec</p></td>
+<td class="text-align:left"><p>python.exe spawned by PSEXESVC.exe</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1035">Service Execution</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed python.exe spawned by PSEXESVC.exe. This can be Correlated with services.exe as a grand-parent. [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/8.C.3_BDE98B9B-77DD-4AD4-B755-463C3C27EE5F.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/8.C.3_11D81CCD-163F-4347-8F1D-072F4B4B3B26.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>9.A.1</p></td>
+<td class="text-align:left"><p>Dropped rar.exe to disk on remote host NASHUA (10.0.1.6)</p></td>
+<td class="text-align:left"><p>python.exe creating the file rar.exe</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1105">Remote File Copy</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed file created event for python.exe creating rar.exe. This event was correlated to psexesvc.exe executing python.exe [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/9.A.1_1C94AFAF-74A9-4578-B026-7AA6948D9DBE.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>9.A.2</p></td>
+<td class="text-align:left"><p>Dropped rar.exe to disk on remote host NASHUA (10.0.1.6)</p></td>
+<td class="text-align:left"><p>python.exe creating the file sdelete64.exe</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1105">Remote File Copy</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed file created event for python.exe creating sdelete64.exe. This event was correlated to psexesvc.exe executing python.exe [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/9.A.2_F98D589E-94A9-4974-A142-7E75D9760118.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>9.B.1</p></td>
+<td class="text-align:left"><p>Spawned interactive powershell.exe</p></td>
+<td class="text-align:left"><p>powershell.exe​ spawning from python.exe</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1086">PowerShell</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetery showed python.exe executing powershell.exe. This event was correlated to psexesvc.exe executing python.exe [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/9.B.1_77D403CE-2832-4927-B74A-42D965B5AF94.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/9.B.1_B56C6666-EEF3-4028-85D4-6AAE01CD506C.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>9.B.2</p></td>
+<td class="text-align:left"><p>Searched filesystem for document and media files using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing (Get-)ChildItem​</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1083">File and Directory Discovery</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing ChildItem. This event was correlated to psexesvc.exe executing python.exe [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/9.B.2_3DDF2B9B-10AC-454C-BFA0-1F7BD011947E.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/9.B.2_E7ED941E-F3B3-441B-B43D-1F1B194D6303.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>9.B.3</p></td>
+<td class="text-align:left"><p>Scripted search of filesystem for document and media files using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe executing (Get-)ChildItem</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1119">Automated Collection</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing ChildItem. This event was correlated to psexesvc.exe executing python.exe [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/9.B.3_6AE2BDBE-48BD-4323-8572-B2214D244013.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/9.B.3_6A0DF333-5329-42B5-9AF6-60AB647051CD.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>9.B.4</p></td>
+<td class="text-align:left"><p>Recursively collected files found in C:\Users\Pam\ using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe reading files in C:\Users\Pam\</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1005">Data from Local System</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>None</td><td>No detection capability demonstrated for this procedure.</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>9.B.5</p></td>
+<td class="text-align:left"><p>Staged files for exfiltration into ZIP (working.zip in AppData directory) using PowerShell</p></td>
+<td class="text-align:left"><p>powershell.exe creating the file working.zip</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1074">Data Staged</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed a File Created event for powershell.exe creating working.zip. This event was correlated to psexesvc.exe executing python.exe [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/9.B.5_17B04626-D628-4CFC-9EF1-7FF9CD48FF5E.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>9.B.6</p></td>
+<td class="text-align:left"><p>Encrypted staged ZIP (working.zip in AppData directory) into working.zip (on Desktop) using rar.exe</p></td>
+<td class="text-align:left"><p>powershell.exe executing rar.exe with the -a parameter for a password to use for encryption</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1022">Data Encrypted</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing rar.exe with command-line arguments to encrypt working.zip. This event was correlated to psexesvc.exe executing python.exe [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/9.B.6_9EC44B89-9B82-41F2-B11E-D49392853C63.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/9.B.6_579D025B-DFFB-416B-B07A-A36D9CE1EF93.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>9.B.7</p></td>
+<td class="text-align:left"><p>Compressed staged ZIP (working.zip in AppData directory) into working.zip (on Desktop) using rar.exe</p></td>
+<td class="text-align:left"><p>powershell.exe executing rar.exe</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1002">Data Compressed</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed powershell.exe executing rar.exe with command-line arguments to compress working.zip. This event was correlated to psexesvc.exe executing python.exe [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/9.B.7_FD1AE986-FD91-4B91-8BCE-42C9295949F7.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/9.B.7_8A865709-E762-4A26-BDEC-A762FB37947B.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>9.B.8</p></td>
+<td class="text-align:left"><p>Read and downloaded ZIP (working.zip on Desktop) over C2 channel (192.168.0.5 over TCP port 8443)</p></td>
+<td class="text-align:left"><p>python.exe reading the file working.zip while connected to the C2 channel</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1041">Exfiltration Over Command and Control Channel</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>None</td><td>No detection capability demonstrated for this procedure.</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>9.C.1</p></td>
+<td class="text-align:left"><p>Deleted rar.exe on disk using SDelete</p></td>
+<td class="text-align:left"><p>sdelete64.exe deleting the file rar.exe</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1107">File Deletion</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed a “File Delete” event for rar.exe. This event was correlated to psexesvc.exe executing python.exe [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/9.C.1_C20D8999-0B0D-4A50-9CDC-2BAAC4C7B577.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>9.C.2</p></td>
+<td class="text-align:left"><p>Deleted working.zip (from Desktop) on disk using SDelete</p></td>
+<td class="text-align:left"><p>sdelete64.exe deleting the file \Desktop\working.zip</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1107">File Deletion</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed a “File Delete” event for Desktop\working.zip. This event was correlated to psexesvc.exe executing python.exe [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/9.C.2_CB869916-7BCF-4F9F-8B95-C19B407B91E3.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>9.C.3</p></td>
+<td class="text-align:left"><p>Deleted working.zip (from AppData directory) on disk using SDelete</p></td>
+<td class="text-align:left"><p>sdelete64.exe deleting the file \AppData\Roaming\working.zip</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1107">File Deletion</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed a “File Delete” event for \AppData\Roaming\working.zip. This event was correlated to psexesvc.exe executing python.exe [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/9.C.3_59F37185-0BE4-4D81-8B81-FBFBD8055587.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>9.C.4</p></td>
+<td class="text-align:left"><p>Deleted SDelete on disk using cmd.exe del command</p></td>
+<td class="text-align:left"><p>cmd.exe deleting the file sdelete64.exe</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1107">File Deletion</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry(Correlated)</td><td>Telemetry showed a “File Delete” event for sdelete64.exe. This event was correlated to psexesvc.exe executing python.exe [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/9.C.4_0FC62E32-9052-49EB-A5D5-1DF316D634AD.html">1</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>10.A.1</p></td>
+<td class="text-align:left"><p>Executed persistent service (javamtsup) on system startup</p></td>
+<td class="text-align:left"><p>javamtsup.exe spawning from services.exe</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1035">Service Execution</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>Telemetry</td><td>Telemetry showed javamtsup.exe with parent process services.exe [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/10.A.1_CB9F90C0-93EA-469A-9515-7DF27DF1592A.html">1</a>] [<a class="reference external" href="https://threathunterplaybook.com/evals/apt29/detections/10.A.1_4DABE602-E648-4C1E-81B3-A2AC96F94CE0.html">2</a>]</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>10.B.1</p></td>
+<td class="text-align:left"><p>Executed LNK payload (hostui.lnk) in Startup Folder on user login</p></td>
+<td class="text-align:left"><p>Evidence that the file hostui.lnk (which executes hostui.bat as a byproduct) was executed from the Startup Folder</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1060">Registry Run Keys / Startup Folder</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>None</td><td>No detection capability demonstrated for this procedure.</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>10.B.2</p></td>
+<td class="text-align:left"><p>Executed PowerShell payload via the CreateProcessWithToken API</p></td>
+<td class="text-align:left"><p>hostui.exe executing the CreateProcessWithToken API</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1106">Execution through API</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>None</td><td>No detection capability demonstrated for this procedure.</td></tr></tbody></table></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>10.B.3</p></td>
+<td class="text-align:left"><p>Manipulated the token of the PowerShell payload via the CreateProcessWithToken API</p></td>
+<td class="text-align:left"><p>hostui.exe manipulating the token of powershell.exe via the CreateProcessWithToken API OR powershell.exe executing with the stolen token of explorer.exe</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://attack.mitre.org/techniques/T1134">Access Token Manipulation</a></p></td>
+<td class="text-align:left"><p><table><thead><tr><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td>None</td><td>No detection capability demonstrated for this procedure.</td></tr></tbody></table></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "hunters-forge/ThreatHunter-Playbook",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "evals/apt29"
+        }
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">APT 29</a>
+    <a class='right-next' id="next-link" href="../../notebooks/campaigns/apt29Evals.html" title="next page">Free Telemetry Notebook</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.1.<br/>
+    </p>
+  </div>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../../_static/js/index.js"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Security Account Manager Remote Protocol (SAMRP) &#8212; Threat Hunter Playbook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/mystnb.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .secondtoggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="../_static/thebelab.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="canonical" href="https://threathunterplaybook.com/library/security_account_manager_protocol.html" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+<!-- Put requirejs at the end so it's always after bootstrap -->
+<!-- TODO: remove this once https://github.com/pandas-dev/pydata-sphinx-theme/pull/149 is merged -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://threathunterplaybook.com/library/security_account_manager_protocol.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Security Account Manager Remote Protocol (SAMRP)" />
+<meta property="og:description" content="Security Account Manager Remote Protocol (SAMRP)  Accounts are always created relative to an issuing authority. In Windows, the issuing authority is referred to" />
+<meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Threat Hunter Playbook</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  
+  <ul class="nav sidenav_l1">
+<li class="navbar-special">
+<p class="margin-caption">Pre-Hunt Activities</p>
+</li>
+  <li class="">
+    <a href="../pre-hunt/data_management.html">Data Management</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Campaign Notebooks</p>
+</li>
+  <li class="">
+    <a href="../evals/intro.html">ATT&CK Evaluations</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Targeted Notebooks</p>
+</li>
+  <li class="">
+    <a href="../notebooks/windows/windows.html">Windows</a>
+  </li>
+  <li class="">
+    <a href="../notebooks/linux/linux.html">Linux</a>
+  </li>
+  <li class="">
+    <a href="../notebooks/mac/mac.html">Mac</a>
+  </li>
+</ul>
+</nav>
+<p class="navbar_footer">Powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse" data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu" aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation" title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i class="fas fa-download"></i></button>
+
+            
+            <div class="dropdown-buttons">
+                <!-- ipynb file if we had a myst markdown file -->
+                
+                <!-- Download raw file -->
+                <a class="dropdown-buttons" href="../_sources/library/security_account_manager_protocol.md.txt"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.md</button></a>
+                <!-- Download PDF via print -->
+                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+            </div>
+            
+        </div>
+
+        <!-- Edit this page -->
+        <a class="edit-button" href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/library/security_account_manager_protocol.md"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" title="Edit this page"><i class="fas fa-pencil-alt"></i></button></a>
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+        
+
+        
+    </div>
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+    </ul>
+</nav>
+
+
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/library/security_account_manager_protocol.md">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 col-xxl-7 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="security-account-manager-remote-protocol-samrp">
+<h1>Security Account Manager Remote Protocol (SAMRP)<a class="headerlink" href="#security-account-manager-remote-protocol-samrp" title="Permalink to this headline">¶</a></h1>
+<p>Accounts are always created relative to an issuing authority. In Windows, the issuing authority is referred to as a domain. A domain can be either a local domain or extend across a network. Domains store information about their accounts in an account database. Windows uses Active Directory as the account database in domain-based environments, whereas in environments that are not domain-based, it uses the security account manager (SAM) built-in database as the account database.</p>
+</div>
+<div class="section" id="security-account-manager-remote-protocol-samrp-client-to-server-c">
+<h1>Security Account Manager Remote Protocol (SAMRP) Client-To-Server (C)<a class="headerlink" href="#security-account-manager-remote-protocol-samrp-client-to-server-c" title="Permalink to this headline">¶</a></h1>
+<p>The Security Account Manager (SAM) Remote Protocol (Client-to-Server) depends on the RPC protocol (uses RPC as a transport), and provides management functionality for an account store or directory containing users and groups. The goal of this protocol is to enable IT administrators and end users to manage users, groups, and computers. This protocol achieves its goal by enabling the creation, reading, updating, and deleting of security principal information. These security principals could be in any account store. Windows implements this protocol, for example, in a directory service (Active Directory) and in a computer-local security account database known as the Security Account Manager (SAM) database.</p>
+<p>This protocol follows two perspectives when understanding and implementing this protocol:</p>
+<div class="section" id="object-based-perspective">
+<h2>Object-based perspective<a class="headerlink" href="#object-based-perspective" title="Permalink to this headline">¶</a></h2>
+<p>The object-based perspective shows that the protocol exposes five main object abstractions: a server object, a domain object, a group object, an alias object (an “alias” being a type of group), and a user object. A client obtains a “handle” (an RPC context handle) to one of these objects and then performs one or more actions on the object.</p>
+<p>You can find the list of methods that operate on each of the respective object types in <a class="reference external" href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-samr/8aaff2f7-1edd-41a0-ab58-4807ac6124c5">here</a></p>
+</div>
+<div class="section" id="method-based-perspective">
+<h2>Method Based Perspective<a class="headerlink" href="#method-based-perspective" title="Permalink to this headline">¶</a></h2>
+<p>The method-based perspective is used to show a common set of operations for each object type. The operations fall into patterns. A list of the patterns and associated methods, along with a description of each pattern, is available <a class="reference external" href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-samr/d7b62596-4a46-4556-92dc-3aba6d517907">here</a>. A brief description is available below:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Pattern</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Open</p></td>
+<td><p>This pattern returns an RPC context handle that references a specific object type. A client uses this pattern by specifying a specific access for the handle in the request, and using the returned handle to call other methods that require the returned handle along with the associated access.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Enumerate</p></td>
+<td><p>This pattern allows a client to obtain a complete list of all objects of a certain type (domain, group, alias, or user).</p></td>
+</tr>
+<tr class="row-even"><td><p>Selective Enumerate</p></td>
+<td><p>This pattern allows a client to obtain a partial list of objects based on the name of the objects. These methods, for example, allow a client to obtain a bounded number of objects from a virtual list of objects sorted alphabetically by name starting with a client-specified prefix, such as “Chr”.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Create</p></td>
+<td><p>This pattern allows specified objects to be created. A handle to the newly created object is returned.</p></td>
+</tr>
+<tr class="row-even"><td><p>Query</p></td>
+<td><p>This pattern allows specified attributes of an object to be returned. The client specifies which attributes to return by using an “information level”. The information level is an enumeration that the server understands and translates into a specific structure to return; the structure contains the attributes indicated by the information level.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Set</p></td>
+<td><p>This pattern allows specified object attributes to be set. The client indicates the attributes that are to be updated by specifying an “information level”. Similar to the query pattern of methods, the information level specifies the attributes that are being sent in the request.</p></td>
+</tr>
+<tr class="row-even"><td><p>Delete</p></td>
+<td><p>This pattern allows a client to delete a specified object.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Membership</p></td>
+<td><p>This pattern allows a client to add to, remove from, or query the membership list for either a group or an alias object.</p></td>
+</tr>
+<tr class="row-even"><td><p>Membership-Of</p></td>
+<td><p>This pattern allows a client to obtain the groups or aliases that a user or collection of security identifiers (SIDs) is a member of.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Change Password</p></td>
+<td><p>This pattern allows a client to change a password on a user object. The client provides the current password and new password, and the server verifies that the client-presented current password matches the server-persisted current password for the user. If there is a match, the new password is persisted.</p></td>
+</tr>
+<tr class="row-even"><td><p>Lookup</p></td>
+<td><p>This pattern allows a client to translate between a relative identifier (RID) or SID, and a user-friendly display name (the name of the object).</p></td>
+</tr>
+<tr class="row-odd"><td><p>Security</p></td>
+<td><p>This pattern allows a client to specify or query access control with a granularity of individual objects.</p></td>
+</tr>
+<tr class="row-even"><td><p>Miscellaneous</p></td>
+<td><p>The following methods do not fall into a general pattern.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="transport">
+<h2>Transport<a class="headerlink" href="#transport" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>This protocol uses UUID 12345778-1234-ABCD-EF00-0123456789AC to identify the RPC interface</p></li>
+<li><p>This protocol uses the following RPC protocol sequences:</p>
+<ul>
+<li><p>RPC over SMB ( This protocol uses the pipe name “\PIPE\samr” for the endpoint name )</p></li>
+<li><p>RPC over TCP ( This protocol uses RPC dynamic endpoints )</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="protocol-details">
+<h2>Protocol Details<a class="headerlink" href="#protocol-details" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="server">
+<h3>Server<a class="headerlink" href="#server" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>This protocol enables create, read, update, and delete semantics over an account domain. Five abstract objects are exposed through this protocol: server, domain, group, alias, and user. User, group, and alias objects can be created and deleted; all objects can be updated and read.</p></li>
+<li><p>For methods that accept a context handle, the security model is a handle-based security model. A client obtains a handle with a client-specified access for that handle. The handle can then be used for operations that require the granted access.</p></li>
+</ul>
+</div>
+<div class="section" id="client">
+<h3>Client<a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>The client MUST create a secure RPC session such that the server can identify and determine the authorization for the client.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="abusing-remote-calls-to-sam">
+<h2>Abusing Remote Calls to SAM<a class="headerlink" href="#abusing-remote-calls-to-sam" title="Permalink to this headline">¶</a></h2>
+<p>The SAMRPC protocol makes it possible for a low privileged user to query a machine on a network for data. For example, a user can use SAMRPC to enumerate users, including privileged accounts such as local or domain administrators, or to enumerate groups and group memberships from the local SAM and Active Directory. This information can provide important context and serve as a starting point for an attacker to compromise a domain or networking environment.</p>
+<p>By default, the SAM can be accessed remotely (via SAMR) by any authenticated user, including network connected users, which effectively means that any domain user is able to access it. Windows 10 had introduced an option to control the remote access to the SAM, through a specific registry value. On Windows Anniversary update (Windows 10 Version 1607) the default permissions were changed to allow remote access only to administrators. An accompanying Group Policy setting was added, which gives a user-friendly interface to alter these default permissions.</p>
+<p>There are corresponding events that indicate when remote calls to the SAM are restricted, what accounts attempted to read from the SAM database, and more <a class="reference external" href="https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-access-restrict-clients-allowed-to-make-remote-sam-calls#related-events">here</a>.</p>
+</div>
+</div>
+<div class="section" id="references">
+<h1>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-access-restrict-clients-allowed-to-make-remote-sam-calls#audit-only-mode</p></li>
+<li><p>https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-samr/8aaff2f7-1edd-41a0-ab58-4807ac6124c5</p></li>
+<li><p>https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-access-restrict-clients-allowed-to-make-remote-sam-calls</p></li>
+</ul>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "hunters-forge/ThreatHunter-Playbook",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "library"
+        }
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.1.<br/>
+    </p>
+  </div>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

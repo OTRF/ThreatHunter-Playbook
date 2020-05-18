@@ -1,0 +1,37 @@
+# E12B701E-1222-413C-BCAF-F357CB769B3E
+
+## Data Sources
+* Microsoft-Windows-Sysmon/Operational<br>
+
+## Logic
+
+```
+SELECT Message
+FROM apt29Host
+WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+  AND EventID = 7
+  AND Image LIKE "%3aka3%"
+  AND LOWER(ImageLoaded) LIKE '%bcrypt.dll'
+
+```
+
+## Output
+
+```
+Image loaded:
+RuleName: -
+UtcTime: 2020-05-02 02:55:56.949
+ProcessGuid: {47ab858c-e13c-5eac-a903-000000000400}
+ProcessId: 8524
+Image: C:\ProgramData\victim\â€®cod.3aka3.scr
+ImageLoaded: C:\Windows\System32\bcrypt.dll
+FileVersion: 10.0.18362.267 (WinBuild.160101.0800)
+Description: Windows Cryptographic Primitives Library
+Product: Microsoft® Windows® Operating System
+Company: Microsoft Corporation
+OriginalFileName: bcrypt.dll
+Hashes: SHA1=421C35E0949143DE72C8F98776565D24815AD47E,MD5=F46778029BE7D755EBDCDF048EA62A4B,SHA256=907A4D1D405283AD24BBA1F9A763C5118A33574F3E0EC7FC543F65B24CC0A748,IMPHASH=E5649DCD6FA9472DB9A89CCD123913C0
+Signed: true
+Signature: Microsoft Windows
+SignatureStatus: Valid
+```

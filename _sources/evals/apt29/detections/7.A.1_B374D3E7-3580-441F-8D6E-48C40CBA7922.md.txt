@@ -1,0 +1,65 @@
+# B374D3E7-3580-441F-8D6E-48C40CBA7922
+
+## Data Sources
+* Microsoft-Windows-Sysmon/Operational<br>* Microsoft-Windows-PowerShell/Operational<br>
+
+## Logic
+
+```
+SELECT Payload
+FROM apt29Host f
+INNER JOIN (
+    SELECT d.ProcessId, d.ParentProcessId
+    FROM apt29Host d
+    INNER JOIN (
+      SELECT a.ProcessGuid, a.ParentProcessGuid
+      FROM apt29Host a
+      INNER JOIN (
+        SELECT ProcessGuid
+        FROM apt29Host
+        WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+            AND EventID = 1
+            AND LOWER(Image) LIKE "%control.exe"
+            AND LOWER(ParentImage) LIKE "%sdclt.exe"
+      ) b
+      ON a.ParentProcessGuid = b.ProcessGuid
+      WHERE a.Channel = "Microsoft-Windows-Sysmon/Operational"
+        AND a.EventID = 1
+        AND a.IntegrityLevel = "High"
+    ) c
+    ON d.ParentProcessGuid= c.ProcessGuid
+    WHERE d.Channel = "Microsoft-Windows-Sysmon/Operational"
+      AND d.EventID = 1
+      AND d.Image LIKE '%powershell.exe'
+) e
+ON f.ExecutionProcessID = e.ProcessId
+WHERE f.Channel = "Microsoft-Windows-PowerShell/Operational"
+AND f.EventID = 4103
+AND LOWER(f.Payload) LIKE "%copyfromscreen%"
+
+```
+
+## Output
+
+```
+CommandInvocation(Start-Job): "Start-Job"
+ParameterBinding(Start-Job): name="Name"; value="Screenshot"
+ParameterBinding(Start-Job): name="ScriptBlock"; value=" 
+  Write-Host "`nJobPID`n------`n$PID"
+  while($true){
+      $RandomFileName = [System.IO.Path]::GetRandomFileName(); 
+      $Filepath="$env:USERPROFILE\Downloads\$RandomFileName.bmp"; 
+      Add-Type -AssemblyName System.Windows.Forms; 
+      Add-type -AssemblyName System.Drawing; 
+      $Screen = [System.Windows.Forms.SystemInformation]::VirtualScreen; 
+      $Width = $Screen.Width; 
+      $Height = $Screen.Height; 
+      $Left = $Screen.Left; 
+      $Top = $Screen.Top; 
+      $bitmap = New-Object System.Drawing.Bitmap $Width, $Height; 
+      $graphic = [System.Drawing.Graphics]::FromImage($bitmap); 
+      $graphic.CopyFromScreen($Left, $Top, 0, 0, $bitmap.Size); 
+      $bitmap.Save($Filepath); 
+      Start-Sleep -Seconds 300
+
+```

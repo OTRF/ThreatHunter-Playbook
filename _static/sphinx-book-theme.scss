@@ -1,0 +1,787 @@
+/*********************************************
+* Variables *
+*********************************************/
+// Breakpoints from Bootstrap: https://getbootstrap.com/docs/4.1/layout/overview/#responsive-breakpoints
+$breakpoint-xxl: 1500px;  // Custom one
+$breakpoint-xl: 1200px;
+$breakpoint-lg: 992px;
+$breakpoint-md: 768px;
+$breakpoint-sm: 576px;
+
+// Colors
+$non-content-grey: #5a5a5a;
+
+/*********************************************
+* Whole page *
+*********************************************/
+
+$topbar-height: 3em;
+
+body {
+    padding-top: 0px !important;
+    img {
+        max-width: 100%;
+    }
+}
+
+code {
+    font-size: 87.5% !important;
+}
+
+/*********************************************
+* Main body *
+*********************************************/
+
+// Custom XXL breakpoint
+@media (min-width: $breakpoint-xxl) {
+    .col-xxl-7 {
+        flex: 0 0 61% !important;
+        max-width: 61% !important;
+        position: relative !important;
+        width: 100% !important;
+        padding-right: 15px !important;
+        padding-left: 15px !important;
+    }
+}
+
+// If the sidebar is collapsed, our main content should expand fully
+div.bd-sidebar.collapse:not(.show) + main.bd-content {
+    @media (max-width: $breakpoint-xxl) {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+main.bd-content {
+    padding-top: $topbar-height !important;
+    padding-bottom: 0px !important;
+
+    // CSS unique to a single page
+    &.single-page {
+        max-width: 1100px;
+        margin-left: auto;
+        margin-right: auto;
+
+        // Page title styling
+        div#main-content div.section:first-of-type > h1:first-of-type {
+            border-bottom: 1px solid #130654;
+            padding-bottom: .2em;
+            font-size: 3em;
+        }
+    }
+
+    #main-content {
+        // Content links and link color
+        a.headerlink {
+            opacity: 0;
+            margin-left: .2em;
+
+            &:hover {
+                background-color: transparent;
+                color: #0071bc;
+                opacity: 1 !important;
+            }
+        }
+
+        a, a:visited {
+            color: #0071bc;
+        }
+
+        h1, h2, h3, h4, h5 {
+            color: black;
+            &:hover a.headerlink {
+                opacity: .5;
+            }
+            // Make sure titles don't become hyperlink color when there are labels
+            a.toc-backref {
+                color: inherit;
+            }
+        }
+
+        div.section {
+            padding-right: 1em;
+            overflow: visible !important;  // So that sidebars don't cause a scroll
+
+            // List styles to avoid too much whitespace
+            ul, ol {
+                p {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        // Math equations
+        span.eqno {
+            float: right;
+            margin: 1em 0em;
+            font-size: 1.2em;
+        }
+
+        // Figures
+        div.figure {
+            width: 100%;
+            margin-bottom: 1em;
+            text-align: center;
+
+            &.align-left {
+                text-align: left;
+                p.caption {
+                    margin-left: 0;
+                }
+            }
+            &.align-right {
+                text-align: right;
+                p.caption {
+                    margin-right: 0;
+                }
+            }
+
+            p.caption {
+                margin: .5em 10%;
+            }
+
+            &.margin, &.margin-caption {
+                p.caption {
+                    margin: .5em 0;
+                }
+            }
+
+            &.margin-caption p.caption {
+                text-align: left;
+            }
+
+            span.caption-number {
+                font-weight: bold;
+            }
+
+            span {
+                font-size: .9em;
+            }
+        }
+
+        // Admonitions
+        div.alert {
+            padding-bottom: .75em;  // Overriding an override
+
+            p.admonition-title {
+                margin-bottom: .2em;
+                font-size: 1.1em;
+
+                &::after {
+                    font-family: "Font Awesome 5 Free";
+                    margin-left: 0.5em;
+                    font-weight: 900;
+                    // Default content is exclamation point
+                    content: "\f06a";
+                }
+            }
+
+            &.alert-warning p.admonition-title::after {
+                content: "\f071";
+                color: red;
+            }
+        }
+
+        // Glossaries
+        dl.glossary {
+            dd {
+                margin-left: 1.5em;
+            }
+        }
+
+        // Table of contents
+        div.contents p.topic-title {
+            font-size: 1.5em;
+            padding: .5em 0 0 1em;
+        }
+
+        // Misc text and directives
+        p.centered {
+            text-align: center;
+        }
+
+        // Tables from sphinx-tabs
+
+        div.sphinx-tabs > div.menu > a.item {
+            width: auto;
+            margin: 0;
+        }
+    }
+}
+
+// Cell-specific controls
+div.cell {
+
+    div.cell_output {
+        padding-right: 0;
+    }
+
+    &.tag_output_scroll {
+        div.cell_output {
+            max-height: 24em;
+            overflow-y: auto;
+        }
+    }
+}
+
+// Margin and content-sidebar rules
+// Need to add a few specifics for `tag_` because these won't have a parent `.sidebar` class
+div.sidebar, div.margin, div.margin-caption p.caption, .cell.tag_popout, .cell.tag_margin {
+    width: 40%;
+    float: right;
+    border-left: 1px #a4a6a7 solid;
+    margin-left: 0.5em;
+    padding: .2em 0 .2em 1em;
+
+    p {
+        margin-bottom: 0;
+    }
+
+    p.sidebar-title {
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+}
+
+
+// Right margin CSS, largely copied from https://edwardtufte.github.io/tufte-css/
+// 992px is the L breakpoint in bootstrap
+@media (min-width: $breakpoint-md) {
+    div.cell.tag_popout, div.cell.tag_margin, div.margin, div.margin-caption p.caption {
+        border: none;
+        clear: right;
+        width: 31% !important;
+        margin: 0 -35% 0 0 !important;
+        padding: 0 !important;
+        font-size: 0.9rem;
+        line-height: 1.3;
+        vertical-align: baseline;
+        position: relative;
+
+        p {
+            margin-bottom: .5em;
+
+            &.sidebar-title {
+                font-size: 1em;
+            }
+        }
+
+
+    }
+
+    // Make cell outputs take up more space if they're in the margin
+    div.cell.tag_margin .cell_output {
+        padding-left: 0;
+    }
+}
+
+
+@media (min-width: $breakpoint-md) {
+    div.cell.tag_full-width, div.cell.tag_full_width, div.full_width, div.full-width {
+        width: 136% !important;
+    }
+}
+
+blockquote {
+    margin: 1em;
+    padding: .2em 1.5em;
+    border-left: 4px solid #ccc;
+
+    &.pull-quote, &.epigraph, &.highlights {
+        font-size:1.25em;
+        border-left: none;
+    }
+
+    div > p {
+        margin-bottom: .5em;
+    }
+
+    div > p + p.attribution {
+        font-style: normal;
+        font-size: .9em;
+        text-align: right;
+        color: #6c757d;
+        padding-right: 2em;
+    }
+}
+
+// Code cells have background at the `pre` level so remove from here
+div.highlight {
+    background: none;
+}
+
+// Footnotes
+
+dl.footnote {
+    dt.label {
+        float: left;
+    }
+
+    dd p {
+        padding-left: 1.5em;
+    }
+}
+
+// Citations
+
+dl.citation {
+    margin-left: 5%;
+}
+
+a.bibtex.internal {
+    /* margin-bottom: .1em; */
+    font-size: .8em;
+    vertical-align: top;
+}
+
+/*********************************************
+* Top Bar *
+*********************************************/
+.topbar {
+    margin: 0em auto 1em auto !important;
+    padding-top: .25em;
+    padding-bottom: .25em;
+    background-color: white;
+    height: $topbar-height;
+    transition: left .2s;
+
+    > div {
+        height: 2.5em;
+        top: 0px;
+    }
+
+    .topbar-main {
+        > button, > div, > a {
+            float: left;
+            height: 100%;
+        }
+
+        button.topbarbtn {
+            margin: 0 .1em;
+            background-color: white;
+            color: $non-content-grey;
+            font-size: 1.4em;
+            border: none;
+            padding-top: .1rem;
+            padding-bottom: .1rem;
+        }
+
+        // buttons float right
+        div.dropdown-buttons-trigger, a.edit-button, a.full-screen-button {
+            float: right;
+        }
+    }
+}
+
+.bd-topbar-whitespace {
+    padding-right: none;
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+// Download buttons
+span.topbar-button-text {
+    margin-left: 0.4em;
+
+    @media (max-width: $breakpoint-md) {
+        display: none;
+    }
+}
+
+div.dropdown-buttons-trigger {
+
+    div.dropdown-buttons {
+        display: none;
+        position: absolute;
+        max-width: 120px;
+        margin-top: .2em;
+        z-index: 1000;
+
+        button.topbarbtn {
+            padding-top: .35rem;
+            padding-bottom: .35rem;
+            min-width: 120px !important;
+            border: 1px white solid !important;
+            background-color: $non-content-grey;
+            color: white;
+            font-size: 1em;
+        }
+    }
+
+    &:hover div.dropdown-buttons {
+        display: block;
+    }
+}
+
+a.dropdown-buttons i {
+    margin-right: .5em;
+}
+
+button.topbarbtn img {
+    height: 1.15em;
+    padding-right: 6px;
+    margin-left: -5px;
+}
+
+#navbar-toggler {
+    position: relative;
+    margin-right: 1em;
+    margin-left: .5em;
+    color: $non-content-grey;
+
+    i {
+        transition: opacity .3s, transform .3s;
+        position: absolute;
+        top: 16%;
+        left: 0;
+        display: block;
+        font-size: 1.2em;
+    }
+
+    i.fa-bars {
+        opacity: 0;
+        transform: rotate(180deg) scale(.5);
+    }
+
+    i.fa-arrow-left, i.fa-arrow-up {
+        opacity: 1;
+    }
+
+    &.collapsed {
+        i.fa-bars {
+            opacity: 1;
+            transform: rotate(0) scale(1);
+        }
+
+        i.fa-arrow-left, i.fa-arrow-up {
+            opacity: 0;
+            transform: rotate(-180deg) scale(.5);
+        }
+    }
+}
+
+
+@media (max-width: $breakpoint-md) {
+    #navbar-toggler {
+        i.fa-arrow-up {
+            display: inherit;
+        }
+
+        i.fa-arrow-left {
+            display: none;
+        }
+    }
+}
+
+@media (min-width: $breakpoint-md) {
+    #navbar-toggler {
+        i.fa-arrow-up {
+            display: none;
+        }
+
+        i.fa-arrow-left {
+            display: inherit;
+        }
+    }
+}
+
+/*********************************************
+* Table of Contents *
+*********************************************/
+
+.bd-toc {
+    padding: 0px !important;
+    overflow-y: hidden;
+    background: white;
+    right: 0;
+    z-index: 999;
+    transition: height .35s ease;
+
+    // Colors
+    div.onthispage, .toc-entry a {
+        color: $non-content-grey;
+    }
+
+    // By default the nav is hidden unless a few conditions are met
+    nav {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+
+        // TOC link color
+        a:hover, li.active > a.active {
+            color: #0071bc;
+        }
+
+        li.active > a.active {
+            border-left: 2px solid #0071bc;
+        }
+    }
+
+    // On really wide screens, we always show the nav
+    @media (min-width: $breakpoint-xxl) {
+        height: auto !important;
+        nav {
+            opacity: 1;
+        }
+    }
+
+    // On hover or w/ a show class, we show the TOC
+    &:hover, &.show {
+        overflow-y: visible;
+        height: auto;
+        nav {
+            opacity: 1;
+        }
+    }
+
+    .tocsection {
+        padding: .5rem 0 .5rem 1rem !important
+    }
+
+    .toc-entry a {
+        padding: .125rem 1rem !important;
+    }
+
+    // Make sure the pydata sphinx theme edit button doesn't show up
+    div.editthispage {
+        display: none;
+    }
+}
+
+/*********************************************
+* Left Nav Bar *
+*********************************************/
+.bd-sidebar  {
+    top: 0px !important;
+    overflow-y: auto;
+    height: 100vh !important;
+
+    // Sidebar link color
+    nav ul.nav {
+        li a, ul li a {
+            color: $non-content-grey;
+        }
+        a:hover, li.active > a, li.active > a:hover {
+            color: #0071bc;
+        }
+    }
+
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar {
+        background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+    }
+
+    @media (min-width: $breakpoint-md) {
+        opacity: 0.6;
+    }
+
+    // Hide the scrollbar until hover on wide screens
+    @media (min-width: $breakpoint-lg) {
+        &:not(:hover) {
+            -ms-overflow-style: none;
+
+            &::-webkit-scrollbar {
+              background: #FFFFFF;
+            }
+
+            &::-webkit-scrollbar-thumb {
+              background: #FFFFFF;
+            }
+        }
+    }
+
+    &:hover {
+        opacity: 1;
+    }
+
+    h1.site-logo {
+        margin: .5em 0 0 0;
+        font-size: 1.1em;
+        color: black;
+        text-align: center;
+    }
+
+    p.navbar_footer {
+        text-align: center;
+        font-size: .9em;
+        padding-top: .5em;
+        color: $non-content-grey;
+    }
+
+    &.collapsing {
+        border: none;
+        overflow: hidden;
+        position: relative;
+        padding-top: 0;
+    }
+
+    // Captions
+    li + li.navbar-special {
+        margin-top: 1em;
+    }
+
+    p.margin-caption {
+        margin-bottom: 0;
+        font-size: 1.2em;
+    }
+
+    // External links
+    li > a > i {
+        font-size: .8em;
+        margin-left: 0.3em;
+    }
+}
+
+.site-navigation, .site-navigation.collapsing {
+    transition: flex .2s ease 0s, height .35s ease, opacity 0.2s ease;
+}
+
+#site-navigation {
+    @media (max-width: $breakpoint-md) {
+        position: fixed;
+        margin-top: $topbar-height;
+        z-index: 2000;
+        background: white;
+    }
+}
+
+@media (max-width: $breakpoint-md) {
+
+    .bd-sidebar {
+        height: 60vh !important;
+        border-bottom: 3px solid #c3c3c3;
+
+        &.collapsing {
+            height: 0px !important;
+        }
+    }
+}
+
+@media (min-width: $breakpoint-md) {
+    .bd-sidebar {
+        z-index: 2000 !important;
+    }
+
+    .site-navigation.collapsing {
+        flex: 0 0 0px;
+        padding: 0;
+    }
+}
+
+
+div.navbar-brand-box {
+    @media (min-width: $breakpoint-md) {
+        padding-top: 2em;
+    }
+
+    a.navbar-brand {
+        width: 100%;
+        height: auto;
+
+        img {
+            display: block;
+            height: auto;
+            width: auto;
+            max-height:10vh;
+            max-width: 100%;
+            margin: 0 auto;
+            @media (min-width: $breakpoint-md) {
+                max-height: 15vh !important;
+            }
+        }
+    }
+}
+
+nav.bd-links {
+    margin-left: 0px;
+    max-height: none !important;
+
+    ul.nav li {
+        width: 100%;
+    }
+
+    ul.sidenav_l1 > li {
+        font-size: 1.2em
+    }
+
+    ul.sidenav_l2  {
+        font-size: .8em
+    }
+
+    ul.nav > li > a {
+        padding-left: 0rem !important;
+        padding-right: 0rem !important;
+    }
+
+    ul.nav ul {
+        padding-left: 1rem !important;
+        padding-right: 0rem !important;
+    }
+}
+
+// Navbar and topbar sidebar padding should max at 300px
+@media (min-width: $breakpoint-md) {
+    .bd-sidebar, .bd-topbar-whitespace {
+        max-width: 275px;
+    }
+}
+
+
+/*********************************************
+* Footer *
+*********************************************/
+.prev-next-bottom {
+    height: 3em;
+}
+
+
+// Thebelab buttons
+.thebelab-cell {
+    // To ensure that thebelab cells are always the top of the Z-stack
+    position: relative;
+    z-index: 999;
+
+    // Remove styling since we use our own
+    border: 0 !important;
+    border-radius: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 8px !important;
+}
+
+.thebelab-button {
+    z-index: 999;
+    display: inline-block;
+    padding: 0.35em 1.2em;
+    margin: 0px 1px;
+    border-radius: 0.12em;
+    box-sizing:  border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    text-align: center;
+    transition: all 0.2s;
+    background-color: #dddddd;
+    border: 0.05em solid white;
+    color: #000000;
+}
+
+.thebelab-button:hover{
+    border: 0.05em solid black;
+    background-color: #fcfcfc;
+}
+
+
+div.jp-OutputArea-output {
+    padding: 5px;
+}
+
+@import 'print';

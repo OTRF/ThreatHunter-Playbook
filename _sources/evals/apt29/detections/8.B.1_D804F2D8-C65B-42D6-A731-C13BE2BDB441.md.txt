@@ -1,0 +1,28 @@
+# D804F2D8-C65B-42D6-A731-C13BE2BDB441
+
+## Data Sources
+* Microsoft-Windows-Sysmon/Operational<br>
+
+## Logic
+
+```
+SELECT Message
+FROM apt29Host
+WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'
+    AND EventID = 11
+    AND TargetFilename LIKE '%python.exe'
+
+```
+
+## Output
+
+```
+File created:
+RuleName: -
+UtcTime: 2020-05-02 03:10:23.626
+ProcessGuid: {5aa8ec29-cad1-5eac-0100-000000000400}
+ProcessId: 4
+Image: System
+TargetFilename: C:\Windows\Temp\python.exe
+CreationUtcTime: 2020-05-02 03:10:23.626
+```

@@ -1,0 +1,50 @@
+# 294DFB34-1FA8-464D-B85C-F2AE163DB4A9
+
+## Data Sources
+* Security<br>* Microsoft-Windows-PowerShell/Operational<br>
+
+## Logic
+
+```
+SELECT Message
+FROM apt29Host f
+INNER JOIN (
+    SELECT split(d.NewProcessId, '0x')[1] as NewProcessId
+    FROM apt29Host d
+    INNER JOIN(
+      SELECT a.ProcessId, a.NewProcessId
+      FROM apt29Host a
+      INNER JOIN (
+        SELECT NewProcessId
+        FROM apt29Host
+        WHERE LOWER(Channel) = "security"
+            AND EventID = 4688
+            AND LOWER(NewProcessName) LIKE "%control.exe"
+            AND LOWER(ParentProcessName) LIKE "%sdclt.exe"
+      ) b
+      ON a.ProcessId = b.NewProcessId
+      WHERE LOWER(a.Channel) = "security"
+        AND a.EventID = 4688
+        AND a.MandatoryLabel = "S-1-16-12288"
+        AND a.TokenElevationType = "%%1937"
+    ) c
+    ON d.ProcessId = c.NewProcessId
+    WHERE LOWER(d.Channel) = "security"
+      AND d.EventID = 4688
+      AND d.NewProcessName LIKE '%powershell.exe'
+) e
+ON LOWER(hex(f.ExecutionProcessID)) = e.NewProcessId
+WHERE f.Channel = "Microsoft-Windows-PowerShell/Operational"
+    AND f.EventID = 4104
+    AND LOWER(f.ScriptBlockText) LIKE "%get-process%"
+
+```
+
+## Output
+
+```
+Creating Scriptblock text (1 of 1):
+get-process
+
+ScriptBlock ID: 66a7f650-8a84-4dcf-a0f7-41d06de51f5c
+```

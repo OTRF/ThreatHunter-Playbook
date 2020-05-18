@@ -1,0 +1,44 @@
+# 52540C1E-DD76-41B2-93ED-CFBA2B94ECF7
+
+## Data Sources
+* Security<br>
+
+## Logic
+
+```
+SELECT Message
+FROM apt29Host
+WHERE LOWER(Channel) = "security"
+    AND EventID = 4688
+    AND LOWER(ParentProcessName) LIKE "%explorer.exe"
+    AND LOWER(NewProcessName) LIKE "%3aka3%"
+
+```
+
+## Output
+
+```
+A new process has been created.
+
+Creator Subject:
+    Security ID:		S-1-5-21-1830255721-3727074217-2423397540-1107
+    Account Name:		pbeesly
+    Account Domain:		DMEVALS
+    Logon ID:		0x3731F3
+
+Target Subject:
+    Security ID:		S-1-0-0
+    Account Name:		-
+    Account Domain:		-
+    Logon ID:		0x0
+
+Process Information:
+    New Process ID:		0x214c
+    New Process Name:	C:\ProgramData\victim\â€®cod.3aka3.scr
+    Token Elevation Type:	%%1938
+    Mandatory Label:		S-1-16-8192
+    Creator Process ID:	0x1158
+    Creator Process Name:	C:\Windows\explorer.exe
+    Process Command Line:	"C:\ProgramData\victim\â€®cod.3aka3.scr" /S
+
+```

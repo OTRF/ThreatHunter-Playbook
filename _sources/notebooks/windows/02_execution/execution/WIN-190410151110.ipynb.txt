@@ -1,0 +1,368 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Basic PowerShell Execution"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Metadata"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "|               |    |\n",
+    "|:--------------|:---|\n",
+    "| id            | WIN-190410151110 |\n",
+    "| author        | Roberto Rodriguez @Cyb3rWard0g |\n",
+    "| creation date | 2019/04/10 |\n",
+    "| platform      | Windows |\n",
+    "| playbook link |  |\n",
+    "        "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Technical Description\n",
+    "Adversaries can use PowerShell to perform a number of actions, including discovery of information and execution of code.\n",
+    "Therefore, it is important to understand the basic artifacts left when PowerShell is used in your environment."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Hypothesis\n",
+    "Adversaries might be leveraging PowerShell to execute code within my environment"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Analytics"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Initialize Analytics Engine"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from openhunt.mordorutils import *\n",
+    "spark = get_spark()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Download & Process Mordor File"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "mordor_file = \"https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/execution/empire_launcher_vbs.tar.gz\"\n",
+    "registerMordorSQLTable(spark, mordor_file, \"mordorTable\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Analytic I"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "| FP Rate  | Log Channel | Description   |\n",
+    "| :--------| :-----------| :-------------|\n",
+    "| Medium       | ['Microsoft-Windows-PowerShell/Operational', 'PowerShell']          | Within the classic PowerShell log, event ID 400 indicates when a new PowerShell host process has started. You can filter on powershell.exe as a host application if you want to or leave it without a filter to captuer every single PowerShell host            |\n",
+    "            "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df = spark.sql(\n",
+    "    '''\n",
+    "SELECT `@timestamp`, computer_name, channel\n",
+    "FROM mordorTable\n",
+    "WHERE (channel = \"Microsoft-Windows-PowerShell/Operational\" OR channel = \"Windows PowerShell\")\n",
+    "    AND (event_id = 400 OR event_id = 4103)\n",
+    "    '''\n",
+    ")\n",
+    "df.show(10,False)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Analytic II"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "| FP Rate  | Log Channel | Description   |\n",
+    "| :--------| :-----------| :-------------|\n",
+    "| High       | ['Security']          | Looking for non-interactive powershell session might be a sign of PowerShell being executed by another application in the background            |\n",
+    "            "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df = spark.sql(\n",
+    "    '''\n",
+    "SELECT `@timestamp`, computer_name, NewProcessName, ParentProcessName\n",
+    "FROM mordorTable\n",
+    "WHERE channel = \"Security\"\n",
+    "    AND event_id = 4688\n",
+    "    AND NewProcessName LIKE \"%powershell.exe\"\n",
+    "    AND NOT ParentProcessName LIKE \"%explorer.exe\"\n",
+    "    '''\n",
+    ")\n",
+    "df.show(10,False)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Analytic III"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "| FP Rate  | Log Channel | Description   |\n",
+    "| :--------| :-----------| :-------------|\n",
+    "| High       | ['Microsoft-Windows-Sysmon/Operational']          | Looking for non-interactive powershell session might be a sign of PowerShell being executed by another application in the background            |\n",
+    "            "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df = spark.sql(\n",
+    "    '''\n",
+    "SELECT `@timestamp`, computer_name, Image, ParentImage\n",
+    "FROM mordorTable\n",
+    "WHERE channel = \"Microsoft-Windows-Sysmon/Operational\"\n",
+    "    AND event_id = 1\n",
+    "    AND Image LIKE \"%powershell.exe\"\n",
+    "    AND NOT ParentImage LIKE \"%explorer.exe\"\n",
+    "    '''\n",
+    ")\n",
+    "df.show(10,False)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Analytic IV"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "| FP Rate  | Log Channel | Description   |\n",
+    "| :--------| :-----------| :-------------|\n",
+    "| Medium       | ['Microsoft-Windows-Sysmon/Operational']          | Monitor for processes loading PowerShell DLL *system.management.automation*            |\n",
+    "            "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df = spark.sql(\n",
+    "    '''\n",
+    "SELECT `@timestamp`, computer_name, Image, ImageLoaded\n",
+    "FROM mordorTable\n",
+    "WHERE channel = \"Microsoft-Windows-Sysmon/Operational\"\n",
+    "    AND event_id = 7\n",
+    "    AND (lower(Description) = \"system.management.automation\" OR lower(ImageLoaded) LIKE \"%system.management.automation%\")\n",
+    "    '''\n",
+    ")\n",
+    "df.show(10,False)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Analytic V"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "| FP Rate  | Log Channel | Description   |\n",
+    "| :--------| :-----------| :-------------|\n",
+    "| Medium       | ['Microsoft-Windows-Sysmon/Operational']          | Monitoring for PSHost* pipes is another interesting way to find PowerShell execution            |\n",
+    "            "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df = spark.sql(\n",
+    "    '''\n",
+    "SELECT `@timestamp`, computer_name, Image, PipeName\n",
+    "FROM mordorTable\n",
+    "WHERE channel = \"Microsoft-Windows-Sysmon/Operational\"\n",
+    "    AND event_id = 17\n",
+    "    AND lower(PipeName) LIKE \"\\\\\\\\pshost%\"\n",
+    "    '''\n",
+    ")\n",
+    "df.show(10,False)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Analytic VI"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "| FP Rate  | Log Channel | Description   |\n",
+    "| :--------| :-----------| :-------------|\n",
+    "| Medium       | ['Microsoft-Windows-Sysmon/Operational']          | The “PowerShell Named Pipe IPC” event will indicate the name of the PowerShell AppDomain that started. Sign of PowerShell execution            |\n",
+    "            "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df = spark.sql(\n",
+    "    '''\n",
+    "SELECT `@timestamp`, computer_name, message\n",
+    "FROM mordorTable\n",
+    "WHERE channel = \"Microsoft-Windows-PowerShell/Operational\"\n",
+    "    AND event_id = 53504\n",
+    "    '''\n",
+    ")\n",
+    "df.show(10,False)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Detection Blindspots\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Hunter Notes\n",
+    "* Explore the data produced in your environment with the analytics above and document what normal looks like from a PowerShell perspective.\n",
+    "* If execution of PowerShell happens all the time in your environment, I suggest to categorize the data you collect by business unit to build profiles and be able to filter out potential noise.\n",
+    "* You can also stack the values of the command line arguments being used. You can hash the command line arguments too and stack the values."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Hunt Output\n",
+    "\n",
+    "| Category | Type | Name     |\n",
+    "| :--------| :----| :--------|\n",
+    "| signature | SIGMA | [sysmon_powershell_execution_moduleload](https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_powershell_execution_moduleload.yml) |\n",
+    "| signature | SIGMA | [sysmon_powershell_execution_pipe](https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_powershell_execution_pipe.yml) |\n",
+    "| signature | SIGMA | [sysmon_non_interactive_powershell_execution](https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_non_interactive_powershell_execution.yml) |\n",
+    "| signature | SIGMA | [win_non_interactive_powershell](https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/win_non_interactive_powershell.yml) |"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## References\n",
+    "* https://github.com/darkoperator/Presentations/blob/master/PSConfEU%202019%20Tracking%20PowerShell%20Usage.pdf\n",
+    "* https://posts.specterops.io/abusing-powershell-desired-state-configuration-for-lateral-movement-ca42ddbe6f06"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "PySpark_Python3",
+   "language": "python",
+   "name": "pyspark3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
