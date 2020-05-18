@@ -287,13 +287,13 @@ df.show(100,truncate = False, vertical = True)
 df = spark.sql(
 '''
 SELECT b.ScriptBlockText
-FROM apt29Table a
+FROM apt29Host a
 INNER JOIN (
   SELECT d.ParentProcessGuid, d.ProcessId, c.ScriptBlockText
   FROM apt29Table c
   INNER JOIN (
       SELECT ParentProcessGuid, ProcessGuid, ProcessId
-      FROM apt29Table
+      FROM apt29Host
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 1
       ) d
@@ -316,13 +316,13 @@ df.show(100,truncate = False, vertical = True)
 df = spark.sql(
 '''
 SELECT b.ScriptBlockText
-FROM apt29Table a
+FROM apt29Host a
 INNER JOIN (
   SELECT d.NewProcessId, d.ProcessId, c.ScriptBlockText
   FROM apt29Table c
   INNER JOIN (
       SELECT split(NewProcessId, '0x')[1] as NewProcessId, ProcessId
-      FROM apt29Table
+      FROM apt29Host
       WHERE LOWER(Channel) = "security"
           AND EventID = 4688
       ) d
