@@ -24,7 +24,7 @@ USER ${NB_USER}
 
 RUN python3 -m pip install openhunt==1.6.7 attackcti==0.3.0 --user
 
-COPY docs/* ${HOME}/
+COPY docs ${HOME}/docs
 
 USER root
 
