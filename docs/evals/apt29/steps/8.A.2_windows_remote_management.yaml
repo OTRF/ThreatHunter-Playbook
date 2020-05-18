@@ -1,0 +1,124 @@
+vendor: OTR Community
+step: 8.A.2
+procedure: Established WinRM connection to remote host NASHUA (10.0.1.6)
+criteria: Network connection to NASHUA (10.0.1.6) over port 5985
+technique:
+  name: Remote System Discovery
+  id: T1018
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/18
+detections:
+  - main_type: Telemetry
+    modifier_type: Correlated
+    description: Telemetry showed network connection to remote host NASHUA (10.0.1.6) over port TCP 5985. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe.
+    reference:
+    queries:
+      - id: 0A5428EA-171D-4944-B27C-0EBC3D557FAD
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+        rule_contribution:
+        logic: |
+          SELECT f.Message
+          FROM apt29Host f
+          INNER JOIN (
+          SELECT d.ProcessId, d.ParentProcessId
+          FROM apt29Host d
+          INNER JOIN (
+            SELECT a.ProcessGuid, a.ParentProcessGuid
+            FROM apt29Host a
+            INNER JOIN (
+              SELECT ProcessGuid
+              FROM apt29Host
+              WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                  AND EventID = 1
+                  AND LOWER(Image) LIKE "%control.exe"
+                  AND LOWER(ParentImage) LIKE "%sdclt.exe"
+            ) b
+            ON a.ParentProcessGuid = b.ProcessGuid
+            WHERE a.Channel = "Microsoft-Windows-Sysmon/Operational"
+              AND a.EventID = 1
+              AND a.IntegrityLevel = "High"
+          ) c
+          ON d.ParentProcessGuid= c.ProcessGuid
+          WHERE d.Channel = "Microsoft-Windows-Sysmon/Operational"
+            AND d.EventID = 1
+            AND d.Image LIKE '%powershell.exe'
+          ) e
+          ON f.ProcessId = e.ProcessId
+          WHERE f.Channel = "Microsoft-Windows-Sysmon/Operational"
+            AND f.EventID = 3
+            AND f.DestinationPort = 5985
+        output: |
+          Network connection detected:
+          RuleName: -
+          UtcTime: 2020-05-02 03:09:29.633
+          ProcessGuid: {47ab858c-e374-5eac-d803-000000000400}
+          ProcessId: 3852
+          Image: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+          User: DMEVALS\pbeesly
+          Protocol: tcp
+          Initiated: true
+          SourceIsIpv6: false
+          SourceIp: 10.0.1.4
+          SourceHostname: -
+          SourcePort: 59962
+          SourcePortName: -
+          DestinationIsIpv6: false
+          DestinationIp: 10.0.1.6
+          DestinationHostname: -
+          DestinationPort: 5985
+          DestinationPortName: - 
+      - id: 0376E07E-3C48-4B89-A50D-B3FAAB23EDAB
+        data_sources:
+          - Security
+        rule_contribution:
+        logic: |
+          SELECT f.Message
+          FROM apt29Host f
+          INNER JOIN (
+              SELECT split(d.NewProcessId, '0x')[1] as NewProcessId
+              FROM apt29Host d
+              INNER JOIN(
+                SELECT a.ProcessId, a.NewProcessId
+                FROM apt29Host a
+                INNER JOIN (
+                  SELECT NewProcessId
+                  FROM apt29Host
+                  WHERE LOWER(Channel) = "security"
+                      AND EventID = 4688
+                      AND LOWER(NewProcessName) LIKE "%control.exe"
+                      AND LOWER(ParentProcessName) LIKE "%sdclt.exe"
+                ) b
+                ON a.ProcessId = b.NewProcessId
+                WHERE LOWER(a.Channel) = "security"
+                  AND a.EventID = 4688
+                  AND a.MandatoryLabel = "S-1-16-12288"
+                  AND a.TokenElevationType = "%%1937"
+              ) c
+              ON d.ProcessId = c.NewProcessId
+              WHERE LOWER(d.Channel) = "security"
+                AND d.EventID = 4688
+                AND d.NewProcessName LIKE '%powershell.exe'
+          ) e
+          ON LOWER(hex(CAST(f.ProcessId as INT))) = e.NewProcessId
+          WHERE LOWER(f.Channel) = "security"
+              AND EventID = 5156
+              AND DestPort = 5985
+        output: |
+          The Windows Filtering Platform has permitted a connection.
+
+          Application Information:
+            Process ID:		3852
+            Application Name:	\device\harddiskvolume2\windows\system32\windowspowershell\v1.0\powershell.exe
+          
+          Network Information:
+            Direction:		Outbound
+            Source Address:		10.0.1.4
+            Source Port:		59962
+            Destination Address:	10.0.1.6
+            Destination Port:		5985
+            Protocol:		6
+          
+          Filter Information:
+            Filter Run-Time ID:	68659
+            Layer Name:		Connect
+            Layer Run-Time ID:	48

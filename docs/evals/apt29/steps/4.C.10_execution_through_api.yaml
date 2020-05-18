@@ -1,0 +1,66 @@
+vendor: OTR Community
+step: 4.C.10
+procedure: Executed API call by reflectively loading Netapi32.dll
+criteria: The NetUserGetGroups API function loaded into powershell.exe from Netapi32.dll
+technique:
+  name: Execution through API
+  id: T1106
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/10
+detections:
+  - main_type: Telemetry
+    modifier_type: Correlated
+    description: Telemetry showed Netapi32.dll loaded into powershell.exe. The detection was correlated to a parent grouping of malicious activity. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe.
+    reference:
+    queries:
+      - id: 0B50643F-98FA-4F4A-8E22-9257D85AD7C5
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host f
+          INNER JOIN (
+              SELECT d.ProcessGuid
+              FROM apt29Host d
+              INNER JOIN (
+                SELECT a.ProcessGuid, a.ParentProcessGuid
+                FROM apt29Host a
+                INNER JOIN (
+                  SELECT ProcessGuid
+                  FROM apt29Host
+                  WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                      AND EventID = 1
+                      AND LOWER(Image) LIKE "%control.exe"
+                      AND LOWER(ParentImage) LIKE "%sdclt.exe"
+                ) b
+                ON a.ParentProcessGuid = b.ProcessGuid
+                WHERE a.Channel = "Microsoft-Windows-Sysmon/Operational"
+                  AND a.EventID = 1
+                  AND a.IntegrityLevel = "High"
+              ) c
+              ON d.ParentProcessGuid= c.ProcessGuid
+              WHERE d.Channel = "Microsoft-Windows-Sysmon/Operational"
+                AND d.EventID = 1
+                AND d.Image LIKE '%powershell.exe'
+          ) e
+          ON f.ProcessGuid = e.ProcessGuid
+          WHERE f.Channel = "Microsoft-Windows-Sysmon/Operational"
+          AND f.EventID = 7
+          AND LOWER(f.ImageLoaded) LIKE "%netapi32.dll"
+        output: |
+          Image loaded:
+          RuleName: -
+          UtcTime: 2020-05-02 03:04:04.361
+          ProcessGuid: {47ab858c-e23d-5eac-c603-000000000400}
+          ProcessId: 3876
+          Image: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+          ImageLoaded: C:\Windows\System32\netapi32.dll
+          FileVersion: 10.0.18362.1 (WinBuild.160101.0800)
+          Description: Net Win32 API DLL
+          Product: Microsoft® Windows® Operating System
+          Company: Microsoft Corporation
+          OriginalFileName: NetApi32.DLL
+          Hashes: SHA1=7DFDD188B30162DAA87FDD3E5B7A55C80CD839F1,MD5=86A9DF3FA9D5FCAC8EF57601FCCD78F9,SHA256=F8CDA38FD3FF371E772875EA657A37662321EBB7AD8D6978DBCCCA7FC6DB64F1,IMPHASH=7D4E1695394CF47BD397AFD45A40E55D
+          Signed: true
+          Signature: Microsoft Windows
+          SignatureStatus: Valid

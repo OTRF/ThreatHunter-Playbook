@@ -1,0 +1,125 @@
+vendor: OTR Community
+step: 9.B.1
+procedure: Spawned interactive powershell.exe
+criteria: powershell.exe​ spawning from python.exe
+technique:
+  name: PowerShell
+  id: T1086
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/22
+detections:
+  - main_type: Telemetry
+    modifier_type: Correlated
+    description: Telemetery showed python.exe executing powershell.exe. This event was correlated to psexesvc.exe executing python.exe
+    reference:
+    queries:
+      - id: 77D403CE-2832-4927-B74A-42D965B5AF94
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host f
+          INNER JOIN (
+              SELECT d.ProcessGuid
+              FROM apt29Host d
+              INNER JOIN (
+                  SELECT b.ProcessGuid
+                  FROM apt29Host b
+                  INNER JOIN (
+                    SELECT ProcessGuid
+                    FROM apt29Host
+                    WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                        AND EventID = 1
+                        AND ParentImage LIKE '%services.exe'
+                  ) a
+                  ON b.ParentProcessGuid = a.ProcessGuid
+                  WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                    AND Image LIKE '%python.exe'
+              ) c
+              ON d.ParentProcessGuid = c.ProcessGuid
+              WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                  AND EventID = 1
+          ) e
+          ON f.ParentProcessGuid = e.ProcessGuid
+          WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+              AND EventID = 1
+              AND Image LIKE '%powershell.exe'
+        output: |
+          Process Create:
+          RuleName: -
+          UtcTime: 2020-05-02 03:15:48.652
+          ProcessGuid: {5aa8ec29-e5e4-5eac-7a03-000000000400}
+          ProcessId: 4876
+          Image: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+          FileVersion: 10.0.18362.1 (WinBuild.160101.0800)
+          Description: Windows PowerShell
+          Product: Microsoft® Windows® Operating System
+          Company: Microsoft Corporation
+          OriginalFileName: PowerShell.EXE
+          CommandLine: powershell.exe
+          CurrentDirectory: C:\windows\system32\
+          User: DMEVALS\pbeesly
+          LogonGuid: {5aa8ec29-e5b7-5eac-7d17-890000000000}
+          LogonId: 0x89177D
+          TerminalSessionId: 2
+          IntegrityLevel: Medium
+          Hashes: SHA1=36C5D12033B2EAF251BAE61C00690FFB17FDDC87,MD5=CDA48FC75952AD12D99E526D0B6BF70A,SHA256=908B64B1971A979C7E3E8CE4621945CBA84854CB98D76367B791A6E22B5F6D53,IMPHASH=A7CEFACDDA74B13CD330390769752481
+          ParentProcessGuid: {5aa8ec29-e5b8-5eac-7903-000000000400}
+          ParentProcessId: 2172
+          ParentImage: C:\Windows\Temp\python.exe
+          ParentCommandLine: "C:\Windows\Temp\python.exe"
+      - id: B56C6666-EEF3-4028-85D4-6AAE01CD506C
+        data_sources:
+          - Security
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host f
+          INNER JOIN (
+              SELECT d.NewProcessId
+              FROM apt29Host d
+              INNER JOIN (
+                  SELECT b.NewProcessId
+                  FROM apt29Host b
+                  INNER JOIN (
+                    SELECT NewProcessId
+                    FROM apt29Host
+                    WHERE LOWER(Channel) = "security"
+                        AND EventID = 4688
+                        AND ParentProcessName LIKE '%services.exe'
+                  ) a
+                  ON b.ProcessId = a.NewProcessId
+                  WHERE LOWER(Channel) = "security"
+                    AND NewProcessName LIKE '%python.exe'
+              ) c
+              ON d.ProcessId = c.NewProcessId
+              WHERE LOWER(Channel) = "security"
+                  AND EventID = 4688
+          ) e
+          ON f.ProcessId = e.NewProcessId
+          WHERE LOWER(Channel) = "security"
+              AND EventID = 4688
+              AND NewProcessName LIKE '%powershell.exe'
+        output: |
+          A new process has been created.
+
+          Creator Subject:
+            Security ID:		S-1-5-21-1830255721-3727074217-2423397540-1107
+            Account Name:		pbeesly
+            Account Domain:		DMEVALS
+            Logon ID:		0x89177D
+          
+          Target Subject:
+            Security ID:		S-1-0-0
+            Account Name:		-
+            Account Domain:		-
+            Logon ID:		0x0
+          
+          Process Information:
+            New Process ID:		0x130c
+            New Process Name:	C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+            Token Elevation Type:	%%1938
+            Mandatory Label:		S-1-16-8192
+            Creator Process ID:	0x87c
+            Creator Process Name:	C:\Windows\Temp\python.exe
+            Process Command Line:	powershell.exe

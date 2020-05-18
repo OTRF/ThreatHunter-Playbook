@@ -1,0 +1,314 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>3A1DC1C2-B640-4FCE-A71F-2F65AB060A8C &#8212; Threat Hunter Playbook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/sphinx-book-theme.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/mystnb.js"></script>
+    <script src="../../../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .secondtoggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="../../../_static/thebelab.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="canonical" href="https://threathunterplaybook.com/evals/apt29/detections/4.B.2_3A1DC1C2-B640-4FCE-A71F-2F65AB060A8C.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+<!-- Put requirejs at the end so it's always after bootstrap -->
+<!-- TODO: remove this once https://github.com/pandas-dev/pydata-sphinx-theme/pull/149 is merged -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://threathunterplaybook.com/evals/apt29/detections/4.B.2_3A1DC1C2-B640-4FCE-A71F-2F65AB060A8C.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="3A1DC1C2-B640-4FCE-A71F-2F65AB060A8C" />
+<meta property="og:description" content="3A1DC1C2-B640-4FCE-A71F-2F65AB060A8C  Data Sources  Security<br>  Logic  SELECT Message FROM apt29Host f INNER JOIN (   SELECT d.NewProcessId   FROM apt29Host d" />
+<meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../../index.html">
+  
+  <img src="../../../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Threat Hunter Playbook</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  
+  <ul class="nav sidenav_l1">
+<li class="navbar-special">
+<p class="margin-caption">Pre-Hunt Activities</p>
+</li>
+  <li class="">
+    <a href="../../../pre-hunt/data_management.html">Data Management</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Campaign Notebooks</p>
+</li>
+  <li class="">
+    <a href="../../intro.html">ATT&CK Evaluations</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Targeted Notebooks</p>
+</li>
+  <li class="">
+    <a href="../../../notebooks/windows/windows.html">Windows</a>
+  </li>
+  <li class="">
+    <a href="../../../notebooks/linux/linux.html">Linux</a>
+  </li>
+  <li class="">
+    <a href="../../../notebooks/mac/mac.html">Mac</a>
+  </li>
+</ul>
+</nav>
+<p class="navbar_footer">Powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse" data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu" aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation" title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i class="fas fa-download"></i></button>
+
+            
+            <div class="dropdown-buttons">
+                <!-- ipynb file if we had a myst markdown file -->
+                
+                <!-- Download raw file -->
+                <a class="dropdown-buttons" href="../../../_sources/evals/apt29/detections/4.B.2_3A1DC1C2-B640-4FCE-A71F-2F65AB060A8C.md.txt"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.md</button></a>
+                <!-- Download PDF via print -->
+                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+            </div>
+            
+        </div>
+
+        <!-- Edit this page -->
+        <a class="edit-button" href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/evals/apt29/detections/4.B.2_3A1DC1C2-B640-4FCE-A71F-2F65AB060A8C.md"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" title="Edit this page"><i class="fas fa-pencil-alt"></i></button></a>
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+        
+
+        
+    </div>
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#data-sources" class="nav-link">Data Sources</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#logic" class="nav-link">Logic</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#output" class="nav-link">Output</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/evals/apt29/detections/4.B.2_3A1DC1C2-B640-4FCE-A71F-2F65AB060A8C.md">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 col-xxl-7 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="a1dc1c2-b640-4fce-a71f-2f65ab060a8c">
+<h1>3A1DC1C2-B640-4FCE-A71F-2F65AB060A8C<a class="headerlink" href="#a1dc1c2-b640-4fce-a71f-2f65ab060a8c" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="data-sources">
+<h2>Data Sources<a class="headerlink" href="#data-sources" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Security<br></p></li>
+</ul>
+</div>
+<div class="section" id="logic">
+<h2>Logic<a class="headerlink" href="#logic" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">Message</span>
+<span class="n">FROM</span> <span class="n">apt29Host</span> <span class="n">f</span>
+<span class="n">INNER</span> <span class="n">JOIN</span> <span class="p">(</span>
+  <span class="n">SELECT</span> <span class="n">d</span><span class="o">.</span><span class="n">NewProcessId</span>
+  <span class="n">FROM</span> <span class="n">apt29Host</span> <span class="n">d</span>
+  <span class="n">INNER</span> <span class="n">JOIN</span><span class="p">(</span>
+    <span class="n">SELECT</span> <span class="n">a</span><span class="o">.</span><span class="n">ProcessId</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">NewProcessId</span>
+    <span class="n">FROM</span> <span class="n">apt29Host</span> <span class="n">a</span>
+    <span class="n">INNER</span> <span class="n">JOIN</span> <span class="p">(</span>
+      <span class="n">SELECT</span> <span class="n">NewProcessId</span>
+      <span class="n">FROM</span> <span class="n">apt29Host</span>
+      <span class="n">WHERE</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">Channel</span><span class="p">)</span> <span class="o">=</span> <span class="s2">&quot;security&quot;</span>
+          <span class="n">AND</span> <span class="n">EventID</span> <span class="o">=</span> <span class="mi">4688</span>
+          <span class="n">AND</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">NewProcessName</span><span class="p">)</span> <span class="n">LIKE</span> <span class="s2">&quot;</span><span class="si">%c</span><span class="s2">ontrol.exe&quot;</span>
+          <span class="n">AND</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">ParentProcessName</span><span class="p">)</span> <span class="n">LIKE</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">dclt.exe&quot;</span>
+    <span class="p">)</span> <span class="n">b</span>
+    <span class="n">ON</span> <span class="n">a</span><span class="o">.</span><span class="n">ProcessId</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">NewProcessId</span>
+    <span class="n">WHERE</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">Channel</span><span class="p">)</span> <span class="o">=</span> <span class="s2">&quot;security&quot;</span>
+      <span class="n">AND</span> <span class="n">a</span><span class="o">.</span><span class="n">EventID</span> <span class="o">=</span> <span class="mi">4688</span>
+      <span class="n">AND</span> <span class="n">a</span><span class="o">.</span><span class="n">MandatoryLabel</span> <span class="o">=</span> <span class="s2">&quot;S-1-16-12288&quot;</span>
+      <span class="n">AND</span> <span class="n">a</span><span class="o">.</span><span class="n">TokenElevationType</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%%</span><span class="s2">1937&quot;</span>
+  <span class="p">)</span> <span class="n">c</span>
+  <span class="n">ON</span> <span class="n">d</span><span class="o">.</span><span class="n">ProcessId</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">NewProcessId</span>
+  <span class="n">WHERE</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">Channel</span><span class="p">)</span> <span class="o">=</span> <span class="s2">&quot;security&quot;</span>
+    <span class="n">AND</span> <span class="n">d</span><span class="o">.</span><span class="n">EventID</span> <span class="o">=</span> <span class="mi">4688</span>
+    <span class="n">AND</span> <span class="n">d</span><span class="o">.</span><span class="n">NewProcessName</span> <span class="n">LIKE</span> <span class="s1">&#39;%powershell.exe&#39;</span>
+<span class="p">)</span> <span class="n">e</span>
+<span class="n">ON</span> <span class="n">f</span><span class="o">.</span><span class="n">ProcessId</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">NewProcessId</span>
+<span class="n">WHERE</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">Channel</span><span class="p">)</span> <span class="o">=</span> <span class="s2">&quot;security&quot;</span>
+  <span class="n">AND</span> <span class="n">f</span><span class="o">.</span><span class="n">EventID</span> <span class="o">=</span> <span class="mi">4688</span>
+  <span class="n">AND</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">NewProcessName</span><span class="p">)</span> <span class="n">LIKE</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">delete%&#39;</span>
+  <span class="n">AND</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">CommandLine</span><span class="p">)</span> <span class="n">LIKE</span> <span class="s1">&#39;</span><span class="si">%3a</span><span class="s1">ka3%&#39;</span>
+
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>A new process has been created.
+
+Creator Subject:
+  Security ID:		S-1-5-21-1830255721-3727074217-2423397540-1107
+  Account Name:		pbeesly
+  Account Domain:		DMEVALS
+  Logon ID:		0x372E81
+
+Target Subject:
+  Security ID:		S-1-0-0
+  Account Name:		-
+  Account Domain:		-
+  Logon ID:		0x0
+
+Process Information:
+  New Process ID:		0x102c
+  New Process Name:	C:\Program Files\SysinternalsSuite\sdelete64.exe
+  Token Elevation Type:	%%1937
+  Mandatory Label:		S-1-16-12288
+  Creator Process ID:	0xf24
+  Creator Process Name:	C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+  Process Command Line:	&quot;C:\Program Files\SysinternalsSuite\sdelete64.exe&quot; /accepteula C:\programdata\victim\???cod.3aka3.scr
+</pre></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "hunters-forge/ThreatHunter-Playbook",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "evals/apt29/detections"
+        }
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.1.<br/>
+    </p>
+  </div>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../../../_static/js/index.js"></script>
+    
+  </body>
+</html>

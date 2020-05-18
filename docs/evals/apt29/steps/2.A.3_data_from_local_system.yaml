@@ -1,0 +1,14 @@
+vendor: OTR Community
+step: 2.A.3
+procedure: Recursively collected files found in C:\Users\Pam\ using PowerShell
+criteria: powershell.exe reading files in C:\Users\Pam\
+technique:
+  name: Data from Local System
+  id: T1005
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/3
+detections:
+  - main_type: None
+    modifier_type:
+    description: No detection capability demonstrated for this procedure.
+    reference:
+    queries:

@@ -1,0 +1,49 @@
+vendor: OTR Community
+step: 2.A.5
+procedure: Staged files for exfiltration into ZIP (Draft.zip) using PowerShell
+criteria: powershell.exe creating the file draft.zip
+technique:
+  name: Data Staged
+  id: T1074
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/3
+detections:
+  - main_type: Telemetry
+    modifier_type: Correlated
+    description: Telemetry showed file creation of Draft.zip. This was correlated to prior a detection of the parent PowerShell process.
+    reference:
+    queries:
+      - id: 76154CEC-1E01-4D3A-B9ED-C78978597C2B
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+          - Microsoft-Windows-PowerShell/Operational
+        rule_contribution:
+        logic: |
+          SELECT TargetFilename
+          FROM apt29Table a
+          INNER JOIN (
+              SELECT d.ProcessGuid, d.ProcessId
+              FROM apt29Table c
+              INNER JOIN (
+                  SELECT ProcessGuid, ProcessId
+                  FROM apt29Table
+                  WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                      AND EventID = 1
+                  ) d
+              ON c.ExecutionProcessID = d.ProcessId
+              WHERE c.Channel = "Microsoft-Windows-PowerShell/Operational"
+                      AND c.EventID = 4104
+                      AND LOWER(c.ScriptBlockText) LIKE "%compress-archive%"
+          ) b
+          ON a.ProcessGuid = b.ProcessGuid
+          WHERE a.Channel = "Microsoft-Windows-Sysmon/Operational"
+                      AND a.EventID = 11
+                      AND LOWER(a.TargetFilename) LIKE "%zip"
+        output: |
+          File created:
+          RuleName: -
+          UtcTime: 2020-05-02 02:56:18.032
+          ProcessGuid: {47ab858c-e14e-5eac-ac03-000000000400}
+          ProcessId: 5944
+          Image: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe
+          TargetFilename: C:\Users\pbeesly\AppData\Roaming\Draft.Zip
+          CreationUtcTime: 2020-05-02 02:56:18.032  

@@ -1,7 +1,0 @@
-<meta property="og:url"         content="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url  | relative_url }}" />
-<meta property="og:type"        content="article" />
-<meta property="og:title"       content="{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}" />
-<meta property="og:description" content="{{ page.content | strip_html | strip_newlines | truncate: 160 }}" />
-<meta property="og:image"       content="{{ site.textbook_logo | absolute_url }}" />
-
-<meta name="twitter:card" content="summary">

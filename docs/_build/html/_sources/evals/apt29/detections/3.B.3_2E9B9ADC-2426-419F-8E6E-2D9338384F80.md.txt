@@ -1,0 +1,55 @@
+# 2E9B9ADC-2426-419F-8E6E-2D9338384F80
+
+## Data Sources
+* Security<br>
+
+## Logic
+
+```
+SELECT Message
+FROM apt29Host d
+INNER JOIN (
+    SELECT split(a.NewProcessId, '0x')[1] as NewProcessId
+    FROM apt29Host a
+    INNER JOIN (
+      SELECT NewProcessId
+      FROM apt29Host
+      WHERE LOWER(Channel) = "security"
+          AND EventID = 4688
+          AND LOWER(NewProcessName) LIKE "%control.exe"
+          AND LOWER(ParentProcessName) LIKE "%sdclt.exe"
+    ) b
+    ON a.ProcessId = b.NewProcessId
+    WHERE LOWER(a.Channel) = "security"
+      AND a.EventID = 4688
+      AND a.MandatoryLabel = "S-1-16-12288"
+      AND a.TokenElevationType = "%%1937"
+) c
+ON LOWER(hex(CAST(ProcessId as INT))) = c.NewProcessId
+WHERE LOWER(Channel) = "security"
+    AND d.EventID = 5156
+
+```
+
+## Output
+
+```
+The Windows Filtering Platform has permitted a connection.
+
+Application Information:
+  Process ID:		2976
+  Application Name:	\device\harddiskvolume2\windows\system32\windowspowershell\v1.0\powershell.exe
+
+Network Information:
+  Direction:		Outbound
+  Source Address:		10.0.1.4
+  Source Port:		59846
+  Destination Address:	192.168.0.5
+  Destination Port:		443
+  Protocol:		6
+
+Filter Information:
+  Filter Run-Time ID:	68659
+  Layer Name:		Connect
+  Layer Run-Time ID:	48
+```

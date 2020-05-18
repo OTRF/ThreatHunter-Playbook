@@ -1,0 +1,45 @@
+# 97402495-2449-415F-BDAD-5CC8EFC1E1B5
+
+## Data Sources
+* Security<br>
+
+## Logic
+
+```
+SELECT Message
+FROM apt29Host
+WHERE LOWER(Channel) = "security"
+  AND EventID = 5145
+  AND RelativeTargetName LIKE '%python.exe'
+
+```
+
+## Output
+
+```
+A network share object was checked to see whether client can be granted desired access.
+
+Subject:
+  Security ID:		S-1-5-21-1830255721-3727074217-2423397540-1107
+  Account Name:		pbeesly
+  Account Domain:		DMEVALS
+  Logon ID:		0x861A79
+
+Network Information:	
+  Object Type:		File
+  Source Address:		10.0.1.4
+  Source Port:		59967
+  
+Share Information:
+  Share Name:		\\*\ADMIN$
+  Share Path:		\??\C:\windows
+  Relative Target Name:	Temp\python.exe
+
+Access Request Information:
+  Access Mask:		0x2
+  Accesses:		WriteData (or AddFile)
+        
+Access Check Results:
+  -
+
+```

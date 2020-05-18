@@ -1,0 +1,70 @@
+vendor: OTR Community
+step: 2.A.4
+procedure: Compressed and stored files into ZIP (Draft.zip) using PowerShell
+criteria: powershell.exe executing Compress-Archive
+technique:
+  name: Data Compressed
+  id: T1002
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/3
+detections:
+  - main_type: Telemetry
+    modifier_type: Correlated
+    description: Telemetry showed powershell.exe compressing via Compress-Archive. The event was correlated to a parent General detection for malicious file execution.
+    reference:
+    queries:
+      - id: 6CDEBEBF-387F-4A40-A4E8-8D4DF3A8F897
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+          - Microsoft-Windows-PowerShell/Operational
+        rule_contribution:
+        logic: |
+          SELECT b.ScriptBlockText
+          FROM apt29Table a
+          INNER JOIN (
+            SELECT d.ParentProcessGuid, d.ProcessId, c.ScriptBlockText
+            FROM apt29Table c
+            INNER JOIN (
+                SELECT ParentProcessGuid, ProcessGuid, ProcessId
+                FROM apt29Table
+                WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                    AND EventID = 1
+                ) d
+            ON c.ExecutionProcessID = d.ProcessId
+            WHERE c.Channel = "Microsoft-Windows-PowerShell/Operational"
+                    AND c.EventID = 4104
+                    AND LOWER(c.ScriptBlockText) LIKE "%compress-archive%"
+          ) b
+          ON a.ProcessGuid = b.ParentProcessGuid
+          WHERE a.Channel = "Microsoft-Windows-Sysmon/Operational"
+                    AND a.EventID = 1
+                    AND LOWER(a.ParentImage) RLIKE '.*\\â€Ž|â€|â€ª|â€«|â€¬|â€|â€®.*'
+        output: |
+          $env:APPDATA;$files=ChildItem -Path $env:USERPROFILE\ -Include *.doc,*.xps,*.xls,*.ppt,*.pps,*.wps,*.wpd,*.ods,*.odt,*.lwp,*.jtd,*.pdf,*.zip,*.rar,*.docx,*.url,*.xlsx,*.pptx,*.ppsx,*.pst,*.ost,*psw*,*pass*,*login*,*admin*,*sifr*,*sifer*,*vpn,*.jpg,*.txt,*.lnk -Recurse -ErrorAction SilentlyContinue | Select -ExpandProperty FullName; Compress-Archive -LiteralPath $files -CompressionLevel Optimal -DestinationPath $env:APPDATA\Draft.Zip -Force
+      - id: 621F8EE7-E9D8-417C-9FE5-5A0D89C3736A
+        data_sources:
+          - Security
+          - Microsoft-Windows-PowerShell/Operational
+        rule_contribution:
+        logic: |
+          SELECT b.ScriptBlockText
+          FROM apt29Table a
+          INNER JOIN (
+            SELECT d.NewProcessId, d.ProcessId, c.ScriptBlockText
+            FROM apt29Table c
+            INNER JOIN (
+                SELECT split(NewProcessId, '0x')[1] as NewProcessId, ProcessId
+                FROM apt29Table
+                WHERE LOWER(Channel) = "security"
+                    AND EventID = 4688
+                ) d
+            ON hex(c.ExecutionProcessID) = d.NewProcessId
+            WHERE c.Channel = "Microsoft-Windows-PowerShell/Operational"
+                    AND c.EventID = 4104
+                    AND LOWER(c.ScriptBlockText) LIKE "%compress-archive%"
+          ) b
+          ON a.NewProcessId = b.ProcessId
+          WHERE LOWER(a.Channel) = "security"
+                    AND a.EventID = 4688
+                    AND LOWER(a.ParentProcessName) RLIKE '.*\\â€Ž|â€|â€ª|â€«|â€¬|â€|â€®.*'
+        output: |
+          $env:APPDATA;$files=ChildItem -Path $env:USERPROFILE\ -Include *.doc,*.xps,*.xls,*.ppt,*.pps,*.wps,*.wpd,*.ods,*.odt,*.lwp,*.jtd,*.pdf,*.zip,*.rar,*.docx,*.url,*.xlsx,*.pptx,*.ppsx,*.pst,*.ost,*psw*,*pass*,*login*,*admin*,*sifr*,*sifer*,*vpn,*.jpg,*.txt,*.lnk -Recurse -ErrorAction SilentlyContinue | Select -ExpandProperty FullName; Compress-Archive -LiteralPath $files -CompressionLevel Optimal -DestinationPath $env:APPDATA\Draft.Zip -Force

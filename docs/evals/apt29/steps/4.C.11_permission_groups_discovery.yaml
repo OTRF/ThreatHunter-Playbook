@@ -1,0 +1,147 @@
+vendor: OTR Community
+step: 4.C.11
+procedure: Enumerated user's local group membership via the NetUserGetLocalGroups API
+criteria: powershell.exe executing the NetUserGetLocalGroups API
+technique:
+  name: Permission Groups Discovery
+  id: T1069
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/10
+detections:
+  - main_type: Telemetry
+    modifier_type: Correlated
+    description: Telemetry showed powershell.exe executing:​ Invoke-NetUserGetLocalGroups. The detection was correlated to a parent grouping of malicious activity. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe.
+    reference:
+    queries:
+      - id: 1CD16ED8-C812-40B1-B968-F0DABFC79DDF
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+          - Microsoft-Windows-PowerShell/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host f
+          INNER JOIN (
+            SELECT d.ProcessId
+            FROM apt29Host d
+            INNER JOIN (
+              SELECT a.ProcessGuid, a.ParentProcessGuid
+              FROM apt29Host a
+              INNER JOIN (
+                SELECT ProcessGuid
+                FROM apt29Host
+                WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                    AND EventID = 1
+                    AND LOWER(Image) LIKE "%control.exe"
+                    AND LOWER(ParentImage) LIKE "%sdclt.exe"
+              ) b
+              ON a.ParentProcessGuid = b.ProcessGuid
+              WHERE a.Channel = "Microsoft-Windows-Sysmon/Operational"
+                AND a.EventID = 1
+                AND a.IntegrityLevel = "High"
+            ) c
+            ON d.ParentProcessGuid= c.ProcessGuid
+            WHERE d.Channel = "Microsoft-Windows-Sysmon/Operational"
+              AND d.EventID = 1
+              AND d.Image LIKE '%powershell.exe'
+          ) e
+          ON f.ExecutionProcessID = e.ProcessId
+          WHERE f.Channel = "Microsoft-Windows-PowerShell/Operational"
+            AND f.EventID = 4104
+            AND LOWER(f.ScriptBlockText) LIKE "%netusergetlocalgroups%"
+        output: |
+          Creating Scriptblock text (1 of 1):
+          function Invoke-Discovery {
+              $DiscoveryInfo =@()
+              $CurrentDir = Get-Location
+          
+              $DiscoveryInfo += [PSCustomObject]@{
+                          CurrentDirectory = $CurrentDir
+                          TempDirectory = $env:TEMP
+                          UserName = $env:USERNAME
+                          ComputerName = $env:COMPUTERNAME
+                          UserDomain = $env:USERDOMAIN
+                          CurrentPID = $PID
+                      }
+          
+              $DiscoveryInfo | Format-List
+              
+              $NameSpace = Get-WmiObject -Namespace "root" -Class "__Namespace" | Select Name | Out-String -Stream | Select-String "SecurityCenter"
+              foreach ($SecurityCenter in $NameSpace) { 
+                  Get-WmiObject -Namespace "root\$SecurityCenter" -Class AntiVirusProduct -ErrorAction SilentlyContinue | Select DisplayName, InstanceGuid, PathToSignedProductExe, PathToSignedReportingExe, ProductState, Timestamp | Format-List
+                  WmiObject -Namespace "root\$SecurityCenter" -Class FireWallProduct -ErrorAction SilentlyContinue | Select DisplayName, InstanceGuid, PathToSignedProductExe, PathToSignedReportingExe, ProductState, Timestamp | Format-List 
+              } 
+          
+              Gwmi Win32_OperatingSystem | Select Name, OSArchitecture, CSName, BuildNumber, Version | Format-List
+              Invoke-NetUserGetGroups
+              Invoke-NetUserGetLocalGroups
+          }
+          
+          ScriptBlock ID: 70878299-2ee1-4a5d-869f-124b349aee1d
+          Path: C:\Program Files\SysinternalsSuite\readme.ps1
+      - id: F0AC46E2-63EA-4C8E-AF39-6631444451E5
+        data_sources:
+          - Security
+          - Microsoft-Windows-PowerShell/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host f
+          INNER JOIN (
+            SELECT split(d.NewProcessId, '0x')[1] as NewProcessId
+            FROM apt29Host d
+            INNER JOIN(
+              SELECT a.ProcessId, a.NewProcessId
+              FROM apt29Host a
+              INNER JOIN (
+                SELECT NewProcessId
+                FROM apt29Host
+                WHERE LOWER(Channel) = "security"
+                    AND EventID = 4688
+                    AND LOWER(NewProcessName) LIKE "%control.exe"
+                    AND LOWER(ParentProcessName) LIKE "%sdclt.exe"
+              ) b
+              ON a.ProcessId = b.NewProcessId
+              WHERE LOWER(a.Channel) = "security"
+                AND a.EventID = 4688
+                AND a.MandatoryLabel = "S-1-16-12288"
+                AND a.TokenElevationType = "%%1937"
+            ) c
+            ON d.ProcessId = c.NewProcessId
+            WHERE LOWER(d.Channel) = "security"
+              AND d.EventID = 4688
+              AND d.NewProcessName LIKE '%powershell.exe'
+          ) e
+          ON LOWER(hex(f.ExecutionProcessID)) = e.NewProcessId
+          WHERE f.Channel = "Microsoft-Windows-PowerShell/Operational"
+            AND f.EventID = 4104
+            AND LOWER(f.ScriptBlockText) LIKE "%netusergetlocalgroups%"
+        output: |
+          Creating Scriptblock text (1 of 1):
+          function Invoke-Discovery {
+              $DiscoveryInfo =@()
+              $CurrentDir = Get-Location
+          
+              $DiscoveryInfo += [PSCustomObject]@{
+                          CurrentDirectory = $CurrentDir
+                          TempDirectory = $env:TEMP
+                          UserName = $env:USERNAME
+                          ComputerName = $env:COMPUTERNAME
+                          UserDomain = $env:USERDOMAIN
+                          CurrentPID = $PID
+                      }
+          
+              $DiscoveryInfo | Format-List
+              
+              $NameSpace = Get-WmiObject -Namespace "root" -Class "__Namespace" | Select Name | Out-String -Stream | Select-String "SecurityCenter"
+              foreach ($SecurityCenter in $NameSpace) { 
+                  Get-WmiObject -Namespace "root\$SecurityCenter" -Class AntiVirusProduct -ErrorAction SilentlyContinue | Select DisplayName, InstanceGuid, PathToSignedProductExe, PathToSignedReportingExe, ProductState, Timestamp | Format-List
+                  WmiObject -Namespace "root\$SecurityCenter" -Class FireWallProduct -ErrorAction SilentlyContinue | Select DisplayName, InstanceGuid, PathToSignedProductExe, PathToSignedReportingExe, ProductState, Timestamp | Format-List 
+              } 
+          
+              Gwmi Win32_OperatingSystem | Select Name, OSArchitecture, CSName, BuildNumber, Version | Format-List
+              Invoke-NetUserGetGroups
+              Invoke-NetUserGetLocalGroups
+          }
+          
+          ScriptBlock ID: 70878299-2ee1-4a5d-869f-124b349aee1d
+          Path: C:\Program Files\SysinternalsSuite\readme.ps1

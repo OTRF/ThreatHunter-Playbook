@@ -55,7 +55,27 @@ analytics_loaded = [yaml.safe_load(open(analytic_file).read()) for analytic_file
 print("\n[+] Translating YAML files to notebooks..")
 for analytic in analytics_loaded:
     print("  [>>] Processing {} file..".format(analytic['title']))
-    nb = nbf.v4.new_notebook() 
+    # METADATA
+    metadata = {
+        "kernelspec": {
+            "display_name": "PySpark_Python3",
+            "language": "python",
+            "name": "pyspark3"
+        },
+        "language_info": {
+            "codemirror_mode": {
+                "name": "ipython",
+                "version": 3
+            },
+            "file_extension": ".py",
+            "mimetype": "text/x-python",
+            "name": "python",
+            "nbconvert_exporter": "python",
+            "pygments_lexer": "ipython3",
+            "version": "3.7.3"
+        }
+    }
+    nb = nbf.v4.new_notebook(metadata=metadata)
     nb['cells'] = []
     # *** TITLE ****
     nb['cells'].append(nbf.v4.new_markdown_cell("# {}".format(analytic['title'])))
@@ -158,27 +178,26 @@ df.show(10,False)""".format(a['logic'])
     # ***** Update main TOC template and creating notebook *****
     for attack in analytic['attack_coverage']:
         for to in toc_template:
-            if "/notebooks/{}/{}".format(platform,platform) in to.values():
+            if "notebooks/{}/{}".format(platform,platform) in to.values():
                 for section in to['sections']:
                     for tactic in attack['tactics']:
-                        if attack_paths[tactic] in section['url']:
+                        if attack_paths[tactic] in section['file']:
                             analyticDict = {
-                                "url" : "/notebooks/{}/{}/{}".format(platform,attack_paths[tactic], analytic['id']),
-                                "not_numbered" : True
+                                "file" : "notebooks/{}/{}/{}".format(platform,attack_paths[tactic], analytic['id'])
                             }
-                            if analyticDict not in section['subsections']:
+                            if analyticDict not in section['sections']:
                                 print("    [>>] Adding {} to {} path..".format(analytic['id'], attack_paths[tactic]))
-                                section['subsections'].append(analyticDict)
+                                section['sections'].append(analyticDict)
                                 print("    [>>] Writing {} as a notebook to {}..".format(analytic['title'], attack_paths[tactic]))
-                                nbf.write(nb, "../docs/content/notebooks/{}/{}/{}.ipynb".format(platform,attack_paths[tactic],analytic['id']))
+                                nbf.write(nb, "../docs/notebooks/{}/{}/{}.ipynb".format(platform,attack_paths[tactic],analytic['id']))
 
 # ****** Removing empty lists ********
 print("\n[+] Removing empty platforms and empty lists..")
 for to in toc_template[:]:
     if 'sections' in to.keys() and len(to['sections']) > 0:
         for section in to['sections'][:]:
-            if 'subsections' in section and not section['subsections']:
-                print("  [>>] Removing {} ..".format(section['url']))
+            if 'sections' in section and not section['sections']:
+                print("  [>>] Removing {} ..".format(section['file']))
                 to['sections'].remove(section)
 
 # ****** Creating Analytics Summaries ******
@@ -234,7 +253,7 @@ for summary in summary_table:
                 }
             ]
         }
-        open('../docs/content/notebooks/{}/{}.json'.format(PLATFORM,PLATFORM), 'w').write(json.dumps(thp_layer))
+        open('../docs/notebooks/{}/{}.json'.format(PLATFORM,PLATFORM), 'w').write(json.dumps(thp_layer))
     
 print("\n[+] Creating analytic summary tables for each platform..")
 summary_template = Template(open('templates/summary_template.md').read())
@@ -243,9 +262,9 @@ for summary in summary_table:
         print("  [>>] Creating summary table for {} analytics..".format(summary['platform']))
         summary_for_render = copy.deepcopy(summary)
         markdown = summary_template.render(summary=summary_for_render)
-        open('../docs/content/notebooks/{}/{}.md'.format(summary['platform'].lower(),summary['platform'].lower()), 'w').write(markdown)
+        open('../docs/notebooks/{}/{}.md'.format(summary['platform'].lower(),summary['platform'].lower()), 'w').write(markdown)
 
 # ******* Update Jupyter Book TOC File *************
 print("\n[+] Writing final TOC file for Jupyter book..")
-with open(r'../docs/_data/toc.yml', 'w') as file:
+with open(r'../docs/_toc.yml', 'w') as file:
     yaml.dump(toc_template, file, sort_keys=False)

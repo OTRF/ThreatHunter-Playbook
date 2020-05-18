@@ -1,0 +1,74 @@
+vendor: OTR Community
+step: 1.A.3
+procedure: Established C2 channel (192.168.0.5) via rcs.3aka3.doc payload over TCP port 1234
+criteria: Established network channel over port 1234
+technique:
+  name: Uncommonly Used Port
+  id: T1065
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/1
+detections:
+  - main_type: Telemetry
+    modifier_type:
+    description: Telemetry showed rcs.3aka3.doc connected to 192.168.0.5 over port 1234
+    reference:
+      - https://superuser.com/a/456412
+    queries:
+      - id: B53A710B-43AB-4B57-BD92-4E787D494978
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host
+          WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+              AND EventID = 3
+              AND LOWER(Image) RLIKE '.*\\â€Ž|â€|â€ª|â€«|â€¬|â€|â€®.*'
+        output: |
+          Network connection detected:
+          RuleName: -
+          UtcTime: 2020-05-02 02:55:59.631
+          ProcessGuid: {47ab858c-e13c-5eac-a903-000000000400}
+          ProcessId: 8524
+          Image: C:\ProgramData\victim\â€®cod.3aka3.scr
+          User: DMEVALS\pbeesly
+          Protocol: tcp
+          Initiated: true
+          SourceIsIpv6: false
+          SourceIp: 10.0.1.4
+          SourceHostname: -
+          SourcePort: 59835
+          SourcePortName: -
+          DestinationIsIpv6: false
+          DestinationIp: 192.168.0.5
+          DestinationHostname: -
+          DestinationPort: 1234
+          DestinationPortName: -
+      - id: 1BAC5645-83CD-4D6F-A4F8-659084401F47
+        data_sources:
+          - Security
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host
+          WHERE LOWER(Channel) = "security"
+            AND EventID = 5156
+            AND LOWER(Application) RLIKE '.*\\â€Ž|â€|â€ª|â€«|â€¬|â€|â€®.*'
+        output: |
+          The Windows Filtering Platform has permitted a connection.
+
+          Application Information:
+            Process ID:		8524
+            Application Name:	\device\harddiskvolume2\programdata\victim\â€®cod.3aka3.scr
+          
+          Network Information:
+            Direction:		Outbound
+            Source Address:		10.0.1.4
+            Source Port:		59835
+            Destination Address:	192.168.0.5
+            Destination Port:		1234
+            Protocol:		6
+          
+          Filter Information:
+            Filter Run-Time ID:	68659
+            Layer Name:		Connect
+            Layer Run-Time ID:	48

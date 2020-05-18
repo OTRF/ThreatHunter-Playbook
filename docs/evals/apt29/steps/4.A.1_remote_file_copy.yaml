@@ -1,0 +1,48 @@
+vendor: OTR Community
+step: 4.A.1
+procedure: Dropped additional tools (SysinternalsSuite.zip) to disk over C2 channel (192.168.0.5)
+criteria: powershell.exe creating the file SysinternalsSuite.zip
+technique:
+  name: Remote File Copy
+  id: T1105
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/8
+detections:
+  - main_type: Telemetry
+    modifier_type: Correlated
+    description: Telemetry showed the file write of the ZIP by PowerShell. The detection was correlated to a parent alert identifying rcs.3aka3.doc as suspicious.
+    reference:
+    queries:
+      - id: 337EA65D-55A7-4890-BB2A-6A08BB9703E2
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host d
+          INNER JOIN (
+              SELECT b.ProcessGuid
+              FROM apt29Host b
+              INNER JOIN (
+                  SELECT ProcessGuid
+                  FROM apt29Host
+                  WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                      AND EventID = 1
+                      AND LOWER(ParentImage) RLIKE '.*\\â€Ž|â€|â€ª|â€«|â€¬|â€|â€®.*'
+              ) a
+              ON b.ParentProcessGuid = a.ProcessGuid
+              WHERE b.Channel = "Microsoft-Windows-Sysmon/Operational"
+                  AND b.EventID = 1
+          ) c
+          ON d.ProcessGuid = c.ProcessGuid
+          WHERE d.Channel = "Microsoft-Windows-Sysmon/Operational"
+            AND d.EventID = 11
+            AND LOWER(d.TargetFilename) LIKE '%.zip'
+        output: |
+          File created:
+          RuleName: -
+          UtcTime: 2020-05-02 02:56:18.032
+          ProcessGuid: {47ab858c-e14e-5eac-ac03-000000000400}
+          ProcessId: 5944
+          Image: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe
+          TargetFilename: C:\Users\pbeesly\AppData\Roaming\Draft.Zip
+          CreationUtcTime: 2020-05-02 02:56:18.032

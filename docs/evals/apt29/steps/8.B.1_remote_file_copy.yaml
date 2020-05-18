@@ -1,0 +1,68 @@
+vendor: OTR Community
+step: 8.B.1
+procedure: Copied python.exe payload from a WebDAV share (192.168.0.4) to remote host Scranton (10.0.1.4)
+criteria: The file python.exe created on Scranton (10.0.1.4)
+technique:
+  name: Remote File Copy
+  id: T1105
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/19
+detections:
+  - main_type: Telemetry
+    modifier_type:
+    description: Telemetry showed python.exe being created on NASHUA (10.0.1.6). Windows Security event logs tells us it came from SCRANTON (10.0.1.4) and via ADMIN$ share.
+    reference:
+    queries:
+      - id: 97402495-2449-415F-BDAD-5CC8EFC1E1B5
+        data_sources:
+          - Security
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host
+          WHERE LOWER(Channel) = "security"
+            AND EventID = 5145
+            AND RelativeTargetName LIKE '%python.exe'
+        output: |
+          A network share object was checked to see whether client can be granted desired access.
+    
+          Subject:
+            Security ID:		S-1-5-21-1830255721-3727074217-2423397540-1107
+            Account Name:		pbeesly
+            Account Domain:		DMEVALS
+            Logon ID:		0x861A79
+          
+          Network Information:	
+            Object Type:		File
+            Source Address:		10.0.1.4
+            Source Port:		59967
+            
+          Share Information:
+            Share Name:		\\*\ADMIN$
+            Share Path:		\??\C:\windows
+            Relative Target Name:	Temp\python.exe
+          
+          Access Request Information:
+            Access Mask:		0x2
+            Accesses:		WriteData (or AddFile)
+                  
+          Access Check Results:
+            -
+      - id: D804F2D8-C65B-42D6-A731-C13BE2BDB441
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host
+          WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'
+              AND EventID = 11
+              AND TargetFilename LIKE '%python.exe'
+        output: |
+          File created:
+          RuleName: -
+          UtcTime: 2020-05-02 03:10:23.626
+          ProcessGuid: {5aa8ec29-cad1-5eac-0100-000000000400}
+          ProcessId: 4
+          Image: System
+          TargetFilename: C:\Windows\Temp\python.exe
+          CreationUtcTime: 2020-05-02 03:10:23.626

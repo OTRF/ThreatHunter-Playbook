@@ -1,0 +1,73 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Introduction\n",
+    "\n",
+    "<a href=\"https://www.gnu.org/licenses/gpl-3.0\"><img src=\"https://img.shields.io/badge/License-GPLv3-blue.svg\" class=\"left\"></a>\n",
+    "<a href=\"https://twitter.com/HunterPlaybook\"><img src=\"https://img.shields.io/twitter/follow/HunterPlaybook.svg?style=social&label=Follow\" class=\"left\"></a>\n",
+    "<a href=\"https://github.com/ellerbrock/open-source-badges/\"><img src=\"https://badges.frapsoft.com/os/v3/open-source.svg?v=103\" class=\"left\"></a>\n",
+    "<div style=\"clear:both;\"></div>\n",
+    "\n",
+    "\n",
+    "The Threat Hunter Playbook is a community-based open source project developed to share threat hunting concepts and aid the development of techniques and hypothesis for hunting campaigns by leveraging security event logs from diverse operating systems. This project provides not only information about detections, but also other very important activites when developing analytics such as data documentation, data modeling and even data quality assessments.\n",
+    "\n",
+    "In addition, the analytics shared in this project represent specific chains of events exclusively at the host and network level and in a SQL-like format so that you can take them and apply the logic in your preferred tool or query format. The analytics provided in this repo also follow the structure of [MITRE ATT&CK](https://attack.mitre.org/wiki/Main_Page) categorizing post-compromise adversary behavior in tactical groups.\n",
+    "\n",
+    "Finally, the project documents detection strategies in the form of [interactive notebooks](https://github.com/hunters-forge/notebooks-forge#what-is-a-notebook) to provide an easy and flexible way to visualize the expected output and be able to run the analytics against [pre-recorded mordor datasets](https://github.com/hunters-forge/mordor) through [BinderHub](https://mybinder.readthedocs.io/en/latest/index.html) cloud computing environments.\n",
+    "\n",
+    "## Goals\n",
+    "\n",
+    "* Expedite the development of techniques an hypothesis for hunting campaigns.\n",
+    "* Help Threat Hunters understand patterns of behavior observed during post-exploitation.\n",
+    "* Reduce the number of false positives while hunting by providing more context around suspicious events.\n",
+    "* Share real-time analytics validation examples through cloud computing environments for free.\n",
+    "* Distribute Threat Hunting concepts and processes around the world for free.\n",
+    "* Map pre-recorded datasets to adversarial techniques.\n",
+    "* Accelerate infosec lerning through open source resources.\n",
+    "\n",
+    "## Author\n",
+    "\n",
+    "Roberto Rodriguez [@Cyb3rWard0g](https://twitter.com/Cyb3rWard0g)\n",
+    "\n",
+    "## Official Committers\n",
+    "\n",
+    "* Jose Luis Rodriguez [@Cyb3rPandaH](https://twitter.com/Cyb3rPandaH) is adding his expertise in data science to it.\n",
+    "\n",
+    "## Acknowledgements\n",
+    "\n",
+    "Jupyter Books was originally created by [Sam Lau](http://www.samlau.me/) and [Chris Holdgraf](https://predictablynoisy.com/) with support of the **UC Berkeley Data Science Education Program and the [Berkeley Institute for Data Science](https://bids.berkeley.edu/)**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "PySpark_Python3",
+   "language": "python",
+   "name": "pyspark3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

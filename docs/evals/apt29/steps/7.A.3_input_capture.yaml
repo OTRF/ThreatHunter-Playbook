@@ -1,0 +1,14 @@
+vendor: OTR Community
+step: 7.A.3
+procedure: Captured user keystrokes using the GetAsyncKeyState API
+criteria: powershell.exe executing the GetAsyncKeyState API
+technique:
+  name: Input Capture
+  id: T1056
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/16
+detections:
+  - main_type: None
+    modifier_type:
+    description: No detection capability demonstrated for this procedure.
+    reference:
+    queries:

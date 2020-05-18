@@ -1,0 +1,105 @@
+
+/*********************************************
+* Print-specific CSS *
+*********************************************/
+@media print {
+    .tag_popout, div.margin {
+        float: right;
+        clear: right;
+        width: 50%;
+        margin-right: -56%;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-right: 1em;
+        font-size: 0.9rem;
+        line-height: 1.3;
+        vertical-align: baseline;
+        position: relative;
+
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .bd-content {
+        // Widen the main div since we won't have a TOC
+        div#main-content > div {
+            flex: 0 0 75%;
+            max-width: 75%;
+        }
+    }
+
+    h1, h2, h3, h4 {
+        break-after: avoid;
+    }
+
+    table {
+        break-inside: avoid;
+    }
+
+    pre {
+        word-wrap: break-word;
+    }
+
+    a.copybtn, a.headerlink {
+        display: none;
+    }
+
+    .tag-fullwidth {
+        width: 145%;
+        clear: both;
+    }
+
+    div.toggle-hidden {
+        visibility: inherit;
+        opacity: 1;
+        height: auto;
+    }
+
+    button.toggle-button {
+        display: none;
+    }
+
+    blockquote.epigraph {
+        border: none;
+    }
+
+    // For some reason this fixes the containers from taking up the whole screen
+    div.container {
+        min-width: 50% !important;
+    }
+
+    div.bd-sidebar, div.prev-next-bottom {
+        display: none;
+    }
+
+    div.topbar {
+        height: 0;
+        padding: 0;
+        position: inherit;  // So that TOC isn't printed on each page
+
+        div.topbar-main {
+            opacity: 0;
+        }
+
+        // Grow and show the TOC on print
+        div.bd-toc {
+            flex: 0 0 25%;
+            max-width: 25%;
+            height: auto !important;
+
+            // All 1st and 2nd items should be displayed
+            nav, nav > ul.nav, nav > ul.nav > li > ul.nav {
+                opacity: 1;
+                display: block;
+            }
+
+            // No fancy styling for nav links
+            .nav-link.active {
+                font-weight: inherit;
+                color: inherit;
+                background-color: inherit;
+                border-left: inherit;
+            }
+        }
+    }
+}

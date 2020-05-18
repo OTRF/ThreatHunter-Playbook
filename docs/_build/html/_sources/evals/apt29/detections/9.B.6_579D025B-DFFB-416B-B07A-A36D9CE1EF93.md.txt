@@ -1,0 +1,72 @@
+# 579D025B-DFFB-416B-B07A-A36D9CE1EF93
+
+## Data Sources
+* Security<br>
+
+## Logic
+
+```
+SELECT h.Message
+FROM apt29Host h
+INNER JOIN (
+    SELECT f.NewProcessId
+    FROM apt29Host f
+    INNER JOIN (
+        SELECT d.NewProcessId
+        FROM apt29Host d
+        INNER JOIN (
+            SELECT b.NewProcessId
+            FROM apt29Host b
+            INNER JOIN (
+              SELECT NewProcessId
+              FROM apt29Host
+              WHERE LOWER(Channel) = "security"
+                  AND EventID = 4688
+                  AND ParentProcessName LIKE '%services.exe'
+            ) a
+            ON b.ProcessId = a.NewProcessId
+            WHERE LOWER(Channel) = "security"
+              AND NewProcessName LIKE '%python.exe'
+        ) c
+        ON d.ProcessId = c.NewProcessId
+        WHERE LOWER(Channel) = "security"
+            AND EventID = 4688
+    ) e
+    ON f.ProcessId = e.NewProcessId
+    WHERE LOWER(Channel) = "security"
+        AND EventID = 4688
+        AND NewProcessName LIKE '%powershell.exe'
+) g
+ON h.ProcessId = g.NewProcessId
+WHERE LOWER(Channel) = "security"
+    AND h.EventID = 4688
+    AND LOWER(h.CommandLine) LIKE "%rar.exe%"
+
+```
+
+## Output
+
+```
+A new process has been created.
+
+Creator Subject:
+  Security ID:		S-1-5-21-1830255721-3727074217-2423397540-1107
+  Account Name:		pbeesly
+  Account Domain:		DMEVALS
+  Logon ID:		0x89177D
+
+Target Subject:
+  Security ID:		S-1-0-0
+  Account Name:		-
+  Account Domain:		-
+  Logon ID:		0x0
+
+Process Information:
+  New Process ID:		0xbc
+  New Process Name:	C:\Windows\Temp\Rar.exe
+  Token Elevation Type:	%%1938
+  Mandatory Label:		S-1-16-8192
+  Creator Process ID:	0x130c
+  Creator Process Name:	C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+  Process Command Line:	"C:\Windows\Temp\Rar.exe" a -hpfGzq5yKw C:\Users\pbeesly\Desktop\working.zip C:\Users\pbeesly\AppData\Roaming\working.zip
+```

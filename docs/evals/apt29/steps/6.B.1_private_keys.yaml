@@ -1,0 +1,58 @@
+vendor: OTR Community
+step: 6.B.1
+procedure: Exported a local certificate to a PFX file using PowerShell
+criteria: powershell.exe creating a certificate file exported from the system
+technique:
+  name: Private Keys
+  id: T1145
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/14
+detections:
+  - main_type: Telemetry
+    modifier_type: Correlated
+    description: Telemetry showed file create event for a $RandomFileName.pfx file by powershell.exe. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe.
+    reference:
+    queries:
+      - id: 6392C9F1-D975-4F75-8A70-433DEDD7F622
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host f
+          INNER JOIN (
+              SELECT d.ProcessGuid
+              FROM apt29Host d
+              INNER JOIN (
+                SELECT a.ProcessGuid, a.ParentProcessGuid
+                FROM apt29Host a
+                INNER JOIN (
+                  SELECT ProcessGuid
+                  FROM apt29Host
+                  WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                      AND EventID = 1
+                      AND LOWER(Image) LIKE "%control.exe"
+                      AND LOWER(ParentImage) LIKE "%sdclt.exe"
+                ) b
+                ON a.ParentProcessGuid = b.ProcessGuid
+                WHERE a.Channel = "Microsoft-Windows-Sysmon/Operational"
+                  AND a.EventID = 1
+                  AND a.IntegrityLevel = "High"
+              ) c
+              ON d.ParentProcessGuid= c.ProcessGuid
+              WHERE d.Channel = "Microsoft-Windows-Sysmon/Operational"
+                AND d.EventID = 1
+                AND d.Image LIKE '%powershell.exe'
+          ) e
+          ON f.ProcessGuid = e.ProcessGuid
+          WHERE f.Channel = "Microsoft-Windows-Sysmon/Operational"
+          AND f.EventID = 11
+          AND LOWER(f.TargetFilename) LIKE "%.pfx"
+        output: |
+          File created:
+          RuleName: -
+          UtcTime: 2020-05-02 03:04:57.460
+          ProcessGuid: {47ab858c-e23d-5eac-c603-000000000400}
+          ProcessId: 3876
+          Image: C:\windows\system32\WindowsPowerShell\v1.0\powershell.exe
+          TargetFilename: C:\Users\pbeesly\Downloads\coyn5igj.3io.pfx
+          CreationUtcTime: 2020-05-02 03:04:57.460

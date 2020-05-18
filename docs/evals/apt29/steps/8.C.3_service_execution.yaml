@@ -1,0 +1,95 @@
+vendor: OTR Community
+step: 8.C.3
+procedure: Executed python.exe using PSExec
+criteria: python.exe spawned by PSEXESVC.exe
+technique:
+  name: Service Execution
+  id: T1035
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/20
+detections:
+  - main_type: Telemetry
+    modifier_type: Correlated
+    description: Telemetry showed python.exe spawned by PSEXESVC.exe. This can be Correlated with services.exe as a grand-parent.
+    reference:
+    queries:
+      - id: BDE98B9B-77DD-4AD4-B755-463C3C27EE5F
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host b
+          INNER JOIN (
+              SELECT ProcessGuid
+              FROM apt29Host
+              WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                  AND EventID = 1
+                  AND ParentImage LIKE '%services.exe'
+          ) a
+          ON b.ParentProcessGuid = a.ProcessGuid
+          WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+              AND Image LIKE '%python.exe'
+        output: |
+          Process Create:
+          RuleName: -
+          UtcTime: 2020-05-02 03:11:40.213
+          ProcessGuid: {5aa8ec29-e4ec-5eac-6803-000000000400}
+          ProcessId: 2792
+          Image: C:\Windows\Temp\python.exe
+          FileVersion: -
+          Description: -
+          Product: -
+          Company: -
+          OriginalFileName: -
+          CommandLine: "C:\Windows\Temp\python.exe" 
+          CurrentDirectory: C:\windows\system32\
+          User: DMEVALS\pbeesly
+          LogonGuid: {5aa8ec29-e4ec-5eac-2578-860000000000}
+          LogonId: 0x867825
+          TerminalSessionId: 2
+          IntegrityLevel: Medium
+          Hashes: SHA1=585EB59D12A111E9291518C5CF5D3FD296C2B581,MD5=57292CE8714E2D221D9D97C9D061D332,SHA256=43782EC4337D8F3DDB7EA0C451B3BC4F212F84C8D5571BD0A842001C859A02AE,IMPHASH=00000000000000000000000000000000
+          ParentProcessGuid: {5aa8ec29-e4eb-5eac-6703-000000000400}
+          ParentProcessId: 9204
+          ParentImage: C:\Windows\PSEXESVC.exe
+          ParentCommandLine: C:\windows\PSEXESVC.exe
+      - id: 11D81CCD-163F-4347-8F1D-072F4B4B3B26
+        data_sources:
+          - Security
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host b
+          INNER JOIN (
+              SELECT NewProcessId
+              FROM apt29Host
+              WHERE LOWER(Channel) = "security"
+                  AND EventID = 4688
+                  AND ParentProcessName LIKE '%services.exe'
+          ) a
+          ON b.ProcessId = a.NewProcessId
+          WHERE LOWER(Channel) = "security"
+              AND NewProcessName LIKE '%python.exe'
+        output: |
+          A new process has been created.
+
+          Creator Subject:
+            Security ID:		S-1-5-18
+            Account Name:		NASHUA$
+            Account Domain:		DMEVALS
+            Logon ID:		0x3E7
+          
+          Target Subject:
+            Security ID:		S-1-5-21-1830255721-3727074217-2423397540-1107
+            Account Name:		pbeesly
+            Account Domain:		DMEVALS
+            Logon ID:		0x867825
+          
+          Process Information:
+            New Process ID:		0xae8
+            New Process Name:	C:\Windows\Temp\python.exe
+            Token Elevation Type:	%%1938
+            Mandatory Label:		S-1-16-8192
+            Creator Process ID:	0x23f4
+            Creator Process Name:	C:\Windows\PSEXESVC.exe
+            Process Command Line:	"C:\Windows\Temp\python.exe"

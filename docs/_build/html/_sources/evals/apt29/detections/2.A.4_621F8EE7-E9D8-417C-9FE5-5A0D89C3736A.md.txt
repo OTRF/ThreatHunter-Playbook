@@ -1,0 +1,36 @@
+# 621F8EE7-E9D8-417C-9FE5-5A0D89C3736A
+
+## Data Sources
+* Security<br>* Microsoft-Windows-PowerShell/Operational<br>
+
+## Logic
+
+```
+SELECT b.ScriptBlockText
+FROM apt29Table a
+INNER JOIN (
+  SELECT d.NewProcessId, d.ProcessId, c.ScriptBlockText
+  FROM apt29Table c
+  INNER JOIN (
+      SELECT split(NewProcessId, '0x')[1] as NewProcessId, ProcessId
+      FROM apt29Table
+      WHERE LOWER(Channel) = "security"
+          AND EventID = 4688
+      ) d
+  ON hex(c.ExecutionProcessID) = d.NewProcessId
+  WHERE c.Channel = "Microsoft-Windows-PowerShell/Operational"
+          AND c.EventID = 4104
+          AND LOWER(c.ScriptBlockText) LIKE "%compress-archive%"
+) b
+ON a.NewProcessId = b.ProcessId
+WHERE LOWER(a.Channel) = "security"
+          AND a.EventID = 4688
+          AND LOWER(a.ParentProcessName) RLIKE '.*\\â€Ž|â€|â€ª|â€«|â€¬|â€|â€®.*'
+
+```
+
+## Output
+
+```
+$env:APPDATA;$files=ChildItem -Path $env:USERPROFILE\ -Include *.doc,*.xps,*.xls,*.ppt,*.pps,*.wps,*.wpd,*.ods,*.odt,*.lwp,*.jtd,*.pdf,*.zip,*.rar,*.docx,*.url,*.xlsx,*.pptx,*.ppsx,*.pst,*.ost,*psw*,*pass*,*login*,*admin*,*sifr*,*sifer*,*vpn,*.jpg,*.txt,*.lnk -Recurse -ErrorAction SilentlyContinue | Select -ExpandProperty FullName; Compress-Archive -LiteralPath $files -CompressionLevel Optimal -DestinationPath $env:APPDATA\Draft.Zip -Force
+```

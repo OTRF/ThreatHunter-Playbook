@@ -1,0 +1,141 @@
+vendor: OTR Community
+step: 6.A.3
+procedure: Masqueraded a Chrome password dump tool as accesscheck.exe, a legitimate Sysinternals tool
+criteria: Evidence that accesschk.exe is not the legitimate Sysinternals tool
+technique:
+  name: Masquerading
+  id: T1036
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/13
+detections:
+  - main_type: Telemetry
+    modifier_type: Correlated
+    description: Telemetry showed hash of accesschk.exe, which can be used to verify it is not the legitimate Sysinternals tool. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe.
+    reference:
+    queries:
+      - id: 0A19F9B7-5E17-47E5-8015-29E9ABC09ADC
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host h
+          INNER JOIN (
+              SELECT f.ProcessGuid
+              FROM apt29Host f
+              INNER JOIN (
+                SELECT d.ProcessGuid, d.ParentProcessGuid
+                FROM apt29Host d
+                INNER JOIN (
+                  SELECT a.ProcessGuid, a.ParentProcessGuid
+                  FROM apt29Host a
+                  INNER JOIN (
+                    SELECT ProcessGuid
+                    FROM apt29Host
+                    WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                        AND EventID = 1
+                        AND LOWER(Image) LIKE "%control.exe"
+                        AND LOWER(ParentImage) LIKE "%sdclt.exe"
+                  ) b
+                  ON a.ParentProcessGuid = b.ProcessGuid
+                  WHERE a.Channel = "Microsoft-Windows-Sysmon/Operational"
+                    AND a.EventID = 1
+                    AND a.IntegrityLevel = "High"
+                ) c
+                ON d.ParentProcessGuid= c.ProcessGuid
+                WHERE d.Channel = "Microsoft-Windows-Sysmon/Operational"
+                  AND d.EventID = 1
+                  AND d.Image LIKE '%powershell.exe'
+              ) e
+              ON f.ParentProcessGuid = e.ProcessGuid
+              WHERE f.Channel = "Microsoft-Windows-Sysmon/Operational"
+                AND f.EventID = 1
+                AND LOWER(f.Image) LIKE '%accesschk%'
+          ) g
+          ON h.ProcessGuid = g.ProcessGuid
+          WHERE h.Channel = "Microsoft-Windows-Sysmon/Operational"
+              AND EventID = 7
+              AND LOWER(ImageLoaded) LIKE '%accesschk%'
+        output: |
+          Image loaded:
+          RuleName: -
+          UtcTime: 2020-05-02 03:04:34.959
+          ProcessGuid: {47ab858c-e342-5eac-d703-000000000400}
+          ProcessId: 9204
+          Image: C:\Program Files\SysinternalsSuite\accessChk.exe
+          ImageLoaded: C:\Program Files\SysinternalsSuite\accessChk.exe
+          FileVersion: -
+          Description: -
+          Product: -
+          Company: -
+          OriginalFileName: -
+          Hashes: SHA1=691E81A8FA152F68FB8ACEFE8F59EA41DC995880,MD5=44F96457ADEB95AFD3F5457082D44538,SHA256=3247D21BC9BBBD8DF670A82E24BE754A2D58D2511EE64AFF0A1E3756CD288236,IMPHASH=8A672B6C29F8A80FC01C6E44A3CDEE82
+          Signed: false
+          Signature: -
+          SignatureStatus: Unavailable
+  - main_type: General
+    modifier_type: Correlated
+    description: A General alert detection can be generated for accesschk.exe execution after searching for HASH in VirusTotal. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe.
+    reference:
+    queries:
+      - id: 1FCE98FC-1FF9-41CB-9C25-0235729A2B01
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host h
+          INNER JOIN (
+              SELECT f.ProcessGuid
+              FROM apt29Host f
+              INNER JOIN (
+                SELECT d.ProcessGuid, d.ParentProcessGuid
+                FROM apt29Host d
+                INNER JOIN (
+                  SELECT a.ProcessGuid, a.ParentProcessGuid
+                  FROM apt29Host a
+                  INNER JOIN (
+                    SELECT ProcessGuid
+                    FROM apt29Host
+                    WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                        AND EventID = 1
+                        AND LOWER(Image) LIKE "%control.exe"
+                        AND LOWER(ParentImage) LIKE "%sdclt.exe"
+                  ) b
+                  ON a.ParentProcessGuid = b.ProcessGuid
+                  WHERE a.Channel = "Microsoft-Windows-Sysmon/Operational"
+                    AND a.EventID = 1
+                    AND a.IntegrityLevel = "High"
+                ) c
+                ON d.ParentProcessGuid= c.ProcessGuid
+                WHERE d.Channel = "Microsoft-Windows-Sysmon/Operational"
+                  AND d.EventID = 1
+                  AND d.Image LIKE '%powershell.exe'
+              ) e
+              ON f.ParentProcessGuid = e.ProcessGuid
+              WHERE f.Channel = "Microsoft-Windows-Sysmon/Operational"
+                AND f.EventID = 1
+                AND LOWER(f.Image) LIKE '%accesschk%'
+          ) g
+          ON h.ProcessGuid = g.ProcessGuid
+          WHERE h.Channel = "Microsoft-Windows-Sysmon/Operational"
+              AND EventID = 7
+              AND LOWER(ImageLoaded) LIKE '%accesschk%'
+        output: |
+          Image loaded:
+          RuleName: -
+          UtcTime: 2020-05-02 03:04:34.959
+          ProcessGuid: {47ab858c-e342-5eac-d703-000000000400}
+          ProcessId: 9204
+          Image: C:\Program Files\SysinternalsSuite\accessChk.exe
+          ImageLoaded: C:\Program Files\SysinternalsSuite\accessChk.exe
+          FileVersion: -
+          Description: -
+          Product: -
+          Company: -
+          OriginalFileName: -
+          Hashes: SHA1=691E81A8FA152F68FB8ACEFE8F59EA41DC995880,MD5=44F96457ADEB95AFD3F5457082D44538,SHA256=3247D21BC9BBBD8DF670A82E24BE754A2D58D2511EE64AFF0A1E3756CD288236,IMPHASH=8A672B6C29F8A80FC01C6E44A3CDEE82
+          Signed: false
+          Signature: -
+          SignatureStatus: Unavailable 
+
+          VirusTotal: https://www.virustotal.com/gui/file/3247d21bc9bbbd8df670a82e24be754a2d58d2511ee64aff0a1e3756cd288236/detection

@@ -1,0 +1,49 @@
+vendor: OTR Community
+step: 3.C.1
+procedure: Modified the Registry to remove artifacts of COM hijacking
+criteria: Deletion of of the HKCU\Software\Classes\Folder\shell\Open\command subkey
+technique:
+  name: Modify Registry
+  id: T1112
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/7
+detections:
+  - main_type: Telemetry
+    modifier_type: Correlated
+    description: Telemetry showed the deletion of the command subkey. The detection was correlated to a parent alert identifying rcs.3aka3.doc as suspicious
+    reference:
+    queries:
+      - id: 22A46621-7A92-48C1-81BF-B3937EB4FDC3
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host d
+          INNER JOIN (
+              SELECT b.ProcessGuid
+              FROM apt29Host b
+              INNER JOIN (
+                  SELECT ProcessGuid
+                  FROM apt29Host
+                  WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                      AND EventID = 1
+                      AND LOWER(ParentImage) RLIKE '.*\\â€Ž|â€|â€ª|â€«|â€¬|â€|â€®.*'
+              ) a
+              ON b.ParentProcessGuid = a.ProcessGuid
+              WHERE b.Channel = "Microsoft-Windows-Sysmon/Operational"
+                  AND b.EventID = 1
+          ) c
+          ON d.ProcessGuid = c.ProcessGuid
+          WHERE d.Channel = "Microsoft-Windows-Sysmon/Operational"
+            AND d.EventID = 12
+            AND LOWER(d.TargetObject) RLIKE '.*\\\\\\\\folder\\\\\\\\shell\\\\\\\\open\\\\\\\\command.*'
+            AND d.Message RLIKE '.*EventType: DeleteKey.*'
+        output: |
+          Registry object added or deleted:
+          RuleName: -
+          EventType: DeleteKey
+          UtcTime: 2020-05-02 02:59:15.911
+          ProcessGuid: {47ab858c-e1f8-5eac-bc03-000000000400}
+          ProcessId: 3832
+          Image: C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe
+          TargetObject: HKU\S-1-5-21-1830255721-3727074217-2423397540-1107_Classes\Folder\shell\open\command

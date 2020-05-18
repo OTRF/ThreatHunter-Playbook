@@ -1,0 +1,75 @@
+# B7549913-AF53-4F9A-9C3F-4106578EA5F2
+
+## Data Sources
+* Security<br>* Microsoft-Windows-PowerShell/Operational<br>
+
+## Logic
+
+```
+SELECT Message
+FROM apt29Host f
+INNER JOIN (
+  SELECT split(d.NewProcessId, '0x')[1] as NewProcessId
+  FROM apt29Host d
+  INNER JOIN(
+    SELECT a.ProcessId, a.NewProcessId
+    FROM apt29Host a
+    INNER JOIN (
+      SELECT NewProcessId
+      FROM apt29Host
+      WHERE LOWER(Channel) = "security"
+          AND EventID = 4688
+          AND LOWER(NewProcessName) LIKE "%control.exe"
+          AND LOWER(ParentProcessName) LIKE "%sdclt.exe"
+    ) b
+    ON a.ProcessId = b.NewProcessId
+    WHERE LOWER(a.Channel) = "security"
+      AND a.EventID = 4688
+      AND a.MandatoryLabel = "S-1-16-12288"
+      AND a.TokenElevationType = "%%1937"
+  ) c
+  ON d.ProcessId = c.NewProcessId
+  WHERE LOWER(d.Channel) = "security"
+    AND d.EventID = 4688
+    AND d.NewProcessName LIKE '%powershell.exe'
+) e
+ON LOWER(hex(f.ExecutionProcessID)) = e.NewProcessId
+WHERE f.Channel = "Microsoft-Windows-PowerShell/Operational"
+  AND f.EventID = 4104
+  AND LOWER(f.ScriptBlockText) LIKE "%-class firewallproduct%"
+
+```
+
+## Output
+
+```
+Creating Scriptblock text (1 of 1):
+function Invoke-Discovery {
+    $DiscoveryInfo =@()
+    $CurrentDir = Get-Location
+
+    $DiscoveryInfo += [PSCustomObject]@{
+                CurrentDirectory = $CurrentDir
+                TempDirectory = $env:TEMP
+                UserName = $env:USERNAME
+                ComputerName = $env:COMPUTERNAME
+                UserDomain = $env:USERDOMAIN
+                CurrentPID = $PID
+            }
+
+    $DiscoveryInfo | Format-List
+    
+    $NameSpace = Get-WmiObject -Namespace "root" -Class "__Namespace" | Select Name | Out-String -Stream | Select-String "SecurityCenter"
+    foreach ($SecurityCenter in $NameSpace) { 
+        Get-WmiObject -Namespace "root\$SecurityCenter" -Class AntiVirusProduct -ErrorAction SilentlyContinue | Select DisplayName, InstanceGuid, PathToSignedProductExe, PathToSignedReportingExe, ProductState, Timestamp | Format-List
+        WmiObject -Namespace "root\$SecurityCenter" -Class FireWallProduct -ErrorAction SilentlyContinue | Select DisplayName, InstanceGuid, PathToSignedProductExe, PathToSignedReportingExe, ProductState, Timestamp | Format-List 
+    } 
+
+    Gwmi Win32_OperatingSystem | Select Name, OSArchitecture, CSName, BuildNumber, Version | Format-List
+    Invoke-NetUserGetGroups
+    Invoke-NetUserGetLocalGroups
+}
+
+ScriptBlock ID: 70878299-2ee1-4a5d-869f-124b349aee1d
+Path: C:\Program Files\SysinternalsSuite\readme.ps1
+```

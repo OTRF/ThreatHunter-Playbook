@@ -1,0 +1,205 @@
+vendor: OTR Community
+step: 4.B.2
+procedure: Deleted rcs.3aka3.doc on disk using SDelete
+criteria: sdelete64.exe deleting the file rcs.3aka3.doc
+technique:
+  name: File Deletion
+  id: T1107
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/9
+detections:
+  - main_type: Telemetry
+    modifier_type: Correlated
+    description: Telemetry showed sdelete.exe running with command-line arguments to delete the file. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe.
+    reference:
+    queries:
+      - id: 5EED5350-0BFD-4501-8B2D-4CE4F8F9E948
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+        rule_contribution:
+        logic: |
+          SELECT f.ProcessGuid
+          FROM apt29Host f
+          INNER JOIN (
+              SELECT d.ProcessId, d.ProcessGuid
+              FROM apt29Host d
+              INNER JOIN (
+                SELECT a.ProcessGuid, a.ParentProcessGuid
+                FROM apt29Host a
+                INNER JOIN (
+                  SELECT ProcessGuid
+                  FROM apt29Host
+                  WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                      AND EventID = 1
+                      AND LOWER(Image) LIKE "%control.exe"
+                      AND LOWER(ParentImage) LIKE "%sdclt.exe"
+                ) b
+                ON a.ParentProcessGuid = b.ProcessGuid
+                WHERE a.Channel = "Microsoft-Windows-Sysmon/Operational"
+                  AND a.EventID = 1
+                  AND a.IntegrityLevel = "High"
+              ) c
+              ON d.ParentProcessGuid= c.ProcessGuid
+              WHERE d.Channel = "Microsoft-Windows-Sysmon/Operational"
+                AND d.EventID = 1
+                AND d.Image LIKE '%powershell.exe'
+          ) e
+          ON f.ParentProcessGuid = e.ProcessGuid
+          WHERE f.Channel = "Microsoft-Windows-Sysmon/Operational"
+              AND f.EventID = 1
+              AND LOWER(f.Image) LIKE '%sdelete%'
+              AND LOWER(f.CommandLine) LIKE '%3aka3%'
+        output: |
+          Process Create:
+          RuleName: -
+          UtcTime: 2020-05-02 03:02:04.324
+          ProcessGuid: {47ab858c-e2ac-5eac-cb03-000000000400}
+          ProcessId: 4140
+          Image: C:\Program Files\SysinternalsSuite\sdelete64.exe
+          FileVersion: 2.02
+          Description: Secure file delete
+          Product: Sysinternals Sdelete
+          Company: Sysinternals - www.sysinternals.com
+          OriginalFileName: sdelete.exe
+          CommandLine: "C:\Program Files\SysinternalsSuite\sdelete64.exe" /accepteula C:\programdata\victim\???cod.3aka3.scr
+          CurrentDirectory: C:\Program Files\SysinternalsSuite\
+          User: DMEVALS\pbeesly
+          LogonGuid: {47ab858c-dabe-5eac-812e-370000000000}
+          LogonId: 0x372E81
+          TerminalSessionId: 2
+          IntegrityLevel: High
+          Hashes: SHA1=7BCD946326B67F806B3DB4595EDE9FBDF29D0C36,MD5=2B5CB081721B8BA454713119BE062491,SHA256=FEEC1457836A5F84291215A2A003FCDE674E7E422DF8C4ED6FE5BB3B679CDC87,IMPHASH=342934F7499D0F57D88D4434E41B7BF9
+          ParentProcessGuid: {47ab858c-e23d-5eac-c603-000000000400}
+          ParentProcessId: 3876
+          ParentImage: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+          ParentCommandLine: powershell.exe
+      - id: 59A9AC92-124D-4C4B-A6BF-3121C98677C3
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host h
+          INNER JOIN (
+              SELECT f.ProcessGuid
+              FROM apt29Host f
+              INNER JOIN (
+                SELECT d.ProcessId, d.ProcessGuid
+                FROM apt29Host d
+                INNER JOIN (
+                  SELECT a.ProcessGuid, a.ParentProcessGuid
+                  FROM apt29Host a
+                  INNER JOIN (
+                    SELECT ProcessGuid
+                    FROM apt29Host
+                    WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                        AND EventID = 1
+                        AND LOWER(Image) LIKE "%control.exe"
+                        AND LOWER(ParentImage) LIKE "%sdclt.exe"
+                  ) b
+                  ON a.ParentProcessGuid = b.ProcessGuid
+                  WHERE a.Channel = "Microsoft-Windows-Sysmon/Operational"
+                    AND a.EventID = 1
+                    AND a.IntegrityLevel = "High"
+                ) c
+                ON d.ParentProcessGuid= c.ProcessGuid
+                WHERE d.Channel = "Microsoft-Windows-Sysmon/Operational"
+                  AND d.EventID = 1
+                  AND d.Image LIKE '%powershell.exe'
+              ) e
+              ON f.ParentProcessGuid = e.ProcessGuid
+              WHERE f.Channel = "Microsoft-Windows-Sysmon/Operational"
+                AND f.EventID = 1
+                AND LOWER(f.Image) LIKE '%sdelete%'
+                AND LOWER(f.CommandLine) LIKE '%3aka3%'
+          ) g
+          ON h.ProcessGuid = g.ProcessGuid
+          WHERE h.Channel = "Microsoft-Windows-Sysmon/Operational"
+              AND h.EventID in (12,13)
+              AND LOWER(h.TargetObject) RLIKE '.*\\\\\\\\software\\\\\\\\sysinternals\\\\\\\\sdelete.*'
+        output: |
+          |Registry value set:
+          RuleName: -
+          EventType: SetValue
+          UtcTime: 2020-05-02 03:02:04.518
+          ProcessGuid: {47ab858c-e2ac-5eac-cb03-000000000400}
+          ProcessId: 4140
+          Image: C:\Program Files\SysinternalsSuite\sdelete64.exe
+          TargetObject: HKU\S-1-5-21-1830255721-3727074217-2423397540-1107\Software\Sysinternals\SDelete\EulaAccepted
+          Details: DWORD (0x00000001)|
+
+          |Registry object added or deleted:
+          RuleName: -
+          EventType: CreateKey
+          UtcTime: 2020-05-02 03:02:04.518
+          ProcessGuid: {47ab858c-e2ac-5eac-cb03-000000000400}
+          ProcessId: 4140
+          Image: C:\Program Files\SysinternalsSuite\sdelete64.exe
+          TargetObject: HKU\S-1-5-21-1830255721-3727074217-2423397540-1107\Software\Sysinternals\SDelete                           |
+          |Registry object added or deleted:
+          RuleName: -
+          EventType: CreateKey
+          UtcTime: 2020-05-02 03:02:04.518
+          ProcessGuid: {47ab858c-e2ac-5eac-cb03-000000000400}
+          ProcessId: 4140
+          Image: C:\Program Files\SysinternalsSuite\sdelete64.exe
+          TargetObject: HKU\S-1-5-21-1830255721-3727074217-2423397540-1107\Software\Sysinternals\SDelete                           |
+      - id: 3A1DC1C2-B640-4FCE-A71F-2F65AB060A8C
+        data_sources:
+          - Security
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host f
+          INNER JOIN (
+            SELECT d.NewProcessId
+            FROM apt29Host d
+            INNER JOIN(
+              SELECT a.ProcessId, a.NewProcessId
+              FROM apt29Host a
+              INNER JOIN (
+                SELECT NewProcessId
+                FROM apt29Host
+                WHERE LOWER(Channel) = "security"
+                    AND EventID = 4688
+                    AND LOWER(NewProcessName) LIKE "%control.exe"
+                    AND LOWER(ParentProcessName) LIKE "%sdclt.exe"
+              ) b
+              ON a.ProcessId = b.NewProcessId
+              WHERE LOWER(a.Channel) = "security"
+                AND a.EventID = 4688
+                AND a.MandatoryLabel = "S-1-16-12288"
+                AND a.TokenElevationType = "%%1937"
+            ) c
+            ON d.ProcessId = c.NewProcessId
+            WHERE LOWER(d.Channel) = "security"
+              AND d.EventID = 4688
+              AND d.NewProcessName LIKE '%powershell.exe'
+          ) e
+          ON f.ProcessId = e.NewProcessId
+          WHERE LOWER(f.Channel) = "security"
+            AND f.EventID = 4688
+            AND LOWER(f.NewProcessName) LIKE '%sdelete%'
+            AND LOWER(f.CommandLine) LIKE '%3aka3%'
+        output: |
+          A new process has been created.
+
+          Creator Subject:
+            Security ID:		S-1-5-21-1830255721-3727074217-2423397540-1107
+            Account Name:		pbeesly
+            Account Domain:		DMEVALS
+            Logon ID:		0x372E81
+          
+          Target Subject:
+            Security ID:		S-1-0-0
+            Account Name:		-
+            Account Domain:		-
+            Logon ID:		0x0
+          
+          Process Information:
+            New Process ID:		0x102c
+            New Process Name:	C:\Program Files\SysinternalsSuite\sdelete64.exe
+            Token Elevation Type:	%%1937
+            Mandatory Label:		S-1-16-12288
+            Creator Process ID:	0xf24
+            Creator Process Name:	C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+            Process Command Line:	"C:\Program Files\SysinternalsSuite\sdelete64.exe" /accepteula C:\programdata\victim\???cod.3aka3.scr

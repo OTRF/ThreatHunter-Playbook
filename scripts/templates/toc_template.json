@@ -1,230 +1,205 @@
 [
     {
-        "url": "/introduction",
-        "not_numbered": true
-    },
-    {
-        "title": "GitHub Repository",
-        "url": "https://github.com/hunters-forge/ThreatHunter-Playbook",
-        "external": true,
-        "not_numbered": true
-    },
-    {
-        "divider": true
+        "file": "introduction"
     },
     {
         "header": "Pre-Hunt Activities"
     },
     {
-        "url": "/pre-hunt/data_management",
-        "not_numbered": true,
+        "file": "pre-hunt/data_management",
         "sections": [
             {
-                "url": "/pre-hunt/data_documentation"
+                "file": "pre-hunt/data_documentation"
             },
             {
-                "url": "/pre-hunt/data_standardization"
+                "file": "pre-hunt/data_standardization"
             },
             {
-                "url": "/pre-hunt/data_modeling"
+                "file": "pre-hunt/data_modeling"
             },
             {
-                "url": "/pre-hunt/data_quality"
+                "file": "pre-hunt/data_quality"
             }
         ]
     },
     {
-        "divider": true
+        "header": "Campaign Notebooks"
     },
     {
-        "header": "Hunting Notebooks"
-    },
-    {
-        "url": "/notebooks/windows/windows",
-        "expand_sections": true,
-        "not_numbered": true,
+        "file": "evals/intro",
         "sections": [
             {
-                "url": "/notebooks/windows/01_initial_access/initial_access",
-                "subsections": []
-            },
-            {
-                "url": "/notebooks/windows/02_execution/execution",
-                "subsections": []
-            },
-            {
-                "url": "/notebooks/windows/03_persistence/persistence",
-                "subsections": []
-            },
-            {
-                "url": "/notebooks/windows/04_privilege_escalation/privilege_escalation",
-                "subsections": []
-            },
-            {
-                "url": "/notebooks/windows/05_defense_evasion/defense_evasion",
-                "subsections": []
-            },
-            {
-                "url": "/notebooks/windows/06_credential_access/credential_access",
-                "subsections": []
-            },
-            {
-                "url": "/notebooks/windows/07_discovery/discovery",
-                "subsections": []
-            },
-            {
-                "url": "/notebooks/windows/08_lateral_movement/lateral_movement",
-                "subsections": []
-            },
-            {
-                "url": "/notebooks/windows/09_collection/collection",
-                "subsections": []
-            },
-            {
-                "url": "/notebooks/windows/11_command_and_control/command_and_control",
-                "subsections": []
-            },
-            {
-                "url": "/notebooks/windows/10_exfiltration/exfiltration",
-                "subsections": []
-            },
-            {
-                "url": "/notebooks/windows/12_impact/impact",
-                "subsections": []
+                "file": "evals/apt29/intro",
+                "sections": [
+                    {
+                        "file": "evals/apt29/report"
+                    },
+                    {
+                        "file": "notebooks/campaigns/apt29Evals"
+                    }
+                ]
             }
         ]
     },
     {
-        "url": "/notebooks/linux/linux",
-        "expand_sections": true,
-        "not_numbered": true,
+        "header": "Targeted Notebooks"
+    },
+    {
+        "file": "notebooks/windows/windows",
         "sections": [
             {
-                "url": "/notebooks/linux/01_initial_access/initial_access",
-                "subsections": []
+                "file": "notebooks/windows/01_initial_access/initial_access",
+                "sections": []
             },
             {
-                "url": "/notebooks/linux/02_execution/execution",
-                "subsections": []
+                "file": "notebooks/windows/02_execution/execution",
+                "sections": []
             },
             {
-                "url": "/notebooks/linux/03_persistence/persistence",
-                "subsections": []
+                "file": "notebooks/windows/03_persistence/persistence",
+                "sections": []
             },
             {
-                "url": "/notebooks/linux/04_privilege_escalation/privilege_escalation",
-                "subsections": []
+                "file": "notebooks/windows/04_privilege_escalation/privilege_escalation",
+                "sections": []
             },
             {
-                "url": "/notebooks/linux/05_defense_evasion/defense_evasion",
-                "subsections": []
+                "file": "notebooks/windows/05_defense_evasion/defense_evasion",
+                "sections": []
             },
             {
-                "url": "/notebooks/linux/06_credential_access/credential_access",
-                "subsections": []
+                "file": "notebooks/windows/06_credential_access/credential_access",
+                "sections": []
             },
             {
-                "url": "/notebooks/linux/07_discovery/discovery",
-                "subsections": []
+                "file": "notebooks/windows/07_discovery/discovery",
+                "sections": []
             },
             {
-                "url": "/notebooks/linux/08_lateral_movement/lateral_movement",
-                "subsections": []
+                "file": "notebooks/windows/08_lateral_movement/lateral_movement",
+                "sections": []
             },
             {
-                "url": "/notebooks/linux/09_collection/collection",
-                "subsections": []
+                "file": "notebooks/windows/09_collection/collection",
+                "sections": []
             },
             {
-                "url": "/notebooks/linux/11_command_and_control/command_and_control",
-                "subsections": []
+                "file": "notebooks/windows/11_command_and_control/command_and_control",
+                "sections": []
             },
             {
-                "url": "/notebooks/linux/10_exfiltration/exfiltration",
-                "subsections": []
+                "file": "notebooks/windows/10_exfiltration/exfiltration",
+                "sections": []
             },
             {
-                "url": "/notebooks/linux/12_impact/impact",
-                "subsections": []
+                "file": "notebooks/windows/12_impact/impact",
+                "sections": []
             }
         ]
     },
     {
-        "url": "/notebooks/mac/mac",
-        "expand_sections": true,
-        "not_numbered": true,
+        "file": "notebooks/linux/linux",
         "sections": [
             {
-                "url": "/notebooks/mac/01_initial_access/initial_access",
-                "subsections": []
+                "file": "notebooks/linux/01_initial_access/initial_access",
+                "sections": []
             },
             {
-                "url": "/notebooks/mac/02_execution/execution",
-                "subsections": []
+                "file": "notebooks/linux/02_execution/execution",
+                "sections": []
             },
             {
-                "url": "/notebooks/mac/03_persistence/persistence",
-                "subsections": []
+                "file": "notebooks/linux/03_persistence/persistence",
+                "sections": []
             },
             {
-                "url": "/notebooks/mac/04_privilege_escalation/privilege_escalation",
-                "subsections": []
+                "file": "notebooks/linux/04_privilege_escalation/privilege_escalation",
+                "sections": []
             },
             {
-                "url": "/notebooks/mac/05_defense_evasion/defense_evasion",
-                "subsections": []
+                "file": "notebooks/linux/05_defense_evasion/defense_evasion",
+                "sections": []
             },
             {
-                "url": "/notebooks/mac/06_credential_access/credential_access",
-                "subsections": []
+                "file": "notebooks/linux/06_credential_access/credential_access",
+                "sections": []
             },
             {
-                "url": "/notebooks/mac/07_discovery/discovery",
-                "subsections": []
+                "file": "notebooks/linux/07_discovery/discovery",
+                "sections": []
             },
             {
-                "url": "/notebooks/mac/08_lateral_movement/lateral_movement",
-                "subsections": []
+                "file": "notebooks/linux/08_lateral_movement/lateral_movement",
+                "sections": []
             },
             {
-                "url": "/notebooks/mac/09_collection/collection",
-                "subsections": []
+                "file": "notebooks/linux/09_collection/collection",
+                "sections": []
             },
             {
-                "url": "/notebooks/mac/11_command_and_control/command_and_control",
-                "subsections": []
+                "file": "notebooks/linux/11_command_and_control/command_and_control",
+                "sections": []
             },
             {
-                "url": "/notebooks/mac/10_exfiltration/exfiltration",
-                "subsections": []
+                "file": "notebooks/linux/10_exfiltration/exfiltration",
+                "sections": []
             },
             {
-                "url": "/notebooks/mac/12_impact/impact",
-                "subsections": []
+                "file": "notebooks/linux/12_impact/impact",
+                "sections": []
             }
         ]
     },
     {
-        "divider": true
-    },
-    {
-        "header": "Tutorials"
-    },
-    {
-        "url": "/tutorials/jupyter/introduction",
-        "not_numbered": true,
+        "file": "notebooks/mac/mac",
         "sections": [
             {
-                "url": "/tutorials/jupyter/installing_jupyter"
+                "file": "notebooks/mac/01_initial_access/initial_access",
+                "sections": []
             },
             {
-                "url": "/tutorials/jupyter/notebooks/01_intro_to_python"
+                "file": "notebooks/mac/02_execution/execution",
+                "sections": []
             },
             {
-                "url": "/tutorials/jupyter/notebooks/02_intro_to_numpy_arrays"
+                "file": "notebooks/mac/03_persistence/persistence",
+                "sections": []
             },
             {
-                "url": "/tutorials/jupyter/notebooks/03_intro_to_pandas"
+                "file": "notebooks/mac/04_privilege_escalation/privilege_escalation",
+                "sections": []
+            },
+            {
+                "file": "notebooks/mac/05_defense_evasion/defense_evasion",
+                "sections": []
+            },
+            {
+                "file": "notebooks/mac/06_credential_access/credential_access",
+                "sections": []
+            },
+            {
+                "file": "notebooks/mac/07_discovery/discovery",
+                "sections": []
+            },
+            {
+                "file": "notebooks/mac/08_lateral_movement/lateral_movement",
+                "sections": []
+            },
+            {
+                "file": "notebooks/mac/09_collection/collection",
+                "sections": []
+            },
+            {
+                "file": "notebooks/mac/11_command_and_control/command_and_control",
+                "sections": []
+            },
+            {
+                "file": "notebooks/mac/10_exfiltration/exfiltration",
+                "sections": []
+            },
+            {
+                "file": "notebooks/mac/12_impact/impact",
+                "sections": []
             }
         ]
     }

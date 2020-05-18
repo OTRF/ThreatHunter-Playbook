@@ -1,0 +1,14 @@
+vendor: OTR Community
+step: 3.B.5
+procedure: Used HTTPS to encrypt C2 (192.168.0.5) traffic
+criteria: Evidence that the network data sent over the C2 channel is encrypted
+technique:
+  name: Standard Cryptographic Protocol
+  id: T1032
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/6
+detections:
+  - main_type: None
+    modifier_type:
+    description: No detection capability demonstrated for this procedure.
+    reference:
+    queries:

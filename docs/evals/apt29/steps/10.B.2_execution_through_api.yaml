@@ -1,0 +1,14 @@
+vendor: OTR Community
+step: 10.B.2
+procedure: Executed PowerShell payload via the CreateProcessWithToken API
+criteria: hostui.exe executing the CreateProcessWithToken API
+technique:
+  name: Execution through API
+  id: T1106
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/25
+detections:
+  - main_type: None
+    modifier_type:
+    description: No detection capability demonstrated for this procedure.
+    reference:
+    queries:

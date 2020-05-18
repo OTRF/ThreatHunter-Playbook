@@ -1,0 +1,97 @@
+vendor: OTR Community
+step: 4.A.3
+procedure: Decompressed ZIP (SysinternalsSuite.zip) file using PowerShell
+criteria: powershell.exe executing Expand-Archive
+technique:
+  name: Deobfuscate/Decode Files or Information
+  id: T1140
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/8
+detections:
+  - main_type: Telemetry
+    modifier_type: Correlated
+    description: Telemetry showed PowerShell decompressing the ZIP via Expand-Archive and corresponding file writes. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe.
+    reference:
+    queries:
+      - id: 09F29912-8E93-461E-9E89-3F06F6763383
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+          - Microsoft-Windows-PowerShell/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host f
+          INNER JOIN (
+              SELECT d.ProcessId
+              FROM apt29Host d
+              INNER JOIN (
+                SELECT a.ProcessGuid, a.ParentProcessGuid
+                FROM apt29Host a
+                INNER JOIN (
+                  SELECT ProcessGuid
+                  FROM apt29Host
+                  WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                      AND EventID = 1
+                      AND LOWER(Image) LIKE "%control.exe"
+                      AND LOWER(ParentImage) LIKE "%sdclt.exe"
+                ) b
+                ON a.ParentProcessGuid = b.ProcessGuid
+                WHERE a.Channel = "Microsoft-Windows-Sysmon/Operational"
+                  AND a.EventID = 1
+                  AND a.IntegrityLevel = "High"
+              ) c
+              ON d.ParentProcessGuid= c.ProcessGuid
+              WHERE d.Channel = "Microsoft-Windows-Sysmon/Operational"
+                AND d.EventID = 1
+                AND d.Image LIKE '%powershell.exe'
+          ) e
+          ON f.ExecutionProcessID = e.ProcessId
+          WHERE f.Channel = "Microsoft-Windows-PowerShell/Operational"
+              AND f.EventID = 4104
+              AND LOWER(f.ScriptBlockText) LIKE "%expand-archive%"
+        output: |
+          Creating Scriptblock text (1 of 1):
+          Expand-Archive -LiteralPath "$env:USERPROFILE\Downloads\SysinternalsSuite.zip" -DestinationPath "$env:USERPROFILE\Downloads\"
+          
+          ScriptBlock ID: 63fc6cf4-cd9f-4134-9231-51ccb5c7d247
+      - id: 4310F2AF-11EF-4EAC-A968-3436FE5F6140
+        data_sources:
+          - Security
+          - Microsoft-Windows-PowerShell/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host f
+          INNER JOIN (
+              SELECT split(d.NewProcessId, '0x')[1] as NewProcessId
+              FROM apt29Host d
+              INNER JOIN(
+                SELECT a.ProcessId, a.NewProcessId
+                FROM apt29Host a
+                INNER JOIN (
+                  SELECT NewProcessId
+                  FROM apt29Host
+                  WHERE LOWER(Channel) = "security"
+                      AND EventID = 4688
+                      AND LOWER(NewProcessName) LIKE "%control.exe"
+                      AND LOWER(ParentProcessName) LIKE "%sdclt.exe"
+                ) b
+                ON a.ProcessId = b.NewProcessId
+                WHERE LOWER(a.Channel) = "security"
+                  AND a.EventID = 4688
+                  AND a.MandatoryLabel = "S-1-16-12288"
+                  AND a.TokenElevationType = "%%1937"
+              ) c
+              ON d.ProcessId = c.NewProcessId
+              WHERE LOWER(d.Channel) = "security"
+                AND d.EventID = 4688
+                AND d.NewProcessName LIKE '%powershell.exe'
+          ) e
+          ON LOWER(hex(f.ExecutionProcessID)) = e.NewProcessId
+          WHERE f.Channel = "Microsoft-Windows-PowerShell/Operational"
+              AND f.EventID = 4104
+              AND LOWER(f.ScriptBlockText) LIKE "%expand-archive%"
+        output: |
+          Creating Scriptblock text (1 of 1):
+          Expand-Archive -LiteralPath "$env:USERPROFILE\Downloads\SysinternalsSuite.zip" -DestinationPath "$env:USERPROFILE\Downloads\"
+          
+          ScriptBlock ID: 63fc6cf4-cd9f-4134-9231-51ccb5c7d247

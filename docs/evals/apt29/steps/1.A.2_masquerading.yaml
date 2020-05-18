@@ -1,0 +1,82 @@
+vendor: OTR Community
+step: 1.A.2
+procedure: Used unicode right-to-left override (RTLO) character to obfuscate file name rcs.3aka3.doc (originally cod.3aka.scr)
+criteria: Evidence of the right-to-left override character (U+202E) in the rcs.3aka.doc process ​OR the original filename (cod.3aka.scr)
+technique:
+  name: Masquerading
+  id: T1036
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/1
+detections:
+  - main_type: Telemetry
+    modifier_type:
+    description: Telemetry shows RTLO character by looking for bi-derectional text control characters on the file name backing up the Image
+    reference:
+      - https://superuser.com/a/456412
+    queries:
+      - id: F4C71BF4-E068-493D-ABAA-0C5DFA02875D
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host
+          WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+              AND EventID = 1
+              AND LOWER(Image) RLIKE '.*\\â€Ž|â€|â€ª|â€«|â€¬|â€|â€®.*'
+        output: |
+          Process Create:
+          RuleName: -
+          UtcTime: 2020-05-02 02:55:56.157
+          ProcessGuid: {47ab858c-e13c-5eac-a903-000000000400}
+          ProcessId: 8524
+          Image: C:\ProgramData\victim\â€®cod.3aka3.scr
+          FileVersion: -
+          Description: -
+          Product: -
+          Company: -
+          OriginalFileName: -
+          CommandLine: "C:\ProgramData\victim\â€®cod.3aka3.scr" /S
+          CurrentDirectory: C:\ProgramData\victim\
+          User: DMEVALS\pbeesly
+          LogonGuid: {47ab858c-dabe-5eac-f331-370000000000}
+          LogonId: 0x3731F3
+          TerminalSessionId: 2
+          IntegrityLevel: Medium
+          Hashes: SHA1=4B7FA56A4E85F88B98D11A6E018698AE3FBA5E62,MD5=9D1C5EF38E6073661C74660B3A71A76E,SHA256=0DF38A55D940F498478EB03683C94D4584236E100125B526A67650BA54DF4AE4,IMPHASH=F00447512A354E59D39D2818AABA4A17
+          ParentProcessGuid: {47ab858c-dac4-5eac-f202-000000000400}
+          ParentProcessId: 4440
+          ParentImage: C:\Windows\explorer.exe
+          ParentCommandLine: C:\windows\Explorer.EXE
+      - id: D94222A0-72F9-4F1E-84A9-F14CA1098D44
+        data_sources:
+          - Security
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host
+          WHERE LOWER(Channel) = "security"
+              AND EventID = 4688
+              AND LOWER(NewProcessName) RLIKE '.*\\â€Ž|â€|â€ª|â€«|â€¬|â€|â€®.*'
+        output: |
+          A new process has been created.
+
+          Creator Subject:
+            Security ID:		S-1-5-21-1830255721-3727074217-2423397540-1107
+            Account Name:		pbeesly
+            Account Domain:		DMEVALS
+            Logon ID:		0x3731F3
+          
+          Target Subject:
+            Security ID:		S-1-0-0
+            Account Name:		-
+            Account Domain:		-
+            Logon ID:		0x0
+          
+          Process Information:
+            New Process ID:		0x214c
+            New Process Name:	C:\ProgramData\victim\â€®cod.3aka3.scr
+            Token Elevation Type:	%%1938
+            Mandatory Label:		S-1-16-8192
+            Creator Process ID:	0x1158
+            Creator Process Name:	C:\Windows\explorer.exe
+            Process Command Line:	"C:\ProgramData\victim\â€®cod.3aka3.scr" /S

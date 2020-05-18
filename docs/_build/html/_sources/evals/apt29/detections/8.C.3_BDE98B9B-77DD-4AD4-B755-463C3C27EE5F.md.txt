@@ -1,0 +1,51 @@
+# BDE98B9B-77DD-4AD4-B755-463C3C27EE5F
+
+## Data Sources
+* Microsoft-Windows-Sysmon/Operational<br>
+
+## Logic
+
+```
+SELECT Message
+FROM apt29Host b
+INNER JOIN (
+    SELECT ProcessGuid
+    FROM apt29Host
+    WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+        AND EventID = 1
+        AND ParentImage LIKE '%services.exe'
+) a
+ON b.ParentProcessGuid = a.ProcessGuid
+WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+    AND Image LIKE '%python.exe'
+
+```
+
+## Output
+
+```
+Process Create:
+RuleName: -
+UtcTime: 2020-05-02 03:11:40.213
+ProcessGuid: {5aa8ec29-e4ec-5eac-6803-000000000400}
+ProcessId: 2792
+Image: C:\Windows\Temp\python.exe
+FileVersion: -
+Description: -
+Product: -
+Company: -
+OriginalFileName: -
+CommandLine: "C:\Windows\Temp\python.exe" 
+CurrentDirectory: C:\windows\system32\
+User: DMEVALS\pbeesly
+LogonGuid: {5aa8ec29-e4ec-5eac-2578-860000000000}
+LogonId: 0x867825
+TerminalSessionId: 2
+IntegrityLevel: Medium
+Hashes: SHA1=585EB59D12A111E9291518C5CF5D3FD296C2B581,MD5=57292CE8714E2D221D9D97C9D061D332,SHA256=43782EC4337D8F3DDB7EA0C451B3BC4F212F84C8D5571BD0A842001C859A02AE,IMPHASH=00000000000000000000000000000000
+ParentProcessGuid: {5aa8ec29-e4eb-5eac-6703-000000000400}
+ParentProcessId: 9204
+ParentImage: C:\Windows\PSEXESVC.exe
+ParentCommandLine: C:\windows\PSEXESVC.exe
+
+```

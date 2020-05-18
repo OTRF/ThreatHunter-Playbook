@@ -1,0 +1,51 @@
+# 43B46661-3407-4302-BA8C-EE772C677DCB
+
+## Data Sources
+* Security<br>
+
+## Logic
+
+```
+SELECT Message
+FROM apt29Host a
+INNER JOIN (
+    SELECT NewProcessId
+    FROM apt29Host
+    WHERE LOWER(Channel) = "security"
+        AND EventID = 4688
+        AND LOWER(ParentProcessName) RLIKE '.*\\â€Ž|â€|â€ª|â€«|â€¬|â€|â€®.*'
+        AND LOWER(NewProcessName) LIKE '%cmd.exe'
+) b
+ON a.ProcessId = b.NewProcessId
+WHERE LOWER(Channel) = "security"
+    AND EventID = 4688
+    AND LOWER(NewProcessName) LIKE '%powershell.exe'
+
+```
+
+## Output
+
+```
+A new process has been created.
+
+Creator Subject:
+  Security ID:		S-1-5-21-1830255721-3727074217-2423397540-1107
+  Account Name:		pbeesly
+  Account Domain:		DMEVALS
+  Logon ID:		0x3731F3
+
+Target Subject:
+  Security ID:		S-1-0-0
+  Account Name:		-
+  Account Domain:		-
+  Logon ID:		0x0
+
+Process Information:
+  New Process ID:		0x1ad4
+  New Process Name:	C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+  Token Elevation Type:	%%1938
+  Mandatory Label:		S-1-16-8192
+  Creator Process ID:	0xd98
+  Creator Process Name:	C:\Windows\System32\cmd.exe
+  Process Command Line:	powershell
+```

@@ -1,0 +1,100 @@
+vendor: OTR Community
+step: 9.B.2
+procedure: Searched filesystem for document and media files using PowerShell
+criteria: powershell.exe executing (Get-)ChildItem​
+technique:
+  name: File and Directory Discovery
+  id: T1083
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/22
+detections:
+  - main_type: Telemetry
+    modifier_type: Correlated
+    description: Telemetry showed powershell.exe executing ChildItem. This event was correlated to psexesvc.exe executing python.exe
+    reference:
+    queries:
+      - id: 3DDF2B9B-10AC-454C-BFA0-1F7BD011947E
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+          - Microsoft-Windows-PowerShell/Operational
+        rule_contribution:
+        logic: |
+          SELECT h.ScriptBlockText
+          FROM apt29Host h
+          INNER JOIN (
+              SELECT f.ProcessId
+              FROM apt29Host f
+              INNER JOIN (
+                SELECT d.ProcessGuid
+                FROM apt29Host d
+                INNER JOIN (
+                    SELECT b.ProcessGuid
+                    FROM apt29Host b
+                    INNER JOIN (
+                      SELECT ProcessGuid
+                      FROM apt29Host
+                      WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                          AND EventID = 1
+                          AND ParentImage LIKE '%services.exe'
+                    ) a
+                    ON b.ParentProcessGuid = a.ProcessGuid
+                    WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                      AND Image LIKE '%python.exe'
+                ) c
+                ON d.ParentProcessGuid = c.ProcessGuid
+                WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                    AND EventID = 1
+              ) e
+              ON f.ParentProcessGuid = e.ProcessGuid
+              WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+                AND EventID = 1
+                AND Image LIKE '%powershell.exe'
+          ) g
+          ON h.ExecutionProcessID = g.ProcessId
+          WHERE h.Channel = "Microsoft-Windows-PowerShell/Operational"
+              AND h.EventID = 4104
+              AND LOWER(h.ScriptBlockText) LIKE "%childitem%"
+        output: |
+          ScriptBlockText | $env:APPDATA;$files=ChildItem -Path $env:USERPROFILE\ -Include *.doc,*.xps,*.xls,*.ppt,*.pps,*.wps,*.wpd,*.ods,*.odt,*.lwp,*.jtd,*.pdf,*.zip,*.rar,*.docx,*.url,*.xlsx,*.pptx,*.ppsx,*.pst,*.ost,*psw*,*pass*,*login*,*admin*,*sifr*,*sifer*,*vpn,*.jpg,*.txt,*.lnk -Recurse -ErrorAction SilentlyContinue | Select -ExpandProperty FullName; Compress-Archive -LiteralPath $files -CompressionLevel Optimal -DestinationPath $env:APPDATA\working.zip -Force
+      - id: E7ED941E-F3B3-441B-B43D-1F1B194D6303
+        data_sources:
+          - Security
+          - Microsoft-Windows-PowerShell/Operational
+        rule_contribution:
+        logic: |
+          SELECT h.ScriptBlockText
+          FROM apt29Host h
+          INNER JOIN (
+              SELECT split(f.NewProcessId, '0x')[1] as NewProcessId
+              FROM apt29Host f
+              INNER JOIN (
+                  SELECT d.NewProcessId
+                  FROM apt29Host d
+                  INNER JOIN (
+                      SELECT b.NewProcessId
+                      FROM apt29Host b
+                      INNER JOIN (
+                        SELECT NewProcessId
+                        FROM apt29Host
+                        WHERE LOWER(Channel) = "security"
+                            AND EventID = 4688
+                            AND ParentProcessName LIKE '%services.exe'
+                      ) a
+                      ON b.ProcessId = a.NewProcessId
+                      WHERE LOWER(Channel) = "security"
+                        AND NewProcessName LIKE '%python.exe'
+                  ) c
+                  ON d.ProcessId = c.NewProcessId
+                  WHERE LOWER(Channel) = "security"
+                      AND EventID = 4688
+              ) e
+              ON f.ProcessId = e.NewProcessId
+              WHERE LOWER(Channel) = "security"
+                  AND EventID = 4688
+                  AND NewProcessName LIKE '%powershell.exe'
+          ) g
+          ON LOWER(hex(h.ExecutionProcessID)) = g.NewProcessId
+          WHERE h.Channel = "Microsoft-Windows-PowerShell/Operational"
+              AND h.EventID = 4104
+              AND LOWER(h.ScriptBlockText) LIKE "%childitem%"
+        output: |
+          ScriptBlockText | $env:APPDATA;$files=ChildItem -Path $env:USERPROFILE\ -Include *.doc,*.xps,*.xls,*.ppt,*.pps,*.wps,*.wpd,*.ods,*.odt,*.lwp,*.jtd,*.pdf,*.zip,*.rar,*.docx,*.url,*.xlsx,*.pptx,*.ppsx,*.pst,*.ost,*psw*,*pass*,*login*,*admin*,*sifr*,*sifer*,*vpn,*.jpg,*.txt,*.lnk -Recurse -ErrorAction SilentlyContinue | Select -ExpandProperty FullName; Compress-Archive -LiteralPath $files -CompressionLevel Optimal -DestinationPath $env:APPDATA\working.zip -Force

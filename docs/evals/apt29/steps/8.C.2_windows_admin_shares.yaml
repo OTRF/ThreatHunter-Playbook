@@ -1,0 +1,121 @@
+vendor: OTR Community
+step: 8.C.2
+procedure: Established SMB session to remote host NASHUA's (10.0.1.6) IPC$ share using PsExec
+criteria: SMB session to NASHUA (10.0.1.6) over TCP port 445/135 OR evidence of usage of a Windows share 
+technique:
+  name: Windows Admin Shares
+  id: T1077
+issue: https://github.com/OTRF/detection-hackathon-apt29/issues/20
+detections:
+  - main_type: Telemetry
+    modifier_type:
+    description: Telemetry showed PsExec (PSEXESVC) stablishing an SMB session to remote host NASHUAs (10.0.1.6) IPC$ share.
+    reference:
+    queries:
+      - id: C91A4BF2-22B1-421B-B1DE-626778AD3BBB
+        data_sources:
+          - Security
+        rule_contribution:
+        logic: |
+          SELECT EventTime, Hostname, ShareName, RelativeTargetName, SubjectUserName
+          FROM apt29Host
+          WHERE LOWER(Channel) = "security"
+            AND EventID = 5145
+            AND ShareName LIKE '%IPC%'
+            AND RelativeTargetName LIKE '%PSEXESVC%'
+        output: |
+          EventTime          | 2020-05-01 23:11:40           
+          Hostname           | NASHUA.dmevals.local          
+          ShareName          | \\*\IPC$                      
+          RelativeTargetName | PSEXESVC                      
+          SubjectUserName    | pbeesly
+
+          EventTime          | 2020-05-01 23:11:40           
+          Hostname           | NASHUA.dmevals.local          
+          ShareName          | \\*\IPC$                      
+          RelativeTargetName | PSEXESVC-SCRANTON-2668-stdin  
+          SubjectUserName    | pbeesly
+          
+          EventTime          | 2020-05-01 23:11:40           
+          Hostname           | NASHUA.dmevals.local          
+          ShareName          | \\*\IPC$                      
+          RelativeTargetName | PSEXESVC-SCRANTON-2668-stdout 
+          SubjectUserName    | pbeesly
+
+          EventTime          | 2020-05-01 23:11:40           
+          Hostname           | NASHUA.dmevals.local          
+          ShareName          | \\*\IPC$                      
+          RelativeTargetName | PSEXESVC-SCRANTON-2668-stderr 
+          SubjectUserName    | pbeesly
+
+          EventTime          | 2020-05-01 23:12:46           
+          Hostname           | NASHUA.dmevals.local          
+          ShareName          | \\*\IPC$                      
+          RelativeTargetName | PSEXESVC                      
+          SubjectUserName    | pbeesly
+
+          EventTime          | 2020-05-01 23:12:46           
+          Hostname           | NASHUA.dmevals.local          
+          ShareName          | \\*\IPC$                      
+          RelativeTargetName | PSEXESVC-SCRANTON-5924-stdin  
+          SubjectUserName    | pbeesly
+
+          EventTime          | 2020-05-01 23:12:46           
+          Hostname           | NASHUA.dmevals.local          
+          ShareName          | \\*\IPC$                      
+          RelativeTargetName | PSEXESVC-SCRANTON-5924-stdout 
+          SubjectUserName    | pbeesly
+
+          EventTime          | 2020-05-01 23:12:46           
+          Hostname           | NASHUA.dmevals.local          
+          ShareName          | \\*\IPC$                      
+          RelativeTargetName | PSEXESVC-SCRANTON-5924-stderr 
+          SubjectUserName    | pbeesly
+
+          EventTime          | 2020-05-01 23:13:49           
+          Hostname           | NASHUA.dmevals.local          
+          ShareName          | \\*\IPC$                      
+          RelativeTargetName | PSEXESVC                      
+          SubjectUserName    | pbeesly
+
+          EventTime          | 2020-05-01 23:13:49           
+          Hostname           | NASHUA.dmevals.local          
+          ShareName          | \\*\IPC$                      
+          RelativeTargetName | PSEXESVC-SCRANTON-1412-stdin  
+          SubjectUserName    | pbeesly
+
+          EventTime          | 2020-05-01 23:13:49           
+          Hostname           | NASHUA.dmevals.local          
+          ShareName          | \\*\IPC$                      
+          RelativeTargetName | PSEXESVC-SCRANTON-1412-stdout 
+          SubjectUserName    | pbeesly
+
+          EventTime          | 2020-05-01 23:13:49           
+          Hostname           | NASHUA.dmevals.local          
+          ShareName          | \\*\IPC$                      
+          RelativeTargetName | PSEXESVC-SCRANTON-1412-stderr 
+          SubjectUserName    | pbeesly
+
+          EventTime          | 2020-05-01 23:15:03           
+          Hostname           | NASHUA.dmevals.local          
+          ShareName          | \\*\IPC$                      
+          RelativeTargetName | PSEXESVC                      
+          SubjectUserName    | pbeesly
+
+          EventTime          | 2020-05-01 23:15:03           
+          Hostname           | NASHUA.dmevals.local          
+          ShareName          | \\*\IPC$                      
+          RelativeTargetName | PSEXESVC-SCRANTON-8928-stdin  
+          SubjectUserName    | pbeesly
+
+          EventTime          | 2020-05-01 23:15:03           
+          Hostname           | NASHUA.dmevals.local          
+          ShareName          | \\*\IPC$                      
+          RelativeTargetName | PSEXESVC-SCRANTON-8928-stdout 
+          SubjectUserName    | pbeesly
+          
+          EventTime          | 2020-05-01 23:15:03           
+          Hostname           | NASHUA.dmevals.local          
+          ShareName          | \\*\IPC$                      
+          RelativeTargetName | PSEXESVC-SCRANTON-8928-stderr 
+          SubjectUserName    | pbeesly
