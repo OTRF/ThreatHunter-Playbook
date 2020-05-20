@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Jupyter Notebooks &#8212; Threat Hunter Playbook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/sphinx-book-theme.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/mystnb.js"></script>
+    <script src="../../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .secondtoggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="../../_static/thebelab.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="canonical" href="https://threathunterplaybook.com/tutorials/jupyter/introduction.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Jupyter Server Installation" href="installing_jupyter.html" />
+    <link rel="prev" title="Mac" href="../../notebooks/mac/mac.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+<!-- Put requirejs at the end so it's always after bootstrap -->
+<!-- TODO: remove this once https://github.com/pandas-dev/pydata-sphinx-theme/pull/149 is merged -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://threathunterplaybook.com/tutorials/jupyter/introduction.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Jupyter Notebooks" />
+<meta property="og:description" content="Jupyter Notebooks  What is a Notebook?  Think of a notebook as a document that you can access via a web interface that allows you to save input (i.e. live code)" />
+<meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Threat Hunter Playbook</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  
+  <ul class="nav sidenav_l1">
+<li class="navbar-special">
+<p class="margin-caption">Pre-Hunt Activities</p>
+</li>
+  <li class="">
+    <a href="../../pre-hunt/data_management.html">Data Management</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Campaign Notebooks</p>
+</li>
+  <li class="">
+    <a href="../../evals/intro.html">ATT&CK Evaluations</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Targeted Notebooks</p>
+</li>
+  <li class="">
+    <a href="../../notebooks/windows/windows.html">Windows</a>
+  </li>
+  <li class="">
+    <a href="../../notebooks/linux/linux.html">Linux</a>
+  </li>
+  <li class="">
+    <a href="../../notebooks/mac/mac.html">Mac</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Tutorials</p>
+</li>
+  <li class="active">
+    <a href="">Jupyter Notebooks</a>
+  <ul class="nav sidenav_l2">
+    <li class="">
+      <a href="installing_jupyter.html">Jupyter Server Installation</a>
+    </li>
+    <li class="">
+      <a href="notebooks/01_intro_to_python.html">Introduction to Python</a>
+    </li>
+    <li class="">
+      <a href="notebooks/02_intro_to_numpy_arrays.html">Introduction to Python NumPy Arrays</a>
+    </li>
+    <li class="">
+      <a href="notebooks/03_intro_to_pandas.html">Introduction to Pandas</a>
+    </li>
+  </ul>
+  </li>
+</ul>
+</nav>
+<p class="navbar_footer">Powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse" data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu" aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation" title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i class="fas fa-download"></i></button>
+
+            
+            <div class="dropdown-buttons">
+                <!-- ipynb file if we had a myst markdown file -->
+                
+                <!-- Download raw file -->
+                <a class="dropdown-buttons" href="../../_sources/tutorials/jupyter/introduction.md.txt"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.md</button></a>
+                <!-- Download PDF via print -->
+                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+            </div>
+            
+        </div>
+
+        <!-- Edit this page -->
+        <a class="edit-button" href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/tutorials/jupyter/introduction.md"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" title="Edit this page"><i class="fas fa-pencil-alt"></i></button></a>
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+        
+
+        
+    </div>
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#what-is-a-notebook" class="nav-link">What is a Notebook?</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#what-is-a-jupyter-notebook" class="nav-link">What is a Jupyter Notebook?</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#how-do-jupyter-notebooks-work" class="nav-link">How do Jupyter Notebooks work?</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#jupyter-client" class="nav-link">Jupyter Client</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#jupyter-kernel" class="nav-link">Jupyter Kernel</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#jupyter-notebook-document" class="nav-link">Jupyter Notebook Document</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/tutorials/jupyter/introduction.md">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 col-xxl-7 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="jupyter-notebooks">
+<h1>Jupyter Notebooks<a class="headerlink" href="#jupyter-notebooks" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-a-notebook">
+<h2>What is a Notebook?<a class="headerlink" href="#what-is-a-notebook" title="Permalink to this headline">¶</a></h2>
+<p>Think of a notebook as a document that you can access via a web interface that allows you to save input (i.e. live code) and output (i.e. code execution results / evaluated code output) of interactive sessions as well as important notes needed to explain the methodology and steps taken to perform specific tasks (i.e data analysis).</p>
+</div>
+<div class="section" id="what-is-a-jupyter-notebook">
+<h2>What is a Jupyter Notebook?<a class="headerlink" href="#what-is-a-jupyter-notebook" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text. Uses include: data cleaning and transformation, numerical simulation, statistical modeling, data visualization, machine learning, and much more.</p>
+</div></blockquote>
+<p>The Jupyter Notebook project is the evolution of the IPython Notebook library which was developed primarily to enhance the default python interactive console by enabling scientific operations and advanced data analytics capabilities via sharable web documents.</p>
+<p><img alt="" src="../../_images/JUPYTER_IPYTHON.png" /></p>
+<p>Nowadays, the Jupyter Notebook project not only supports Python but also over 40 programming languages such as R, Julia, Scala and PySpark. In fact, its name was originally derived from three programming languages: Julia, Python and R which made it one of the first language-agnostic notebook applications, and now considered one of the most preferred environments for data scientists and engineers in the community to explore and analyze data.</p>
+</div>
+<div class="section" id="how-do-jupyter-notebooks-work">
+<h2>How do Jupyter Notebooks work?<a class="headerlink" href="#how-do-jupyter-notebooks-work" title="Permalink to this headline">¶</a></h2>
+<p>Jupyter Notebooks work with what is called a two-process model based on a kernel-client infrastructure. This model applies a similar concept to the Read-Evaluate-Print Loop (REPL) programming environment that takes a single user’s inputs, evaluates them, and returns the result to the user.</p>
+<p>Based on the two-process model concept, we can explain the main components of Jupyter in the following way:</p>
+<p><img alt="" src="../../_images/JUPYTER_ARCHITECTURE.png" /></p>
+<div class="section" id="jupyter-client">
+<h3>Jupyter Client<a class="headerlink" href="#jupyter-client" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>It allows a user to send code to the kernel in a form of a Qt Console or a browser via notebook documents.</p></li>
+<li><p>From a REPL perspective, the client does the read and print operations.</p></li>
+<li><p>Notebooks are hosted by a Jupyter web server which uses Tornado to serve HTTP requests.</p></li>
+</ul>
+</div>
+<div class="section" id="jupyter-kernel">
+<h3>Jupyter Kernel<a class="headerlink" href="#jupyter-kernel" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>It receives the code sent by the client, executes it, and returns the results back to the client for display. A kernel process can have multiple clients communicating with it which is why this model is also referred as the decoupled two-process model.</p></li>
+<li><p>From a REPL perspective, the kernel does the evaluate operation.</p></li>
+<li><p>kernel and clients communicate via an interactive computing protocol based on an asynchronous messaging library named ZeroMQ (low-level transport layer) and WebSockets (TCP-based)</p></li>
+</ul>
+</div>
+<div class="section" id="jupyter-notebook-document">
+<h3>Jupyter Notebook Document<a class="headerlink" href="#jupyter-notebook-document" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Notebooks are automatically saved and stored on disk in the open source JavaScript Object Notation (JSON) format and with a .ipynb extension.</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "hunters-forge/ThreatHunter-Playbook",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "tutorials/jupyter"
+        }
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../../notebooks/mac/mac.html" title="previous page">Mac</a>
+    <a class='right-next' id="next-link" href="installing_jupyter.html" title="next page">Jupyter Server Installation</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.1.<br/>
+    </p>
+  </div>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../../_static/js/index.js"></script>
+    
+  </body>
+</html>

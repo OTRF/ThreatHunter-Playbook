@@ -62,3 +62,12 @@ notebooks/windows/windows
 notebooks/linux/linux
 notebooks/mac/mac
 ```
+
+
+```{toctree}
+:hidden:
+:titlesonly:
+:caption: Tutorials
+
+tutorials/jupyter/introduction
+```
