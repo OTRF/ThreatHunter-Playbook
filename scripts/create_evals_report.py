@@ -16,12 +16,12 @@ yaml_loaded = [yaml.safe_load(open(yf).read()) for yf in yaml_files]
 steps_list = [
     "Step Zero",
     "Initial Compromise",
-    "Collection",
+    "Collection & Exfiltration (1)",
     "Deploy Stealth Toolkit",
     "Clean Up",
     "Establish Persistence",
     "Credential Access",
-    "Collection",
+    "Collection & Exfiltration (2)",
     "Expand Access",
     "Clean Up, Collection and Exfiltration",
     "Persistence Execution"
