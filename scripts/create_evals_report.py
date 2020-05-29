@@ -12,23 +12,39 @@ print("[+] Opening report yaml files..")
 yaml_files = sorted(glob.glob(path.join(path.dirname(__file__), '../docs/evals/apt29/steps', "*.yaml")), key=lambda x: (int(path.basename(x).split(".")[0]), str(path.basename(x).split(".")[1]), int(path.basename(x).split(".")[2].split("_")[0])))
 yaml_loaded = [yaml.safe_load(open(yf).read()) for yf in yaml_files]
 
+# ******** Steps Mapping ********
+steps_list = [
+    "Step Zero",
+    "Initial Compromise",
+    "Collection",
+    "Deploy Stealth Toolkit",
+    "Clean Up",
+    "Establish Persistence",
+    "Credential Access",
+    "Collection",
+    "Expand Access",
+    "Clean Up, Collection and Exfiltration",
+    "Persistence Execution"
+]
+
 # ******** Create Logic -> Output Documents ********
-otrList = []
+otr_list = []
 detection_template = Template(open("templates/evals_detection_template.md").read())
 print("\n[+]Creating detection documents..")
 for step in yaml_loaded:
     for detection in step['detections']:
         # ***** Get Report Stats *****
-        otrDict = {
+        otr_dict = {
             "vendor" : step['vendor'],
             "step" : step['step'].split(".")[0],
+            "stepname": steps_list[int(step['step'].split(".")[0])],
             "substep" : step['step'],
             "techniqueid" : step['technique']['id'],
             "techniquename" : step['technique']['name'],
             "detectiontype" : detection['main_type'],
             "detectionotes" : detection['description']
         }
-        otrList.append(otrDict)
+        otr_list.append(otr_dict)
         # ***** Create Detection Documents *****
         if detection['queries']:
             for q in detection['queries']:
@@ -43,7 +59,7 @@ for step in yaml_loaded:
 # ******** Create OTR Results JSON File ********
 print("\n[+] Creating the APT29 OTR JSON File..")
 with open('../docs/evals/apt29/data/otr_results.json', 'w') as results:
-    json.dump(otrList, results)
+    json.dump(otr_list, results)
 
 # ******** Creating APT29 Evals Notebook ********
 print("\n[+] Creating the APT29 Evals Notebook..")
