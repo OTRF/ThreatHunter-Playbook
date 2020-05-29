@@ -2509,7 +2509,7 @@ df.show(100,truncate = False, vertical = True)
 **Criteria:** powershell.exe creating the Javamtsup service
 
 
-### Detection Type:Telemetry(None)
+### Detection Type:Telemetry(Correlated)
 
 **Query ID:A16CE10D-6EE3-4611-BE9B-B023F36E2DFF**
 
@@ -2524,8 +2524,6 @@ WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
 '''
 )
 df.show(100,truncate = False, vertical = True)
-
-### Detection Type:Telemetry(Correlated)
 
 **Query ID:E76C4174-C24A-4CA3-9EA8-46C5286D3B6F**
 

@@ -8,8 +8,8 @@ technique:
 issue: https://github.com/OTRF/detection-hackathon-apt29/issues/11
 detections:
   - main_type: Telemetry
-    modifier_type:
-    description: Telemetry showed a registry event for the creation of javamtsup service.
+    modifier_type: Correlated
+    description: Telemetry showed PowerShell created the new service javamtsup. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe. There is also telemetry that showed the creation and modification of registry keys for the javamtsup service install.
     reference:
     queries:
       - id: A16CE10D-6EE3-4611-BE9B-B023F36E2DFF
@@ -91,11 +91,6 @@ detections:
           Image: C:\windows\system32\services.exe
           TargetObject: HKLM\System\CurrentControlSet\Services\javamtsup\ObjectName
           Details: LocalSystem
-  - main_type: Telemetry
-    modifier_type: Correlated
-    description: Telemetry showed PowerShell created the new service javamtsup. The event was correlated to a parent alert for Bypass User Account Control of control.exe spawning powershell.exe.
-    reference:
-    queries:
       - id: E76C4174-C24A-4CA3-9EA8-46C5286D3B6F
         data_sources:
           - Microsoft-Windows-Sysmon/Operational
