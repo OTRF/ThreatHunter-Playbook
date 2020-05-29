@@ -1,6 +1,7 @@
 from jinja2 import Template
 import copy
 import yaml
+import json
 import glob
 from os import path
 import nbformat as nbf
@@ -12,10 +13,23 @@ yaml_files = sorted(glob.glob(path.join(path.dirname(__file__), '../docs/evals/a
 yaml_loaded = [yaml.safe_load(open(yf).read()) for yf in yaml_files]
 
 # ******** Create Logic -> Output Documents ********
+otrList = []
 detection_template = Template(open("templates/evals_detection_template.md").read())
 print("\n[+]Creating detection documents..")
 for step in yaml_loaded:
     for detection in step['detections']:
+        # ***** Get Report Stats *****
+        otrDict = {
+            "vendor" : step['vendor'],
+            "step" : step['step'].split(".")[0],
+            "substep" : step['step'],
+            "techniqueid" : step['technique']['id'],
+            "techniquename" : step['technique']['name'],
+            "detectiontype" : detection['main_type'],
+            "detectionotes" : detection['description']
+        }
+        otrList.append(otrDict)
+        # ***** Create Detection Documents *****
         if detection['queries']:
             for q in detection['queries']:
                 query_for_render = copy.deepcopy(q)
@@ -26,8 +40,13 @@ for step in yaml_loaded:
                     print('  [>] {}_{}.md detection created'.format(step['step'],q['id']))
                     open('../docs/evals/apt29/detections/{}_{}.md'.format(step['step'],q['id']), 'w').write(markdown)
 
+# ******** Create OTR Results JSON File ********
+print("\n[+] Creating the APT29 OTR JSON File..")
+with open('../docs/evals/apt29/data/otr_results.json', 'w') as results:
+    json.dump(otrList, results)
+
 # ******** Creating APT29 Evals Notebook ********
-print("\n[+] Creating APT29 Evals Notebook..")
+print("\n[+] Creating the APT29 Evals Notebook..")
 # **** METADATA ****
 metadata = {
     "kernelspec": {
