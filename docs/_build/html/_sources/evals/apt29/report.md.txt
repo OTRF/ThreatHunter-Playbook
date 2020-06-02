@@ -1,4 +1,4 @@
-# All Results - Report
+# Free Telemetry Report
 
 | Step | Procedure | Criteria | Technique | Detections |
 | :---| :---| :---| :---| :---|

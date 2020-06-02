@@ -98,29 +98,100 @@ nb['cells'].append(nbf.v4.new_markdown_cell(
 | Author        | [Open Threat Research - APT29 Detection Hackathon](https://github.com/OTRF/detection-hackathon-apt29) |
     """
 ))
+
+# **** REPORT BAR CHART ****
+nb['cells'].append(nbf.v4.new_markdown_cell("## Telemetry Detection Category"))
+nb['cells'].append(nbf.v4.new_code_cell(source='''# Importing Libraries
+from bokeh.io import show
+from bokeh.plotting import figure
+from bokeh.models import ColumnDataSource, LabelSet, HoverTool
+from bokeh.transform import dodge
+import pandas as pd
+
+# You need to run this code at the beginning in order to show visualization using Jupyter Notebooks
+from bokeh.io import output_notebook
+output_notebook()
+apt29= pd.read_json('https://raw.githubusercontent.com/hunters-forge/ThreatHunter-Playbook/master/docs/evals/apt29/data/otr_results.json')
+summary = (
+    apt29
+    .groupby(['step','stepname']).agg(total=pd.NamedAgg(column="vendor", aggfunc="count"))
+    .join(
+        apt29[apt29['detectiontype'] == 'Telemetry']
+        .groupby(['step','stepname']).agg(telemetry=pd.NamedAgg(column="vendor", aggfunc="count"))
+    )
+).reset_index()
+summary['percentage'] = (summary['telemetry'] / summary['total']).map("{:.0%}".format)
+# Get Total Average Telemetry coverage
+total_avg_percentage = '{0:.0f}'.format((summary['telemetry'].sum() / summary['total'].sum() * 100))
+
+# Lists of values to create ColumnDataSource
+stepname = summary['stepname'].tolist()
+total = summary['total'].tolist()
+telemetry = summary['telemetry'].tolist()
+percentage = summary['percentage'].tolist()
+
+# Creating ColumnDataSource object: source of data for visualization
+source = ColumnDataSource(data={'stepname':stepname,'sub-Steps':total,'covered':telemetry,'percentage':percentage})
+
+# Defining HoverTool object (Display info with Mouse): It is applied to chart named 'needHover'
+hover_tool = HoverTool(names = ['needHover'],tooltips = [("Covered", "@covered"),("Percentage", "@percentage")])
+
+# Creating Figure
+p = figure(x_range=stepname,y_range=(0,23),plot_height=550,plot_width=600,toolbar_location='right',tools=[hover_tool])
+
+# Creating Vertical Bar Charts
+p.vbar(x=dodge('stepname',0.0,range=p.x_range),top='sub-Steps',width=0.7,source=source,color="#c9d9d3",legend_label="Total")
+p.vbar(x=dodge('stepname',0.0, range=p.x_range),top='covered',width=0.7,source=source,color="#718dbf",legend_label="Covered", name = 'needHover')
+
+# Adding Legend
+p.legend.location = "top_right"
+p.legend.orientation = "vertical"
+p.legend.border_line_width = 3
+p.legend.border_line_color = "black"
+p.legend.border_line_alpha = 0.3
+
+# Adding Title
+p.title.text = 'Telemetry Detection Category (Average Coverage: {}%)'.format(total_avg_percentage)
+p.title.align = 'center'
+p.title.text_font_size = '12pt'
+
+# Adding Axis Labels
+p.xaxis.axis_label = 'Emulation Steps'
+p.xaxis.major_label_orientation = 45
+
+p.yaxis.axis_label = 'Count of Sub-Steps'
+
+# Adding Data Label: Only for total of sub-steps
+total_label = LabelSet(x='stepname',y='sub-Steps',text='sub-Steps',text_align='center',level='glyph',source= source)
+p.add_layout(total_label)
+
+#Showing visualization
+show(p)
+''', metadata={"tags":["hide-input"]}))
+
 # **** SETUP ****
 # **** IMPORT LIBRARIES ****
-nb['cells'].append(nbf.v4.new_markdown_cell("### Import Libraries"))
+nb['cells'].append(nbf.v4.new_markdown_cell("## Import Libraries"))
 nb['cells'].append(nbf.v4.new_code_cell("from pyspark.sql import SparkSession"))
 
 # **** START SPARK SPESSION ****
-nb['cells'].append(nbf.v4.new_markdown_cell("### Start Spark Session"))
+nb['cells'].append(nbf.v4.new_markdown_cell("## Start Spark Session"))
 nb['cells'].append(nbf.v4.new_code_cell(
     """spark = SparkSession.builder.getOrCreate()
 spark.conf.set("spark.sql.caseSensitive", "true")"""
 ))
 
 # **** DECOMPRESS HOST DATASETS ****
-nb['cells'].append(nbf.v4.new_markdown_cell("### Decompress Dataset"))
+nb['cells'].append(nbf.v4.new_markdown_cell("## Decompress Dataset"))
 nb['cells'].append(nbf.v4.new_code_cell("!wget https://github.com/hunters-forge/mordor/raw/master/datasets/large/apt29/day1/apt29_evals_day1_manual.zip"))
 nb['cells'].append(nbf.v4.new_code_cell("!unzip apt29_evals_day1_manual.zip"))
 
 # **** IMPORT HOST DATASETS ****
-nb['cells'].append(nbf.v4.new_markdown_cell("### Import Datasets"))
+nb['cells'].append(nbf.v4.new_markdown_cell("## Import Datasets"))
 nb['cells'].append(nbf.v4.new_code_cell("df_day1_host = spark.read.json('apt29_evals_day1_manual_2020-05-01225525.json')"))
 
 # **** CREATE TEMPORARY SQL VIEW ****
-nb['cells'].append(nbf.v4.new_markdown_cell("### Create Temporary SQL View"))
+nb['cells'].append(nbf.v4.new_markdown_cell("## Create Temporary SQL View"))
 nb['cells'].append(nbf.v4.new_code_cell("df_day1_host.createTempView('apt29Host')"))
 
 # **** ADVERSARY - DETECTION STEPS ****

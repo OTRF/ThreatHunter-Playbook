@@ -35,7 +35,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Windows" href="../windows/windows.html" />
-    <link rel="prev" title="All Results - Report" href="../../evals/apt29/report.html" />
+    <link rel="prev" title="Free Telemetry Report" href="../../evals/apt29/report.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -98,7 +98,7 @@
       <a href="../../evals/apt29/intro.html">APT 29</a>
       <ul class="nav sidenav_l3">
       <li class="">
-        <a href="../../evals/apt29/report.html">All Results - Report</a>
+        <a href="../../evals/apt29/report.html">Free Telemetry Report</a>
       </li>
       <li class="active">
         <a href="">Free Telemetry Notebook</a>
@@ -192,6 +192,10 @@
 
 <nav id="bd-toc-nav">
     <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#telemetry-detection-category" class="nav-link">Telemetry Detection Category</a>
+        </li>
     
         <li class="nav-item toc-entry toc-h2">
             <a href="#import-libraries" class="nav-link">Import Libraries</a>
@@ -1065,6 +1069,81 @@
 </tr>
 </tbody>
 </table>
+<div class="section" id="telemetry-detection-category">
+<h2>Telemetry Detection Category<a class="headerlink" href="#telemetry-detection-category" title="Permalink to this headline">¶</a></h2>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing Libraries</span>
+<span class="kn">from</span> <span class="nn">bokeh.io</span> <span class="kn">import</span> <span class="n">show</span>
+<span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span><span class="p">,</span> <span class="n">LabelSet</span><span class="p">,</span> <span class="n">HoverTool</span>
+<span class="kn">from</span> <span class="nn">bokeh.transform</span> <span class="kn">import</span> <span class="n">dodge</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># You need to run this code at the beginning in order to show visualization using Jupyter Notebooks</span>
+<span class="kn">from</span> <span class="nn">bokeh.io</span> <span class="kn">import</span> <span class="n">output_notebook</span>
+<span class="n">output_notebook</span><span class="p">()</span>
+<span class="n">apt29</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/hunters-forge/ThreatHunter-Playbook/master/docs/evals/apt29/data/otr_results.json&#39;</span><span class="p">)</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">apt29</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;step&#39;</span><span class="p">,</span><span class="s1">&#39;stepname&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">NamedAgg</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">&quot;vendor&quot;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">apt29</span><span class="p">[</span><span class="n">apt29</span><span class="p">[</span><span class="s1">&#39;detectiontype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Telemetry&#39;</span><span class="p">]</span>
+        <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;step&#39;</span><span class="p">,</span><span class="s1">&#39;stepname&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">telemetry</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">NamedAgg</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s2">&quot;vendor&quot;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">))</span>
+    <span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">summary</span><span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;telemetry&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.0%}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+<span class="c1"># Get Total Average Telemetry coverage</span>
+<span class="n">total_avg_percentage</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0:.0f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">((</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;telemetry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+
+<span class="c1"># Lists of values to create ColumnDataSource</span>
+<span class="n">stepname</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;stepname&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">total</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">telemetry</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;telemetry&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">percentage</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="c1"># Creating ColumnDataSource object: source of data for visualization</span>
+<span class="n">source</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;stepname&#39;</span><span class="p">:</span><span class="n">stepname</span><span class="p">,</span><span class="s1">&#39;sub-Steps&#39;</span><span class="p">:</span><span class="n">total</span><span class="p">,</span><span class="s1">&#39;covered&#39;</span><span class="p">:</span><span class="n">telemetry</span><span class="p">,</span><span class="s1">&#39;percentage&#39;</span><span class="p">:</span><span class="n">percentage</span><span class="p">})</span>
+
+<span class="c1"># Defining HoverTool object (Display info with Mouse): It is applied to chart named &#39;needHover&#39;</span>
+<span class="n">hover_tool</span> <span class="o">=</span> <span class="n">HoverTool</span><span class="p">(</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;needHover&#39;</span><span class="p">],</span><span class="n">tooltips</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;Covered&quot;</span><span class="p">,</span> <span class="s2">&quot;@covered&quot;</span><span class="p">),(</span><span class="s2">&quot;Percentage&quot;</span><span class="p">,</span> <span class="s2">&quot;@percentage&quot;</span><span class="p">)])</span>
+
+<span class="c1"># Creating Figure</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">x_range</span><span class="o">=</span><span class="n">stepname</span><span class="p">,</span><span class="n">y_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">23</span><span class="p">),</span><span class="n">plot_height</span><span class="o">=</span><span class="mi">550</span><span class="p">,</span><span class="n">plot_width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span><span class="n">toolbar_location</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">hover_tool</span><span class="p">])</span>
+
+<span class="c1"># Creating Vertical Bar Charts</span>
+<span class="n">p</span><span class="o">.</span><span class="n">vbar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">dodge</span><span class="p">(</span><span class="s1">&#39;stepname&#39;</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="nb">range</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">x_range</span><span class="p">),</span><span class="n">top</span><span class="o">=</span><span class="s1">&#39;sub-Steps&#39;</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#c9d9d3&quot;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;Total&quot;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">vbar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">dodge</span><span class="p">(</span><span class="s1">&#39;stepname&#39;</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">x_range</span><span class="p">),</span><span class="n">top</span><span class="o">=</span><span class="s1">&#39;covered&#39;</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#718dbf&quot;</span><span class="p">,</span><span class="n">legend_label</span><span class="o">=</span><span class="s2">&quot;Covered&quot;</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;needHover&#39;</span><span class="p">)</span>
+
+<span class="c1"># Adding Legend</span>
+<span class="n">p</span><span class="o">.</span><span class="n">legend</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="s2">&quot;top_right&quot;</span>
+<span class="n">p</span><span class="o">.</span><span class="n">legend</span><span class="o">.</span><span class="n">orientation</span> <span class="o">=</span> <span class="s2">&quot;vertical&quot;</span>
+<span class="n">p</span><span class="o">.</span><span class="n">legend</span><span class="o">.</span><span class="n">border_line_width</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">p</span><span class="o">.</span><span class="n">legend</span><span class="o">.</span><span class="n">border_line_color</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span>
+<span class="n">p</span><span class="o">.</span><span class="n">legend</span><span class="o">.</span><span class="n">border_line_alpha</span> <span class="o">=</span> <span class="mf">0.3</span>
+
+<span class="c1"># Adding Title</span>
+<span class="n">p</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;Telemetry Detection Category (Average Coverage: </span><span class="si">{}</span><span class="s1">%)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_avg_percentage</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">align</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span>
+<span class="n">p</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text_font_size</span> <span class="o">=</span> <span class="s1">&#39;12pt&#39;</span>
+
+<span class="c1"># Adding Axis Labels</span>
+<span class="n">p</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">axis_label</span> <span class="o">=</span> <span class="s1">&#39;Emulation Steps&#39;</span>
+<span class="n">p</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">major_label_orientation</span> <span class="o">=</span> <span class="mi">45</span>
+
+<span class="n">p</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">axis_label</span> <span class="o">=</span> <span class="s1">&#39;Count of Sub-Steps&#39;</span>
+
+<span class="c1"># Adding Data Label: Only for total of sub-steps</span>
+<span class="n">total_label</span> <span class="o">=</span> <span class="n">LabelSet</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;stepname&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;sub-Steps&#39;</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;sub-Steps&#39;</span><span class="p">,</span><span class="n">text_align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="s1">&#39;glyph&#39;</span><span class="p">,</span><span class="n">source</span><span class="o">=</span> <span class="n">source</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">add_layout</span><span class="p">(</span><span class="n">total_label</span><span class="p">)</span>
+
+<span class="c1">#Showing visualization</span>
+<span class="n">show</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="section" id="import-libraries">
 <h2>Import Libraries<a class="headerlink" href="#import-libraries" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
@@ -6207,7 +6286,7 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="../../evals/apt29/report.html" title="previous page">All Results - Report</a>
+    <a class='left-prev' id="prev-link" href="../../evals/apt29/report.html" title="previous page">Free Telemetry Report</a>
     <a class='right-next' id="next-link" href="../windows/windows.html" title="next page">Windows</a>
 
     </div>
