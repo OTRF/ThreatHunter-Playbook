@@ -705,6 +705,21 @@ df.show(100,truncate = False, vertical = True)
 
 ### Detection Type:Telemetry(None)
 
+**Query ID:F7E315BA-6A66-44D8-ABB3-3FBB4AA8F80A**
+
+df = spark.sql(
+'''
+SELECT Message
+FROM apt29Host
+WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+    AND EventID = 1
+    AND LOWER(Image) LIKE "%sdclt.exe"
+    AND IntegrityLevel = "High"
+
+'''
+)
+df.show(100,truncate = False, vertical = True)
+
 **Query ID:6C8780E9-E6AF-4210-8EA0-72E9017CEE7D**
 
 df = spark.sql(
@@ -723,6 +738,22 @@ ON a.ParentProcessGuid = b.ProcessGuid
 WHERE a.Channel = "Microsoft-Windows-Sysmon/Operational"
     AND a.EventID = 1
     AND a.IntegrityLevel = "High"
+
+'''
+)
+df.show(100,truncate = False, vertical = True)
+
+**Query ID:C36B49B5-DF58-4A34-9FE9-56189B9DEFEA**
+
+df = spark.sql(
+'''
+SELECT Message
+FROM apt29Host
+WHERE LOWER(Channel) = "security"
+  AND EventID = 4688
+  AND LOWER(NewProcessName) LIKE "%sdclt.exe"
+  AND MandatoryLabel = "S-1-16-12288"
+  AND TokenElevationType = "%%1937"
 
 '''
 )

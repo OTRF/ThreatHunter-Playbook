@@ -9,9 +9,44 @@ issue: https://github.com/OTRF/detection-hackathon-apt29/issues/6
 detections:
   - main_type: Telemetry
     modifier_type:
-    description: Telemetry showed control.exe creating a high integrity powershell.exe.
+    description: Telemetry showed sdclt.exe being spawned as a high integrity process and control.exe creating a high integrity powershell.exe.
     reference:
     queries:
+      - id: F7E315BA-6A66-44D8-ABB3-3FBB4AA8F80A
+        data_sources:
+          - Microsoft-Windows-Sysmon/Operational
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host
+          WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+              AND EventID = 1
+              AND LOWER(Image) LIKE "%sdclt.exe"
+              AND IntegrityLevel = "High"
+        output: |
+          Process Create:
+          RuleName: -
+          UtcTime: 2020-05-02 02:58:43.008
+          ProcessGuid: {47ab858c-e1e3-5eac-b503-000000000400}
+          ProcessId: 6492
+          Image: C:\Windows\System32\sdclt.exe
+          FileVersion: 10.0.18362.657 (WinBuild.160101.0800)
+          Description: Microsoft® Windows Backup
+          Product: Microsoft® Windows® Operating System
+          Company: Microsoft Corporation
+          OriginalFileName: sdclt.exe
+          CommandLine: "C:\windows\system32\sdclt.exe" 
+          CurrentDirectory: C:\windows\system32\
+          User: DMEVALS\pbeesly
+          LogonGuid: {47ab858c-dabe-5eac-812e-370000000000}
+          LogonId: 0x372E81
+          TerminalSessionId: 2
+          IntegrityLevel: High
+          Hashes: SHA1=4D64682188DB0A028EC382975D8872CF1B61EBE4,MD5=F96744B10792C70426608E670C0E39DB,SHA256=DAFB903D3AA945C4AC01011E38F3E232D6BE8B7F9B66B7C3CCB1A1ECFC1B7A90,IMPHASH=B3A705D69AAAAF7164324CD5E6AF8E0D
+          ParentProcessGuid: {47ab858c-e188-5eac-b003-000000000400}
+          ParentProcessId: 3480
+          ParentImage: C:\Windows\System32\cmd.exe
+          ParentCommandLine: "C:\windows\system32\cmd.exe"
       - id: 6C8780E9-E6AF-4210-8EA0-72E9017CEE7D
         data_sources:
           - Microsoft-Windows-Sysmon/Operational
@@ -55,6 +90,41 @@ detections:
           ParentProcessId: 4892
           ParentImage: C:\Windows\System32\control.exe
           ParentCommandLine: "C:\Windows\System32\control.exe"  /name Microsoft.BackupAndRestoreCenter
+      - id: C36B49B5-DF58-4A34-9FE9-56189B9DEFEA
+        data_sources:
+          - Security
+        rule_contribution:
+        logic: |
+          SELECT Message
+          FROM apt29Host
+          WHERE LOWER(Channel) = "security"
+            AND EventID = 4688
+            AND LOWER(NewProcessName) LIKE "%sdclt.exe"
+            AND MandatoryLabel = "S-1-16-12288"
+            AND TokenElevationType = "%%1937"
+        output: |
+          A new process has been created.
+
+          Creator Subject:
+            Security ID:		S-1-5-18
+            Account Name:		SCRANTON$
+            Account Domain:		DMEVALS
+            Logon ID:		0x3E7
+          
+          Target Subject:
+            Security ID:		S-1-5-21-1830255721-3727074217-2423397540-1107
+            Account Name:		pbeesly
+            Account Domain:		DMEVALS
+            Logon ID:		0x372E81
+          
+          Process Information:
+            New Process ID:		0x195c
+            New Process Name:	C:\Windows\System32\sdclt.exe
+            Token Elevation Type:	%%1937
+            Mandatory Label:		S-1-16-12288
+            Creator Process ID:	0xd98
+            Creator Process Name:	C:\Windows\System32\cmd.exe
+            Process Command Line:	"C:\windows\system32\sdclt.exe"
       - id: EE34D18C-0549-4AFB-8B98-01160B0C9094
         data_sources:
           - Security
