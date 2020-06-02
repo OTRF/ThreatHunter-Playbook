@@ -1,0 +1,45 @@
+# F7E315BA-6A66-44D8-ABB3-3FBB4AA8F80A
+
+## Data Sources
+* Microsoft-Windows-Sysmon/Operational<br>
+
+## Logic
+
+```
+SELECT Message
+FROM apt29Host
+WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+    AND EventID = 1
+    AND LOWER(Image) LIKE "%sdclt.exe"
+    AND IntegrityLevel = "High"
+
+```
+
+## Output
+
+```
+Process Create:
+RuleName: -
+UtcTime: 2020-05-02 02:58:43.008
+ProcessGuid: {47ab858c-e1e3-5eac-b503-000000000400}
+ProcessId: 6492
+Image: C:\Windows\System32\sdclt.exe
+FileVersion: 10.0.18362.657 (WinBuild.160101.0800)
+Description: Microsoft® Windows Backup
+Product: Microsoft® Windows® Operating System
+Company: Microsoft Corporation
+OriginalFileName: sdclt.exe
+CommandLine: "C:\windows\system32\sdclt.exe" 
+CurrentDirectory: C:\windows\system32\
+User: DMEVALS\pbeesly
+LogonGuid: {47ab858c-dabe-5eac-812e-370000000000}
+LogonId: 0x372E81
+TerminalSessionId: 2
+IntegrityLevel: High
+Hashes: SHA1=4D64682188DB0A028EC382975D8872CF1B61EBE4,MD5=F96744B10792C70426608E670C0E39DB,SHA256=DAFB903D3AA945C4AC01011E38F3E232D6BE8B7F9B66B7C3CCB1A1ECFC1B7A90,IMPHASH=B3A705D69AAAAF7164324CD5E6AF8E0D
+ParentProcessGuid: {47ab858c-e188-5eac-b003-000000000400}
+ParentProcessId: 3480
+ParentImage: C:\Windows\System32\cmd.exe
+ParentCommandLine: "C:\windows\system32\cmd.exe"
+
+```
