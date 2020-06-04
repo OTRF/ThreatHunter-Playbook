@@ -7,13 +7,13 @@
 
 ```
 SELECT b.ScriptBlockText
-FROM apt29Table a
+FROM apt29Host a
 INNER JOIN (
   SELECT d.ParentProcessGuid, d.ProcessId, c.ScriptBlockText
-  FROM apt29Table c
+  FROM apt29Host c
   INNER JOIN (
       SELECT ParentProcessGuid, ProcessGuid, ProcessId
-      FROM apt29Table
+      FROM apt29Host
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 1
       ) d

@@ -10,7 +10,7 @@ SELECT a.EventTime, o.TargetUserName, o.IpAddress, a.Message
 FROM apt29Host o
 INNER JOIN (
     SELECT Message, EventTime, SubjectLogonId
-    FROM apt29Table
+    FROM apt29Host
     WHERE lower(Channel) = "security"
         AND EventID = 4661
         AND ObjectType = "SAM_DOMAIN"

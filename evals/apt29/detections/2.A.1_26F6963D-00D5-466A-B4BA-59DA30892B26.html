@@ -46,7 +46,7 @@
 <meta property="og:url"         content="https://threathunterplaybook.com/evals/apt29/detections/2.A.1_26F6963D-00D5-466A-B4BA-59DA30892B26.html" />
 <meta property="og:type"        content="article" />
 <meta property="og:title"       content="26F6963D-00D5-466A-B4BA-59DA30892B26" />
-<meta property="og:description" content="26F6963D-00D5-466A-B4BA-59DA30892B26  Data Sources  Security<br>* Microsoft-Windows-PowerShell/Operational<br>  Logic  SELECT b.ScriptBlockText FROM apt29Table " />
+<meta property="og:description" content="26F6963D-00D5-466A-B4BA-59DA30892B26  Data Sources  Security<br>* Microsoft-Windows-PowerShell/Operational<br>  Logic  SELECT b.ScriptBlockText FROM apt29Host a" />
 <meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
 
 <meta name="twitter:card" content="summary">
@@ -207,13 +207,13 @@
 <div class="section" id="logic">
 <h2>Logic<a class="headerlink" href="#logic" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">b</span><span class="o">.</span><span class="n">ScriptBlockText</span>
-<span class="n">FROM</span> <span class="n">apt29Table</span> <span class="n">a</span>
+<span class="n">FROM</span> <span class="n">apt29Host</span> <span class="n">a</span>
 <span class="n">INNER</span> <span class="n">JOIN</span> <span class="p">(</span>
   <span class="n">SELECT</span> <span class="n">d</span><span class="o">.</span><span class="n">NewProcessId</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">ProcessId</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">ScriptBlockText</span>
-  <span class="n">FROM</span> <span class="n">apt29Table</span> <span class="n">c</span>
+  <span class="n">FROM</span> <span class="n">apt29Host</span> <span class="n">c</span>
   <span class="n">INNER</span> <span class="n">JOIN</span> <span class="p">(</span>
       <span class="n">SELECT</span> <span class="n">split</span><span class="p">(</span><span class="n">NewProcessId</span><span class="p">,</span> <span class="s1">&#39;0x&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">as</span> <span class="n">NewProcessId</span><span class="p">,</span> <span class="n">ProcessId</span>
-      <span class="n">FROM</span> <span class="n">apt29Table</span>
+      <span class="n">FROM</span> <span class="n">apt29Host</span>
       <span class="n">WHERE</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">Channel</span><span class="p">)</span> <span class="o">=</span> <span class="s2">&quot;security&quot;</span>
           <span class="n">AND</span> <span class="n">EventID</span> <span class="o">=</span> <span class="mi">4688</span>
       <span class="p">)</span> <span class="n">d</span>

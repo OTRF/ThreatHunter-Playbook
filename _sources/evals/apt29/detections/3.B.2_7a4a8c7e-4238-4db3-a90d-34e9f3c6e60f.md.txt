@@ -1,0 +1,44 @@
+# 7a4a8c7e-4238-4db3-a90d-34e9f3c6e60f
+
+## Data Sources
+* Microsoft-Windows-Sysmon/Operational<br>
+
+## Logic
+
+```
+SELECT Message
+FROM apt29Host
+WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+    AND EventID = 1
+    AND LOWER(ParentImage) LIKE "%sdclt.exe%"
+
+```
+
+## Output
+
+```
+Process Create:
+RuleName: -
+UtcTime: 2020-05-02 02:58:43.212
+ProcessGuid: {47ab858c-e1e3-5eac-b603-000000000400}
+ProcessId: 4892
+Image: C:\Windows\System32\control.exe
+FileVersion: 10.0.18362.1 (WinBuild.160101.0800)
+Description: Windows Control Panel
+Product: Microsoft® Windows® Operating System
+Company: Microsoft Corporation
+OriginalFileName: CONTROL.EXE
+CommandLine: "C:\Windows\System32\control.exe"  /name Microsoft.BackupAndRestoreCenter
+CurrentDirectory: C:\windows\system32\
+User: DMEVALS\pbeesly
+LogonGuid: {47ab858c-dabe-5eac-812e-370000000000}
+LogonId: 0x372E81
+TerminalSessionId: 2
+IntegrityLevel: High
+Hashes: SHA1=D054A1D1E0BECCA5EEF751CF616ECB811CFABECE,MD5=62D970D8B60F75C12D21C740F2D8A5DA,SHA256=D6E21DA3BE0701162A36F8C9F94E616B1A0C5FD4CC1B52EFD81959CB257957C1,IMPHASH=7A8EC2645C24D85DE8216D63022623C0
+ParentProcessGuid: {47ab858c-e1e3-5eac-b503-000000000400}
+ParentProcessId: 6492
+ParentImage: C:\Windows\System32\sdclt.exe
+ParentCommandLine: "C:\windows\system32\sdclt.exe"
+
+```

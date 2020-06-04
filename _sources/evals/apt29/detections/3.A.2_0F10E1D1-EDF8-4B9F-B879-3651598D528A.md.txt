@@ -7,10 +7,10 @@
 
 ```
 SELECT d.Image, d.CommandLine, c.ScriptBlockText
-FROM apt29Table c
+FROM apt29Host c
 INNER JOIN (
     SELECT ParentProcessGuid, ProcessGuid, ProcessId, ParentImage, Image, ParentCommandLine, CommandLine
-    FROM apt29Table
+    FROM apt29Host
     WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
         AND EventID = 1
     ) d

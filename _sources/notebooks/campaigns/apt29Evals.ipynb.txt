@@ -1226,6 +1226,65 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
+    "### Detection Type:Technique(None)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Query ID:7a4a8c7e-4238-4db3-a90d-34e9f3c6e60f**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df = spark.sql(\n",
+    "'''\n",
+    "SELECT Message\n",
+    "FROM apt29Host\n",
+    "WHERE Channel = \"Microsoft-Windows-Sysmon/Operational\"\n",
+    "    AND EventID = 1\n",
+    "    AND LOWER(ParentImage) LIKE \"%sdclt.exe%\"\n",
+    "\n",
+    "'''\n",
+    ")\n",
+    "df.show(100,truncate = False, vertical = True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Query ID:d52fe669-55da-49e1-a76b-89297c66fa02**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df = spark.sql(\n",
+    "'''\n",
+    "SELECT Message\n",
+    "FROM apt29Host\n",
+    "WHERE LOWER(Channel) = \"security\"\n",
+    "  AND EventID = 4688\n",
+    "  AND LOWER(ParentProcessName) LIKE \"%sdclt.exe\"\n",
+    "\n",
+    "'''\n",
+    ")\n",
+    "df.show(100,truncate = False, vertical = True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
     "### Detection Type:Telemetry(None)"
    ]
   },
@@ -1733,6 +1792,57 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
+    "**Query ID:66B068A4-C3AB-4973-AE07-2C15AFF78104**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df = spark.sql(\n",
+    "'''\n",
+    "SELECT Payload\n",
+    "FROM apt29Host f\n",
+    "INNER JOIN (\n",
+    "    SELECT d.ProcessId\n",
+    "    FROM apt29Host d\n",
+    "    INNER JOIN (\n",
+    "      SELECT a.ProcessGuid, a.ParentProcessGuid\n",
+    "      FROM apt29Host a\n",
+    "      INNER JOIN (\n",
+    "        SELECT ProcessGuid\n",
+    "        FROM apt29Host\n",
+    "        WHERE Channel = \"Microsoft-Windows-Sysmon/Operational\"\n",
+    "            AND EventID = 1\n",
+    "            AND LOWER(Image) LIKE \"%control.exe\"\n",
+    "            AND LOWER(ParentImage) LIKE \"%sdclt.exe\"\n",
+    "      ) b\n",
+    "      ON a.ParentProcessGuid = b.ProcessGuid\n",
+    "      WHERE a.Channel = \"Microsoft-Windows-Sysmon/Operational\"\n",
+    "        AND a.EventID = 1\n",
+    "        AND a.IntegrityLevel = \"High\"\n",
+    "    ) c\n",
+    "    ON d.ParentProcessGuid= c.ProcessGuid\n",
+    "    WHERE d.Channel = \"Microsoft-Windows-Sysmon/Operational\"\n",
+    "      AND d.EventID = 1\n",
+    "      AND d.Image LIKE '%powershell.exe'\n",
+    ") e\n",
+    "ON f.ExecutionProcessID = e.ProcessId\n",
+    "WHERE f.Channel = \"Microsoft-Windows-PowerShell/Operational\"\n",
+    "    AND f.EventID = 4103\n",
+    "    AND LOWER(f.Payload) LIKE \"%expand-archive%\"\n",
+    "\n",
+    "'''\n",
+    ")\n",
+    "df.show(100,truncate = False, vertical = True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
     "**Query ID:09F29912-8E93-461E-9E89-3F06F6763383**"
    ]
   },
@@ -1774,6 +1884,58 @@
     "WHERE f.Channel = \"Microsoft-Windows-PowerShell/Operational\"\n",
     "    AND f.EventID = 4104\n",
     "    AND LOWER(f.ScriptBlockText) LIKE \"%expand-archive%\"\n",
+    "\n",
+    "'''\n",
+    ")\n",
+    "df.show(100,truncate = False, vertical = True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Query ID:B5F24262-9373-43A4-A83F-0DBB708BD2C0**"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df = spark.sql(\n",
+    "'''\n",
+    "SELECT Payload\n",
+    "FROM apt29Host f\n",
+    "INNER JOIN (\n",
+    "    SELECT split(d.NewProcessId, '0x')[1] as NewProcessId\n",
+    "    FROM apt29Host d\n",
+    "    INNER JOIN(\n",
+    "      SELECT a.ProcessId, a.NewProcessId\n",
+    "      FROM apt29Host a\n",
+    "      INNER JOIN (\n",
+    "        SELECT NewProcessId\n",
+    "        FROM apt29Host\n",
+    "        WHERE LOWER(Channel) = \"security\"\n",
+    "            AND EventID = 4688\n",
+    "            AND LOWER(NewProcessName) LIKE \"%control.exe\"\n",
+    "            AND LOWER(ParentProcessName) LIKE \"%sdclt.exe\"\n",
+    "      ) b\n",
+    "      ON a.ProcessId = b.NewProcessId\n",
+    "      WHERE LOWER(a.Channel) = \"security\"\n",
+    "        AND a.EventID = 4688\n",
+    "        AND a.MandatoryLabel = \"S-1-16-12288\"\n",
+    "        AND a.TokenElevationType = \"%%1937\"\n",
+    "    ) c\n",
+    "    ON d.ProcessId = c.NewProcessId\n",
+    "    WHERE LOWER(d.Channel) = \"security\"\n",
+    "      AND d.EventID = 4688\n",
+    "      AND d.NewProcessName LIKE '%powershell.exe'\n",
+    ") e\n",
+    "ON LOWER(hex(f.ExecutionProcessID)) = e.NewProcessId\n",
+    "WHERE f.Channel = \"Microsoft-Windows-PowerShell/Operational\"\n",
+    "    AND f.EventID = 4103\n",
+    "    AND LOWER(f.Payload) LIKE \"%expand-archive%\"\n",
     "\n",
     "'''\n",
     ")\n",
