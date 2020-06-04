@@ -379,6 +379,10 @@
             <a href="#b-2-bypass-user-account-control" class="nav-link">3.B.2. Bypass User Account Control</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h3">
+            <a href="#detection-type-technique-none" class="nav-link">Detection Type:Technique(None)</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
             <a href="#id13" class="nav-link">Detection Type:Telemetry(None)</a>
         </li>
     
@@ -1896,6 +1900,45 @@
 <h2>3.B.2. Bypass User Account Control<a class="headerlink" href="#b-2-bypass-user-account-control" title="Permalink to this headline">¶</a></h2>
 <p><strong>Procedure:</strong> Executed elevated PowerShell payload</p>
 <p><strong>Criteria:</strong> High integrity powershell.exe spawning from control.exe​​ (spawned from sdclt.exe)</p>
+<div class="section" id="detection-type-technique-none">
+<h3>Detection Type:Technique(None)<a class="headerlink" href="#detection-type-technique-none" title="Permalink to this headline">¶</a></h3>
+<p><strong>Query ID:7a4a8c7e-4238-4db3-a90d-34e9f3c6e60f</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT Message</span>
+<span class="sd">FROM apt29Host</span>
+<span class="sd">WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">    AND EventID = 1</span>
+<span class="sd">    AND LOWER(ParentImage) LIKE &quot;%sdclt.exe%&quot;</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="n">truncate</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">vertical</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Query ID:d52fe669-55da-49e1-a76b-89297c66fa02</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT Message</span>
+<span class="sd">FROM apt29Host</span>
+<span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
+<span class="sd">  AND EventID = 4688</span>
+<span class="sd">  AND LOWER(ParentProcessName) LIKE &quot;%sdclt.exe&quot;</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="n">truncate</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">vertical</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="section" id="id13">
 <h3>Detection Type:Telemetry(None)<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p><strong>Query ID:F7E315BA-6A66-44D8-ABB3-3FBB4AA8F80A</strong></p>
@@ -2255,6 +2298,49 @@
 <p><strong>Criteria:</strong> powershell.exe executing Expand-Archive</p>
 <div class="section" id="id21">
 <h3>Detection Type:Telemetry(Correlated)<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<p><strong>Query ID:66B068A4-C3AB-4973-AE07-2C15AFF78104</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT Payload</span>
+<span class="sd">FROM apt29Host f</span>
+<span class="sd">INNER JOIN (</span>
+<span class="sd">    SELECT d.ProcessId</span>
+<span class="sd">    FROM apt29Host d</span>
+<span class="sd">    INNER JOIN (</span>
+<span class="sd">      SELECT a.ProcessGuid, a.ParentProcessGuid</span>
+<span class="sd">      FROM apt29Host a</span>
+<span class="sd">      INNER JOIN (</span>
+<span class="sd">        SELECT ProcessGuid</span>
+<span class="sd">        FROM apt29Host</span>
+<span class="sd">        WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">            AND EventID = 1</span>
+<span class="sd">            AND LOWER(Image) LIKE &quot;%control.exe&quot;</span>
+<span class="sd">            AND LOWER(ParentImage) LIKE &quot;%sdclt.exe&quot;</span>
+<span class="sd">      ) b</span>
+<span class="sd">      ON a.ParentProcessGuid = b.ProcessGuid</span>
+<span class="sd">      WHERE a.Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">        AND a.EventID = 1</span>
+<span class="sd">        AND a.IntegrityLevel = &quot;High&quot;</span>
+<span class="sd">    ) c</span>
+<span class="sd">    ON d.ParentProcessGuid= c.ProcessGuid</span>
+<span class="sd">    WHERE d.Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">      AND d.EventID = 1</span>
+<span class="sd">      AND d.Image LIKE &#39;%powershell.exe&#39;</span>
+<span class="sd">) e</span>
+<span class="sd">ON f.ExecutionProcessID = e.ProcessId</span>
+<span class="sd">WHERE f.Channel = &quot;Microsoft-Windows-PowerShell/Operational&quot;</span>
+<span class="sd">    AND f.EventID = 4103</span>
+<span class="sd">    AND LOWER(f.Payload) LIKE &quot;%expand-archive%&quot;</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="n">truncate</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">vertical</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p><strong>Query ID:09F29912-8E93-461E-9E89-3F06F6763383</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2290,6 +2376,50 @@
 <span class="sd">WHERE f.Channel = &quot;Microsoft-Windows-PowerShell/Operational&quot;</span>
 <span class="sd">    AND f.EventID = 4104</span>
 <span class="sd">    AND LOWER(f.ScriptBlockText) LIKE &quot;%expand-archive%&quot;</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="n">truncate</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">vertical</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Query ID:B5F24262-9373-43A4-A83F-0DBB708BD2C0</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT Payload</span>
+<span class="sd">FROM apt29Host f</span>
+<span class="sd">INNER JOIN (</span>
+<span class="sd">    SELECT split(d.NewProcessId, &#39;0x&#39;)[1] as NewProcessId</span>
+<span class="sd">    FROM apt29Host d</span>
+<span class="sd">    INNER JOIN(</span>
+<span class="sd">      SELECT a.ProcessId, a.NewProcessId</span>
+<span class="sd">      FROM apt29Host a</span>
+<span class="sd">      INNER JOIN (</span>
+<span class="sd">        SELECT NewProcessId</span>
+<span class="sd">        FROM apt29Host</span>
+<span class="sd">        WHERE LOWER(Channel) = &quot;security&quot;</span>
+<span class="sd">            AND EventID = 4688</span>
+<span class="sd">            AND LOWER(NewProcessName) LIKE &quot;%control.exe&quot;</span>
+<span class="sd">            AND LOWER(ParentProcessName) LIKE &quot;%sdclt.exe&quot;</span>
+<span class="sd">      ) b</span>
+<span class="sd">      ON a.ProcessId = b.NewProcessId</span>
+<span class="sd">      WHERE LOWER(a.Channel) = &quot;security&quot;</span>
+<span class="sd">        AND a.EventID = 4688</span>
+<span class="sd">        AND a.MandatoryLabel = &quot;S-1-16-12288&quot;</span>
+<span class="sd">        AND a.TokenElevationType = &quot;%%1937&quot;</span>
+<span class="sd">    ) c</span>
+<span class="sd">    ON d.ProcessId = c.NewProcessId</span>
+<span class="sd">    WHERE LOWER(d.Channel) = &quot;security&quot;</span>
+<span class="sd">      AND d.EventID = 4688</span>
+<span class="sd">      AND d.NewProcessName LIKE &#39;%powershell.exe&#39;</span>
+<span class="sd">) e</span>
+<span class="sd">ON LOWER(hex(f.ExecutionProcessID)) = e.NewProcessId</span>
+<span class="sd">WHERE f.Channel = &quot;Microsoft-Windows-PowerShell/Operational&quot;</span>
+<span class="sd">    AND f.EventID = 4103</span>
+<span class="sd">    AND LOWER(f.Payload) LIKE &quot;%expand-archive%&quot;</span>
 
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>

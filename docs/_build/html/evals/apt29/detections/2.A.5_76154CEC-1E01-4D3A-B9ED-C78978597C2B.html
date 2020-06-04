@@ -207,13 +207,13 @@
 <div class="section" id="logic">
 <h2>Logic<a class="headerlink" href="#logic" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">TargetFilename</span>
-<span class="n">FROM</span> <span class="n">apt29Table</span> <span class="n">a</span>
+<span class="n">FROM</span> <span class="n">apt29Host</span> <span class="n">a</span>
 <span class="n">INNER</span> <span class="n">JOIN</span> <span class="p">(</span>
     <span class="n">SELECT</span> <span class="n">d</span><span class="o">.</span><span class="n">ProcessGuid</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">ProcessId</span>
-    <span class="n">FROM</span> <span class="n">apt29Table</span> <span class="n">c</span>
+    <span class="n">FROM</span> <span class="n">apt29Host</span> <span class="n">c</span>
     <span class="n">INNER</span> <span class="n">JOIN</span> <span class="p">(</span>
         <span class="n">SELECT</span> <span class="n">ProcessGuid</span><span class="p">,</span> <span class="n">ProcessId</span>
-        <span class="n">FROM</span> <span class="n">apt29Table</span>
+        <span class="n">FROM</span> <span class="n">apt29Host</span>
         <span class="n">WHERE</span> <span class="n">Channel</span> <span class="o">=</span> <span class="s2">&quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
             <span class="n">AND</span> <span class="n">EventID</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="p">)</span> <span class="n">d</span>

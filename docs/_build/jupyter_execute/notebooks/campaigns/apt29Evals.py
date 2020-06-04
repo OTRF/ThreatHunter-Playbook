@@ -703,6 +703,36 @@ df.show(100,truncate = False, vertical = True)
 **Criteria:** High integrity powershell.exe spawning from control.exe​​ (spawned from sdclt.exe)
 
 
+### Detection Type:Technique(None)
+
+**Query ID:7a4a8c7e-4238-4db3-a90d-34e9f3c6e60f**
+
+df = spark.sql(
+'''
+SELECT Message
+FROM apt29Host
+WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+    AND EventID = 1
+    AND LOWER(ParentImage) LIKE "%sdclt.exe%"
+
+'''
+)
+df.show(100,truncate = False, vertical = True)
+
+**Query ID:d52fe669-55da-49e1-a76b-89297c66fa02**
+
+df = spark.sql(
+'''
+SELECT Message
+FROM apt29Host
+WHERE LOWER(Channel) = "security"
+  AND EventID = 4688
+  AND LOWER(ParentProcessName) LIKE "%sdclt.exe"
+
+'''
+)
+df.show(100,truncate = False, vertical = True)
+
 ### Detection Type:Telemetry(None)
 
 **Query ID:F7E315BA-6A66-44D8-ABB3-3FBB4AA8F80A**
@@ -1022,6 +1052,45 @@ df.show(100,truncate = False, vertical = True)
 
 ### Detection Type:Telemetry(Correlated)
 
+**Query ID:66B068A4-C3AB-4973-AE07-2C15AFF78104**
+
+df = spark.sql(
+'''
+SELECT Payload
+FROM apt29Host f
+INNER JOIN (
+    SELECT d.ProcessId
+    FROM apt29Host d
+    INNER JOIN (
+      SELECT a.ProcessGuid, a.ParentProcessGuid
+      FROM apt29Host a
+      INNER JOIN (
+        SELECT ProcessGuid
+        FROM apt29Host
+        WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+            AND EventID = 1
+            AND LOWER(Image) LIKE "%control.exe"
+            AND LOWER(ParentImage) LIKE "%sdclt.exe"
+      ) b
+      ON a.ParentProcessGuid = b.ProcessGuid
+      WHERE a.Channel = "Microsoft-Windows-Sysmon/Operational"
+        AND a.EventID = 1
+        AND a.IntegrityLevel = "High"
+    ) c
+    ON d.ParentProcessGuid= c.ProcessGuid
+    WHERE d.Channel = "Microsoft-Windows-Sysmon/Operational"
+      AND d.EventID = 1
+      AND d.Image LIKE '%powershell.exe'
+) e
+ON f.ExecutionProcessID = e.ProcessId
+WHERE f.Channel = "Microsoft-Windows-PowerShell/Operational"
+    AND f.EventID = 4103
+    AND LOWER(f.Payload) LIKE "%expand-archive%"
+
+'''
+)
+df.show(100,truncate = False, vertical = True)
+
 **Query ID:09F29912-8E93-461E-9E89-3F06F6763383**
 
 df = spark.sql(
@@ -1056,6 +1125,46 @@ ON f.ExecutionProcessID = e.ProcessId
 WHERE f.Channel = "Microsoft-Windows-PowerShell/Operational"
     AND f.EventID = 4104
     AND LOWER(f.ScriptBlockText) LIKE "%expand-archive%"
+
+'''
+)
+df.show(100,truncate = False, vertical = True)
+
+**Query ID:B5F24262-9373-43A4-A83F-0DBB708BD2C0**
+
+df = spark.sql(
+'''
+SELECT Payload
+FROM apt29Host f
+INNER JOIN (
+    SELECT split(d.NewProcessId, '0x')[1] as NewProcessId
+    FROM apt29Host d
+    INNER JOIN(
+      SELECT a.ProcessId, a.NewProcessId
+      FROM apt29Host a
+      INNER JOIN (
+        SELECT NewProcessId
+        FROM apt29Host
+        WHERE LOWER(Channel) = "security"
+            AND EventID = 4688
+            AND LOWER(NewProcessName) LIKE "%control.exe"
+            AND LOWER(ParentProcessName) LIKE "%sdclt.exe"
+      ) b
+      ON a.ProcessId = b.NewProcessId
+      WHERE LOWER(a.Channel) = "security"
+        AND a.EventID = 4688
+        AND a.MandatoryLabel = "S-1-16-12288"
+        AND a.TokenElevationType = "%%1937"
+    ) c
+    ON d.ProcessId = c.NewProcessId
+    WHERE LOWER(d.Channel) = "security"
+      AND d.EventID = 4688
+      AND d.NewProcessName LIKE '%powershell.exe'
+) e
+ON LOWER(hex(f.ExecutionProcessID)) = e.NewProcessId
+WHERE f.Channel = "Microsoft-Windows-PowerShell/Operational"
+    AND f.EventID = 4103
+    AND LOWER(f.Payload) LIKE "%expand-archive%"
 
 '''
 )

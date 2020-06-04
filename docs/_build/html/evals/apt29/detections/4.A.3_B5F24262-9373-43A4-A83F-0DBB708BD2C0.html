@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>6CDEBEBF-387F-4A40-A4E8-8D4DF3A8F897 &#8212; Threat Hunter Playbook</title>
+    <title>B5F24262-9373-43A4-A83F-0DBB708BD2C0 &#8212; Threat Hunter Playbook</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../../../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../_static/sphinx-book-theme.css" type="text/css" />
@@ -30,7 +30,7 @@
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script async="async" src="../../../_static/thebelab.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="canonical" href="https://threathunterplaybook.com/evals/apt29/detections/2.A.4_6CDEBEBF-387F-4A40-A4E8-8D4DF3A8F897.html" />
+    <link rel="canonical" href="https://threathunterplaybook.com/evals/apt29/detections/4.A.3_B5F24262-9373-43A4-A83F-0DBB708BD2C0.html" />
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -43,10 +43,10 @@
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://threathunterplaybook.com/evals/apt29/detections/2.A.4_6CDEBEBF-387F-4A40-A4E8-8D4DF3A8F897.html" />
+<meta property="og:url"         content="https://threathunterplaybook.com/evals/apt29/detections/4.A.3_B5F24262-9373-43A4-A83F-0DBB708BD2C0.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="6CDEBEBF-387F-4A40-A4E8-8D4DF3A8F897" />
-<meta property="og:description" content="6CDEBEBF-387F-4A40-A4E8-8D4DF3A8F897  Data Sources  Microsoft-Windows-Sysmon/Operational<br>* Microsoft-Windows-PowerShell/Operational<br>  Logic  SELECT b.Scri" />
+<meta property="og:title"       content="B5F24262-9373-43A4-A83F-0DBB708BD2C0" />
+<meta property="og:description" content="B5F24262-9373-43A4-A83F-0DBB708BD2C0  Data Sources  Security<br>* Microsoft-Windows-PowerShell/Operational<br>  Logic  SELECT Payload FROM apt29Host f INNER JOI" />
 <meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
 
 <meta name="twitter:card" content="summary">
@@ -140,7 +140,7 @@
                 <!-- ipynb file if we had a myst markdown file -->
                 
                 <!-- Download raw file -->
-                <a class="dropdown-buttons" href="../../../_sources/evals/apt29/detections/2.A.4_6CDEBEBF-387F-4A40-A4E8-8D4DF3A8F897.md.txt"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.md</button></a>
+                <a class="dropdown-buttons" href="../../../_sources/evals/apt29/detections/4.A.3_B5F24262-9373-43A4-A83F-0DBB708BD2C0.md.txt"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.md</button></a>
                 <!-- Download PDF via print -->
                 <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
             </div>
@@ -148,7 +148,7 @@
         </div>
 
         <!-- Edit this page -->
-        <a class="edit-button" href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/evals/apt29/detections/2.A.4_6CDEBEBF-387F-4A40-A4E8-8D4DF3A8F897.md"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" title="Edit this page"><i class="fas fa-pencil-alt"></i></button></a>
+        <a class="edit-button" href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/evals/apt29/detections/4.A.3_B5F24262-9373-43A4-A83F-0DBB708BD2C0.md"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" title="Edit this page"><i class="fas fa-pencil-alt"></i></button></a>
 
         <!-- Full screen (wrap in <a> to have style consistency -->
         <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
@@ -184,7 +184,7 @@
 
 
 <div class="tocsection editthispage">
-    <a href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/evals/apt29/detections/2.A.4_6CDEBEBF-387F-4A40-A4E8-8D4DF3A8F897.md">
+    <a href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/evals/apt29/detections/4.A.3_B5F24262-9373-43A4-A83F-0DBB708BD2C0.md">
         <i class="fas fa-pencil-alt"></i> Edit this page
     </a>
 </div>
@@ -196,43 +196,58 @@
         
               <div>
                 
-  <div class="section" id="cdebebf-387f-4a40-a4e8-8d4df3a8f897">
-<h1>6CDEBEBF-387F-4A40-A4E8-8D4DF3A8F897<a class="headerlink" href="#cdebebf-387f-4a40-a4e8-8d4df3a8f897" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="b5f24262-9373-43a4-a83f-0dbb708bd2c0">
+<h1>B5F24262-9373-43A4-A83F-0DBB708BD2C0<a class="headerlink" href="#b5f24262-9373-43a4-a83f-0dbb708bd2c0" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="data-sources">
 <h2>Data Sources<a class="headerlink" href="#data-sources" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Microsoft-Windows-Sysmon/Operational<br>* Microsoft-Windows-PowerShell/Operational<br></p></li>
+<li><p>Security<br>* Microsoft-Windows-PowerShell/Operational<br></p></li>
 </ul>
 </div>
 <div class="section" id="logic">
 <h2>Logic<a class="headerlink" href="#logic" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">b</span><span class="o">.</span><span class="n">ScriptBlockText</span>
-<span class="n">FROM</span> <span class="n">apt29Host</span> <span class="n">a</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SELECT</span> <span class="n">Payload</span>
+<span class="n">FROM</span> <span class="n">apt29Host</span> <span class="n">f</span>
 <span class="n">INNER</span> <span class="n">JOIN</span> <span class="p">(</span>
-  <span class="n">SELECT</span> <span class="n">d</span><span class="o">.</span><span class="n">ParentProcessGuid</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">ProcessId</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">ScriptBlockText</span>
-  <span class="n">FROM</span> <span class="n">apt29Host</span> <span class="n">c</span>
-  <span class="n">INNER</span> <span class="n">JOIN</span> <span class="p">(</span>
-      <span class="n">SELECT</span> <span class="n">ParentProcessGuid</span><span class="p">,</span> <span class="n">ProcessGuid</span><span class="p">,</span> <span class="n">ProcessId</span>
-      <span class="n">FROM</span> <span class="n">apt29Host</span>
-      <span class="n">WHERE</span> <span class="n">Channel</span> <span class="o">=</span> <span class="s2">&quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
-          <span class="n">AND</span> <span class="n">EventID</span> <span class="o">=</span> <span class="mi">1</span>
-      <span class="p">)</span> <span class="n">d</span>
-  <span class="n">ON</span> <span class="n">c</span><span class="o">.</span><span class="n">ExecutionProcessID</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">ProcessId</span>
-  <span class="n">WHERE</span> <span class="n">c</span><span class="o">.</span><span class="n">Channel</span> <span class="o">=</span> <span class="s2">&quot;Microsoft-Windows-PowerShell/Operational&quot;</span>
-          <span class="n">AND</span> <span class="n">c</span><span class="o">.</span><span class="n">EventID</span> <span class="o">=</span> <span class="mi">4104</span>
-          <span class="n">AND</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ScriptBlockText</span><span class="p">)</span> <span class="n">LIKE</span> <span class="s2">&quot;</span><span class="si">%c</span><span class="s2">ompress-archive%&quot;</span>
-<span class="p">)</span> <span class="n">b</span>
-<span class="n">ON</span> <span class="n">a</span><span class="o">.</span><span class="n">ProcessGuid</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">ParentProcessGuid</span>
-<span class="n">WHERE</span> <span class="n">a</span><span class="o">.</span><span class="n">Channel</span> <span class="o">=</span> <span class="s2">&quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
-          <span class="n">AND</span> <span class="n">a</span><span class="o">.</span><span class="n">EventID</span> <span class="o">=</span> <span class="mi">1</span>
-          <span class="n">AND</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">ParentImage</span><span class="p">)</span> <span class="n">RLIKE</span> <span class="s1">&#39;.*</span><span class="se">\\</span><span class="s1">â€Ž|â€|â€ª|â€«|â€¬|â€|â€®.*&#39;</span>
+    <span class="n">SELECT</span> <span class="n">split</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">NewProcessId</span><span class="p">,</span> <span class="s1">&#39;0x&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">as</span> <span class="n">NewProcessId</span>
+    <span class="n">FROM</span> <span class="n">apt29Host</span> <span class="n">d</span>
+    <span class="n">INNER</span> <span class="n">JOIN</span><span class="p">(</span>
+      <span class="n">SELECT</span> <span class="n">a</span><span class="o">.</span><span class="n">ProcessId</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">NewProcessId</span>
+      <span class="n">FROM</span> <span class="n">apt29Host</span> <span class="n">a</span>
+      <span class="n">INNER</span> <span class="n">JOIN</span> <span class="p">(</span>
+        <span class="n">SELECT</span> <span class="n">NewProcessId</span>
+        <span class="n">FROM</span> <span class="n">apt29Host</span>
+        <span class="n">WHERE</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">Channel</span><span class="p">)</span> <span class="o">=</span> <span class="s2">&quot;security&quot;</span>
+            <span class="n">AND</span> <span class="n">EventID</span> <span class="o">=</span> <span class="mi">4688</span>
+            <span class="n">AND</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">NewProcessName</span><span class="p">)</span> <span class="n">LIKE</span> <span class="s2">&quot;</span><span class="si">%c</span><span class="s2">ontrol.exe&quot;</span>
+            <span class="n">AND</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">ParentProcessName</span><span class="p">)</span> <span class="n">LIKE</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">dclt.exe&quot;</span>
+      <span class="p">)</span> <span class="n">b</span>
+      <span class="n">ON</span> <span class="n">a</span><span class="o">.</span><span class="n">ProcessId</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">NewProcessId</span>
+      <span class="n">WHERE</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">Channel</span><span class="p">)</span> <span class="o">=</span> <span class="s2">&quot;security&quot;</span>
+        <span class="n">AND</span> <span class="n">a</span><span class="o">.</span><span class="n">EventID</span> <span class="o">=</span> <span class="mi">4688</span>
+        <span class="n">AND</span> <span class="n">a</span><span class="o">.</span><span class="n">MandatoryLabel</span> <span class="o">=</span> <span class="s2">&quot;S-1-16-12288&quot;</span>
+        <span class="n">AND</span> <span class="n">a</span><span class="o">.</span><span class="n">TokenElevationType</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%%</span><span class="s2">1937&quot;</span>
+    <span class="p">)</span> <span class="n">c</span>
+    <span class="n">ON</span> <span class="n">d</span><span class="o">.</span><span class="n">ProcessId</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">NewProcessId</span>
+    <span class="n">WHERE</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">Channel</span><span class="p">)</span> <span class="o">=</span> <span class="s2">&quot;security&quot;</span>
+      <span class="n">AND</span> <span class="n">d</span><span class="o">.</span><span class="n">EventID</span> <span class="o">=</span> <span class="mi">4688</span>
+      <span class="n">AND</span> <span class="n">d</span><span class="o">.</span><span class="n">NewProcessName</span> <span class="n">LIKE</span> <span class="s1">&#39;%powershell.exe&#39;</span>
+<span class="p">)</span> <span class="n">e</span>
+<span class="n">ON</span> <span class="n">LOWER</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">ExecutionProcessID</span><span class="p">))</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">NewProcessId</span>
+<span class="n">WHERE</span> <span class="n">f</span><span class="o">.</span><span class="n">Channel</span> <span class="o">=</span> <span class="s2">&quot;Microsoft-Windows-PowerShell/Operational&quot;</span>
+    <span class="n">AND</span> <span class="n">f</span><span class="o">.</span><span class="n">EventID</span> <span class="o">=</span> <span class="mi">4103</span>
+    <span class="n">AND</span> <span class="n">LOWER</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">Payload</span><span class="p">)</span> <span class="n">LIKE</span> <span class="s2">&quot;</span><span class="si">%e</span><span class="s2">xpand-archive%&quot;</span>
 
 </pre></div>
 </div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$env:APPDATA;$files=ChildItem -Path $env:USERPROFILE\ -Include *.doc,*.xps,*.xls,*.ppt,*.pps,*.wps,*.wpd,*.ods,*.odt,*.lwp,*.jtd,*.pdf,*.zip,*.rar,*.docx,*.url,*.xlsx,*.pptx,*.ppsx,*.pst,*.ost,*psw*,*pass*,*login*,*admin*,*sifr*,*sifer*,*vpn,*.jpg,*.txt,*.lnk -Recurse -ErrorAction SilentlyContinue | Select -ExpandProperty FullName; Compress-Archive -LiteralPath $files -CompressionLevel Optimal -DestinationPath $env:APPDATA\Draft.Zip -Force
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CommandInvocation</span><span class="p">(</span><span class="n">Expand</span><span class="o">-</span><span class="n">Archive</span><span class="p">):</span> <span class="s2">&quot;Expand-Archive&quot;</span>
+<span class="n">ParameterBinding</span><span class="p">(</span><span class="n">Expand</span><span class="o">-</span><span class="n">Archive</span><span class="p">):</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;LiteralPath&quot;</span><span class="p">;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;C:\Users\pbeesly\Downloads\SysinternalsSuite.zip&quot;</span>
+<span class="n">ParameterBinding</span><span class="p">(</span><span class="n">Expand</span><span class="o">-</span><span class="n">Archive</span><span class="p">):</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;DestinationPath&quot;</span><span class="p">;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;C:\Users\pbeesly\Downloads</span><span class="se">\&quot;</span>
+<span class="n">ParameterBinding</span><span class="p">(</span><span class="n">Expand</span><span class="o">-</span><span class="n">Archive</span><span class="p">):</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Path&quot;</span><span class="p">;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+<span class="n">ParameterBinding</span><span class="p">(</span><span class="n">Expand</span><span class="o">-</span><span class="n">Archive</span><span class="p">):</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Force&quot;</span><span class="p">;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;False&quot;</span>
 
 </pre></div>
 </div>
