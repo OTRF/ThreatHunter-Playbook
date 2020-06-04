@@ -117,7 +117,7 @@ summary = (
     .groupby(['step','stepname']).agg(total=pd.NamedAgg(column="vendor", aggfunc="count"))
     .join(
         apt29[apt29['detectiontype'] == 'Telemetry']
-        .groupby(['step','stepname']).agg(telemetry=pd.NamedAgg(column="vendor", aggfunc="count"))
+        .groupby(['step','stepname']).agg(total=pd.NamedAgg(column="substep", aggfunc="nunique"))
     )
 ).reset_index()
 summary['percentage'] = (summary['telemetry'] / summary['total']).map("{:.0%}".format)
