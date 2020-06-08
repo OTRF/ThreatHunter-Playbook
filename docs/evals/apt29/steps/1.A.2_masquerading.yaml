@@ -15,7 +15,9 @@ detections:
     queries:
       - id: F4C71BF4-E068-493D-ABAA-0C5DFA02875D
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
         rule_contribution:
         logic: |
           SELECT Message
@@ -49,7 +51,9 @@ detections:
           ParentCommandLine: C:\windows\Explorer.EXE
       - id: D94222A0-72F9-4F1E-84A9-F14CA1098D44
         data_sources:
-          - Security
+          - event_provider: Security
+            event_logs:
+              - 4688
         rule_contribution:
         logic: |
           SELECT Message

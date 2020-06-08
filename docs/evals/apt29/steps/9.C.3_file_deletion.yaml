@@ -14,7 +14,10 @@ detections:
     queries:
       - id: 59F37185-0BE4-4D81-8B81-FBFBD8055587
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+              - 23
         rule_contribution:
         logic: |
           SELECT Message

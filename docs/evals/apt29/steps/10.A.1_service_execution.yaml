@@ -14,7 +14,9 @@ detections:
     queries:
       - id: CB9F90C0-93EA-469A-9515-7DF27DF1592A
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
         rule_contribution:
         logic: |
           SELECT Message
@@ -49,7 +51,9 @@ detections:
           ParentCommandLine: C:\windows\system32\services.exe
       - id: 4DABE602-E648-4C1E-81B3-A2AC96F94CE0
         data_sources:
-          - Security
+          - event_provider: Security
+            event_logs:
+              - 4688
         rule_contribution:
         logic: |
           SELECT Message

@@ -14,7 +14,9 @@ detections:
     queries:
       - id: C91A4BF2-22B1-421B-B1DE-626778AD3BBB
         data_sources:
-          - Security
+          - event_provider: Security
+            event_logs:
+              - 5145
         rule_contribution:
         logic: |
           SELECT EventTime, Hostname, ShareName, RelativeTargetName, SubjectUserName

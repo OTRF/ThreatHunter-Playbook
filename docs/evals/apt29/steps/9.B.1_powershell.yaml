@@ -14,7 +14,9 @@ detections:
     queries:
       - id: 77D403CE-2832-4927-B74A-42D965B5AF94
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
         rule_contribution:
         logic: |
           SELECT Message
@@ -70,7 +72,9 @@ detections:
           ParentCommandLine: "C:\Windows\Temp\python.exe"
       - id: B56C6666-EEF3-4028-85D4-6AAE01CD506C
         data_sources:
-          - Security
+          - event_provider: Security
+            event_logs:
+              - 4688
         rule_contribution:
         logic: |
           SELECT Message

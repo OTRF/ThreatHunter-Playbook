@@ -14,7 +14,10 @@ detections:
     queries:
       - id: 0A5428EA-171D-4944-B27C-0EBC3D557FAD
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+              - 3
         rule_contribution:
         logic: |
           SELECT f.Message
@@ -69,7 +72,10 @@ detections:
           DestinationPortName: - 
       - id: 0376E07E-3C48-4B89-A50D-B3FAAB23EDAB
         data_sources:
-          - Security
+          - event_provider: Security
+            event_logs:
+              - 4688
+              - 5156
         rule_contribution:
         logic: |
           SELECT f.Message

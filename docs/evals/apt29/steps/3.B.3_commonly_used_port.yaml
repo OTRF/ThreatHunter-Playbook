@@ -14,7 +14,10 @@ detections:
     queries:
       - id: E209D0C5-5A2B-4AEC-92B0-1510165B8EC7
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+              - 3
         rule_contribution:
         logic: |
           SELECT Message
@@ -60,7 +63,10 @@ detections:
           DestinationPortName: -
       - id: 2E9B9ADC-2426-419F-8E6E-2D9338384F80
         data_sources:
-          - Security
+          - event_provider: Security
+            event_logs:
+              - 4688
+              - 5156
         rule_contribution:
         logic: |
           SELECT Message

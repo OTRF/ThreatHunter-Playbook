@@ -14,7 +14,9 @@ detections:
     queries:
       - id: 4799C203-573A-49CB-ACE4-8C4C5CD3862A
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
         rule_contribution:
         logic: |
           SELECT Message
@@ -49,7 +51,9 @@ detections:
           ParentCommandLine: "C:\ProgramData\victim\â€®cod.3aka3.scr" /S
       - id: C8D664CD-48EE-4663-AE49-D5B0B19014C7
         data_sources:
-          - Security
+          - event_provider: Security
+            event_logs:
+              - 4688
         rule_contribution:
         logic: |
           SELECT Message

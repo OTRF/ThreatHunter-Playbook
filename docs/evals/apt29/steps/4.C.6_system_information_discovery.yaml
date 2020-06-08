@@ -14,8 +14,12 @@ detections:
     queries:
       - id: 5A2B7006-A887-465F-9D41-AED8F6AECBE1
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
-          - Microsoft-Windows-PowerShell/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4104
         rule_contribution:
         logic: |
           SELECT Message
@@ -80,8 +84,12 @@ detections:
           Path: C:\Program Files\SysinternalsSuite\readme.ps1
       - id: 69A3B3AC-42BE-44F6-A418-C2356894F745
         data_sources:
-          - Security
-          - Microsoft-Windows-PowerShell/Operational
+          - event_provider: Security
+            event_logs:
+              - 4688
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4104
         rule_contribution:
         logic: |
           SELECT Message

@@ -14,8 +14,12 @@ detections:
     queries:
       - id: F4609F7E-C4DB-4327-91D4-59A58C962A02
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
-          - Microsoft-Windows-PowerShell/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4103
         rule_contribution:
         logic: |
           SELECT Message
@@ -69,8 +73,12 @@ detections:
           Shell ID = Microsoft.PowerShell
       - id: 6EC8D7EB-153B-459A-9333-51208449DB99
         data_sources:
-          - Security
-          - Microsoft-Windows-PowerShell/Operational
+          - event_provider: Security
+            event_logs:
+              - 4688
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4103
         rule_contribution:
         logic: |
           SELECT Message

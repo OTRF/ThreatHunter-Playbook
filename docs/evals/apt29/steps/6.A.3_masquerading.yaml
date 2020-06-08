@@ -14,7 +14,10 @@ detections:
     queries:
       - id: 0A19F9B7-5E17-47E5-8015-29E9ABC09ADC
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+              - 7
         rule_contribution:
         logic: |
           SELECT Message
@@ -79,7 +82,10 @@ detections:
     queries:
       - id: 1FCE98FC-1FF9-41CB-9C25-0235729A2B01
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+              - 7
         rule_contribution:
         logic: |
           SELECT Message

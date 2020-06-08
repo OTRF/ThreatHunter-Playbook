@@ -14,7 +14,10 @@ detections:
     queries:
       - id: 3B4E5808-3C71-406A-B181-17B0CE3178C9
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+              - 7
         rule_contribution:
         logic: |
           SELECT Message
@@ -71,8 +74,12 @@ detections:
     queries:
       - id: B374D3E7-3580-441F-8D6E-48C40CBA7922
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
-          - Microsoft-Windows-PowerShell/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4103
         rule_contribution:
         logic: |
           SELECT Payload
@@ -127,8 +134,12 @@ detections:
                 Start-Sleep -Seconds 300
       - id: 2AA4D448-3893-4F31-9497-0F8E2B7E3CFD
         data_sources:
-          - Security
-          - Microsoft-Windows-PowerShell/Operational
+          - event_provider: Security
+            event_logs:
+              - 4688
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4104
         rule_contribution:
         logic: |
           SELECT Payload

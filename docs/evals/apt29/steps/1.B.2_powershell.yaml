@@ -14,7 +14,9 @@ detections:
     queries:
       - id: C1DBF5F2-21D5-45E4-8D9A-44905F1F8242
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
         rule_contribution:
         logic: |
           SELECT Message
@@ -57,7 +59,9 @@ detections:
           ParentCommandLine: "C:\windows\system32\cmd.exe"
       - id: 43B46661-3407-4302-BA8C-EE772C677DCB
         data_sources:
-          - Security
+          - event_provider: Security
+            event_logs:
+              - 4688
         rule_contribution:
         logic: |
           SELECT Message

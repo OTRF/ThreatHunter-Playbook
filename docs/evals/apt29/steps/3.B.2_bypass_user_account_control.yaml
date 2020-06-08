@@ -14,7 +14,9 @@ detections:
     queries:
       - id: 7a4a8c7e-4238-4db3-a90d-34e9f3c6e60f
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
         rule_contribution:
         logic: |
           SELECT Message
@@ -48,7 +50,9 @@ detections:
           ParentCommandLine: "C:\windows\system32\sdclt.exe"
       - id: d52fe669-55da-49e1-a76b-89297c66fa02
         data_sources:
-          - Security
+          - event_provider: Security
+            event_logs:
+              - 4688
         rule_constribution:
         logic: |
           SELECT Message
@@ -86,7 +90,9 @@ detections:
     queries:
       - id: F7E315BA-6A66-44D8-ABB3-3FBB4AA8F80A
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
         rule_contribution:
         logic: |
           SELECT Message
@@ -121,7 +127,9 @@ detections:
           ParentCommandLine: "C:\windows\system32\cmd.exe"
       - id: 6C8780E9-E6AF-4210-8EA0-72E9017CEE7D
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
         rule_contribution:
         logic: |
           SELECT Message
@@ -164,7 +172,9 @@ detections:
           ParentCommandLine: "C:\Windows\System32\control.exe"  /name Microsoft.BackupAndRestoreCenter
       - id: C36B49B5-DF58-4A34-9FE9-56189B9DEFEA
         data_sources:
-          - Security
+          - event_provider: Security
+            event_logs:
+              - 4688
         rule_contribution:
         logic: |
           SELECT Message
@@ -199,7 +209,9 @@ detections:
             Process Command Line:	"C:\windows\system32\sdclt.exe"
       - id: EE34D18C-0549-4AFB-8B98-01160B0C9094
         data_sources:
-          - Security
+          - event_provider: Security
+            event_logs:
+              - 4688
         rule_contribution:
         logic: |
           SELECT Message

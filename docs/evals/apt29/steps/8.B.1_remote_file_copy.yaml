@@ -14,7 +14,9 @@ detections:
     queries:
       - id: 97402495-2449-415F-BDAD-5CC8EFC1E1B5
         data_sources:
-          - Security
+          - event_provider: Security
+            event_logs:
+              - 5145
         rule_contribution:
         logic: |
           SELECT Message
@@ -49,7 +51,9 @@ detections:
             -
       - id: D804F2D8-C65B-42D6-A731-C13BE2BDB441
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 11
         rule_contribution:
         logic: |
           SELECT Message

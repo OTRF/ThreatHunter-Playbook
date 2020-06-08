@@ -14,8 +14,12 @@ detections:
     queries:
       - id: CE6D61C3-C3B5-43D2-BD3C-4C1711A822DA
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
-          - Microsoft-Windows-PowerShell/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4104
         rule_contribution:
         logic: |
           SELECT Message
@@ -55,8 +59,12 @@ detections:
           ScriptBlock ID: 66a7f650-8a84-4dcf-a0f7-41d06de51f5c
       - id: 294DFB34-1FA8-464D-B85C-F2AE163DB4A9
         data_sources:
-          - Security
-          - Microsoft-Windows-PowerShell/Operational
+          - event_provider: Security
+            event_logs:
+              - 1
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4104
         rule_contribution:
         logic: |
           SELECT Message

@@ -14,7 +14,10 @@ detections:
     queries:
       - id: FA458669-1C94-4150-AFFC-A3236FC6B275
         data_sources:
-          - Security
+          - event_provider: Security
+            event_logs:
+              - 4661
+              - 4624
         rule_contribution:
         logic: |
           SELECT a.EventTime, o.TargetUserName, o.IpAddress, a.Message
@@ -97,8 +100,12 @@ detections:
     queries:
       - id: 11827B7C-8010-443C-9116-500289E0ED57
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
-          - Microsoft-Windows-PowerShell/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4104
         rule_contribution:
         logic: |
           SELECT Message
@@ -163,8 +170,12 @@ detections:
           Path: C:\Program Files\SysinternalsSuite\readme.ps1
       - id: 52E7DFEA-05BC-4B81-BFE9-DE6085FA8228
         data_sources:
-          - Security
-          - Microsoft-Windows-PowerShell/Operational
+          - event_provider: Security
+            event_logs:
+              - 4688
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4104
         rule_contribution:
         logic: |
           SELECT Message

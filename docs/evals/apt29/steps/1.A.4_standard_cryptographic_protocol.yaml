@@ -14,7 +14,9 @@ detections:
     queries:
       - id: E12B701E-1222-413C-BCAF-F357CB769B3E
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 7
         rule_contribution:
         logic: |
           SELECT Message

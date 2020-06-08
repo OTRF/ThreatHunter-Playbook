@@ -14,7 +14,12 @@ detections:
     queries:
       - id: 6C481791-2AE8-4F6B-9BFE-C1F6DE1E0BC0
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4104
         rule_contribution:
         logic: |
           SELECT b.ScriptBlockText
@@ -34,8 +39,12 @@ detections:
           ScriptBlockText |  Get-Process -IncludeUserName | Select-Object UserName,SessionId | Where-Object { $_.UserName -like "*\$env:USERNAME" } | Sort-Object SessionId -Unique
       - id: 088846AF-FF45-4FC4-896C-64F24517BBD7
         data_sources:
-          - Security
-          - Microsoft-Windows-PowerShell/Operational
+          - event_provider: Security
+            event_logs:
+              - 4688
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4104
         rule_contribution:
         logic: |
           SELECT b.ScriptBlockText

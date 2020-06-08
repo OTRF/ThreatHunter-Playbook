@@ -14,8 +14,12 @@ detections:
     queries:
       - id: 66B068A4-C3AB-4973-AE07-2C15AFF78104
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
-          - Microsoft-Windows-PowerShell/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4103
         rule_contribution:
         logic: |
           SELECT Payload
@@ -56,8 +60,12 @@ detections:
           ParameterBinding(Expand-Archive): name="Force"; value="False"
       - id: 09F29912-8E93-461E-9E89-3F06F6763383
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
-          - Microsoft-Windows-PowerShell/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4104
         rule_contribution:
         logic: |
           SELECT Message
@@ -97,8 +105,12 @@ detections:
           ScriptBlock ID: 63fc6cf4-cd9f-4134-9231-51ccb5c7d247
       - id: B5F24262-9373-43A4-A83F-0DBB708BD2C0
         data_sources:
-          - Security
-          - Microsoft-Windows-PowerShell/Operational
+          - event_provider: Security
+            event_logs:
+              - 4688
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4103
         rule_contribution:
         logic: |
           SELECT Payload
@@ -140,8 +152,12 @@ detections:
           ParameterBinding(Expand-Archive): name="Force"; value="False"
       - id: 4310F2AF-11EF-4EAC-A968-3436FE5F6140
         data_sources:
-          - Security
-          - Microsoft-Windows-PowerShell/Operational
+          - event_provider: Security
+            event_logs:
+              - 4688
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4104
         rule_contribution:
         logic: |
           SELECT Message

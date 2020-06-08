@@ -14,7 +14,10 @@ detections:
     queries:
       - id: 02D0BBFB-4BDF-4167-B530-253779745EF7
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+              - 23
         rule_contribution:
         logic: |
           SELECT Message, g.CommandLine
@@ -70,7 +73,11 @@ detections:
            CommandLine | "C:\Program Files\SysinternalsSuite\sdelete64.exe" /accepteula C:\Users\pbeesly\AppData\Roaming\Draft.Zip                          
       - id: 719618E8-9EE7-4693-937E-1FD39228DEBC
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+              - 12
+              - 13
         rule_contribution:
         logic: |
           SELECT Message
@@ -142,7 +149,9 @@ detections:
           TargetObject: HKU\S-1-5-21-1830255721-3727074217-2423397540-1107\Software\Sysinternals\SDelete
       - id: 5A19E46B-8328-4867-81CF-87518A3784B1
         data_sources:
-          - Security
+          - event_provider: Security
+            event_logs:
+              - 4688
         rule_contribution:
         logic: |
           SELECT Message

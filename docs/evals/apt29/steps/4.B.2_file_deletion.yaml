@@ -14,7 +14,9 @@ detections:
     queries:
       - id: 5EED5350-0BFD-4501-8B2D-4CE4F8F9E948
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
         rule_contribution:
         logic: |
           SELECT f.ProcessGuid
@@ -74,7 +76,11 @@ detections:
           ParentCommandLine: powershell.exe
       - id: 59A9AC92-124D-4C4B-A6BF-3121C98677C3
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+              - 12
+              - 13
         rule_contribution:
         logic: |
           SELECT Message
@@ -145,7 +151,9 @@ detections:
           TargetObject: HKU\S-1-5-21-1830255721-3727074217-2423397540-1107\Software\Sysinternals\SDelete                           |
       - id: 3A1DC1C2-B640-4FCE-A71F-2F65AB060A8C
         data_sources:
-          - Security
+          - event_provider: Security
+            event_logs:
+              - 4688
         rule_contribution:
         logic: |
           SELECT Message

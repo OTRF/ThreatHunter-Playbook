@@ -14,7 +14,9 @@ detections:
     queries:
       - id: BDE98B9B-77DD-4AD4-B755-463C3C27EE5F
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
         rule_contribution:
         logic: |
           SELECT Message
@@ -55,7 +57,9 @@ detections:
           ParentCommandLine: C:\windows\PSEXESVC.exe
       - id: 11D81CCD-163F-4347-8F1D-072F4B4B3B26
         data_sources:
-          - Security
+          - event_provider: Security
+            event_logs:
+              - 4688
         rule_contribution:
         logic: |
           SELECT Message

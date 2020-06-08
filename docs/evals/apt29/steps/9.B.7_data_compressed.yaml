@@ -14,7 +14,9 @@ detections:
     queries:
       - id: FD1AE986-FD91-4B91-8BCE-42C9295949F7
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
         rule_contribution:
         logic: |
           SELECT h.Message
@@ -78,7 +80,9 @@ detections:
           ParentCommandLine: powershell.exe
       - id: 8A865709-E762-4A26-BDEC-A762FB37947B
         data_sources:
-          - Security
+          - event_provider: Security
+            event_logs:
+              - 4688
         rule_contribution:
         logic: |
           SELECT h.Message

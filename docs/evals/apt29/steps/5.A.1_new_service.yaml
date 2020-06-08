@@ -14,7 +14,11 @@ detections:
     queries:
       - id: A16CE10D-6EE3-4611-BE9B-B023F36E2DFF
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 12
+              - 13
+              - 14
         rule_contribution:
         logic: |
           SELECT Message
@@ -93,8 +97,12 @@ detections:
           Details: LocalSystem
       - id: E76C4174-C24A-4CA3-9EA8-46C5286D3B6F
         data_sources:
-          - Microsoft-Windows-Sysmon/Operational
-          - Microsoft-Windows-PowerShell/Operational
+          - event_provider: Microsoft-Windows-Sysmon/Operational
+            event_logs:
+              - 1
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4103
         rule_contribution:
         logic: |
           SELECT Payload
@@ -135,8 +143,12 @@ detections:
           ParameterBinding(New-Service): name="StartupType"; value="Automatic"
       - id: AA3EF640-2720-4E8A-B86D-DFCF2FDB86BD
         data_sources:
-          - Security
-          - Microsoft-Windows-PowerShell/Operational
+          - event_provider: Security
+            event_logs:
+              - 4688
+          - event_provider: Microsoft-Windows-PowerShell/Operational
+            event_logs:
+              - 4103
         rule_contribution:
         logic: |
           SELECT Payload
