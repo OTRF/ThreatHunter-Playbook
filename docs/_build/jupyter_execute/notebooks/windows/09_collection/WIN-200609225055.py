@@ -78,6 +78,10 @@ df.show(10,False)
 
 ## Hunt Output
 
+| Category | Type | Name     |
+| :--------| :----| :--------|
+| signature | SIGMA | [sysmon_camera_microphone_access](https://github.com/hunters-forge/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_camera_microphone_access.yml) |
+| signature | SIGMA | [win_camera_microphone_access](https://github.com/hunters-forge/ThreatHunter-Playbook/blob/master/signatures/sigma/win_camera_microphone_access.yml) |
 
 ## References
 * https://medium.com/@7a616368/can-you-track-processes-accessing-the-camera-and-microphone-7e6885b37072
