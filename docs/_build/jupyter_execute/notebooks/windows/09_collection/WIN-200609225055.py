@@ -37,14 +37,35 @@ registerMordorSQLTable(spark, mordor_file, "mordorTable")
 
 | FP Rate  | Log Channel | Description   |
 | :--------| :-----------| :-------------|
-| Low       | ['Security']          | Look for non-system accounts getting a handle and access lsass            |
+| Medium       | ['Microsoft-Windows-Sysmon/Operational']          | Look for any creation or modification of registry keys under HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged            |
             
 
 df = spark.sql(
     '''
-SELECT *
+SELECT EventID, Message
 FROM mordorTable
-WHERE Channel = "Security"
+WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'
+  AND EventID IN (12,13,14)
+  AND TargetObject RLIKE '.*\\\\\\\CapabilityAccessManager\\\\\\\ConsentStore\\\\\\\microphone\\\\\\\NonPackaged\\\\\\\.*'
+    '''
+)
+df.show(10,False)
+
+### Analytic II
+
+
+| FP Rate  | Log Channel | Description   |
+| :--------| :-----------| :-------------|
+| Medium       | ['Security']          | Look for any creation or modification of registry keys under HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged            |
+            
+
+df = spark.sql(
+    '''
+SELECT EventID, Message
+FROM mordorTable
+WHERE LOWER(Channel) = 'security'
+  AND EventID IN (4656,4663,4657)
+  AND ObjectName RLIKE '.*\\\\\\\CapabilityAccessManager\\\\\\\ConsentStore\\\\\\\microphone\\\\\\\NonPackaged\\\\\\\.*'
     '''
 )
 df.show(10,False)

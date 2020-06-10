@@ -235,6 +235,10 @@
             <a href="#analytic-i" class="nav-link">Analytic I</a>
         </li>
     
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#analytic-ii" class="nav-link">Analytic II</a>
+        </li>
+    
             </ul>
         </li>
     
@@ -347,9 +351,9 @@ Based on some research from <a class="reference external" href="https://twitter.
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
-<td class="text-align:left"><p>[‘Security’]</p></td>
-<td class="text-align:left"><p>Look for non-system accounts getting a handle and access lsass</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
+<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
+<td class="text-align:left"><p>Look for any creation or modification of registry keys under HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged</p></td>
 </tr>
 </tbody>
 </table>
@@ -357,9 +361,44 @@ Based on some research from <a class="reference external" href="https://twitter.
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT *</span>
+<span class="sd">SELECT EventID, Message</span>
 <span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE Channel = &quot;Security&quot;</span>
+<span class="sd">WHERE Channel = &#39;Microsoft-Windows-Sysmon/Operational&#39;</span>
+<span class="sd">  AND EventID IN (12,13,14)</span>
+<span class="sd">  AND TargetObject RLIKE &#39;.*\\\\\\\CapabilityAccessManager\\\\\\\ConsentStore\\\\\\\microphone\\\\\\\NonPackaged\\\\\\\.*&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="analytic-ii">
+<h3>Analytic II<a class="headerlink" href="#analytic-ii" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
+<th class="text-align:left head"><p>Log Channel</p></th>
+<th class="text-align:left head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
+<td class="text-align:left"><p>[‘Security’]</p></td>
+<td class="text-align:left"><p>Look for any creation or modification of registry keys under HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged</p></td>
+</tr>
+</tbody>
+</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT EventID, Message</span>
+<span class="sd">FROM mordorTable</span>
+<span class="sd">WHERE LOWER(Channel) = &#39;security&#39;</span>
+<span class="sd">  AND EventID IN (4656,4663,4657)</span>
+<span class="sd">  AND ObjectName RLIKE &#39;.*\\\\\\\CapabilityAccessManager\\\\\\\ConsentStore\\\\\\\microphone\\\\\\\NonPackaged\\\\\\\.*&#39;</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>

@@ -21,13 +21,26 @@ validation_dataset:
 analytics:
   - name: Analytic I
     data_sources:
-      - Security
-    false_positives: Low
-    description: Look for non-system accounts getting a handle and access lsass
+      - Microsoft-Windows-Sysmon/Operational
+    false_positives: Medium
+    description: Look for any creation or modification of registry keys under HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged
     logic: |-
-      SELECT *
+      SELECT EventID, Message
       FROM mordorTable
-      WHERE Channel = "Security"
+      WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'
+        AND EventID IN (12,13,14)
+        AND TargetObject RLIKE '.*\\\\\\\CapabilityAccessManager\\\\\\\ConsentStore\\\\\\\microphone\\\\\\\NonPackaged\\\\\\\.*'
+  - name: Analytic II
+    data_sources:
+      - Security
+    false_positives: Medium
+    description: Look for any creation or modification of registry keys under HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged
+    logic: |-
+      SELECT EventID, Message
+      FROM mordorTable
+      WHERE LOWER(Channel) = 'security'
+        AND EventID IN (4656,4663,4657)
+        AND ObjectName RLIKE '.*\\\\\\\CapabilityAccessManager\\\\\\\ConsentStore\\\\\\\microphone\\\\\\\NonPackaged\\\\\\\.*'
 detection_blindspots:
 hunter_notes:
 hunt_output:
