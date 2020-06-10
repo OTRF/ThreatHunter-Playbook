@@ -1,0 +1,29 @@
+title: Processes Accessing the microphone and webcam
+id: 29976992-e6d6-4fce-8f9d-e7b9be4efbb6
+status: experimental
+description: Potential adversaries accessing the microphone and webcam in an endpoint.
+references:
+  - https://twitter.com/duzvik/status/1269671601852813320
+  - https://medium.com/@7a616368/can-you-track-processes-accessing-the-camera-and-microphone-7e6885b37072
+author: Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)
+date: 2020/06/07
+tags:
+    - attack.collection
+    - attack.t1123
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection1:
+        EventID:
+            - 4657
+            - 4656
+            - 4663
+    selection2:
+        ObjectName|contains: '\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged'
+    selection3:
+        ObjectName|contains: '\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\webcam\NonPackaged'
+    condition: selection1 and (select2 or selection3)
+falsepositives:
+    - Unknown
+level: critical
