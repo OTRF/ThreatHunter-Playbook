@@ -150,7 +150,7 @@
    "source": [
     "df = spark.sql(\n",
     "    '''\n",
-    "SSELECT EventID, Message\n",
+    "SELECT EventID, Message\n",
     "FROM mordorTable\n",
     "WHERE LOWER(Channel) = 'security'\n",
     "  AND EventID IN (4656,4663,4657)\n",
