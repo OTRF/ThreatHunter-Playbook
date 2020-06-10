@@ -118,7 +118,7 @@
     "FROM mordorTable\n",
     "WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'\n",
     "  AND EventID IN (12,13,14)\n",
-    "  AND TargetObject RLIKE '.*\\\\\\\\\\\\\\CapabilityAccessManager\\\\\\\\\\\\\\ConsentStore\\\\\\\\\\\\\\microphone\\\\\\\\\\\\\\NonPackaged\\\\\\\\\\\\\\.*'\n",
+    "  AND LOWER(TargetObject) RLIKE '.*consentstore\\\\\\\\\\\\\\microphone.*'\n",
     "    '''\n",
     ")\n",
     "df.show(10,False)"
@@ -150,11 +150,11 @@
    "source": [
     "df = spark.sql(\n",
     "    '''\n",
-    "SELECT EventID, Message\n",
+    "SSELECT EventID, Message\n",
     "FROM mordorTable\n",
     "WHERE LOWER(Channel) = 'security'\n",
     "  AND EventID IN (4656,4663,4657)\n",
-    "  AND ObjectName RLIKE '.*\\\\\\\\\\\\\\CapabilityAccessManager\\\\\\\\\\\\\\ConsentStore\\\\\\\\\\\\\\microphone\\\\\\\\\\\\\\NonPackaged\\\\\\\\\\\\\\.*'\n",
+    "  AND LOWER(ObjectName) RLIKE '.*consentstore\\\\\\\\\\\\\\microphone.*'\n",
     "    '''\n",
     ")\n",
     "df.show(10,False)"
