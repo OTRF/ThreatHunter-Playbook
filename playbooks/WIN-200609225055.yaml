@@ -1,0 +1,35 @@
+title: Processes Accessing the Microphone Device
+id: WIN-200609225055
+author: Roberto Rodriguez @Cyb3rWard0g
+playbook_link:
+creation_date: 2020/06/09
+platform: Windows
+permissions_required:
+  - User
+attack_coverage:
+  - technique: T1123
+    tactics:
+      - TA0009
+hypothesis: Adversaries might be accessing the microphone in endpoints over the network.
+description: |-
+  An adversary can leverage a computer's peripheral devices (e.g., microphones and webcams) or applications (e.g., voice and video call services) to capture audio recordings for the purpose of listening into sensitive conversations to gather information.
+  Based on some research from [@svch0st](https://twitter.com/svch0st) you can to determine when and how long a process had access to the microphone of an endpoint by monitoring the following registry key:
+    * HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\.
+validation_dataset:
+  - type: mordor
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/collection/msf_record_mic.zip
+analytics:
+  - name: Analytic I
+    data_sources:
+      - Security
+    false_positives: Low
+    description: Look for non-system accounts getting a handle and access lsass
+    logic: |-
+      SELECT *
+      FROM mordorTable
+      WHERE Channel = "Security"
+detection_blindspots:
+hunter_notes:
+hunt_output:
+references: |-
+  * https://medium.com/@7a616368/can-you-track-processes-accessing-the-camera-and-microphone-7e6885b37072

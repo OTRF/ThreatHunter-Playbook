@@ -8,17 +8,17 @@ from jinja2 import Template
 
 # ******* Paths for notebooks ********
 attack_paths = {
-    "TA0001" : "01_initial_access/initial_access",
-    "TA0002" : "02_execution/execution",
-    "TA0003" : "03_persistence/persistence",
-    "TA0004" : "04_privilege_escalation/privilege_escalation",
-    "TA0005" : "05_defense_evasion/defense_evasion",
-    "TA0006" : "06_credential_access/credential_access",
-    "TA0007" : "07_discovery/discovery",
-    "TA0008" : "08_lateral_movement/lateral_movement",
-    "TA0009" : "09_collection/collection",
-    "TA0011" : "11_command_and_control/command_and_control",
-    "TA0010" : "10_exfiltration/exfiltration",
+    "TA0001" : "01_initial_access",
+    "TA0002" : "02_execution",
+    "TA0003" : "03_persistence",
+    "TA0004" : "04_privilege_escalation",
+    "TA0005" : "05_defense_evasion",
+    "TA0006" : "06_credential_access",
+    "TA0007" : "07_discovery",
+    "TA0008" : "08_lateral_movement",
+    "TA0009" : "09_collection",
+    "TA0011" : "11_command_and_control",
+    "TA0010" : "10_exfiltration",
     "TA0040" : "12_impact/impact"
 }
 

@@ -18,39 +18,42 @@
   sections:
   - file: notebooks/windows/02_execution/execution
     sections:
-    - file: notebooks/windows/02_execution/execution/WIN-190815181010
-    - file: notebooks/windows/02_execution/execution/WIN-190810201010
-    - file: notebooks/windows/02_execution/execution/WIN-190410151110
-    - file: notebooks/windows/02_execution/execution/WIN-190813181020
-    - file: notebooks/windows/02_execution/execution/WIN-190811201010
-    - file: notebooks/windows/02_execution/execution/WIN-190511223310
+    - file: notebooks/windows/02_execution/WIN-190815181010
+    - file: notebooks/windows/02_execution/WIN-190810201010
+    - file: notebooks/windows/02_execution/WIN-190410151110
+    - file: notebooks/windows/02_execution/WIN-190813181020
+    - file: notebooks/windows/02_execution/WIN-190811201010
+    - file: notebooks/windows/02_execution/WIN-190511223310
   - file: notebooks/windows/03_persistence/persistence
     sections:
-    - file: notebooks/windows/03_persistence/persistence/WIN-190810170510
+    - file: notebooks/windows/03_persistence/WIN-190810170510
   - file: notebooks/windows/05_defense_evasion/defense_evasion
     sections:
-    - file: notebooks/windows/05_defense_evasion/defense_evasion/WIN-180719170510
-    - file: notebooks/windows/05_defense_evasion/defense_evasion/WIN-190407183310
-    - file: notebooks/windows/05_defense_evasion/defense_evasion/WIN-190510202010
-    - file: notebooks/windows/05_defense_evasion/defense_evasion/WIN-190101151110
+    - file: notebooks/windows/05_defense_evasion/WIN-180719170510
+    - file: notebooks/windows/05_defense_evasion/WIN-190407183310
+    - file: notebooks/windows/05_defense_evasion/WIN-190510202010
+    - file: notebooks/windows/05_defense_evasion/WIN-190101151110
   - file: notebooks/windows/06_credential_access/credential_access
     sections:
-    - file: notebooks/windows/06_credential_access/credential_access/WIN-190620024610
-    - file: notebooks/windows/06_credential_access/credential_access/WIN-190725024610
-    - file: notebooks/windows/06_credential_access/credential_access/WIN-191224222300
-    - file: notebooks/windows/06_credential_access/credential_access/WIN-180815210510
-    - file: notebooks/windows/06_credential_access/credential_access/WIN-191030201010
-    - file: notebooks/windows/06_credential_access/credential_access/WIN-170105221010
+    - file: notebooks/windows/06_credential_access/WIN-190620024610
+    - file: notebooks/windows/06_credential_access/WIN-190725024610
+    - file: notebooks/windows/06_credential_access/WIN-191224222300
+    - file: notebooks/windows/06_credential_access/WIN-180815210510
+    - file: notebooks/windows/06_credential_access/WIN-191030201010
+    - file: notebooks/windows/06_credential_access/WIN-170105221010
   - file: notebooks/windows/07_discovery/discovery
     sections:
-    - file: notebooks/windows/07_discovery/discovery/WIN-190725024610
-    - file: notebooks/windows/07_discovery/discovery/WIN-190625024610
-    - file: notebooks/windows/07_discovery/discovery/WIN-190826010110
+    - file: notebooks/windows/07_discovery/WIN-190725024610
+    - file: notebooks/windows/07_discovery/WIN-190625024610
+    - file: notebooks/windows/07_discovery/WIN-190826010110
   - file: notebooks/windows/08_lateral_movement/lateral_movement
     sections:
-    - file: notebooks/windows/08_lateral_movement/lateral_movement/WIN-190815181010
-    - file: notebooks/windows/08_lateral_movement/lateral_movement/WIN-190810201010
-    - file: notebooks/windows/08_lateral_movement/lateral_movement/WIN-190511223310
+    - file: notebooks/windows/08_lateral_movement/WIN-190815181010
+    - file: notebooks/windows/08_lateral_movement/WIN-190810201010
+    - file: notebooks/windows/08_lateral_movement/WIN-190511223310
+  - file: notebooks/windows/09_collection/collection
+    sections:
+    - file: notebooks/windows/09_collection/WIN-200609225055
 - file: notebooks/linux/linux
   sections: []
 - file: notebooks/mac/mac
