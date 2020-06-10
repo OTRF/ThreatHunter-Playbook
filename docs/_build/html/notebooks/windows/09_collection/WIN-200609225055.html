@@ -394,7 +394,7 @@ Based on some research from <a class="reference external" href="https://twitter.
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SSELECT EventID, Message</span>
+<span class="sd">SELECT EventID, Message</span>
 <span class="sd">FROM mordorTable</span>
 <span class="sd">WHERE LOWER(Channel) = &#39;security&#39;</span>
 <span class="sd">  AND EventID IN (4656,4663,4657)</span>

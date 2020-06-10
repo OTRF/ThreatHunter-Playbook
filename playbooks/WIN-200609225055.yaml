@@ -36,7 +36,7 @@ analytics:
     false_positives: Medium
     description: Look for any creation or modification of registry keys under HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged
     logic: |-
-      SSELECT EventID, Message
+      SELECT EventID, Message
       FROM mordorTable
       WHERE LOWER(Channel) = 'security'
         AND EventID IN (4656,4663,4657)

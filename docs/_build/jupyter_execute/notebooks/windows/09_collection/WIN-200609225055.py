@@ -61,7 +61,7 @@ df.show(10,False)
 
 df = spark.sql(
     '''
-SSELECT EventID, Message
+SELECT EventID, Message
 FROM mordorTable
 WHERE LOWER(Channel) = 'security'
   AND EventID IN (4656,4663,4657)
