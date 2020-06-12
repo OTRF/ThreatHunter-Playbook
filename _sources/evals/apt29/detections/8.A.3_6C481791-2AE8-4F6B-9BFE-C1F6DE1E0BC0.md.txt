@@ -1,7 +1,7 @@
 # 6C481791-2AE8-4F6B-9BFE-C1F6DE1E0BC0
 
 ## Data Sources
-* Microsoft-Windows-Sysmon/Operational<br>
+* Microsoft-Windows-Sysmon/Operational<br>* Microsoft-Windows-PowerShell/Operational<br>
 
 ## Logic
 
