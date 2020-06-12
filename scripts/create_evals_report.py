@@ -114,10 +114,10 @@ output_notebook()
 apt29= pd.read_json('https://raw.githubusercontent.com/hunters-forge/ThreatHunter-Playbook/master/docs/evals/apt29/data/otr_results.json')
 summary = (
     apt29
-    .groupby(['step','stepname']).agg(total=pd.NamedAgg(column="vendor", aggfunc="count"))
+    .groupby(['step','stepname']).agg(total=pd.NamedAgg(column="substep", aggfunc="nunique"))
     .join(
         apt29[apt29['detectiontype'] == 'Telemetry']
-        .groupby(['step','stepname']).agg(total=pd.NamedAgg(column="substep", aggfunc="nunique"))
+        .groupby(['step','stepname']).agg(telemetry=pd.NamedAgg(column="vendor", aggfunc="count"))
     )
 ).reset_index()
 summary['percentage'] = (summary['telemetry'] / summary['total']).map("{:.0%}".format)
