@@ -59,7 +59,7 @@ Besides being best practices to document data being ingested, it is very importa
 </Event>
 ```
 
-* Translate useful fields to a YAML file as shown [here](https://github.com/hunters-forge/OSSEM/blob/yaml/data_dictionaries/yaml/windows_dictionary.yml).
+* Translate useful fields to a YAML file as shown [here](https://github.com/hunters-forge/OSSEM/blob/master/source/data_dictionaries/windows/sysmon/events/event-1.yml).
 * Take that YAML file and convert it to other formats such as Markdown. Having the data in YAML format allows you to programmatically use those dictionaries and integrate them with other tools.
 
 ## When?

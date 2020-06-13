@@ -19,7 +19,7 @@ First, you need to have a good understanding of the events you are collecting. T
 ### Identify Relationships
 Each event log collected is triggered by a specific action, and each event contains a specific structure and data elements that represent data objects in the Cyber domain such as a process, IP address, e-mail, user, etc.
 
-For example, [Windows Sysmon Event ID 1](https://github.com/hunters-forge/OSSEM/blob/master/data_dictionaries/windows/sysmon/event-1.md) is triggered when a **Process** is created, and contains the following information:
+For example, [Windows Sysmon Event ID 1](https://github.com/hunters-forge/OSSEM/blob/master/data_dictionaries/windows/sysmon/events/event-1.md) is triggered when a **Process** is created, and contains the following information:
 
 ```
 <Data Name="RuleName" /> 
