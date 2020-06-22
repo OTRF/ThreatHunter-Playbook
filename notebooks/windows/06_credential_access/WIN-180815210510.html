@@ -329,9 +329,28 @@ An adversary can abuse this model and request information about a specific accou
 This is done from an account with sufficient permissions (usually domain admin level) to perform that request.
 Usually the accounts performing replication operations in a domain are computer accounts (i.e dcaccount$).
 Therefore, it might be abnormal to see other non-dc-accounts doing it.</p>
+<p>The following access rights / permissions are needed for the replication request according to the domain functional level</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Control access right symbol</p></th>
+<th class="text-align:left head"><p>Identifying GUID used in ACE</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>DS-Replication-Get-Changes</p></td>
+<td class="text-align:left"><p>1131f6aa-9c07-11d1-f79f-00c04fc2dcd2</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>DS-Replication-Get-Changes-All</p></td>
+<td class="text-align:left"><p>1131f6ad-9c07-11d1-f79f-00c04fc2dcd2</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>DS-Replication-Get-Changes-In-Filtered-Set</p></td>
+<td class="text-align:left"><p>89e95b76-444d-4c62-991a-0facbeda640c</p></td>
+</tr>
+</tbody>
+</table>
 <p>Additional reading</p>
 <ul class="simple">
-<li><p>https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/active_directory_replication.md</p></li>
+<li><p>https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/active_directory_replication.md</p></li>
 </ul>
 </div>
 <div class="section" id="hypothesis">
@@ -357,6 +376,18 @@ Therefore, it might be abnormal to see other non-dc-accounts doing it.</p>
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/empire_dcsync.tar.gz&quot;</span>
 <span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing Data from Winlogbeat version 6..
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] DataFrame Returned !
+[+] Temporary SparkSQL View: mordorTable 
 </pre></div>
 </div>
 </div>
@@ -396,6 +427,18 @@ Therefore, it might be abnormal to see other non-dc-accounts doing it.</p>
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+---------------+--------------+
+|@timestamp             |computer_name   |SubjectUserName|SubjectLogonId|
++-----------------------+----------------+---------------+--------------+
+|2019-03-01 17:49:11.564|HFDC01.shire.com|Mmidge         |0x80a1c8a     |
+|2019-03-01 17:49:11.564|HFDC01.shire.com|Mmidge         |0x80a1c8a     |
+|2019-03-01 17:49:11.564|HFDC01.shire.com|Mmidge         |0x80a1c8a     |
++-----------------------+----------------+---------------+--------------+
+
 </pre></div>
 </div>
 </div>
@@ -446,6 +489,18 @@ Therefore, it might be abnormal to see other non-dc-accounts doing it.</p>
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+---------------+--------------+-------------+
+|@timestamp             |computer_name   |SubjectUserName|SubjectLogonId|IpAddress    |
++-----------------------+----------------+---------------+--------------+-------------+
+|2019-03-01 17:49:11.564|HFDC01.shire.com|Mmidge         |0x80a1c8a     |172.18.39.105|
+|2019-03-01 17:49:11.564|HFDC01.shire.com|Mmidge         |0x80a1c8a     |172.18.39.105|
+|2019-03-01 17:49:11.564|HFDC01.shire.com|Mmidge         |0x80a1c8a     |172.18.39.105|
++-----------------------+----------------+---------------+--------------+-------------+
+
 </pre></div>
 </div>
 </div>

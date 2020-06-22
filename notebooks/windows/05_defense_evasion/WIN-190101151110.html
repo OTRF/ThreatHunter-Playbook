@@ -341,7 +341,7 @@ An adversary with enough permissions (domain admin) can add an ACL to the Root D
 </table>
 <p>Additional reading</p>
 <ul class="simple">
-<li><p>https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/active_directory_replication.md</p></li>
+<li><p>https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/active_directory_replication.md</p></li>
 </ul>
 </div>
 <div class="section" id="hypothesis">
@@ -367,6 +367,18 @@ An adversary with enough permissions (domain admin) can add an ACL to the Root D
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/defense_evasion/empire_dcsync_acl.tar.gz&quot;</span>
 <span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing Data from Winlogbeat version 6..
+[+] DataFrame Returned !
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
 </pre></div>
 </div>
 </div>
@@ -405,6 +417,18 @@ An adversary with enough permissions (domain admin) can add an ACL to the Root D
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+---------------+---------------------------------------+-------------+
+|@timestamp             |computer_name   |SubjectUserName|ObjectName                             |OperationType|
++-----------------------+----------------+---------------+---------------------------------------+-------------+
+|2019-03-01 12:59:14.077|HFDC01.shire.com|Mmidge         |%{0071b080-6b81-498b-b00b-51b45474a348}|Object Access|
+|2019-03-01 12:59:14.146|HFDC01.shire.com|Mmidge         |%{0071b080-6b81-498b-b00b-51b45474a348}|Object Access|
+|2019-03-01 12:59:14.294|HFDC01.shire.com|Mmidge         |%{0071b080-6b81-498b-b00b-51b45474a348}|Object Access|
++-----------------------+----------------+---------------+---------------------------------------+-------------+
+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-ii">
@@ -438,6 +462,21 @@ An adversary with enough permissions (domain admin) can add an ACL to the Root D
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+---------------+---------------+------------------------+
+|@timestamp             |computer_name   |SubjectUserName|ObjectDN       |AttributeLDAPDisplayName|
++-----------------------+----------------+---------------+---------------+------------------------+
+|2019-03-01 12:59:22.974|HFDC01.shire.com|Mmidge         |DC=shire,DC=com|nTSecurityDescriptor    |
+|2019-03-01 12:59:22.974|HFDC01.shire.com|Mmidge         |DC=shire,DC=com|nTSecurityDescriptor    |
+|2019-03-01 12:59:22.975|HFDC01.shire.com|Mmidge         |DC=shire,DC=com|nTSecurityDescriptor    |
+|2019-03-01 12:59:22.975|HFDC01.shire.com|Mmidge         |DC=shire,DC=com|nTSecurityDescriptor    |
+|2019-03-01 12:59:22.975|HFDC01.shire.com|Mmidge         |DC=shire,DC=com|nTSecurityDescriptor    |
+|2019-03-01 12:59:22.976|HFDC01.shire.com|Mmidge         |DC=shire,DC=com|nTSecurityDescriptor    |
++-----------------------+----------------+---------------+---------------+------------------------+
+
 </pre></div>
 </div>
 </div>

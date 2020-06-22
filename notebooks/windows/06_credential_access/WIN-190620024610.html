@@ -341,8 +341,8 @@ Tools such as Mimikatz with the method/module lsadump::backupkeys can be used to
 It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) to retrieve the value for the G<span class="math notranslate nohighlight">\(BCKUPKEY_PREFERRED and G\)</span>BCKUPKEY_P LSA secrets.</p>
 <p>Additional reading</p>
 <ul class="simple">
-<li><p>https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/data_protection_api.md</p></li>
-<li><p>https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/lsa_policy_objects.md</p></li>
+<li><p>https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/data_protection_api.md</p></li>
+<li><p>https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/lsa_policy_objects.md</p></li>
 </ul>
 </div>
 <div class="section" id="hypothesis">
@@ -368,6 +368,18 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_export_master_key.tar.gz&quot;</span>
 <span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing Data from Winlogbeat version 6..
+[+] DataFrame Returned !
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
 </pre></div>
 </div>
 </div>
@@ -402,6 +414,19 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+------------+------------+--------------------------------------------------------------+
+|@timestamp             |computer_name   |ObjectServer|ObjectType  |ObjectName                                                    |
++-----------------------+----------------+------------+------------+--------------------------------------------------------------+
+|2019-05-18 19:56:29.711|HFDC01.shire.com|LSA         |SecretObject|Policy\Secrets\G$BCKUPKEY_PREFERRED                           |
+|2019-05-18 19:56:29.724|HFDC01.shire.com|LSA         |SecretObject|Policy\Secrets\G$BCKUPKEY_a1b58ded-16ec-4822-ab1c-3a4cfb9c268a|
+|2019-05-18 19:56:30.017|HFDC01.shire.com|LSA         |SecretObject|Policy\Secrets\G$BCKUPKEY_P                                   |
+|2019-05-18 19:56:30.02 |HFDC01.shire.com|LSA         |SecretObject|Policy\Secrets\G$BCKUPKEY_116228fd-901d-4386-853a-9611c3c93e28|
++-----------------------+----------------+------------+------------+--------------------------------------------------------------+
+
 </pre></div>
 </div>
 </div>
@@ -449,6 +474,19 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+--------------------------------------------------------------+-------------+
+|@timestamp             |computer_name   |ObjectName                                                    |IpAddress    |
++-----------------------+----------------+--------------------------------------------------------------+-------------+
+|2019-05-18 19:56:29.711|HFDC01.shire.com|Policy\Secrets\G$BCKUPKEY_PREFERRED                           |172.18.39.106|
+|2019-05-18 19:56:29.724|HFDC01.shire.com|Policy\Secrets\G$BCKUPKEY_a1b58ded-16ec-4822-ab1c-3a4cfb9c268a|172.18.39.106|
+|2019-05-18 19:56:30.017|HFDC01.shire.com|Policy\Secrets\G$BCKUPKEY_P                                   |172.18.39.106|
+|2019-05-18 19:56:30.02 |HFDC01.shire.com|Policy\Secrets\G$BCKUPKEY_116228fd-901d-4386-853a-9611c3c93e28|172.18.39.106|
++-----------------------+----------------+--------------------------------------------------------------+-------------+
+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-iii">
@@ -483,6 +521,16 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+---------------+---------+------------------+----------+-------------+
+|@timestamp             |computer_name   |SubjectUserName|ShareName|RelativeTargetName|AccessMask|IpAddress    |
++-----------------------+----------------+---------------+---------+------------------+----------+-------------+
+|2019-05-18 19:56:29.885|HFDC01.shire.com|pgustavo       |\\*\IPC$ |protected_storage |0x12019f  |172.18.39.106|
++-----------------------+----------------+---------------+---------+------------------+----------+-------------+
+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-iv">
@@ -512,6 +560,16 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------+---------------+------------------------------------+------------------------------------+
+|@timestamp             |computer_name  |SubjectUserName|MasterKeyId                         |RecoveryKeyId                       |
++-----------------------+---------------+---------------+------------------------------------+------------------------------------+
+|2019-05-18 19:56:29.905|HR001.shire.com|pgustavo       |d93c6243-5e5d-4bde-b156-df79868bcf0b|a1b58ded-16ec-4822-ab1c-3a4cfb9c268a|
++-----------------------+---------------+---------------+------------------------------------+------------------------------------+
+
 </pre></div>
 </div>
 </div>

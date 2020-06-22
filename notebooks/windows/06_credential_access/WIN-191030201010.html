@@ -364,6 +364,18 @@ This saves a dump file to disk with a deterministic name that includes the name 
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing Data from Winlogbeat version 7..
+[+] DataFrame Returned !
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-i">
@@ -395,6 +407,16 @@ This saves a dump file to disk with a deterministic name that includes the name 
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+-------------------------------+------------------------------------------------+--------------------------------------+
+|@timestamp             |computer_name   |Image                          |TargetFilename                                  |ProcessGuid                           |
++-----------------------+----------------+-------------------------------+------------------------------------------------+--------------------------------------+
+|2019-10-27 01:51:07.428|HFDC01.shire.com|C:\Windows\system32\taskmgr.exe|C:\Users\ADMINI~1\AppData\Local\Temp\2\lsass.DMP|{e7604876-3040-5db5-0000-00100e2e8300}|
++-----------------------+----------------+-------------------------------+------------------------------------------------+--------------------------------------+
+
 </pre></div>
 </div>
 </div>
@@ -433,6 +455,16 @@ This saves a dump file to disk with a deterministic name that includes the name 
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+----------------------+----------------+-------------------------------+-----------------------------+-------------+
+|@timestamp            |computer_name   |SourceImage                    |TargetImage                  |GrantedAccess|
++----------------------+----------------+-------------------------------+-----------------------------+-------------+
+|2019-10-27 01:51:07.49|HFDC01.shire.com|C:\Windows\system32\taskmgr.exe|C:\Windows\system32\lsass.exe|0x1fffff     |
++----------------------+----------------+-------------------------------+-----------------------------+-------------+
+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-iii">
@@ -464,6 +496,16 @@ This saves a dump file to disk with a deterministic name that includes the name 
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+----------------------+----------------+-------------------------------+-----------------------------+-------------+
+|@timestamp            |computer_name   |SourceImage                    |TargetImage                  |GrantedAccess|
++----------------------+----------------+-------------------------------+-----------------------------+-------------+
+|2019-10-27 01:51:07.49|HFDC01.shire.com|C:\Windows\system32\taskmgr.exe|C:\Windows\system32\lsass.exe|0x1fffff     |
++----------------------+----------------+-------------------------------+-----------------------------+-------------+
+
 </pre></div>
 </div>
 </div>
@@ -505,6 +547,16 @@ This saves a dump file to disk with a deterministic name that includes the name 
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+-------------------------------+--------+--------------------------------------+--------------------------------------+------------------------------------+
+|@timestamp             |computer_name   |Image                          |LogonId |ProcessGuid                           |SourceProcessGUID                     |CommandLine                         |
++-----------------------+----------------+-------------------------------+--------+--------------------------------------+--------------------------------------+------------------------------------+
+|2019-10-27 01:50:56.347|HFDC01.shire.com|C:\Windows\System32\Taskmgr.exe|0x6a7c4d|{e7604876-3040-5db5-0000-00100e2e8300}|{e7604876-3040-5db5-0000-00100e2e8300}|&quot;C:\Windows\system32\taskmgr.exe&quot; /7|
++-----------------------+----------------+-------------------------------+--------+--------------------------------------+--------------------------------------+------------------------------------+
+
 </pre></div>
 </div>
 </div>
@@ -556,6 +608,16 @@ This saves a dump file to disk with a deterministic name that includes the name 
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+-----------+-------------+----------+-------------+-------------------------------+------------------------------------+
+|@timestamp             |computer_name   |SessionName|AccountName  |ClientName|ClientAddress|Image                          |CommandLine                         |
++-----------------------+----------------+-----------+-------------+----------+-------------+-------------------------------+------------------------------------+
+|2019-10-27 01:50:47.424|HFDC01.shire.com|RDP-Tcp#5  |Administrator|IT001     |172.18.39.105|C:\Windows\System32\Taskmgr.exe|&quot;C:\Windows\system32\taskmgr.exe&quot; /7|
++-----------------------+----------------+-----------+-------------+----------+-------------+-------------------------------+------------------------------------+
+
 </pre></div>
 </div>
 </div>

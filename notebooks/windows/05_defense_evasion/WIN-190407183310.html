@@ -348,6 +348,18 @@ This is the equivalent of Allow connections from computers running any version o
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing Data from Winlogbeat version 6..
+[+] DataFrame Returned !
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-i">
@@ -380,6 +392,17 @@ This is the equivalent of Allow connections from computers running any version o
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------+---------------------------+--------------------------------------------------------------------------------------------+
+|@timestamp             |computer_name  |Image                      |TargetObject                                                                                |
++-----------------------+---------------+---------------------------+--------------------------------------------------------------------------------------------+
+|2019-05-18 16:37:10.411|HR001.shire.com|C:\Windows\system32\reg.exe|HKLM\System\CurrentControlSet\Control\Terminal Server\fDenyTSConnections                    |
+|2019-05-18 16:37:22.147|HR001.shire.com|C:\Windows\system32\reg.exe|HKLM\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\UserAuthentication|
++-----------------------+---------------+---------------------------+--------------------------------------------------------------------------------------------+
+
 </pre></div>
 </div>
 </div>

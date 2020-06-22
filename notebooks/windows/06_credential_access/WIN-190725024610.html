@@ -326,8 +326,8 @@ Adversaries might use tools like Mimikatz with lsadump::sam commands or scripts 
 <p>In addition, adversaries can use the built-in Reg.exe utility to dump the SAM hive in order to crack it offline.</p>
 <p>Additional reading</p>
 <ul class="simple">
-<li><p>https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/security_account_manager_database.md</p></li>
-<li><p>https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/syskey.md</p></li>
+<li><p>https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/security_account_manager_database.md</p></li>
+<li><p>https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/syskey.md</p></li>
 </ul>
 </div>
 <div class="section" id="hypothesis">
@@ -353,6 +353,18 @@ Adversaries might use tools like Mimikatz with lsadump::sam commands or scripts 
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_lsadump_sam.tar.gz&quot;</span>
 <span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing Data from Winlogbeat version 6..
+[+] DataFrame Returned !
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
 </pre></div>
 </div>
 </div>
@@ -387,6 +399,16 @@ Adversaries might use tools like Mimikatz with lsadump::sam commands or scripts 
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------+---------------+---------------------------------------------------------+---------------------+----------+
+|@timestamp             |computer_name  |SubjectUserName|ProcessName                                              |ObjectName           |AccessMask|
++-----------------------+---------------+---------------+---------------------------------------------------------+---------------------+----------+
+|2019-06-25 10:39:04.376|HR001.shire.com|HR001$         |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|\REGISTRY\MACHINE\SAM|0x20019   |
++-----------------------+---------------+---------------+---------------------------------------------------------+---------------------+----------+
+
 </pre></div>
 </div>
 </div>
