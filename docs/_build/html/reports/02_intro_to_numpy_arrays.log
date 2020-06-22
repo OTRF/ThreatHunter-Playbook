@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/jupyter_cache/executors/basic.py", line 157, in execute
+    executenb(nb_bundle.nb, cwd=tmpdirname)
+  File "/usr/local/lib/python3.7/site-packages/nbconvert/preprocessors/execute.py", line 737, in executenb
+    return ep.preprocess(nb, resources, km=km)[0]
+  File "/usr/local/lib/python3.7/site-packages/nbconvert/preprocessors/execute.py", line 405, in preprocess
+    nb, resources = super(ExecutePreprocessor, self).preprocess(nb, resources)
+  File "/usr/local/lib/python3.7/site-packages/nbconvert/preprocessors/base.py", line 69, in preprocess
+    nb.cells[index], resources = self.preprocess_cell(cell, resources, index)
+  File "/usr/local/lib/python3.7/site-packages/nbconvert/preprocessors/execute.py", line 448, in preprocess_cell
+    raise CellExecutionError.from_cell_and_msg(cell, out)
+nbconvert.preprocessors.execute.CellExecutionError: An error occurred while executing the following cell:
+------------------
+list_two = [1,2,3,4,5]
+# The following will throw an error:
+list_two + 2
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+[0;32m<ipython-input-8-03923fe34c76>[0m in [0;36m<module>[0;34m[0m
+[1;32m      1[0m [0mlist_two[0m [0;34m=[0m [0;34m[[0m[0;36m1[0m[0;34m,[0m[0;36m2[0m[0;34m,[0m[0;36m3[0m[0;34m,[0m[0;36m4[0m[0;34m,[0m[0;36m5[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[1;32m      2[0m [0;31m# The following will throw an error:[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 3[0;31m [0mlist_two[0m [0;34m+[0m [0;36m2[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;31mTypeError[0m: can only concatenate list (not "int") to list
+TypeError: can only concatenate list (not "int") to list
+

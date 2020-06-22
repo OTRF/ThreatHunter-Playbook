@@ -24,8 +24,8 @@ description: |-
   It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) to retrieve the value for the G$BCKUPKEY_PREFERRED and G$BCKUPKEY_P LSA secrets.
   
   Additional reading
-  * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/data_protection_api.md
-  * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/lsa_policy_objects.md
+  * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/data_protection_api.md
+  * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/lsa_policy_objects.md
 validation_dataset:
   - type: mordor
     url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_export_master_key.tar.gz

@@ -43,8 +43,8 @@
     "In addition, adversaries can use the built-in Reg.exe utility to dump the SAM hive in order to crack it offline.\n",
     "\n",
     "Additional reading\n",
-    "* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/security_account_manager_database.md\n",
-    "* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/syskey.md"
+    "* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/security_account_manager_database.md\n",
+    "* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/syskey.md"
    ]
   },
   {

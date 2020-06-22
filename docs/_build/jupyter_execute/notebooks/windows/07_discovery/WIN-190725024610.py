@@ -22,8 +22,8 @@ Adversaries might use tools like Mimikatz with lsadump::sam commands or scripts 
 In addition, adversaries can use the built-in Reg.exe utility to dump the SAM hive in order to crack it offline.
 
 Additional reading
-* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/security_account_manager_database.md
-* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/syskey.md
+* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/security_account_manager_database.md
+* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/syskey.md
 
 ## Hypothesis
 Adversaries might be getting a handle to the SAM database to extract credentials in my environment

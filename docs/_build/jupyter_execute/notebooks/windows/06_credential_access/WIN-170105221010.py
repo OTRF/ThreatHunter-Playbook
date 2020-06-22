@@ -152,11 +152,34 @@ df = spark.sql(
     '''
 SELECT p.`@timestamp`, p.computer_name, p.Image, p.User
 FROM mordorTable p
-INNER JOIN potential_mimikatz m
-ON p.ProcessGuid = m.SourceProcessGUID
+INNER JOIN (
+    SELECT a.SourceProcessGUID
+    FROM mordorTable a
+    INNER JOIN (
+        SELECT ProcessGuid,Image, COUNT(DISTINCT ImageLoaded) AS hits
+        FROM mordorTable
+        WHERE channel = "Microsoft-Windows-Sysmon/Operational"
+            AND event_id = 7
+            AND ( 
+                ImageLoaded LIKE "%samlib.dll"
+                OR ImageLoaded LIKE "%vaultcli.dll"
+                OR ImageLoaded LIKE "%hid.dll"
+                OR ImageLoaded LIKE "%winscard.dll"
+                OR ImageLoaded LIKE "%cryptdll.dll"
+            )
+            AND `@timestamp` BETWEEN "2019-03-00 00:00:00.000" AND "2019-06-20 00:00:00.000"
+            GROUP BY ProcessGuid,Image ORDER BY hits DESC LIMIT 10
+    ) m
+    ON a.SourceProcessGUID = m.ProcessGuid
+    WHERE a.channel = "Microsoft-Windows-Sysmon/Operational"
+        AND a.event_id = 10
+        AND a.TargetImage LIKE "%lsass.exe"
+        AND a.CallTrace LIKE "%UNKNOWN%"
+        AND m.hits >= 3
+) s
+ON p.ProcessGuid = s.SourceProcessGUID
 WHERE p.channel = "Microsoft-Windows-Sysmon/Operational"
     AND p.event_id = 1
-    AND NOT p.LogonId = "0x3e7"
     '''
 )
 df.show(10,False)

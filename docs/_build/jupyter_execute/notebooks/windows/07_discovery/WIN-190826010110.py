@@ -24,7 +24,7 @@ An adversary can simply use the Win32 API function [OpenSCManagerA](https://docs
 If this succeeds (A non-zero handle is returned), the current user context has local administrator acess to the remote host.
 
 Additional reading
-* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/service_control_manager.md
+* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/service_control_manager.md
 
 ## Hypothesis
 Adversaries might be attempting to open up a handle to the service control manager (SCM) database on remote endpoints to check for local admin access in my environment.

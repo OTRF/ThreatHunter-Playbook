@@ -21,8 +21,16 @@ This is done from an account with sufficient permissions (usually domain admin l
 Usually the accounts performing replication operations in a domain are computer accounts (i.e dcaccount$).
 Therefore, it might be abnormal to see other non-dc-accounts doing it.
 
+The following access rights / permissions are needed for the replication request according to the domain functional level
+
+| Control access right symbol | Identifying GUID used in ACE |
+| :-----------------------------| :------------------------------|
+| DS-Replication-Get-Changes | 1131f6aa-9c07-11d1-f79f-00c04fc2dcd2 |
+| DS-Replication-Get-Changes-All | 1131f6ad-9c07-11d1-f79f-00c04fc2dcd2 |
+| DS-Replication-Get-Changes-In-Filtered-Set | 89e95b76-444d-4c62-991a-0facbeda640c |
+
 Additional reading
-* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/active_directory_replication.md
+* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/active_directory_replication.md
 
 ## Hypothesis
 Adversaries might attempt to pull the NTLM hash of a user via active directory replication apis from a non-domain-controller account with permissions to do so.

@@ -26,7 +26,7 @@ description: |-
   From a logon session perspective, on the target, WmiprvSE.exe is spawned in a different logon session by the DCOM service host. However, whatever is executed by WmiprvSE.exe occurs on the new network type (3) logon session created by the user that authenticated from the network.
 
   Additional Reading
-  * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/logon_session.md
+  * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/logon_session.md
 validation_dataset:
   - type: mordor
     url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/execution/empire_invoke_wmi.tar.gz

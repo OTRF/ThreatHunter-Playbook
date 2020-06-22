@@ -26,7 +26,7 @@ The process WmiprvSE.exe is what spawns the process defined in the CommandLine p
 From a logon session perspective, on the target, WmiprvSE.exe is spawned in a different logon session by the DCOM service host. However, whatever is executed by WmiprvSE.exe occurs on the new network type (3) logon session created by the user that authenticated from the network.
 
 Additional Reading
-* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/logon_session.md
+* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/logon_session.md
 
 ## Hypothesis
 Adversaries might be leveraging WMI Win32_Process class and method Create to execute code remotely across my environment

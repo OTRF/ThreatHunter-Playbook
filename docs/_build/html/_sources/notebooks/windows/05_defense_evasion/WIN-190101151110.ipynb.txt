@@ -48,7 +48,7 @@
     "| DS-Replication-Get-Changes-In-Filtered-Set | 89e95b76-444d-4c62-991a-0facbeda640c |\n",
     "\n",
     "Additional reading\n",
-    "* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/active_directory_replication.md"
+    "* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/active_directory_replication.md"
    ]
   },
   {

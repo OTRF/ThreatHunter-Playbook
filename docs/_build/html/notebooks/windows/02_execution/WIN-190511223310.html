@@ -364,6 +364,18 @@ Therefore, it is important to understand the basic artifacts left when PowerShel
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing Data from Winlogbeat version 6..
+[+] DataFrame Returned !
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-i">
@@ -394,6 +406,16 @@ Therefore, it is important to understand the basic artifacts left when PowerShel
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------+----------------------------------------+
+|@timestamp             |computer_name  |channel                                 |
++-----------------------+---------------+----------------------------------------+
+|2019-05-18 17:15:36.218|IT001.shire.com|Microsoft-Windows-PowerShell/Operational|
++-----------------------+---------------+----------------------------------------+
+
 </pre></div>
 </div>
 </div>
@@ -431,6 +453,18 @@ Therefore, it is important to understand the basic artifacts left when PowerShel
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------+-----------+-------------+-------------+---------+---------+
+|@timestamp             |computer_name  |Application|SourceAddress|DestAddress  |LayerName|LayerRTID|
++-----------------------+---------------+-----------+-------------+-------------+---------+---------+
+|2019-05-18 17:15:34.303|IT001.shire.com|System     |172.18.39.106|172.18.39.105|%%14610  |44       |
+|2019-05-18 17:15:35.228|IT001.shire.com|System     |172.18.39.106|172.18.39.105|%%14610  |44       |
+|2019-05-18 17:15:35.618|IT001.shire.com|System     |172.18.39.106|172.18.39.105|%%14610  |44       |
++-----------------------+---------------+-----------+-------------+-------------+---------+---------+
+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-iii">
@@ -461,6 +495,17 @@ Therefore, it is important to understand the basic artifacts left when PowerShel
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------+-----------------------------------+---------------------------------------------------------+
+|@timestamp             |computer_name  |ParentProcessName                  |NewProcessName                                           |
++-----------------------+---------------+-----------------------------------+---------------------------------------------------------+
+|2019-05-18 17:15:34.608|IT001.shire.com|C:\Windows\System32\svchost.exe    |C:\Windows\System32\wsmprovhost.exe                      |
+|2019-05-18 17:15:35.882|IT001.shire.com|C:\Windows\System32\wsmprovhost.exe|C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|
++-----------------------+---------------+-----------------------------------+---------------------------------------------------------+
+
 </pre></div>
 </div>
 </div>
@@ -497,6 +542,17 @@ Therefore, it is important to understand the basic artifacts left when PowerShel
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------+-----------------------------------+---------------------------------------------------------+
+|@timestamp             |computer_name  |ParentImage                        |Image                                                    |
++-----------------------+---------------+-----------------------------------+---------------------------------------------------------+
+|2019-05-18 17:15:34.611|IT001.shire.com|C:\Windows\System32\svchost.exe    |C:\Windows\System32\wsmprovhost.exe                      |
+|2019-05-18 17:15:35.884|IT001.shire.com|C:\Windows\System32\wsmprovhost.exe|C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|
++-----------------------+---------------+-----------------------------------+---------------------------------------------------------+
+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-v">
@@ -528,6 +584,18 @@ Therefore, it is important to understand the basic artifacts left when PowerShel
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------+--------------+---------+---------------------------------------------------------+-------------+-------------+
+|@timestamp             |computer_name  |User          |Initiated|Image                                                    |SourceIp     |DestinationIp|
++-----------------------+---------------+--------------+---------+---------------------------------------------------------+-------------+-------------+
+|2019-05-18 17:15:35.319|HR001.shire.com|SHIRE\pgustavo|true     |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|172.18.39.106|172.18.39.105|
+|2019-05-18 17:15:36.444|HR001.shire.com|SHIRE\pgustavo|true     |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|172.18.39.106|172.18.39.105|
+|2019-05-18 17:15:36.704|HR001.shire.com|SHIRE\pgustavo|true     |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|172.18.39.106|172.18.39.105|
++-----------------------+---------------+--------------+---------+---------------------------------------------------------+-------------+-------------+
+
 </pre></div>
 </div>
 </div>

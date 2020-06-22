@@ -46,8 +46,8 @@
     "It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) to retrieve the value for the G$BCKUPKEY_PREFERRED and G$BCKUPKEY_P LSA secrets.\n",
     "\n",
     "Additional reading\n",
-    "* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/data_protection_api.md\n",
-    "* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/lsa_policy_objects.md"
+    "* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/data_protection_api.md\n",
+    "* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/lsa_policy_objects.md"
    ]
   },
   {

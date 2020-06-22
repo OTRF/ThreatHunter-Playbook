@@ -25,8 +25,8 @@ Tools such as Mimikatz with the method/module lsadump::backupkeys can be used to
 It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) to retrieve the value for the G$BCKUPKEY_PREFERRED and G$BCKUPKEY_P LSA secrets.
 
 Additional reading
-* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/data_protection_api.md
-* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/content/library/lsa_policy_objects.md
+* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/data_protection_api.md
+* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/lsa_policy_objects.md
 
 ## Hypothesis
 Adversaries might be extracting the DPAPI domain backup key from my DC to be able to decrypt any domain user master key files.
