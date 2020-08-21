@@ -1,47 +1,29 @@
 #######################################################################################
 # Book settings
-title                       :  Threat Hunter Playbook # The title of the book. Will be placed in the left navbar.
-author                      : Roberto Rodriguez @Cyb3rWard0g # The author of the book
-copyright                   : "2020"  # Copyright year to be placed in the footer
-logo                        : "images/logo/logo.png"  # A path to the book logo
-exclude_patterns            : []  # Patterns to skip when building the book. Can be glob-style (e.g. "*skip.ipynb")
+title: "Threat Hunter Playbook"
+logo: images/logo/logo.png
+author: Roberto Rodriguez @Cyb3rWard0g
+email: ""
 description: >- # this means to ignore newlines until "baseurl:"
   This is the first interactive Jupyter book in the infosec community!
-
-#######################################################################################
-# Execution settings
 execute:
-  execute_notebooks         : "cache"  # Whether to execute notebooks at build time. Must be one of ("auto", "force", "cache", "off")
-  cache                     : ""  # A path to the jupyter cache that will be used to store execution artifacs. Defaults to `_build/.jupyter_cache/`
-  exclude_patterns          : []  # A list of patterns to *skip* in execution (e.g. a notebook that takes a really long time)
+  execute_notebooks: cache
 
-#######################################################################################
-# HTML-specific settings
 html:
-  favicon                   : "images/logo/favicon.ico"  # A path to a favicon image
-  navbar_number_sections    : false  # Add a number to each section in your left navbar
-  navbar_footer_text        : 'Powered by <a href="https://jupyterbook.org">Jupyter Book</a>'  # Will be displayed underneath the left navbar.
-  google_analytics_id       : ""  # A GA id that can be used to track book views.
-  home_page_in_navbar       : false  # Whether to include your home page in the left Navigation Bar
-  use_edit_page_button      : true  # Whether to add an "edit this page" button to pages. If `true`, repository information in repository: must be filled in
-  baseurl                   :  https://threathunterplaybook.com/
-  
-#######################################################################################
-# Launch button settings
-launch_buttons:
-  notebook_interface        : "classic"  # The interface interactive links will activate ["classic", "jupyterlab"]
-  binderhub_url             : "https://mybinder.org"  # The URL of the BinderHub (e.g., https://mybinder.org)
-  jupyterhub_url            : ""  # The URL of the JupyterHub (e.g., https://datahub.berkeley.edu)
-  thebelab                  : true  # Add a thebelab button to pages (requires the repository to run on Binder)
+  favicon: images/logo/favicon.ico
+  home_page_in_navbar: false
+  use_edit_page_button: true
+  use_repository_button: true
+  use_issues_button: true
+  baseurl: https://threathunterplaybook.com/
 
 repository:
-  url                       : https://github.com/hunters-forge/ThreatHunter-Playbook  # The URL to your book's repository
-  path_to_book              : "docs"  # A path to your book's folder, relative to the repository root.
-  branch                    : master  # Which branch of the repository should be used when creating links
+  url: https://github.com/hunters-forge/ThreatHunter-Playbook
+  branch: master
+  path_to_book: docs
 
-#######################################################################################
-# Advanced and power-user settings
-sphinx:
-  extra_extensions:
-    - sphinx_click.ext
-    - sphinx_tabs.tabs
+launch_buttons:
+  notebook_interface: "classic" # The interface interactive links will activate ["classic", "jupyterlab"]
+  binderhub_url: "https://mybinder.org"
+  colab_url: "https://colab.research.google.com"
+  thebe: true

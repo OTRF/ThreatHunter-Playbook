@@ -21,7 +21,7 @@ description: |-
   Even though most adversaries might inject into a System process to blend in with most applications accessing LSASS, there are ocassions where adversaries do not elevate to System and use the available administrator rights from the user since that is the minimum requirement to access LSASS.
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_logonpasswords.tar.gz
+    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_logonpasswords.zip
 analytics:
   - name: Analytic I
     data_sources:

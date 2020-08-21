@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/sphinx-book-theme.js"></script>
@@ -25,11 +26,17 @@
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/mystnb.js"></script>
     <script src="../_static/sphinx-book-theme.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .secondtoggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed.js"></script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
-    <script async="async" src="../_static/thebelab.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://threathunterplaybook.com/pre-hunt/data_modeling.html" />
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -39,9 +46,6 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
-<!-- Put requirejs at the end so it's always after bootstrap -->
-<!-- TODO: remove this once https://github.com/pandas-dev/pydata-sphinx-theme/pull/149 is merged -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
 
 
 <!-- Opengraph tags -->
@@ -51,7 +55,7 @@
 <meta property="og:description" content="Data Modeling  A data model basically determines the structure of data and the relationships identified among each other. Identifying relationships among securi" />
 <meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
 
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary" />
 
 
   </head>
@@ -61,9 +65,9 @@
     <div class="container-xl">
       <div class="row">
           
-
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    <div class="navbar-brand-box">
+    
+        <div class="navbar-brand-box">
 <a class="navbar-brand text-wrap" href="../index.html">
   
   <img src="../_static/logo.png" class="logo" alt="logo">
@@ -80,55 +84,91 @@
 </form>
 
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  
-  <ul class="nav sidenav_l1">
-<li class="navbar-special">
-<p class="margin-caption">Pre-Hunt Activities</p>
-</li>
-  <li class="active">
-    <a href="data_management.html">Data Management</a>
-  <ul class="nav sidenav_l2">
-    <li class="">
-      <a href="data_documentation.html">Data Documentation</a>
-    </li>
-    <li class="">
-      <a href="data_standardization.html">Data Standardization</a>
-    </li>
-    <li class="active">
-      <a href="">Data Modeling</a>
-    </li>
-    <li class="">
-      <a href="data_quality.html">Data Quality</a>
-    </li>
+  <p class="caption">
+ <span class="caption-text">
+  Pre-Hunt Activities
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="data_management.html">
+   Data Management
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="data_documentation.html">
+     Data Documentation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="data_standardization.html">
+     Data Standardization
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Data Modeling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="data_quality.html">
+     Data Quality
+    </a>
+   </li>
   </ul>
-  </li>
-<li class="navbar-special">
-<p class="margin-caption">Campaign Notebooks</p>
-</li>
-  <li class="">
-    <a href="../evals/intro.html">ATT&CK Evaluations</a>
-  </li>
-<li class="navbar-special">
-<p class="margin-caption">Targeted Notebooks</p>
-</li>
-  <li class="">
-    <a href="../notebooks/windows/windows.html">Windows</a>
-  </li>
-  <li class="">
-    <a href="../notebooks/linux/linux.html">Linux</a>
-  </li>
-  <li class="">
-    <a href="../notebooks/mac/mac.html">Mac</a>
-  </li>
-<li class="navbar-special">
-<p class="margin-caption">Tutorials</p>
-</li>
-  <li class="">
-    <a href="../tutorials/jupyter/introduction.html">Jupyter Notebooks</a>
-  </li>
+ </li>
 </ul>
+<p class="caption">
+ <span class="caption-text">
+  Campaign Notebooks
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../evals/intro.html">
+   ATT&amp;CK Evaluations
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Targeted Notebooks
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks/windows/windows.html">
+   Windows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks/linux/linux.html">
+   Linux
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks/mac/mac.html">
+   Mac
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Tutorials
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorials/jupyter/introduction.html">
+   Jupyter Notebooks
+  </a>
+ </li>
+</ul>
+
 </nav>
-<p class="navbar_footer">Powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
+
+ <!-- To handle the deprecated key -->
+
 </div>
 
 
@@ -143,94 +183,119 @@
     </div>
     <div class="col pl-2 topbar-main">
         
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse" data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu" aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation" title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
             <i class="fas fa-bars"></i>
             <i class="fas fa-arrow-left"></i>
             <i class="fas fa-arrow-up"></i>
         </button>
+        
         <div class="dropdown-buttons-trigger">
-            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i class="fas fa-download"></i></button>
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
 
-            
-            <div class="dropdown-buttons">
-                <!-- ipynb file if we had a myst markdown file -->
-                
-                <!-- Download raw file -->
-                <a class="dropdown-buttons" href="../_sources/pre-hunt/data_modeling.md.txt"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.md</button></a>
-                <!-- Download PDF via print -->
-                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
-            </div>
-            
-        </div>
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/pre-hunt/data_modeling.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
 
-        <!-- Edit this page -->
-        <a class="edit-button" href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/pre-hunt/data_modeling.md"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" title="Edit this page"><i class="fas fa-pencil-alt"></i></button></a>
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/hunters-forge/ThreatHunter-Playbook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/hunters-forge/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Fpre-hunt/data_modeling.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/pre-hunt/data_modeling.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
 
         <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
 
         <!-- Launch buttons -->
-        
 
-        
     </div>
+
+    <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
-<div class="tocsection onthispage pt-5 pb-3">
-    <i class="fas fa-list"></i> On this page
-</div>
-
-<nav id="bd-toc-nav">
-    <ul class="nav section-nav flex-column">
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#why" class="nav-link">Why?</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#how" class="nav-link">How?</a><ul class="nav section-nav flex-column">
-                
-        <li class="nav-item toc-entry toc-h3">
-            <a href="#document-security-events" class="nav-link">Document Security Events</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h3">
-            <a href="#identify-relationships" class="nav-link">Identify Relationships</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h3">
-            <a href="#document-relationships" class="nav-link">Document Relationships</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h3">
-            <a href="#model-adversary-behavior" class="nav-link">Model Adversary Behavior</a>
-        </li>
-    
-            </ul>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#when" class="nav-link">When?</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#references" class="nav-link">References:</a>
-        </li>
-    
-    </ul>
-</nav>
-
-
-
-<div class="tocsection editthispage">
-    <a href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/pre-hunt/data_modeling.md">
-        <i class="fas fa-pencil-alt"></i> Edit this page
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why">
+   Why?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how">
+   How?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#document-security-events">
+     Document Security Events
     </a>
-</div>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#identify-relationships">
+     Identify Relationships
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#document-relationships">
+     Document Relationships
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#model-adversary-behavior">
+     Model Adversary Behavior
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#when">
+   When?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References:
+  </a>
+ </li>
+</ul>
 
+        </nav>
     </div>
 </div>
     <div id="main-content" class="row">
-        <div class="col-12 col-md-9 col-xxl-7 pl-md-3 pr-md-0">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
         
               <div>
                 
@@ -322,8 +387,9 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "pre-hunt"
-        }
+            path: "./pre-hunt"
+        },
+        predefinedOutput: true
     }
     </script>
     <script>kernelName = 'python3'</script>
@@ -341,13 +407,15 @@
 
     </div>
     <footer class="footer mt-5 mt-md-0">
-  <div class="container">
-    <p>
-          &copy; Copyright 2020.<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.1.<br/>
-    </p>
-  </div>
-</footer>
+    <div class="container">
+      <p>
+        
+          By Roberto Rodriguez @Cyb3rWard0g<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
 </main>
 
 

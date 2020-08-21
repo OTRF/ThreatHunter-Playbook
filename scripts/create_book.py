@@ -177,28 +177,32 @@ df.show(10,False)""".format(a['logic'])
 
     # ***** Update main TOC template and creating notebook *****
     for attack in analytic['attack_coverage']:
-        for to in toc_template:
-            if "notebooks/{}/{}".format(platform,platform) in to.values():
-                for section in to['sections']:
-                    for tactic in attack['tactics']:
-                        if attack_paths[tactic] in section['file']:
-                            analyticDict = {
-                                "file" : "notebooks/{}/{}/{}".format(platform,attack_paths[tactic], analytic['id'])
-                            }
-                            if analyticDict not in section['sections']:
-                                print("    [>>] Adding {} to {} path..".format(analytic['id'], attack_paths[tactic]))
-                                section['sections'].append(analyticDict)
-                                print("    [>>] Writing {} as a notebook to {}..".format(analytic['title'], attack_paths[tactic]))
-                                nbf.write(nb, "../docs/notebooks/{}/{}/{}.ipynb".format(platform,attack_paths[tactic],analytic['id']))
+        for toc in toc_template:
+            if 'chapters' in toc.keys():
+                for chapter in toc['chapters']:
+                    if "notebooks/{}/{}".format(platform,platform) in chapter.values():
+                        for section in chapter['sections']:
+                            for tactic in attack['tactics']:
+                                if attack_paths[tactic] in section['file']:
+                                    analyticDict = {
+                                        "file" : "notebooks/{}/{}/{}".format(platform,attack_paths[tactic], analytic['id'])
+                                    }
+                                    if analyticDict not in chapter['sections']:
+                                        print("    [>>] Adding {} to {} path..".format(analytic['id'], attack_paths[tactic]))
+                                        section['sections'].append(analyticDict)
+                                        print("    [>>] Writing {} as a notebook to {}..".format(analytic['title'], attack_paths[tactic]))
+                                        nbf.write(nb, "../docs/notebooks/{}/{}/{}.ipynb".format(platform,attack_paths[tactic],analytic['id']))
 
 # ****** Removing empty lists ********
 print("\n[+] Removing empty platforms and empty lists..")
-for to in toc_template[:]:
-    if 'sections' in to.keys() and len(to['sections']) > 0:
-        for section in to['sections'][:]:
-            if 'sections' in section and not section['sections']:
-                print("  [>>] Removing {} ..".format(section['file']))
-                to['sections'].remove(section)
+for toc in toc_template[:]:
+    if 'chapters' in toc.keys():
+        for chapter in toc['chapters']:
+            if 'sections' in chapter.keys() and len(chapter['sections']) > 0:
+                for section in chapter['sections'][:]:
+                    if 'sections' in section and not section['sections']:
+                        print("  [>>] Removing {} ..".format(section['file']))
+                        chapter['sections'].remove(section)
 
 # ****** Creating Analytics Summaries ******
 print("\n[+] Creating ATT&CK navigator layers for each platform..")
@@ -219,7 +223,7 @@ for summary in summary_table:
                     if metadata not in techniques_mappings[technique]:
                         techniques_mappings[technique].append(metadata)
         
-        VERSION = "2.2"
+        VERSION = "3.0"
         NAME = "THP {} Analytics".format(summary['platform'])
         DESCRIPTION = "Analytics covered by the Threat Hunter Playbook {} detection notebooks".format(summary['platform'])
         DOMAIN = "mitre-enterprise"

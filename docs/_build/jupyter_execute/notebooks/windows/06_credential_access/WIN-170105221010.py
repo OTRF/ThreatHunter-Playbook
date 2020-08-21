@@ -33,7 +33,7 @@ spark = get_spark()
 
 ### Download & Process Mordor File
 
-mordor_file = "https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_logonpasswords.tar.gz"
+mordor_file = "https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_logonpasswords.zip"
 registerMordorSQLTable(spark, mordor_file, "mordorTable")
 
 ### Analytic I

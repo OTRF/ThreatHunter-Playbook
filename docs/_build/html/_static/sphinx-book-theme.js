@@ -55,6 +55,51 @@ var initTooltips = () => {
   });
 }
 
+var initTocHide = () => {
+  // Hide the TOC when we scroll down
+  var scrollTimeout;
+  var throttle = 200;  // in milliseconds
+  var tocHeight = $("#bd-toc-nav").outerHeight(true) + $(".bd-toc").outerHeight(true);
+  var hideTocAfter = tocHeight + 200;  // Height of TOC + some extra padding
+  var checkTocScroll = function () {
+      var margin_content = $(".margin, .tag_margin, .full-width, .full_width, .tag_full-width, .tag_full_width, .sidebar, .tag_sidebar, .popout, .tag_popout");
+      margin_content.each((index, item) => {
+        // Defining the boundaries that we care about for checking TOC hiding
+        var topOffset = $(item).offset().top - $(window).scrollTop();
+        var bottomOffset = topOffset + $(item).outerHeight(true);
+
+        // Check whether we should hide the TOC (if it overlaps with a margin content)
+        var topOverlaps = ((topOffset >= 0) && (topOffset < hideTocAfter));
+        var bottomOverlaps = ((bottomOffset >= 0) && (bottomOffset < hideTocAfter));
+        var removeToc = (topOverlaps || bottomOverlaps);
+        if (removeToc && window.pageYOffset > 20) {
+          $("div.bd-toc").removeClass("show")
+          return false
+        } else {
+          $("div.bd-toc").addClass("show")
+        };
+      })
+  };
+
+  $(window).on('scroll', function () {
+      if (!scrollTimeout) {
+          scrollTimeout = setTimeout(function () {
+              checkTocScroll();
+              scrollTimeout = null;
+          }, throttle);
+      }
+  });
+}
+
+var initThebeSBT = () => {
+  var title  = $("div.section h1")[0]
+  if (!$(title).next().hasClass("thebe-launch-button")) {
+    $("<button class='thebe-launch-button'></button>").insertAfter($(title))
+  }
+  initThebe();
+}
+
 sbRunWhenDOMLoaded(initTooltips)
 sbRunWhenDOMLoaded(initTriggerNavBar)
 sbRunWhenDOMLoaded(scrollToActive)
+sbRunWhenDOMLoaded(initTocHide)
