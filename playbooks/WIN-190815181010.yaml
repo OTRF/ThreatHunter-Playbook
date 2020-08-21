@@ -17,7 +17,7 @@ description: |-
     Adversaries can create services remotely to execute code and move lateraly across the environment.
 validation_dataset:
     - type: mordor
-      url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/execution/empire_invoke_psexec.tar.gz
+      url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/lateral_movement/empire_invoke_psexec.zip
 analytics:
     - name: Analytic I
       data_sources:
