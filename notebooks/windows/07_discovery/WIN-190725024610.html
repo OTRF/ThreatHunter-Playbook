@@ -376,14 +376,14 @@
         aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
-            href="https://github.com/hunters-forge/ThreatHunter-Playbook"><button type="button" class="btn btn-secondary topbarbtn"
+            href="https://github.com/OTRF/ThreatHunter-Playbook"><button type="button" class="btn btn-secondary topbarbtn"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/hunters-forge/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Fnotebooks/windows/07_discovery/WIN-190725024610.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/OTRF/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Fnotebooks/windows/07_discovery/WIN-190725024610.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/notebooks/windows/07_discovery/WIN-190725024610.ipynb"><button
+        <a class="edit-button" href="https://github.com/OTRF/ThreatHunter-Playbook/edit/master/docs/notebooks/windows/07_discovery/WIN-190725024610.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -402,7 +402,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/hunters-forge/ThreatHunter-Playbook/master?urlpath=tree/docs/notebooks/windows/07_discovery/WIN-190725024610.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/OTRF/ThreatHunter-Playbook/master?urlpath=tree/docs/notebooks/windows/07_discovery/WIN-190725024610.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../../../_static/images/logo_binder.svg"
@@ -410,7 +410,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/hunters-forge/ThreatHunter-Playbook/blob/master/docs/notebooks/windows/07_discovery/WIN-190725024610.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/OTRF/ThreatHunter-Playbook/blob/master/docs/notebooks/windows/07_discovery/WIN-190725024610.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -537,8 +537,8 @@ Adversaries might use tools like Mimikatz with lsadump::sam commands or scripts 
 <p>In addition, adversaries can use the built-in Reg.exe utility to dump the SAM hive in order to crack it offline.</p>
 <p>Additional reading</p>
 <ul class="simple">
-<li><p>https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/security_account_manager_database.md</p></li>
-<li><p>https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/syskey.md</p></li>
+<li><p>https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/security_account_manager_database.md</p></li>
+<li><p>https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/syskey.md</p></li>
 </ul>
 </div>
 <div class="section" id="hypothesis">
@@ -562,7 +562,7 @@ Adversaries might use tools like Mimikatz with lsadump::sam commands or scripts 
 <h3>Download &amp; Process Mordor File<a class="headerlink" href="#download-process-mordor-file" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_lsadump_sam.tar.gz&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_lsadump_sam.tar.gz&quot;</span>
 <span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -667,7 +667,7 @@ Adversaries might use tools like Mimikatz with lsadump::sam commands or scripts 
     {
         requestKernel: true,
         binderOptions: {
-            repo: "hunters-forge/ThreatHunter-Playbook",
+            repo: "OTRF/ThreatHunter-Playbook",
             ref: "master",
         },
         codeMirrorConfig: {

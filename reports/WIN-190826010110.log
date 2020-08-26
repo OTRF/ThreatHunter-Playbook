@@ -11,14 +11,14 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, out)
 nbconvert.preprocessors.execute.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_extended_netntlm_downgrade.tar.gz"
+mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/discovery/empire_find_local_admin.tar.gz"
 registerMordorSQLTable(spark, mordor_file, "mordorTable")
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mFileNotFoundError[0m                         Traceback (most recent call last)
-[0;32m<ipython-input-2-d6f2d7da2375>[0m in [0;36m<module>[0;34m[0m
-[1;32m      1[0m [0mmordor_file[0m [0;34m=[0m [0;34m"https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_extended_netntlm_downgrade.tar.gz"[0m[0;34m[0m[0;34m[0m[0m
+[0;32m<ipython-input-2-bf0f1454bdc0>[0m in [0;36m<module>[0;34m[0m
+[1;32m      1[0m [0mmordor_file[0m [0;34m=[0m [0;34m"https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/discovery/empire_find_local_admin.tar.gz"[0m[0;34m[0m[0;34m[0m[0m
 [0;32m----> 2[0;31m [0mregisterMordorSQLTable[0m[0;34m([0m[0mspark[0m[0;34m,[0m [0mmordor_file[0m[0;34m,[0m [0;34m"mordorTable"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 [0m
 [0;32m/usr/local/lib/python3.7/site-packages/openhunt/mordorutils.py[0m in [0;36mregisterMordorSQLTable[0;34m(spark, url, tableName)[0m
@@ -63,6 +63,6 @@ registerMordorSQLTable(spark, mordor_file, "mordorTable")
 [0m[1;32m    164[0m         [0;32mif[0m [0mfilename[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
 [1;32m    165[0m             [0mfilename[0m [0;34m=[0m [0mgetattr[0m[0;34m([0m[0mfileobj[0m[0;34m,[0m [0;34m'name'[0m[0;34m,[0m [0;34m''[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mFileNotFoundError[0m: [Errno 2] No such file or directory: '/tmp/empire_extended_netntlm_downgrade.tar.gz'
-FileNotFoundError: [Errno 2] No such file or directory: '/tmp/empire_extended_netntlm_downgrade.tar.gz'
+[0;31mFileNotFoundError[0m: [Errno 2] No such file or directory: '/tmp/empire_find_local_admin.tar.gz'
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/empire_find_local_admin.tar.gz'
 

@@ -11,14 +11,14 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, out)
 nbconvert.preprocessors.execute.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-mordor_file = "https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/execution/empire_invoke_psremoting.tar.gz"
+mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/execution/empire_invoke_psremoting.tar.gz"
 registerMordorSQLTable(spark, mordor_file, "mordorTable")
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mFileNotFoundError[0m                         Traceback (most recent call last)
-[0;32m<ipython-input-2-d9672ded1fc7>[0m in [0;36m<module>[0;34m[0m
-[1;32m      1[0m [0mmordor_file[0m [0;34m=[0m [0;34m"https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/execution/empire_invoke_psremoting.tar.gz"[0m[0;34m[0m[0;34m[0m[0m
+[0;32m<ipython-input-2-203a354ccce5>[0m in [0;36m<module>[0;34m[0m
+[1;32m      1[0m [0mmordor_file[0m [0;34m=[0m [0;34m"https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/execution/empire_invoke_psremoting.tar.gz"[0m[0;34m[0m[0;34m[0m[0m
 [0;32m----> 2[0;31m [0mregisterMordorSQLTable[0m[0;34m([0m[0mspark[0m[0;34m,[0m [0mmordor_file[0m[0;34m,[0m [0;34m"mordorTable"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 [0m
 [0;32m/usr/local/lib/python3.7/site-packages/openhunt/mordorutils.py[0m in [0;36mregisterMordorSQLTable[0;34m(spark, url, tableName)[0m
