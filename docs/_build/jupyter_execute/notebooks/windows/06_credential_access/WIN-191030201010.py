@@ -29,7 +29,7 @@ spark = get_spark()
 
 ### Download & Process Mordor File
 
-mordor_file = "https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/remoteinteractive_taskmngr_lsass_dump.tar.gz"
+mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/remoteinteractive_taskmngr_lsass_dump.tar.gz"
 registerMordorSQLTable(spark, mordor_file, "mordorTable")
 
 ### Analytic I

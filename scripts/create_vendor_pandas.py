@@ -44,7 +44,7 @@ for step in yaml_loaded:
 
 # Results -> DataFrame
 #apt29_df = pd.DataFrame(vendor_list)
-apt29_df = pd.read_json('https://raw.githubusercontent.com/hunters-forge/ThreatHunter-Playbook/master/docs/evals/apt29/data/otr_results.json')
+apt29_df = pd.read_json('https://raw.githubusercontent.com/OTRF/ThreatHunter-Playbook/master/docs/evals/apt29/data/otr_results.json')
 apt29_telemetry = (
     apt29_df[['vendor','step','substep','stepname','detectiontype']]
     [(apt29_df['detectiontype'] == 'Telemetry')]

@@ -18,7 +18,7 @@ html:
   baseurl: https://threathunterplaybook.com/
 
 repository:
-  url: https://github.com/hunters-forge/ThreatHunter-Playbook
+  url: https://github.com/OTRF/ThreatHunter-Playbook
   branch: master
   path_to_book: docs
 

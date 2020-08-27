@@ -25,8 +25,8 @@ Tools such as Mimikatz with the method/module lsadump::backupkeys can be used to
 It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) to retrieve the value for the G$BCKUPKEY_PREFERRED and G$BCKUPKEY_P LSA secrets.
 
 Additional reading
-* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/data_protection_api.md
-* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/lsa_policy_objects.md
+* https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/data_protection_api.md
+* https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/lsa_policy_objects.md
 
 ## Hypothesis
 Adversaries might be extracting the DPAPI domain backup key from my DC to be able to decrypt any domain user master key files.
@@ -40,7 +40,7 @@ spark = get_spark()
 
 ### Download & Process Mordor File
 
-mordor_file = "https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_export_master_key.tar.gz"
+mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_export_master_key.tar.gz"
 registerMordorSQLTable(spark, mordor_file, "mordorTable")
 
 ### Analytic I
@@ -143,9 +143,9 @@ df.show(10,False)
 
 | Category | Type | Name     |
 | :--------| :----| :--------|
-| signature | SIGMA | [win_dpapi_domain_backupkey_extraction](https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_backupkey_extraction.yml) |
-| signature | SIGMA | [win_protected_storage_service_access](https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/win_protected_storage_service_access.yml) |
-| signature | SIGMA | [win_dpapi_domain_masterkey_backup_attempt](https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_masterkey_backup_attempt.yml) |
+| signature | SIGMA | [win_dpapi_domain_backupkey_extraction](https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_backupkey_extraction.yml) |
+| signature | SIGMA | [win_protected_storage_service_access](https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_protected_storage_service_access.yml) |
+| signature | SIGMA | [win_dpapi_domain_masterkey_backup_attempt](https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_masterkey_backup_attempt.yml) |
 
 ## References
 * https://www.harmj0y.net/blog/redteaming/operational-guidance-for-offensive-user-dpapi-abuse/

@@ -111,7 +111,7 @@ import pandas as pd
 # You need to run this code at the beginning in order to show visualization using Jupyter Notebooks
 from bokeh.io import output_notebook
 output_notebook()
-apt29= pd.read_json('https://raw.githubusercontent.com/hunters-forge/ThreatHunter-Playbook/master/docs/evals/apt29/data/otr_results.json')
+apt29= pd.read_json('https://raw.githubusercontent.com/OTRF/ThreatHunter-Playbook/master/docs/evals/apt29/data/otr_results.json')
 summary = (
     apt29
     .groupby(['step','stepname']).agg(total=pd.NamedAgg(column="substep", aggfunc="nunique"))
@@ -183,7 +183,7 @@ spark.conf.set("spark.sql.caseSensitive", "true")"""
 
 # **** DECOMPRESS HOST DATASETS ****
 nb['cells'].append(nbf.v4.new_markdown_cell("## Decompress Dataset"))
-nb['cells'].append(nbf.v4.new_code_cell("!wget https://github.com/hunters-forge/mordor/raw/master/datasets/large/apt29/day1/apt29_evals_day1_manual.zip"))
+nb['cells'].append(nbf.v4.new_code_cell("!wget https://github.com/OTRF/mordor/raw/master/datasets/large/apt29/day1/apt29_evals_day1_manual.zip"))
 nb['cells'].append(nbf.v4.new_code_cell("!unzip apt29_evals_day1_manual.zip"))
 
 # **** IMPORT HOST DATASETS ****

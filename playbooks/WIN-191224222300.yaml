@@ -89,7 +89,7 @@ description: |-
     * Property: RestrictSendingNTLMTraffic
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/empire_extended_netntlm_downgrade.tar.gz
+    url: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_extended_netntlm_downgrade.tar.gz
 analytics:
   - name: Analytic I
     data_sources:
@@ -144,6 +144,6 @@ references: |-
   * https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-security-lan-manager-authentication-level
   * https://twitter.com/elad_shamir/status/975670116519063553
   * https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-security-restrict-ntlm-outgoing-ntlm-traffic-to-remote-servers
-  * https://github.com/hunters-forge/Set-AuditRule/blob/master/registry/lsa.md
+  * https://github.com/OTRF/Set-AuditRule/blob/master/registry/lsa.md
   * https://www.andreafortuna.org/2018/03/26/retrieving-ntlm-hashes-without-touching-lsass-the-internal-monologue-attack/
   * https://www.optiv.com/blog/post-exploitation-using-netntlm-downgrade-attacks

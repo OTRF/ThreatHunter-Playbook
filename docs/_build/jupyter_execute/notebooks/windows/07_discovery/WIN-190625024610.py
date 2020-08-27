@@ -20,8 +20,8 @@ Adversaries might use tools like Mimikatz with lsadump::sam commands or scripts 
 Adversaries can calculate the Syskey by using RegOpenKeyEx/RegQueryInfoKey API calls to query the appropriate class info and values from the HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\JD, HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\Skew1, HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\GBG, and HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\Data keys.
 
 Additional reading
-* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/security_account_manager_database.md
-* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/library/syskey.md
+* https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/security_account_manager_database.md
+* https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/library/syskey.md
 
 ## Hypothesis
 Adversaries might be calculating the SysKey from registry key values to decrypt SAM entries
@@ -35,7 +35,7 @@ spark = get_spark()
 
 ### Download & Process Mordor File
 
-mordor_file = "https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_acces/empire_mimikatz_lsadump_sam.tar.gz"
+mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_acces/empire_mimikatz_lsadump_sam.tar.gz"
 registerMordorSQLTable(spark, mordor_file, "mordorTable")
 
 ### Analytic I

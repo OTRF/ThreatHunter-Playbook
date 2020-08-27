@@ -28,7 +28,7 @@ spark = get_spark()
 
 ### Download & Process Mordor File
 
-mordor_file = "https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/lateral_movement/empire_invoke_psexec.zip"
+mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/empire_invoke_psexec.zip"
 registerMordorSQLTable(spark, mordor_file, "mordorTable")
 
 ### Analytic I

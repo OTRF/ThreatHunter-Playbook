@@ -29,10 +29,10 @@ description: |-
   | DS-Replication-Get-Changes-In-Filtered-Set | 89e95b76-444d-4c62-991a-0facbeda640c |
   
   Additional reading
-  * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/active_directory_replication.md
+  * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/active_directory_replication.md
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/empire_dcsync.tar.gz
+    url: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_dcsync.tar.gz
 analytics:
   - name: Analytic I
     data_sources:

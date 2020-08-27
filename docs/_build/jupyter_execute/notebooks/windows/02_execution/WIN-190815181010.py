@@ -31,7 +31,7 @@ spark = get_spark()
 
 ### Download & Process Mordor File
 
-mordor_file = "https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/execution/empire_invoke_psremoting.tar.gz"
+mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/execution/empire_invoke_psremoting.tar.gz"
 registerMordorSQLTable(spark, mordor_file, "mordorTable")
 
 ### Analytic I
@@ -104,9 +104,9 @@ df.show(10,False)
 
 | Category | Type | Name     |
 | :--------| :----| :--------|
-| signature | SIGMA | [powershell_alternate_powershell_hosts](https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/powershell_alternate_powershell_hosts.yml) |
-| signature | SIGMA | [sysmon_alternate_powershell_hosts_moduleload](https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_alternate_powershell_hosts_moduleload.yml) |
-| signature | SIGMA | [sysmon_alternate_powershell_hosts_pipe](https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_alternate_powershell_hosts_pipe.yml) |
+| signature | SIGMA | [powershell_alternate_powershell_hosts](https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/powershell_alternate_powershell_hosts.yml) |
+| signature | SIGMA | [sysmon_alternate_powershell_hosts_moduleload](https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_alternate_powershell_hosts_moduleload.yml) |
+| signature | SIGMA | [sysmon_alternate_powershell_hosts_pipe](https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_alternate_powershell_hosts_pipe.yml) |
 
 ## References
 * https://twitter.com/mattifestation/status/971840487882506240

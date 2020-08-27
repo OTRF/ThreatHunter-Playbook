@@ -24,7 +24,7 @@ description: |-
   Adversaries could leverage the WMI modules above to execute WMI tasks bypassing controls looking for wmiprvse.exe or wmiapsrv.exe activity.
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/defense_evasion/empire_psinject.tar.gz
+    url: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/empire_psinject.tar.gz
 analytics:
   - name: Analytic I
     data_sources:
@@ -60,7 +60,7 @@ hunt_output:
   - category: signature
     type: SIGMA
     name: sysmon_wmi_module_load
-    url: https://github.com/hunters-forge/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_wmi_module_load.yml
+    url: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_wmi_module_load.yml
 references: |-
   * https://posts.specterops.io/threat-hunting-with-jupyter-notebooks-part-4-sql-join-via-apache-sparksql-6630928c931e
   * https://posts.specterops.io/real-time-sysmon-processing-via-ksql-and-helk-part-3-basic-use-case-8fbf383cb54f

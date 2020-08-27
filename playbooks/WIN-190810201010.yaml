@@ -26,14 +26,14 @@ description: |-
   From a logon session perspective, on the target, WmiprvSE.exe is spawned in a different logon session by the DCOM service host. However, whatever is executed by WmiprvSE.exe occurs on the new network type (3) logon session created by the user that authenticated from the network.
 
   Additional Reading
-  * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/logon_session.md
+  * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/logon_session.md
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/execution/empire_invoke_wmi.tar.gz
+    url: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/execution/empire_invoke_wmi.tar.gz
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/execution/empire_wmic_add_user.tar.gz
+    url: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/execution/empire_wmic_add_user.tar.gz
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/execution/empire_invoke_wmi_debugger.tar.gz
+    url: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/execution/empire_invoke_wmi_debugger.tar.gz
 analytics:
   - name: Analytic I
     data_sources:
@@ -89,7 +89,7 @@ hunt_output:
   - category: signature
     type: SIGMA
     name: sysmon_wmi_module_load
-    url: https://github.com/hunters-forge/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_wmi_module_load.yml
+    url: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_wmi_module_load.yml
 references: |-
   * https://posts.specterops.io/threat-hunting-with-jupyter-notebooks-part-4-sql-join-via-apache-sparksql-6630928c931e
   * https://posts.specterops.io/real-time-sysmon-processing-via-ksql-and-helk-part-3-basic-use-case-8fbf383cb54f

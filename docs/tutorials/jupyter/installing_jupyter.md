@@ -15,7 +15,7 @@ I prefer to share a standardized and working environment via docker images to fo
 ### Clone Notebooks Forge
 
 ```bash
-git clone https://github.com/hunters-forge/notebooks-forge
+git clone https://github.com/OTRF/notebooks-forge
 ```
 
 ### Build & Run Docker Image

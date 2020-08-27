@@ -26,10 +26,10 @@ description: |-
   | DS-Replication-Get-Changes-In-Filtered-Set | 89e95b76-444d-4c62-991a-0facbeda640c |
 
   Additional reading
-  * https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/active_directory_replication.md
+  * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/active_directory_replication.md
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/defense_evasion/empire_dcsync_acl.tar.gz
+    url: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/empire_dcsync_acl.tar.gz
 analytics:
   - name: Analytic I
     data_sources:
@@ -64,7 +64,7 @@ hunt_output:
   - category: signature
     type: SIGMA
     name: win_ad_object_writedac_access
-    url: https://github.com/hunters-forge/ThreatHunter-Playbook/blob/master/signatures/sigma/win_ad_object_writedac_access.yml
+    url: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_ad_object_writedac_access.yml
   - category: signature
     type: SIGMA
     name: win_ad_replication_user_backdoor

@@ -27,7 +27,7 @@ The following access rights / permissions are needed for the replication request
 | DS-Replication-Get-Changes-In-Filtered-Set | 89e95b76-444d-4c62-991a-0facbeda640c |
 
 Additional reading
-* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/active_directory_replication.md
+* https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/active_directory_replication.md
 
 ## Hypothesis
 Adversaries with enough permissions (domain admin) might be adding an ACL to the Root Domain for any user to abuse active directory replication services.
@@ -41,7 +41,7 @@ spark = get_spark()
 
 ### Download & Process Mordor File
 
-mordor_file = "https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/defense_evasion/empire_dcsync_acl.tar.gz"
+mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/empire_dcsync_acl.tar.gz"
 registerMordorSQLTable(spark, mordor_file, "mordorTable")
 
 ### Analytic I
@@ -97,7 +97,7 @@ df.show(10,False)
 
 | Category | Type | Name     |
 | :--------| :----| :--------|
-| signature | SIGMA | [win_ad_object_writedac_access](https://github.com/hunters-forge/ThreatHunter-Playbook/blob/master/signatures/sigma/win_ad_object_writedac_access.yml) |
+| signature | SIGMA | [win_ad_object_writedac_access](https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_ad_object_writedac_access.yml) |
 | signature | SIGMA | [win_ad_replication_user_backdoor](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_ad_replication_user_backdoor.yml) |
 
 ## References

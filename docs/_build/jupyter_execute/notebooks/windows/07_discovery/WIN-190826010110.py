@@ -24,7 +24,7 @@ An adversary can simply use the Win32 API function [OpenSCManagerA](https://docs
 If this succeeds (A non-zero handle is returned), the current user context has local administrator acess to the remote host.
 
 Additional reading
-* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/service_control_manager.md
+* https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/service_control_manager.md
 
 ## Hypothesis
 Adversaries might be attempting to open up a handle to the service control manager (SCM) database on remote endpoints to check for local admin access in my environment.
@@ -38,7 +38,7 @@ spark = get_spark()
 
 ### Download & Process Mordor File
 
-mordor_file = "https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/discovery/empire_find_local_admin.tar.gz"
+mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/discovery/empire_find_local_admin.tar.gz"
 registerMordorSQLTable(spark, mordor_file, "mordorTable")
 
 ### Analytic I

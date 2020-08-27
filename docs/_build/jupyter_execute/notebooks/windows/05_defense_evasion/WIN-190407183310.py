@@ -37,7 +37,7 @@ spark = get_spark()
 
 ### Download & Process Mordor File
 
-mordor_file = "https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/defense_evasion/empire_enable_rdp.tar.gz"
+mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/empire_enable_rdp.tar.gz"
 registerMordorSQLTable(spark, mordor_file, "mordorTable")
 
 ### Analytic I
@@ -71,7 +71,7 @@ df.show(10,False)
 
 | Category | Type | Name     |
 | :--------| :----| :--------|
-| signature | SIGMA | [sysmon_rdp_registry_modification](https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_rdp_registry_modification.yml) |
+| signature | SIGMA | [sysmon_rdp_registry_modification](https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_rdp_registry_modification.yml) |
 
 ## References
 * https://attack.mitre.org/techniques/T1076/

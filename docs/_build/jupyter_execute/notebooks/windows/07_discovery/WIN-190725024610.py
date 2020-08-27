@@ -22,8 +22,8 @@ Adversaries might use tools like Mimikatz with lsadump::sam commands or scripts 
 In addition, adversaries can use the built-in Reg.exe utility to dump the SAM hive in order to crack it offline.
 
 Additional reading
-* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/security_account_manager_database.md
-* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/syskey.md
+* https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/security_account_manager_database.md
+* https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/syskey.md
 
 ## Hypothesis
 Adversaries might be getting a handle to the SAM database to extract credentials in my environment
@@ -37,7 +37,7 @@ spark = get_spark()
 
 ### Download & Process Mordor File
 
-mordor_file = "https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_lsadump_sam.tar.gz"
+mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_lsadump_sam.tar.gz"
 registerMordorSQLTable(spark, mordor_file, "mordorTable")
 
 ### Analytic I

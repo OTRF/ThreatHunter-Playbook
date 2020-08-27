@@ -25,7 +25,7 @@ description: |-
   This is the equivalent of Allow connections from computers running any version of Remote Desktop (less secure) security setting.
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/defense_evasion/empire_enable_rdp.tar.gz
+    url: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/empire_enable_rdp.tar.gz
 analytics:
   - name: Analytic I
     data_sources:
@@ -47,7 +47,7 @@ hunt_output:
   - category: signature
     type: SIGMA
     name: sysmon_rdp_registry_modification
-    url: https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_rdp_registry_modification.yml
+    url: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_rdp_registry_modification.yml
 references: |-
   * https://attack.mitre.org/techniques/T1076/
   * https://github.com/EmpireProject/Empire/blob/master/lib/modules/powershell/management/enable_rdp.py

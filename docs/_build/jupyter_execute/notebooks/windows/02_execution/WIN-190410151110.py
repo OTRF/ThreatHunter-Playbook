@@ -28,7 +28,7 @@ spark = get_spark()
 
 ### Download & Process Mordor File
 
-mordor_file = "https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/execution/empire_launcher_vbs.tar.gz"
+mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/execution/empire_launcher_vbs.tar.gz"
 registerMordorSQLTable(spark, mordor_file, "mordorTable")
 
 ### Analytic I
@@ -157,10 +157,10 @@ df.show(10,False)
 
 | Category | Type | Name     |
 | :--------| :----| :--------|
-| signature | SIGMA | [sysmon_powershell_execution_moduleload](https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_powershell_execution_moduleload.yml) |
-| signature | SIGMA | [sysmon_powershell_execution_pipe](https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_powershell_execution_pipe.yml) |
-| signature | SIGMA | [sysmon_non_interactive_powershell_execution](https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_non_interactive_powershell_execution.yml) |
-| signature | SIGMA | [win_non_interactive_powershell](https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/signatures/sigma/win_non_interactive_powershell.yml) |
+| signature | SIGMA | [sysmon_powershell_execution_moduleload](https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_powershell_execution_moduleload.yml) |
+| signature | SIGMA | [sysmon_powershell_execution_pipe](https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_powershell_execution_pipe.yml) |
+| signature | SIGMA | [sysmon_non_interactive_powershell_execution](https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_non_interactive_powershell_execution.yml) |
+| signature | SIGMA | [win_non_interactive_powershell](https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_non_interactive_powershell.yml) |
 
 ## References
 * https://github.com/darkoperator/Presentations/blob/master/PSConfEU%202019%20Tracking%20PowerShell%20Usage.pdf

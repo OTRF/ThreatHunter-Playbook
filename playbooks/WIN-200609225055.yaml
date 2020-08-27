@@ -17,7 +17,7 @@ description: |-
     * HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\.
 validation_dataset:
   - type: mordor
-    url: https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/collection/msf_record_mic.zip
+    url: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/collection/msf_record_mic.zip
 analytics:
   - name: Analytic I
     data_sources:
@@ -47,10 +47,10 @@ hunt_output:
   - category: signature
     type: SIGMA
     name: sysmon_camera_microphone_access
-    url: https://github.com/hunters-forge/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_camera_microphone_access.yml
+    url: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_camera_microphone_access.yml
   - category: signature
     type: SIGMA
     name: win_camera_microphone_access
-    url: https://github.com/hunters-forge/ThreatHunter-Playbook/blob/master/signatures/sigma/win_camera_microphone_access.yml
+    url: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_camera_microphone_access.yml
 references: |-
   * https://medium.com/@7a616368/can-you-track-processes-accessing-the-camera-and-microphone-7e6885b37072

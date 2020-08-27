@@ -101,7 +101,7 @@ spark = get_spark()
 
 ### Download & Process Mordor File
 
-mordor_file = "https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/credential_access/empire_extended_netntlm_downgrade.tar.gz"
+mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_extended_netntlm_downgrade.tar.gz"
 registerMordorSQLTable(spark, mordor_file, "mordorTable")
 
 ### Analytic I
@@ -185,6 +185,6 @@ df.show(10,False)
 * https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-security-lan-manager-authentication-level
 * https://twitter.com/elad_shamir/status/975670116519063553
 * https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-security-restrict-ntlm-outgoing-ntlm-traffic-to-remote-servers
-* https://github.com/hunters-forge/Set-AuditRule/blob/master/registry/lsa.md
+* https://github.com/OTRF/Set-AuditRule/blob/master/registry/lsa.md
 * https://www.andreafortuna.org/2018/03/26/retrieving-ntlm-hashes-without-touching-lsass-the-internal-monologue-attack/
 * https://www.optiv.com/blog/post-exploitation-using-netntlm-downgrade-attacks

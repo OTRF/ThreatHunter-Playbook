@@ -26,7 +26,7 @@ The process WmiprvSE.exe is what spawns the process defined in the CommandLine p
 From a logon session perspective, on the target, WmiprvSE.exe is spawned in a different logon session by the DCOM service host. However, whatever is executed by WmiprvSE.exe occurs on the new network type (3) logon session created by the user that authenticated from the network.
 
 Additional Reading
-* https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/logon_session.md
+* https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/logon_session.md
 
 ## Hypothesis
 Adversaries might be leveraging WMI Win32_Process class and method Create to execute code remotely across my environment
@@ -40,7 +40,7 @@ spark = get_spark()
 
 ### Download & Process Mordor File
 
-mordor_file = "https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/execution/empire_invoke_wmi.tar.gz"
+mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/execution/empire_invoke_wmi.tar.gz"
 registerMordorSQLTable(spark, mordor_file, "mordorTable")
 
 ### Analytic I
@@ -124,7 +124,7 @@ df.show(10,False)
 
 | Category | Type | Name     |
 | :--------| :----| :--------|
-| signature | SIGMA | [sysmon_wmi_module_load](https://github.com/hunters-forge/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_wmi_module_load.yml) |
+| signature | SIGMA | [sysmon_wmi_module_load](https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_wmi_module_load.yml) |
 
 ## References
 * https://posts.specterops.io/threat-hunting-with-jupyter-notebooks-part-4-sql-join-via-apache-sparksql-6630928c931e

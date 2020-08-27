@@ -217,14 +217,14 @@
         aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
-            href="https://github.com/hunters-forge/ThreatHunter-Playbook"><button type="button" class="btn btn-secondary topbarbtn"
+            href="https://github.com/OTRF/ThreatHunter-Playbook"><button type="button" class="btn btn-secondary topbarbtn"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/hunters-forge/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Fpre-hunt/data_modeling.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/OTRF/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Fpre-hunt/data_modeling.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/pre-hunt/data_modeling.md"><button
+        <a class="edit-button" href="https://github.com/OTRF/ThreatHunter-Playbook/edit/master/docs/pre-hunt/data_modeling.md"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -318,7 +318,7 @@
 <div class="section" id="identify-relationships">
 <h3>Identify Relationships<a class="headerlink" href="#identify-relationships" title="Permalink to this headline">¶</a></h3>
 <p>Each event log collected is triggered by a specific action, and each event contains a specific structure and data elements that represent data objects in the Cyber domain such as a process, IP address, e-mail, user, etc.</p>
-<p>For example, <a class="reference external" href="https://github.com/hunters-forge/OSSEM/blob/master/data_dictionaries/windows/sysmon/events/event-1.md">Windows Sysmon Event ID 1</a> is triggered when a <strong>Process</strong> is created, and contains the following information:</p>
+<p>For example, <a class="reference external" href="https://github.com/OTRF/OSSEM/blob/master/data_dictionaries/windows/sysmon/events/event-1.md">Windows Sysmon Event ID 1</a> is triggered when a <strong>Process</strong> is created, and contains the following information:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;Data Name=&quot;RuleName&quot; /&gt; 
 &lt;Data Name=&quot;UtcTime&quot;&gt;2019-06-12 00:48:53.295&lt;/Data&gt; 
 &lt;Data Name=&quot;ProcessGuid&quot;&gt;{A98268C1-4BF5-5D00-0000-00102A7B2B00}&lt;/Data&gt; 
@@ -351,7 +351,7 @@
 </div>
 <div class="section" id="document-relationships">
 <h3>Document Relationships<a class="headerlink" href="#document-relationships" title="Permalink to this headline">¶</a></h3>
-<p>Once you identify those relationships, start documenting them in a way that it is easy for others to read. One perfect example is <a class="reference external" href="https://docs.google.com/spreadsheets/d/1ow7YRDEDJs67kcKMZZ66_5z1ipJry9QrsDQkjQvizJM/edit?usp=sharing">this document</a> developed in the <a class="reference external" href="https://github.com/hunters-forge/OSSEM">OSSEM project</a> that shows relationships identified on several Windows event logs.</p>
+<p>Once you identify those relationships, start documenting them in a way that it is easy for others to read. One perfect example is <a class="reference external" href="https://docs.google.com/spreadsheets/d/1ow7YRDEDJs67kcKMZZ66_5z1ipJry9QrsDQkjQvizJM/edit?usp=sharing">this document</a> developed in the <a class="reference external" href="https://github.com/OTRF/OSSEM">OSSEM project</a> that shows relationships identified on several Windows event logs.</p>
 <p><img alt="" src="../_images/DATA_MODELING_TABLE.png" /></p>
 </div>
 <div class="section" id="model-adversary-behavior">
@@ -378,7 +378,7 @@
     {
         requestKernel: true,
         binderOptions: {
-            repo: "hunters-forge/ThreatHunter-Playbook",
+            repo: "OTRF/ThreatHunter-Playbook",
             ref: "master",
         },
         codeMirrorConfig: {

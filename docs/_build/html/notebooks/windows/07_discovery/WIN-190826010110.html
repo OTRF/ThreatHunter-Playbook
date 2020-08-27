@@ -376,14 +376,14 @@
         aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
     <div class="dropdown-buttons sourcebuttons">
         <a class="repository-button"
-            href="https://github.com/hunters-forge/ThreatHunter-Playbook"><button type="button" class="btn btn-secondary topbarbtn"
+            href="https://github.com/OTRF/ThreatHunter-Playbook"><button type="button" class="btn btn-secondary topbarbtn"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/hunters-forge/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Fnotebooks/windows/07_discovery/WIN-190826010110.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/OTRF/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Fnotebooks/windows/07_discovery/WIN-190826010110.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/hunters-forge/ThreatHunter-Playbook/edit/master/docs/notebooks/windows/07_discovery/WIN-190826010110.ipynb"><button
+        <a class="edit-button" href="https://github.com/OTRF/ThreatHunter-Playbook/edit/master/docs/notebooks/windows/07_discovery/WIN-190826010110.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -402,7 +402,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/hunters-forge/ThreatHunter-Playbook/master?urlpath=tree/docs/notebooks/windows/07_discovery/WIN-190826010110.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/OTRF/ThreatHunter-Playbook/master?urlpath=tree/docs/notebooks/windows/07_discovery/WIN-190826010110.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../../../_static/images/logo_binder.svg"
@@ -410,7 +410,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/hunters-forge/ThreatHunter-Playbook/blob/master/docs/notebooks/windows/07_discovery/WIN-190826010110.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/OTRF/ThreatHunter-Playbook/blob/master/docs/notebooks/windows/07_discovery/WIN-190826010110.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -560,7 +560,7 @@ An adversary can simply use the Win32 API function <a class="reference external"
 If this succeeds (A non-zero handle is returned), the current user context has local administrator acess to the remote host.</p>
 <p>Additional reading</p>
 <ul class="simple">
-<li><p>https://github.com/hunters-forge/ThreatHunter-Playbook/tree/master/docs/library/service_control_manager.md</p></li>
+<li><p>https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/service_control_manager.md</p></li>
 </ul>
 </div>
 <div class="section" id="hypothesis">
@@ -584,20 +584,8 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 <h3>Download &amp; Process Mordor File<a class="headerlink" href="#download-process-mordor-file" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/hunters-forge/mordor/master/datasets/small/windows/discovery/empire_find_local_admin.tar.gz&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/discovery/empire_find_local_admin.tar.gz&quot;</span>
 <span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
-</pre></div>
-</div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing Data from Winlogbeat version 6..
-[+] DataFrame Returned !
-</pre></div>
-</div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
 </pre></div>
 </div>
 </div>
@@ -637,16 +625,6 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+----------------------+---------------+---------------+--------------------------------+--------------+
-|@timestamp            |computer_name  |SubjectUserName|ProcessName                     |ObjectName    |
-+----------------------+---------------+---------------+--------------------------------+--------------+
-|2019-05-18 18:41:17.45|HR001.shire.com|pgustavo       |C:\Windows\System32\services.exe|ServicesActive|
-+----------------------+---------------+---------------+--------------------------------+--------------+
-
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="analytic-ii">
@@ -680,17 +658,6 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+---------------+--------------------------------+--------------+------------------------+------------+
-|@timestamp             |computer_name   |SubjectUserName|ProcessName                     |ObjectName    |PrivilegeList           |ObjectServer|
-+-----------------------+----------------+---------------+--------------------------------+--------------+------------------------+------------+
-|2019-05-18 18:41:14.998|HFDC01.shire.com|pgustavo       |C:\Windows\System32\services.exe|ServicesActive|SeTakeOwnershipPrivilege|SC Manager  |
-|2019-05-18 18:41:17.473|IT001.shire.com |pgustavo       |C:\Windows\System32\services.exe|ServicesActive|SeTakeOwnershipPrivilege|SC Manager  |
-+-----------------------+----------------+---------------+--------------------------------+--------------+------------------------+------------+
-
 </pre></div>
 </div>
 </div>
@@ -728,17 +695,6 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+-----------------------------------------------------+----------+-------------+--------+-------------+
-|@timestamp             |computer_name   |Application                                          |SourcePort|SourceAddress|DestPort|DestAddress  |
-+-----------------------+----------------+-----------------------------------------------------+----------+-------------+--------+-------------+
-|2019-05-18 18:41:14.984|HFDC01.shire.com|\device\harddiskvolume2\windows\system32\services.exe|58835     |172.18.39.106|53285   |172.18.39.5  |
-|2019-05-18 18:41:17.47 |IT001.shire.com |\device\harddiskvolume2\windows\system32\services.exe|58838     |172.18.39.106|49691   |172.18.39.105|
-+-----------------------+----------------+-----------------------------------------------------+----------+-------------+--------+-------------+
-
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="analytic-iv">
@@ -769,17 +725,6 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+-------------------+----------+-------------+---------------+-------------+
-|@timestamp             |computer_name   |User               |SourcePort|SourceIp     |DestinationPort|DestinationIp|
-+-----------------------+----------------+-------------------+----------+-------------+---------------+-------------+
-|2019-05-18 18:41:16.218|HFDC01.shire.com|NT AUTHORITY\SYSTEM|53285     |172.18.39.5  |58835          |172.18.39.106|
-|2019-05-18 18:41:18.504|IT001.shire.com |NT AUTHORITY\SYSTEM|49691     |172.18.39.105|58838          |172.18.39.106|
-+-----------------------+----------------+-------------------+----------+-------------+---------------+-------------+
-
 </pre></div>
 </div>
 </div>
@@ -824,17 +769,6 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+---------------+-----------------+--------------+------------------------+-------------+
-|@timestamp             |computer_name   |SubjectUserName|ObjectType       |ObjectName    |PrivilegeList           |IpAddress    |
-+-----------------------+----------------+---------------+-----------------+--------------+------------------------+-------------+
-|2019-05-18 18:41:14.998|HFDC01.shire.com|pgustavo       |SC_MANAGER OBJECT|ServicesActive|SeTakeOwnershipPrivilege|172.18.39.106|
-|2019-05-18 18:41:17.473|IT001.shire.com |pgustavo       |SC_MANAGER OBJECT|ServicesActive|SeTakeOwnershipPrivilege|172.18.39.106|
-+-----------------------+----------------+---------------+-----------------+--------------+------------------------+-------------+
-
 </pre></div>
 </div>
 </div>
@@ -896,7 +830,7 @@ If this succeeds (A non-zero handle is returned), the current user context has l
     {
         requestKernel: true,
         binderOptions: {
-            repo: "hunters-forge/ThreatHunter-Playbook",
+            repo: "OTRF/ThreatHunter-Playbook",
             ref: "master",
         },
         codeMirrorConfig: {
