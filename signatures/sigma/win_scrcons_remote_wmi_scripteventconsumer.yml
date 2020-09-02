@@ -1,0 +1,21 @@
+title: Remote WMI ActiveScriptEventConsumers
+description: Detect potential adversaries leveraging WMI ActiveScriptEventConsumers remotely to move laterally in a network
+status: experimental
+date: 2020/09/02
+author: Roberto Rodriguez @Cyb3rWard0g
+references:
+    - https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-200902020333.html
+logsource:
+    product: windows
+    service: security
+detection:
+    selection: 
+        EventID: 4624
+        LogonType: 3
+        ProcessName: '*scrcons.exe' 
+    filter:
+        TargetLogonId:  '0x3e7'
+    condition: selection and not filter
+falsepositives:
+    - SCCM
+level: critical

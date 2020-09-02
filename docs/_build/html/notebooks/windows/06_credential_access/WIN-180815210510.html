@@ -176,6 +176,23 @@
        WMI Eventing
       </a>
      </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../03_persistence/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04_privilege_escalation/privilege_escalation.html">
+     Privilege Escalation
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../04_privilege_escalation/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
     </ul>
    </li>
    <li class="toctree-l2">
@@ -277,6 +294,11 @@
      <li class="toctree-l3">
       <a class="reference internal" href="../08_lateral_movement/WIN-190810201010.html">
        WMI Win32_Process Class and Create Method for Remote Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../08_lateral_movement/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
       </a>
      </li>
      <li class="toctree-l3">
@@ -591,18 +613,6 @@ Therefore, it might be abnormal to see other non-dc-accounts doing it.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
-</pre></div>
-</div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing Data from Winlogbeat version 6..
-</pre></div>
-</div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] DataFrame Returned !
-[+] Temporary SparkSQL View: mordorTable 
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="analytic-i">
@@ -639,18 +649,6 @@ Therefore, it might be abnormal to see other non-dc-accounts doing it.</p>
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+---------------+--------------+
-|@timestamp             |computer_name   |SubjectUserName|SubjectLogonId|
-+-----------------------+----------------+---------------+--------------+
-|2019-03-01 17:49:11.564|HFDC01.shire.com|Mmidge         |0x80a1c8a     |
-|2019-03-01 17:49:11.564|HFDC01.shire.com|Mmidge         |0x80a1c8a     |
-|2019-03-01 17:49:11.564|HFDC01.shire.com|Mmidge         |0x80a1c8a     |
-+-----------------------+----------------+---------------+--------------+
-
 </pre></div>
 </div>
 </div>
@@ -701,18 +699,6 @@ Therefore, it might be abnormal to see other non-dc-accounts doing it.</p>
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+---------------+--------------+-------------+
-|@timestamp             |computer_name   |SubjectUserName|SubjectLogonId|IpAddress    |
-+-----------------------+----------------+---------------+--------------+-------------+
-|2019-03-01 17:49:11.564|HFDC01.shire.com|Mmidge         |0x80a1c8a     |172.18.39.105|
-|2019-03-01 17:49:11.564|HFDC01.shire.com|Mmidge         |0x80a1c8a     |172.18.39.105|
-|2019-03-01 17:49:11.564|HFDC01.shire.com|Mmidge         |0x80a1c8a     |172.18.39.105|
-+-----------------------+----------------+---------------+--------------+-------------+
-
 </pre></div>
 </div>
 </div>

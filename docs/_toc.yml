@@ -32,6 +32,10 @@
     - file: notebooks/windows/03_persistence/persistence
       sections:
       - file: notebooks/windows/03_persistence/WIN-190810170510
+      - file: notebooks/windows/03_persistence/WIN-200902020333
+    - file: notebooks/windows/04_privilege_escalation/privilege_escalation
+      sections:
+      - file: notebooks/windows/04_privilege_escalation/WIN-200902020333
     - file: notebooks/windows/05_defense_evasion/defense_evasion
       sections:
       - file: notebooks/windows/05_defense_evasion/WIN-180719170510
@@ -55,6 +59,7 @@
       sections:
       - file: notebooks/windows/08_lateral_movement/WIN-190815181010
       - file: notebooks/windows/08_lateral_movement/WIN-190810201010
+      - file: notebooks/windows/08_lateral_movement/WIN-200902020333
       - file: notebooks/windows/08_lateral_movement/WIN-190511223310
     - file: notebooks/windows/09_collection/collection
       sections:

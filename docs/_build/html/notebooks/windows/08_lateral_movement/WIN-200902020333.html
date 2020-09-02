@@ -1,0 +1,1035 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Remote WMI ActiveScriptEventConsumers &#8212; Threat Hunter Playbook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/sphinx-book-theme.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/mystnb.js"></script>
+    <script src="../../../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-200902020333.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="PowerShell Remote Session" href="WIN-190511223310.html" />
+    <link rel="prev" title="WMI Win32_Process Class and Create Method for Remote Execution" href="WIN-190810201010.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-200902020333.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Remote WMI ActiveScriptEventConsumers" />
+<meta property="og:description" content="Remote WMI ActiveScriptEventConsumers  Metadata          id  WIN-200902020333  author  Roberto Rodriguez @Cyb3rWard0g  creation date  2020/09/02  platform  Wind" />
+<meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../../index.html">
+  
+  <img src="../../../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Threat Hunter Playbook</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <p class="caption">
+ <span class="caption-text">
+  Pre-Hunt Activities
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../pre-hunt/data_management.html">
+   Data Management
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Campaign Notebooks
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../evals/intro.html">
+   ATT&amp;CK Evaluations
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Targeted Notebooks
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="../windows.html">
+   Windows
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../02_execution/execution.html">
+     Execution
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02_execution/WIN-190815181010.html">
+       Alternate PowerShell Hosts
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02_execution/WIN-190810201010.html">
+       WMI Win32_Process Class and Create Method for Remote Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02_execution/WIN-190410151110.html">
+       Basic PowerShell Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02_execution/WIN-190813181020.html">
+       Service Creation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02_execution/WIN-190815181010.html">
+       Alternate PowerShell Hosts
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02_execution/WIN-190811201010.html">
+       WMI Module Load
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02_execution/WIN-190511223310.html">
+       PowerShell Remote Session
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../02_execution/WIN-190511223310.html">
+       PowerShell Remote Session
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../03_persistence/persistence.html">
+     Persistence
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../03_persistence/WIN-190810170510.html">
+       WMI Eventing
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../03_persistence/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04_privilege_escalation/privilege_escalation.html">
+     Privilege Escalation
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../04_privilege_escalation/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../05_defense_evasion/defense_evasion.html">
+     Defense Evasion
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05_defense_evasion/WIN-180719170510.html">
+       DLL Injection via CreateRemoteThread and LoadLibrary
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05_defense_evasion/WIN-190407183310.html">
+       Enable Remote Desktop Conections Registry
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05_defense_evasion/WIN-190510202010.html">
+       WDigest Downgrade
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../05_defense_evasion/WIN-190101151110.html">
+       Active Directory Replication User Backdoor
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../06_credential_access/credential_access.html">
+     Credential Access
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../06_credential_access/WIN-190620024610.html">
+       Domain DPAPI Backup Key Extraction
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../06_credential_access/WIN-190725024610.html">
+       SAM Registry Hive Handle Request
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../06_credential_access/WIN-191224222300.html">
+       Extended NetNTLM Downgrade
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../06_credential_access/WIN-180815210510.html">
+       Active Directory Replication From Non-Domain-Controller Accounts
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../06_credential_access/WIN-191030201010.html">
+       Remote Interactive Task Manager LSASS Dump
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../06_credential_access/WIN-170105221010.html">
+       LSASS Access from Non System Account
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../07_discovery/discovery.html">
+     Discovery
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../07_discovery/WIN-190725024610.html">
+       SAM Registry Hive Handle Request
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../07_discovery/WIN-190625024610.html">
+       SysKey Registry Keys Access
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../07_discovery/WIN-190826010110.html">
+       Remote Service Control Manager Handle
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="reference internal" href="lateral_movement.html">
+     Lateral Movement
+    </a>
+    <ul class="current">
+     <li class="toctree-l3">
+      <a class="reference internal" href="WIN-190815181010.html">
+       Remote Service creation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="WIN-190810201010.html">
+       WMI Win32_Process Class and Create Method for Remote Execution
+      </a>
+     </li>
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
+       Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="WIN-190511223310.html">
+       PowerShell Remote Session
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../09_collection/collection.html">
+     Collection
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../09_collection/WIN-200609225055.html">
+       Access to Microphone Device
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../linux/linux.html">
+   Linux
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../mac/mac.html">
+   Mac
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Tutorials
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../tutorials/jupyter/introduction.html">
+   Jupyter Notebooks
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/notebooks/windows/08_lateral_movement/WIN-200902020333.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/OTRF/ThreatHunter-Playbook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/OTRF/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Fnotebooks/windows/08_lateral_movement/WIN-200902020333.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/OTRF/ThreatHunter-Playbook/edit/master/docs/notebooks/windows/08_lateral_movement/WIN-200902020333.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/OTRF/ThreatHunter-Playbook/master?urlpath=tree/docs/notebooks/windows/08_lateral_movement/WIN-200902020333.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/OTRF/ThreatHunter-Playbook/blob/master/docs/notebooks/windows/08_lateral_movement/WIN-200902020333.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#metadata">
+   Metadata
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#technical-description">
+   Technical Description
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hypothesis">
+   Hypothesis
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#analytics">
+   Analytics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#initialize-analytics-engine">
+     Initialize Analytics Engine
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#download-process-mordor-file">
+     Download &amp; Process Mordor File
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#analytic-i">
+     Analytic I
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#analytic-ii">
+     Analytic II
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#analytic-iii">
+     Analytic III
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#analytic-iv">
+     Analytic IV
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#analytic-v">
+     Analytic V
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#analytic-vi">
+     Analytic VI
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#analytic-vii">
+     Analytic VII
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#analytic-viii">
+     Analytic VIII
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#detection-blindspots">
+   Detection Blindspots
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hunter-notes">
+   Hunter Notes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hunt-output">
+   Hunt Output
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="remote-wmi-activescripteventconsumers">
+<h1>Remote WMI ActiveScriptEventConsumers<a class="headerlink" href="#remote-wmi-activescripteventconsumers" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="metadata">
+<h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p></p></th>
+<th class="text-align:left head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>id</p></td>
+<td class="text-align:left"><p>WIN-200902020333</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>author</p></td>
+<td class="text-align:left"><p>Roberto Rodriguez &#64;Cyb3rWard0g</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>creation date</p></td>
+<td class="text-align:left"><p>2020/09/02</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>platform</p></td>
+<td class="text-align:left"><p>Windows</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>playbook link</p></td>
+<td class="text-align:left"><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="technical-description">
+<h2>Technical Description<a class="headerlink" href="#technical-description" title="Permalink to this headline">¶</a></h2>
+<p>Threat actors can achieve remote code execution by using WMI event subscriptions. Normally, a permanent WMI event subscription is designed to persist and respond to certain events.
+According to <a class="reference external" href="https://twitter.com/mattifestation">Matt Graeber</a>, if an attacker wanted to execute a single payload however, the respective event consumer would just need to delete its corresponding event filter, consumer, and filter to consumer binding.
+The advantage of this technique is that the payload runs as SYSTEM, and it avoids having a payload be displayed in plaintext in the presence of command line auditing.</p>
+<p>One of the components of an Event subscription is the event consumer. It is basically the main action that gets executed when a filter triggers (i.e. monitor for authentication events. if one occurs. trigger the consumer).</p>
+<p>According to <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/standard-consumer-classes">MS Documentation</a>, there are several WMI consumer classes available:</p>
+<ul class="simple">
+<li><p>ActiveScriptEventConsumer: Executes a predefined script in an arbitrary scripting language when an event is delivered to it. Example: <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/running-a-script-based-on-an-event">Running a Script Based on an Event</a></p></li>
+<li><p>CommandLineEventConsumer: Launches an arbitrary process in the local system context when an event is delivered to it. Example: <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/running-a-program-from-the-command-line-based-on-an-event">Running a Program from the Command Line Based on an Event</a></p></li>
+<li><p>LogFileEventConsumer: Writes customized strings to a text log file when events are delivered to it. Example: <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/writing-to-a-log-file-based-on-an-event">Writing to a Log File Based on an Event</a></p></li>
+<li><p>NTEventLogEventConsumer: Logs a specific message to the Windows event log when an event is delivered to it. Example: <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/logging-to-nt-event-log-based-on-an-event">Logging to NT Event Log Based on an Event</a></p></li>
+<li><p>ScriptingStandardConsumerSetting 	Provides registration data common to all instances of the ActiveScriptEventConsumer class.</p></li>
+<li><p>SMTPEventConsumer 	Sends an email message using SMTP each time an event is delivered to it. Example: <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/sending-e-mail-based-on-an-event">Sending Email Based on an Event</a></p></li>
+</ul>
+<p>The ActiveScriptEventConsumer class allows for the execution of scripting code from either JScript or VBScript engines and WMI script host process is <code class="docutils literal notranslate"><span class="pre">%SystemRoot%\system32\wbem\scrcons.exe</span></code>.</p>
+</div>
+<div class="section" id="hypothesis">
+<h2>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">¶</a></h2>
+<p>Adversaries might be leveraging WMI ActiveScriptEventConsumers remotely to move laterally in my network.</p>
+</div>
+<div class="section" id="analytics">
+<h2>Analytics<a class="headerlink" href="#analytics" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="initialize-analytics-engine">
+<h3>Initialize Analytics Engine<a class="headerlink" href="#initialize-analytics-engine" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">spark</span> <span class="o">=</span> <span class="n">get_spark</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="download-process-mordor-file">
+<h3>Download &amp; Process Mordor File<a class="headerlink" href="#download-process-mordor-file" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/covenant_wmi_event_subscription.zip&quot;</span>
+<span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="analytic-i">
+<h3>Analytic I<a class="headerlink" href="#analytic-i" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
+<th class="text-align:left head"><p>Log Channel</p></th>
+<th class="text-align:left head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
+<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
+<td class="text-align:left"><p>Look for the creation of Event consumers of script type.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT EventID, Message</span>
+<span class="sd">FROM mordorTable</span>
+<span class="sd">WHERE Channel = &#39;Microsoft-Windows-Sysmon/Operational&#39;</span>
+<span class="sd">  AND EventID = 20</span>
+<span class="sd">  AND Type = &#39;Script&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="analytic-ii">
+<h3>Analytic II<a class="headerlink" href="#analytic-ii" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
+<th class="text-align:left head"><p>Log Channel</p></th>
+<th class="text-align:left head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
+<td class="text-align:left"><p>[‘Microsoft-Windows-WMI-Activity/Operational’]</p></td>
+<td class="text-align:left"><p>Look for the creation of Event consumers of script type (i.e vbscript).</p></td>
+</tr>
+</tbody>
+</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT EventID, Message</span>
+<span class="sd">FROM mordorTable</span>
+<span class="sd">WHERE Channel = &#39;Microsoft-Windows-WMI-Activity/Operational&#39;</span>
+<span class="sd">  AND EventID = 5861</span>
+<span class="sd">  AND LOWER(Message) LIKE &#39;%vbs%&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="analytic-iii">
+<h3>Analytic III<a class="headerlink" href="#analytic-iii" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
+<th class="text-align:left head"><p>Log Channel</p></th>
+<th class="text-align:left head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
+<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
+<td class="text-align:left"><p>Look for any indicators that the WMI script host process %SystemRoot%\system32\wbem\scrcons.exe is created. This is created by svchost.exe.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT ParentImage, Image, CommandLine, ProcessId, ProcessGuid</span>
+<span class="sd">FROM mordorTable</span>
+<span class="sd">WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">    AND EventID = 1</span>
+<span class="sd">    AND Image LIKE &#39;%scrcons%&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="analytic-iv">
+<h3>Analytic IV<a class="headerlink" href="#analytic-iv" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
+<th class="text-align:left head"><p>Log Channel</p></th>
+<th class="text-align:left head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
+<td class="text-align:left"><p>[‘Security’]</p></td>
+<td class="text-align:left"><p>Look for any indicators that the WMI script host process %SystemRoot%\system32\wbem\scrcons.exe is created. This is created by svchost.exe.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT ParentProcessName, NewProcessName, CommandLine, NewProcessId</span>
+<span class="sd">FROM mordorTable</span>
+<span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
+<span class="sd">    AND EventID = 4688</span>
+<span class="sd">    AND NewProcessName LIKE &#39;%scrcons%&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="analytic-v">
+<h3>Analytic V<a class="headerlink" href="#analytic-v" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
+<th class="text-align:left head"><p>Log Channel</p></th>
+<th class="text-align:left head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
+<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
+<td class="text-align:left"><p>Look for any indicators that the WMI script host process %SystemRoot%\system32\wbem\scrcons.exe is being used. You can do this by looking for a few modules being loaded by a process.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT Image, ImageLoaded, Description, ProcessGuid</span>
+<span class="sd">FROM mordorTable</span>
+<span class="sd">WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">    AND EventID = 7</span>
+<span class="sd">    AND LOWER(ImageLoaded) IN (</span>
+<span class="sd">        &#39;c:\\\windows\\\system32\\\wbem\\\scrcons.exe&#39;,</span>
+<span class="sd">        &#39;c:\\\windows\\\system32\\\\vbscript.dll&#39;,</span>
+<span class="sd">        &#39;c:\\\windows\\\system32\\\wbem\\\wbemdisp.dll&#39;,</span>
+<span class="sd">        &#39;c:\\\windows\\\system32\\\wshom.ocx&#39;,</span>
+<span class="sd">        &#39;c:\\\windows\\\system32\\\scrrun.dll&#39;</span>
+<span class="sd">    )</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="analytic-vi">
+<h3>Analytic VI<a class="headerlink" href="#analytic-vi" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
+<th class="text-align:left head"><p>Log Channel</p></th>
+<th class="text-align:left head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
+<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
+<td class="text-align:left"><p>Look for any indicators that the WMI script host process %SystemRoot%\system32\wbem\scrcons.exe is being used and add some context to it that might not be normal in your environment. You can add network connections context to look for any scrcons.exe reaching out to external hosts over the network.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT d.`@timestamp`, c.Image, d.DestinationIp, d.ProcessId</span>
+<span class="sd">FROM mordorTable d</span>
+<span class="sd">INNER JOIN (</span>
+<span class="sd">    SELECT b.ImageLoaded, a.CommandLine, b.ProcessGuid, a.Image</span>
+<span class="sd">    FROM mordorTable b</span>
+<span class="sd">    INNER JOIN (</span>
+<span class="sd">        SELECT ProcessGuid, CommandLine, Image</span>
+<span class="sd">        FROM mordorTable</span>
+<span class="sd">        WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">            AND EventID = 1</span>
+<span class="sd">            AND Image LIKE &#39;%scrcons.exe&#39;</span>
+<span class="sd">        ) a</span>
+<span class="sd">    ON b.ProcessGuid = a.ProcessGuid</span>
+<span class="sd">    WHERE b.Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">        AND b.EventID = 7</span>
+<span class="sd">        AND LOWER(b.ImageLoaded) IN (</span>
+<span class="sd">            &#39;c:\\\windows\\\system32\\\wbem\\\scrcons.exe&#39;,</span>
+<span class="sd">            &#39;c:\\\windows\\\system32\\\\vbscript.dll&#39;,</span>
+<span class="sd">            &#39;c:\\\windows\\\system32\\\wbem\\\wbemdisp.dll&#39;,</span>
+<span class="sd">            &#39;c:\\\windows\\\system32\\\wshom.ocx&#39;,</span>
+<span class="sd">            &#39;c:\\\windows\\\system32\\\scrrun.dll&#39;</span>
+<span class="sd">        )</span>
+<span class="sd">) c</span>
+<span class="sd">ON d.ProcessGuid = c.ProcessGuid</span>
+<span class="sd">WHERE d.Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">    AND d.EventID = 3</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="analytic-vii">
+<h3>Analytic VII<a class="headerlink" href="#analytic-vii" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
+<th class="text-align:left head"><p>Log Channel</p></th>
+<th class="text-align:left head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
+<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’, ‘Security’]</p></td>
+<td class="text-align:left"><p>One of the main goals is to find context that could tell us that scrcons.exe was used over the network (Lateral Movement). One way would be to add a network logon session as context to some of the previous events.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT d.`@timestamp`, d.TargetUserName, c.Image, c.ProcessId</span>
+<span class="sd">FROM mordorTable d</span>
+<span class="sd">INNER JOIN (</span>
+<span class="sd">    SELECT b.ImageLoaded, a.CommandLine, b.ProcessGuid, a.Image</span>
+<span class="sd">    FROM mordorTable b</span>
+<span class="sd">    INNER JOIN (</span>
+<span class="sd">        SELECT ProcessGuid, CommandLine, Image</span>
+<span class="sd">        FROM mordorTable</span>
+<span class="sd">        WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">            AND EventID = 1</span>
+<span class="sd">            AND Image LIKE &#39;%scrcons.exe&#39;</span>
+<span class="sd">        ) a</span>
+<span class="sd">    ON b.ProcessGuid = a.ProcessGuid</span>
+<span class="sd">    WHERE b.Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">        AND b.EventID = 7</span>
+<span class="sd">        AND LOWER(b.ImageLoaded) IN (</span>
+<span class="sd">            &#39;c:\\\windows\\\system32\\\wbem\\\scrcons.exe&#39;,</span>
+<span class="sd">            &#39;c:\\\windows\\\system32\\\\vbscript.dll&#39;,</span>
+<span class="sd">            &#39;c:\\\windows\\\system32\\\wbem\\\wbemdisp.dll&#39;,</span>
+<span class="sd">            &#39;c:\\\windows\\\system32\\\wshom.ocx&#39;,</span>
+<span class="sd">            &#39;c:\\\windows\\\system32\\\scrrun.dll&#39;</span>
+<span class="sd">        )</span>
+<span class="sd">) c</span>
+<span class="sd">ON split(d.ProcessId, &#39;0x&#39;)[1] = LOWER(hex(CAST(c.ProcessId as INT)))</span>
+<span class="sd">WHERE LOWER(d.Channel) = &quot;security&quot;</span>
+<span class="sd">    AND d.EventID = 4624</span>
+<span class="sd">    AND d.LogonType = 3</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="analytic-viii">
+<h3>Analytic VIII<a class="headerlink" href="#analytic-viii" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
+<th class="text-align:left head"><p>Log Channel</p></th>
+<th class="text-align:left head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
+<td class="text-align:left"><p>[‘Security’]</p></td>
+<td class="text-align:left"><p>One of the main goals is to find context that could tell us that scrcons.exe was used over the network (Lateral Movement). One way would be to add a network logon session as context to some of the previous events.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, Message</span>
+<span class="sd">FROM mordorTable</span>
+<span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
+<span class="sd">    AND EventID = 4624</span>
+<span class="sd">    AND LogonType = 3</span>
+<span class="sd">    AND ProcessName LIKE &#39;%scrcons.exe&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="detection-blindspots">
+<h2>Detection Blindspots<a class="headerlink" href="#detection-blindspots" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="hunter-notes">
+<h2>Hunter Notes<a class="headerlink" href="#hunter-notes" title="Permalink to this headline">¶</a></h2>
+<p>[‘Baseline your environment to identify normal activity. Apparently, SCCM leverages WMI event subscriptions.’]</p>
+</div>
+<div class="section" id="hunt-output">
+<h2>Hunt Output<a class="headerlink" href="#hunt-output" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Category</p></th>
+<th class="text-align:left head"><p>Type</p></th>
+<th class="text-align:left head"><p>Name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>signature</p></td>
+<td class="text-align:left"><p>SIGMA</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_scrcons_remote_wmi_scripteventconsumer.yml">win_scrcons_remote_wmi_scripteventconsumer</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>https://www.mdsec.co.uk/2020/09/i-like-to-move-it-windows-lateral-movement-part-1-wmi-event-subscription/</p></li>
+<li><p>https://www.fireeye.com/content/dam/fireeye-www/services/pdfs/sans-dfir-2015.pdf</p></li>
+<li><p>https://www.blackhat.com/docs/us-15/materials/us-15-Graeber-Abusing-Windows-Management-Instrumentation-WMI-To-Build-A-Persistent%20Asynchronous-And-Fileless-Backdoor-wp.pdf</p></li>
+<li><p>https://docs.microsoft.com/en-us/windows/win32/wmisdk/scriptingstandardconsumersetting</p></li>
+<li><p>https://docs.microsoft.com/en-us/windows/win32/wmisdk/standard-consumer-classes</p></li>
+<li><p>https://docs.microsoft.com/en-us/windows/win32/wmisdk/running-a-script-based-on-an-event</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "OTRF/ThreatHunter-Playbook",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "pyspark3"
+        },
+        kernelOptions: {
+            kernelName: "pyspark3",
+            path: "./notebooks/windows/08_lateral_movement"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'pyspark3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="WIN-190810201010.html" title="previous page">WMI Win32_Process Class and Create Method for Remote Execution</a>
+    <a class='right-next' id="next-link" href="WIN-190511223310.html" title="next page">PowerShell Remote Session</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Roberto Rodriguez @Cyb3rWard0g<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../../../_static/js/index.js"></script>
+    
+  </body>
+</html>
