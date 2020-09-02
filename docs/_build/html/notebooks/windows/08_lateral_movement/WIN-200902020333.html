@@ -599,7 +599,7 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 <li><p>ScriptingStandardConsumerSetting 	Provides registration data common to all instances of the ActiveScriptEventConsumer class.</p></li>
 <li><p>SMTPEventConsumer 	Sends an email message using SMTP each time an event is delivered to it. Example: <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/sending-e-mail-based-on-an-event">Sending Email Based on an Event</a></p></li>
 </ul>
-<p>The ActiveScriptEventConsumer class allows for the execution of scripting code from either JScript or VBScript engines and WMI script host process is <code class="docutils literal notranslate"><span class="pre">%SystemRoot%\system32\wbem\scrcons.exe</span></code>.</p>
+<p>The ActiveScriptEventConsumer class allows for the execution of scripting code from either JScript or VBScript engines. Finally, the WMI script host process is <code class="docutils literal notranslate"><span class="pre">%SystemRoot%\system32\wbem\scrcons.exe</span></code>.</p>
 </div>
 <div class="section" id="hypothesis">
 <h2>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">¶</a></h2>
@@ -649,11 +649,11 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT EventID, Message</span>
+<span class="sd">SELECT EventID, EventType</span>
 <span class="sd">FROM mordorTable</span>
 <span class="sd">WHERE Channel = &#39;Microsoft-Windows-Sysmon/Operational&#39;</span>
 <span class="sd">  AND EventID = 20</span>
-<span class="sd">  AND Type = &#39;Script&#39;</span>
+<span class="sd">  AND LOWER(Message) Like &#39;%type: script%&#39;</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
@@ -682,11 +682,11 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT EventID, Message</span>
+<span class="sd">SELECT EventID, SourceName</span>
 <span class="sd">FROM mordorTable</span>
 <span class="sd">WHERE Channel = &#39;Microsoft-Windows-WMI-Activity/Operational&#39;</span>
 <span class="sd">  AND EventID = 5861</span>
-<span class="sd">  AND LOWER(Message) LIKE &#39;%vbs%&#39;</span>
+<span class="sd">  AND LOWER(Message) LIKE &#39;%scriptingengine = &quot;vbscript&quot;%&#39;</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
@@ -877,7 +877,7 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 <span class="sd">SELECT d.`@timestamp`, d.TargetUserName, c.Image, c.ProcessId</span>
 <span class="sd">FROM mordorTable d</span>
 <span class="sd">INNER JOIN (</span>
-<span class="sd">    SELECT b.ImageLoaded, a.CommandLine, b.ProcessGuid, a.Image</span>
+<span class="sd">    SELECT b.ImageLoaded, a.CommandLine, b.ProcessGuid, a.Image, b.ProcessId</span>
 <span class="sd">    FROM mordorTable b</span>
 <span class="sd">    INNER JOIN (</span>
 <span class="sd">        SELECT ProcessGuid, CommandLine, Image</span>
@@ -929,7 +929,7 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT `@timestamp`, Message</span>
+<span class="sd">SELECT `@timestamp`, TargetUserName,ImpersonationLevel, LogonType, ProcessName</span>
 <span class="sd">FROM mordorTable</span>
 <span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
 <span class="sd">    AND EventID = 4624</span>

@@ -28,7 +28,7 @@ According to [MS Documentation](https://docs.microsoft.com/en-us/windows/win32/w
 * ScriptingStandardConsumerSetting 	Provides registration data common to all instances of the ActiveScriptEventConsumer class.
 * SMTPEventConsumer 	Sends an email message using SMTP each time an event is delivered to it. Example: [Sending Email Based on an Event](https://docs.microsoft.com/en-us/windows/win32/wmisdk/sending-e-mail-based-on-an-event)
 
-The ActiveScriptEventConsumer class allows for the execution of scripting code from either JScript or VBScript engines and WMI script host process is `%SystemRoot%\system32\wbem\scrcons.exe`.
+The ActiveScriptEventConsumer class allows for the execution of scripting code from either JScript or VBScript engines. Finally, the WMI script host process is `%SystemRoot%\system32\wbem\scrcons.exe`.
 
 ## Hypothesis
 Adversaries might be leveraging WMI ActiveScriptEventConsumers remotely to move laterally in my network.
@@ -55,11 +55,11 @@ registerMordorSQLTable(spark, mordor_file, "mordorTable")
 
 df = spark.sql(
     '''
-SELECT EventID, Message
+SELECT EventID, EventType
 FROM mordorTable
 WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'
   AND EventID = 20
-  AND Type = 'Script'
+  AND LOWER(Message) Like '%type: script%'
     '''
 )
 df.show(10,False)
@@ -74,11 +74,11 @@ df.show(10,False)
 
 df = spark.sql(
     '''
-SELECT EventID, Message
+SELECT EventID, SourceName
 FROM mordorTable
 WHERE Channel = 'Microsoft-Windows-WMI-Activity/Operational'
   AND EventID = 5861
-  AND LOWER(Message) LIKE '%vbs%'
+  AND LOWER(Message) LIKE '%scriptingengine = "vbscript"%'
     '''
 )
 df.show(10,False)
@@ -199,7 +199,7 @@ df = spark.sql(
 SELECT d.`@timestamp`, d.TargetUserName, c.Image, c.ProcessId
 FROM mordorTable d
 INNER JOIN (
-    SELECT b.ImageLoaded, a.CommandLine, b.ProcessGuid, a.Image
+    SELECT b.ImageLoaded, a.CommandLine, b.ProcessGuid, a.Image, b.ProcessId
     FROM mordorTable b
     INNER JOIN (
         SELECT ProcessGuid, CommandLine, Image
@@ -237,7 +237,7 @@ df.show(10,False)
 
 df = spark.sql(
     '''
-SELECT `@timestamp`, Message
+SELECT `@timestamp`, TargetUserName,ImpersonationLevel, LogonType, ProcessName
 FROM mordorTable
 WHERE LOWER(Channel) = "security"
     AND EventID = 4624
