@@ -611,6 +611,18 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing Data from Winlogbeat version 6..
+[+] DataFrame Returned !
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-i">
@@ -644,6 +656,16 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+----------------------+---------------+---------------+--------------------------------+--------------+
+|@timestamp            |computer_name  |SubjectUserName|ProcessName                     |ObjectName    |
++----------------------+---------------+---------------+--------------------------------+--------------+
+|2019-05-18 18:41:17.45|HR001.shire.com|pgustavo       |C:\Windows\System32\services.exe|ServicesActive|
++----------------------+---------------+---------------+--------------------------------+--------------+
+
 </pre></div>
 </div>
 </div>
@@ -683,6 +705,17 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+---------------+--------------------------------+--------------+------------------------+------------+
+|@timestamp             |computer_name   |SubjectUserName|ProcessName                     |ObjectName    |PrivilegeList           |ObjectServer|
++-----------------------+----------------+---------------+--------------------------------+--------------+------------------------+------------+
+|2019-05-18 18:41:14.998|HFDC01.shire.com|pgustavo       |C:\Windows\System32\services.exe|ServicesActive|SeTakeOwnershipPrivilege|SC Manager  |
+|2019-05-18 18:41:17.473|IT001.shire.com |pgustavo       |C:\Windows\System32\services.exe|ServicesActive|SeTakeOwnershipPrivilege|SC Manager  |
++-----------------------+----------------+---------------+--------------------------------+--------------+------------------------+------------+
+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-iii">
@@ -717,6 +750,17 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+-----------------------------------------------------+----------+-------------+--------+-------------+
+|@timestamp             |computer_name   |Application                                          |SourcePort|SourceAddress|DestPort|DestAddress  |
++-----------------------+----------------+-----------------------------------------------------+----------+-------------+--------+-------------+
+|2019-05-18 18:41:14.984|HFDC01.shire.com|\device\harddiskvolume2\windows\system32\services.exe|58835     |172.18.39.106|53285   |172.18.39.5  |
+|2019-05-18 18:41:17.47 |IT001.shire.com |\device\harddiskvolume2\windows\system32\services.exe|58838     |172.18.39.106|49691   |172.18.39.105|
++-----------------------+----------------+-----------------------------------------------------+----------+-------------+--------+-------------+
+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-iv">
@@ -747,6 +791,17 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+-------------------+----------+-------------+---------------+-------------+
+|@timestamp             |computer_name   |User               |SourcePort|SourceIp     |DestinationPort|DestinationIp|
++-----------------------+----------------+-------------------+----------+-------------+---------------+-------------+
+|2019-05-18 18:41:16.218|HFDC01.shire.com|NT AUTHORITY\SYSTEM|53285     |172.18.39.5  |58835          |172.18.39.106|
+|2019-05-18 18:41:18.504|IT001.shire.com |NT AUTHORITY\SYSTEM|49691     |172.18.39.105|58838          |172.18.39.106|
++-----------------------+----------------+-------------------+----------+-------------+---------------+-------------+
+
 </pre></div>
 </div>
 </div>
@@ -791,6 +846,17 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+---------------+-----------------+--------------+------------------------+-------------+
+|@timestamp             |computer_name   |SubjectUserName|ObjectType       |ObjectName    |PrivilegeList           |IpAddress    |
++-----------------------+----------------+---------------+-----------------+--------------+------------------------+-------------+
+|2019-05-18 18:41:14.998|HFDC01.shire.com|pgustavo       |SC_MANAGER OBJECT|ServicesActive|SeTakeOwnershipPrivilege|172.18.39.106|
+|2019-05-18 18:41:17.473|IT001.shire.com |pgustavo       |SC_MANAGER OBJECT|ServicesActive|SeTakeOwnershipPrivilege|172.18.39.106|
++-----------------------+----------------+---------------+-----------------+--------------+------------------------+-------------+
+
 </pre></div>
 </div>
 </div>

@@ -581,6 +581,18 @@ If this key does not exists, you can create it and set it to 1 to enable clear t
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing Data from Winlogbeat version 6..
+[+] DataFrame Returned !
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-i">
@@ -612,6 +624,16 @@ If this key does not exists, you can create it and set it to 1 to enable clear t
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------+---------------------------------------------------------+----------------------------------------------------------------------------------+
+|@timestamp             |computer_name  |Image                                                    |TargetObject                                                                      |
++-----------------------+---------------+---------------------------------------------------------+----------------------------------------------------------------------------------+
+|2019-05-18 16:19:45.778|HR001.shire.com|C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|HKLM\System\CurrentControlSet\Control\SecurityProviders\WDigest\UseLogonCredential|
++-----------------------+---------------+---------------------------------------------------------+----------------------------------------------------------------------------------+
+
 </pre></div>
 </div>
 </div>
