@@ -176,6 +176,23 @@
        WMI Eventing
       </a>
      </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="03_persistence/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="04_privilege_escalation/privilege_escalation.html">
+     Privilege Escalation
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="04_privilege_escalation/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
     </ul>
    </li>
    <li class="toctree-l2">
@@ -277,6 +294,11 @@
      <li class="toctree-l3">
       <a class="reference internal" href="08_lateral_movement/WIN-190810201010.html">
        WMI Win32_Process Class and Create Method for Remote Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="08_lateral_movement/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
       </a>
      </li>
      <li class="toctree-l3">
@@ -513,37 +535,42 @@
 <td class="text-align:left"><p>Adversaries might be creating new services remotely to execute code and move laterally in my environment</p></td>
 <td class="text-align:left"><p>Roberto Rodriguez &#64;Cyb3rWard0g</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>2019/07/25</p></td>
+<tr class="row-even"><td class="text-align:left"><p>2020/09/02</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-200902020333.html">Remote WMI ActiveScriptEventConsumers</a></p></td>
+<td class="text-align:left"><p>Adversaries might be leveraging WMI ActiveScriptEventConsumers remotely to move laterally in my network.</p></td>
+<td class="text-align:left"><p>Roberto Rodriguez &#64;Cyb3rWard0g</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2019/07/25</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/07_discovery/WIN-190725024610.html">SAM Registry Hive Handle Request</a></p></td>
 <td class="text-align:left"><p>Adversaries might be getting a handle to the SAM database to extract credentials in my environment</p></td>
 <td class="text-align:left"><p>Roberto Rodriguez &#64;Cyb3rWard0g</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>2019/08/13</p></td>
+<tr class="row-even"><td class="text-align:left"><p>2019/08/13</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/02_execution/WIN-190813181020.html">Service Creation</a></p></td>
 <td class="text-align:left"><p>Adversaries might be creating new services to execute code on a compromised endpoint in my environment</p></td>
 <td class="text-align:left"><p>Roberto Rodriguez &#64;Cyb3rWard0g</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>2019/06/25</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>2019/06/25</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/07_discovery/WIN-190625024610.html">SysKey Registry Keys Access</a></p></td>
 <td class="text-align:left"><p>Adversaries might be calculating the SysKey from registry key values to decrypt SAM entries</p></td>
 <td class="text-align:left"><p>Roberto Rodriguez &#64;Cyb3rWard0g</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>2019/05/10</p></td>
+<tr class="row-even"><td class="text-align:left"><p>2019/05/10</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/WIN-190510202010.html">WDigest Downgrade</a></p></td>
 <td class="text-align:left"><p>Adversaries might have updated the property value UseLogonCredential of HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest to 1 in order to be able to extract clear text passwords from memory contents of lsass.</p></td>
 <td class="text-align:left"><p>Roberto Rodriguez &#64;Cyb3rWard0g</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>2019/08/10</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>2019/08/10</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/03_persistence/WIN-190810170510.html">WMI Eventing</a></p></td>
 <td class="text-align:left"><p>Adversaries might be leveraging WMI eventing for persistence in my environment.</p></td>
 <td class="text-align:left"><p>Roberto Rodriguez &#64;Cyb3rWard0g</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>2019/08/11</p></td>
+<tr class="row-even"><td class="text-align:left"><p>2019/08/11</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/02_execution/WIN-190811201010.html">WMI Module Load</a></p></td>
 <td class="text-align:left"><p>Adversaries might be leveraging WMI modules to execute WMI tasks bypassing controls monitoring for wmiprvse.exe or wmiapsrv.exe activity</p></td>
 <td class="text-align:left"><p>Roberto Rodriguez &#64;Cyb3rWard0g</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>2019/08/10</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>2019/08/10</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-190810201010.html">WMI Win32_Process Class and Create Method for Remote Execution</a></p></td>
 <td class="text-align:left"><p>Adversaries might be leveraging WMI Win32_Process class and method Create to execute code remotely across my environment</p></td>
 <td class="text-align:left"><p>Roberto Rodriguez &#64;Cyb3rWard0g</p></td>

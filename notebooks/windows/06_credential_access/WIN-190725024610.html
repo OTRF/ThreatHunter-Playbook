@@ -176,6 +176,23 @@
        WMI Eventing
       </a>
      </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../03_persistence/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04_privilege_escalation/privilege_escalation.html">
+     Privilege Escalation
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../04_privilege_escalation/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
     </ul>
    </li>
    <li class="toctree-l2">
@@ -277,6 +294,11 @@
      <li class="toctree-l3">
       <a class="reference internal" href="../08_lateral_movement/WIN-190810201010.html">
        WMI Win32_Process Class and Create Method for Remote Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../08_lateral_movement/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
       </a>
      </li>
      <li class="toctree-l3">
@@ -567,18 +589,6 @@ Adversaries might use tools like Mimikatz with lsadump::sam commands or scripts 
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
-</pre></div>
-</div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing Data from Winlogbeat version 6..
-[+] DataFrame Returned !
-</pre></div>
-</div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="analytic-i">
@@ -610,16 +620,6 @@ Adversaries might use tools like Mimikatz with lsadump::sam commands or scripts 
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------+---------------+---------------------------------------------------------+---------------------+----------+
-|@timestamp             |computer_name  |SubjectUserName|ProcessName                                              |ObjectName           |AccessMask|
-+-----------------------+---------------+---------------+---------------------------------------------------------+---------------------+----------+
-|2019-06-25 10:39:04.376|HR001.shire.com|HR001$         |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|\REGISTRY\MACHINE\SAM|0x20019   |
-+-----------------------+---------------+---------------+---------------------------------------------------------+---------------------+----------+
-
 </pre></div>
 </div>
 </div>

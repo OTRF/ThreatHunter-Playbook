@@ -176,6 +176,23 @@
        WMI Eventing
       </a>
      </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../03_persistence/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../04_privilege_escalation/privilege_escalation.html">
+     Privilege Escalation
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../04_privilege_escalation/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
     </ul>
    </li>
    <li class="toctree-l2 current active">
@@ -277,6 +294,11 @@
      <li class="toctree-l3">
       <a class="reference internal" href="../08_lateral_movement/WIN-190810201010.html">
        WMI Win32_Process Class and Create Method for Remote Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../08_lateral_movement/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
       </a>
      </li>
      <li class="toctree-l3">
@@ -588,18 +610,6 @@ An adversary with enough permissions (domain admin) can add an ACL to the Root D
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
-</pre></div>
-</div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing Data from Winlogbeat version 6..
-[+] DataFrame Returned !
-</pre></div>
-</div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="analytic-i">
@@ -632,18 +642,6 @@ An adversary with enough permissions (domain admin) can add an ACL to the Root D
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+---------------+---------------------------------------+-------------+
-|@timestamp             |computer_name   |SubjectUserName|ObjectName                             |OperationType|
-+-----------------------+----------------+---------------+---------------------------------------+-------------+
-|2019-03-01 12:59:14.077|HFDC01.shire.com|Mmidge         |%{0071b080-6b81-498b-b00b-51b45474a348}|Object Access|
-|2019-03-01 12:59:14.146|HFDC01.shire.com|Mmidge         |%{0071b080-6b81-498b-b00b-51b45474a348}|Object Access|
-|2019-03-01 12:59:14.294|HFDC01.shire.com|Mmidge         |%{0071b080-6b81-498b-b00b-51b45474a348}|Object Access|
-+-----------------------+----------------+---------------+---------------------------------------+-------------+
-
 </pre></div>
 </div>
 </div>
@@ -680,21 +678,6 @@ An adversary with enough permissions (domain admin) can add an ACL to the Root D
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+---------------+---------------+------------------------+
-|@timestamp             |computer_name   |SubjectUserName|ObjectDN       |AttributeLDAPDisplayName|
-+-----------------------+----------------+---------------+---------------+------------------------+
-|2019-03-01 12:59:22.974|HFDC01.shire.com|Mmidge         |DC=shire,DC=com|nTSecurityDescriptor    |
-|2019-03-01 12:59:22.974|HFDC01.shire.com|Mmidge         |DC=shire,DC=com|nTSecurityDescriptor    |
-|2019-03-01 12:59:22.975|HFDC01.shire.com|Mmidge         |DC=shire,DC=com|nTSecurityDescriptor    |
-|2019-03-01 12:59:22.975|HFDC01.shire.com|Mmidge         |DC=shire,DC=com|nTSecurityDescriptor    |
-|2019-03-01 12:59:22.975|HFDC01.shire.com|Mmidge         |DC=shire,DC=com|nTSecurityDescriptor    |
-|2019-03-01 12:59:22.976|HFDC01.shire.com|Mmidge         |DC=shire,DC=com|nTSecurityDescriptor    |
-+-----------------------+----------------+---------------+---------------+------------------------+
-
 </pre></div>
 </div>
 </div>
