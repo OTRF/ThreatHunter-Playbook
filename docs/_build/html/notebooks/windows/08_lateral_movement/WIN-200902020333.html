@@ -627,6 +627,13 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+[+] DataFrame Returned !
+[+] Temporary SparkSQL View: mordorTable 
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-i">
@@ -657,6 +664,17 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-------+----------------+
+|EventID|EventType       |
++-------+----------------+
+|20     |WmiConsumerEvent|
+|20     |WmiConsumerEvent|
++-------+----------------+
+
 </pre></div>
 </div>
 </div>
@@ -693,6 +711,16 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-------+------------------------------+
+|EventID|SourceName                    |
++-------+------------------------------+
+|5861   |Microsoft-Windows-WMI-Activity|
++-------+------------------------------+
+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-iii">
@@ -726,6 +754,16 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-------------------------------+------------------------------------+-----------------------------------------------+---------+--------------------------------------+
+|ParentImage                    |Image                               |CommandLine                                    |ProcessId|ProcessGuid                           |
++-------------------------------+------------------------------------+-----------------------------------------------+---------+--------------------------------------+
+|C:\Windows\System32\svchost.exe|C:\Windows\System32\wbem\scrcons.exe|C:\windows\system32\wbem\scrcons.exe -Embedding|972      |{c4e35f20-f8ea-5f4e-c504-000000000400}|
++-------------------------------+------------------------------------+-----------------------------------------------+---------+--------------------------------------+
+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-iv">
@@ -756,6 +794,16 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-------------------------------+------------------------------------+-----------------------------------------------+------------+
+|ParentProcessName              |NewProcessName                      |CommandLine                                    |NewProcessId|
++-------------------------------+------------------------------------+-----------------------------------------------+------------+
+|C:\Windows\System32\svchost.exe|C:\Windows\System32\wbem\scrcons.exe|C:\windows\system32\wbem\scrcons.exe -Embedding|0x3cc       |
++-------------------------------+------------------------------------+-----------------------------------------------+------------+
+
 </pre></div>
 </div>
 </div>
@@ -795,6 +843,20 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+------------------------------------+-------------------------------------+---------------------------------------+--------------------------------------+
+|Image                               |ImageLoaded                          |Description                            |ProcessGuid                           |
++------------------------------------+-------------------------------------+---------------------------------------+--------------------------------------+
+|C:\Windows\System32\wbem\scrcons.exe|C:\Windows\System32\wbem\scrcons.exe |WMI Standard Event Consumer - scripting|{c4e35f20-f8ea-5f4e-c504-000000000400}|
+|C:\Windows\System32\wbem\scrcons.exe|C:\Windows\System32\vbscript.dll     |Microsoft ® VBScript                   |{c4e35f20-f8ea-5f4e-c504-000000000400}|
+|C:\Windows\System32\wbem\scrcons.exe|C:\Windows\System32\wbem\wbemdisp.dll|WMI Scripting                          |{c4e35f20-f8ea-5f4e-c504-000000000400}|
+|C:\Windows\System32\wbem\scrcons.exe|C:\Windows\System32\wshom.ocx        |Windows Script Host Runtime Library    |{c4e35f20-f8ea-5f4e-c504-000000000400}|
+|C:\Windows\System32\wbem\scrcons.exe|C:\Windows\System32\scrrun.dll       |Microsoft ® Script Runtime             |{c4e35f20-f8ea-5f4e-c504-000000000400}|
++------------------------------------+-------------------------------------+---------------------------------------+--------------------------------------+
+
 </pre></div>
 </div>
 </div>
@@ -849,6 +911,20 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+------------------------+------------------------------------+-------------+---------+
+|@timestamp              |Image                               |DestinationIp|ProcessId|
++------------------------+------------------------------------+-------------+---------+
+|2020-09-02T01:44:15.877Z|C:\Windows\System32\wbem\scrcons.exe|10.10.10.5   |972      |
+|2020-09-02T01:44:15.877Z|C:\Windows\System32\wbem\scrcons.exe|10.10.10.5   |972      |
+|2020-09-02T01:44:15.877Z|C:\Windows\System32\wbem\scrcons.exe|10.10.10.5   |972      |
+|2020-09-02T01:44:15.877Z|C:\Windows\System32\wbem\scrcons.exe|10.10.10.5   |972      |
+|2020-09-02T01:44:15.877Z|C:\Windows\System32\wbem\scrcons.exe|10.10.10.5   |972      |
++------------------------+------------------------------------+-------------+---------+
+
 </pre></div>
 </div>
 </div>
@@ -907,6 +983,20 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+------------------------+--------------+------------------------------------+---------+
+|@timestamp              |TargetUserName|Image                               |ProcessId|
++------------------------+--------------+------------------------------------+---------+
+|2020-09-02T01:44:11.726Z|pgustavo      |C:\Windows\System32\wbem\scrcons.exe|972      |
+|2020-09-02T01:44:11.726Z|pgustavo      |C:\Windows\System32\wbem\scrcons.exe|972      |
+|2020-09-02T01:44:11.726Z|pgustavo      |C:\Windows\System32\wbem\scrcons.exe|972      |
+|2020-09-02T01:44:11.726Z|pgustavo      |C:\Windows\System32\wbem\scrcons.exe|972      |
+|2020-09-02T01:44:11.726Z|pgustavo      |C:\Windows\System32\wbem\scrcons.exe|972      |
++------------------------+--------------+------------------------------------+---------+
+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-viii">
@@ -938,6 +1028,16 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+------------------------+--------------+------------------+---------+------------------------------------+
+|@timestamp              |TargetUserName|ImpersonationLevel|LogonType|ProcessName                         |
++------------------------+--------------+------------------+---------+------------------------------------+
+|2020-09-02T01:44:11.726Z|pgustavo      |%%1832            |3        |C:\Windows\System32\wbem\scrcons.exe|
++------------------------+--------------+------------------+---------+------------------------------------+
+
 </pre></div>
 </div>
 </div>
