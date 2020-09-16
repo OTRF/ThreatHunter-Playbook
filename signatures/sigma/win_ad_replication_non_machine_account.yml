@@ -4,7 +4,7 @@ status: experimental
 date: 2019/07/26
 author: Roberto Rodriguez @Cyb3rWard0g
 references:
-    - https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/WIN-190101151110.html
+    - https://threathunterplaybook.com/notebooks/windows/06_credential_access/WIN-180815210510.html
 tags:
     - attack.credential_access
     - attack.t1003
