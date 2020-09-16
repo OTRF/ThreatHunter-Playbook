@@ -12,7 +12,7 @@ tags:
     - attack.t1123
 logsource:
     product: windows
-    service: sysmon
+    service: security
 detection:
     selection1:
         EventID:
