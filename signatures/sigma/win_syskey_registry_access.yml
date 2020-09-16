@@ -4,7 +4,7 @@ status: experimental
 date: 2019/08/12
 author: Roberto Rodriguez @Cyb3rWard0g
 references:
-    - https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/playbooks/windows/07_discovery/T1012_query_registry/syskey_registry_access.md
+    - https://threathunterplaybook.com/notebooks/windows/07_discovery/WIN-190625024610.html
 tags:
     - attack.discovery
     - attack.t1012
