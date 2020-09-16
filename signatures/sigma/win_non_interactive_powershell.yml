@@ -4,7 +4,7 @@ status: experimental
 date: 2019/12/10
 author: Roberto Rodriguez @Cyb3rWard0g
 references:
-    - https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/playbooks/windows/02_execution/T1086_powershell/basic_powershell_execution.md
+    - https://threathunterplaybook.com/notebooks/windows/02_execution/WIN-190410151110.html
 logsource:
     product: windows
     service: security
