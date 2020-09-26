@@ -39,6 +39,7 @@
     - file: notebooks/windows/05_defense_evasion/defense_evasion
       sections:
       - file: notebooks/windows/05_defense_evasion/WIN-180719170510
+      - file: notebooks/windows/05_defense_evasion/WIN-191224222300
       - file: notebooks/windows/05_defense_evasion/WIN-190407183310
       - file: notebooks/windows/05_defense_evasion/WIN-190510202010
       - file: notebooks/windows/05_defense_evasion/WIN-190101151110
@@ -46,7 +47,6 @@
       sections:
       - file: notebooks/windows/06_credential_access/WIN-190620024610
       - file: notebooks/windows/06_credential_access/WIN-190725024610
-      - file: notebooks/windows/06_credential_access/WIN-191224222300
       - file: notebooks/windows/06_credential_access/WIN-180815210510
       - file: notebooks/windows/06_credential_access/WIN-191030201010
       - file: notebooks/windows/06_credential_access/WIN-170105221010

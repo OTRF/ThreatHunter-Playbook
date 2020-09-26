@@ -1,38 +1,47 @@
 title: Service Creation
 id: WIN-190813181020
-author: Roberto Rodriguez @Cyb3rWard0g
-playbook_link: 
+collaborators:
+  - Roberto Rodriguez @Cyb3rWard0g
+  - Jose Rodriguez @Cyb3rPandaH
+playbooks_related: 
 creation_date: 2019/08/13
+modification_date: 2020/09/20
 platform: Windows
-permissions_required:
-  - Administrator
-attack_coverage:
-  - technique: T1035
-    tactics:
+attack_mappings:
+  - tactics:
       - TA0002
+    technique: T1569
+    sub_technique: "002"
 hypothesis: Adversaries might be creating new services to execute code on a compromised endpoint in my environment
-description: |-
+technical_context:
+offensive_tradecraft: |-
     Adversaries may execute a binary, command, or script via a method that interacts with Windows services, such as the Service Control Manager.
     This can be done by by adversaries creating a new service.
-validation_dataset:
-  - type: mordor
-    url: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/empire_invoke_psexec.zip
+test_data:
+  metadata: https://mordordatasets.com/notebooks/small/windows/08_lateral_movement/SDWIN-190518210652.html
+  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/empire_psexec_dcerpc_tcp_svcctl.zip
 analytics:
   - name: Analytic I
-    data_sources:
-      - Security
-    false_positives: Low
     description: Look for new services being created in your environment and stack the values of it
+    data_sources:
+      - name: Service
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
+          data_model:
+            - relationship: User created Service
+              id: BB243122-F345-4ED6-97A7-FBA2A1AF7C38
+              event_id: 4697
     logic: |-
-      SELECT `@timestamp`, computer_name, SubjectUserName ServiceName, ServiceType, ServiceStartType, ServiceAccount
+      SELECT `@timestamp`, Hostname, SubjectUserName ServiceName, ServiceType, ServiceStartType, ServiceAccount
       FROM mordorTable
-      WHERE channel = "Security" AND event_id = 4697
-detection_blindspots:
-hunter_notes: |-
+      WHERE LOWER(Channel) = "security" AND EventID = 4697
+known_bypasses:
+false_positives:
+additional_notes: |-
   * If there are a lot of unique services being created in your environment, try to categorize the data based on the bussiness unit.
   * Identify the source of unique services being created everyday. I have seen Microsoft applications doing this.
   * Stack the values of the service file name associated with the new service.
   * Document what users create new services across your environment on a daily basis
-hunt_output:
+research_output:
 references: |-
   * https://www.powershellempire.com/?page_id=523

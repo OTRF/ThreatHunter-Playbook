@@ -49,7 +49,11 @@ with open('templates/toc_template.json') as json_file:
 # ******** Open every analytic yaml file available ****************
 print("[+] Opening analytic yaml files..")
 analytics_files = glob.glob(path.join(path.dirname(__file__), "..", "playbooks", "*.yaml"))
-analytics_loaded = [yaml.safe_load(open(analytic_file).read()) for analytic_file in analytics_files]
+analytics_loaded = []
+for analytic_file in analytics_files:
+    print(analytic_file)
+    analytics_loaded.append(yaml.safe_load(open(analytic_file).read()))
+#analytics_loaded = [yaml.safe_load(open(analytic_file).read()) for analytic_file in analytics_files]
 
 # ******** Translating YAML files to Notebooks ****************
 print("\n[+] Translating YAML files to notebooks..")
@@ -74,34 +78,42 @@ for analytic in analytics_loaded:
             "pygments_lexer": "ipython3",
             "version": "3.7.3"
         }
-    }
+    } 
     nb = nbf.v4.new_notebook(metadata=metadata)
     nb['cells'] = []
     # *** TITLE ****
     nb['cells'].append(nbf.v4.new_markdown_cell("# {}".format(analytic['title'])))
     # *** METADATA ****
     nb['cells'].append(nbf.v4.new_markdown_cell("## Metadata"))
-    if analytic['playbook_link']:
-        analytic_playbook_link = analytic['playbook_link']
-    else:
-        analytic_playbook_link = ''
-    nb['cells'].append(nbf.v4.new_markdown_cell(
-        """
-|               |    |
-|:--------------|:---|
-| id            | {} |
-| author        | {} |
-| creation date | {} |
-| platform      | {} |
-| playbook link | {} |
-        """.format(analytic['id'], analytic['author'], analytic['creation_date'], analytic['platform'], analytic_playbook_link)
+    playbooks_related = []
+    if analytic['playbooks_related']:
+        playbooks_related= [p for p in analytic['playbooks_related']]
+    collaborators = [c for c in analytic['collaborators']]
+    nb['cells'].append(nbf.v4.new_markdown_cell("""
+|                   |    |
+|:------------------|:---|
+| collaborators     | {} |
+| creation date     | {} |
+| modification date | {} |
+| playbook related  | {} |""".format(collaborators, analytic['creation_date'], analytic['modification_date'], playbooks_related)
     ))
-    # *** TECHNICAL DESCRIPTION ****
-    nb['cells'].append(nbf.v4.new_markdown_cell("""## Technical Description
-{}""".format(analytic['description'])))
     # *** HYPOTHESIS ****
     nb['cells'].append(nbf.v4.new_markdown_cell("""## Hypothesis
 {}""".format(analytic['hypothesis'])))
+    # *** TECHNICAL CONTEXT ****
+    nb['cells'].append(nbf.v4.new_markdown_cell("""## Technical Context
+{}""".format(analytic['technical_context'])))
+    # *** OFFENSIVE TRADECRAFT ****
+    nb['cells'].append(nbf.v4.new_markdown_cell("""## Offensive Tradecraft
+{}""".format(analytic['offensive_tradecraft'])))
+    # *** TEST DATA ***
+    nb['cells'].append(nbf.v4.new_markdown_cell("## Mordor Test Data"))
+    nb['cells'].append(nbf.v4.new_markdown_cell("""
+|           |           |
+|:----------|:----------|
+| metadata  | {}        |
+| link      | [{}]({})  |""".format(analytic['test_data']['metadata'], analytic['test_data']['link'],analytic['test_data']['link'])
+    ))
     # *** ANALYTICS ****
     nb['cells'].append(nbf.v4.new_markdown_cell("## Analytics"))
     nb['cells'].append(nbf.v4.new_markdown_cell("### Initialize Analytics Engine"))
@@ -109,59 +121,67 @@ for analytic in analytics_loaded:
         """from openhunt.mordorutils import *
 spark = get_spark()"""
     ))
-    nb['cells'].append(nbf.v4.new_markdown_cell("### Download & Process Mordor File"))
+    nb['cells'].append(nbf.v4.new_markdown_cell("### Download & Process Mordor Dataset"))
     nb['cells'].append(nbf.v4.new_code_cell(
         """mordor_file = "{}"
-registerMordorSQLTable(spark, mordor_file, "mordorTable")""".format(analytic['validation_dataset'][0]['url'])
+registerMordorSQLTable(spark, mordor_file, "mordorTable")""".format(analytic['test_data']['link'])
     ))
+    ## *** PROCESSING EACH ANALYTIC ***
     for a in analytic['analytics']:
-        nb['cells'].append(nbf.v4.new_markdown_cell("### {}".format(a['name'])))
-        nb['cells'].append(nbf.v4.new_markdown_cell(
-            """
-| FP Rate  | Log Channel | Description   |
-| :--------| :-----------| :-------------|
-| {}       | {}          | {}            |
-            """.format(a['false_positives'], a['data_sources'], a['description'])
-        ))
+        nb['cells'].append(nbf.v4.new_markdown_cell("""### {}
+{}""".format(a['name'],a['description'])))
+        #### *** DATA MODEL ***
+        table = """
+| Data source | Event Provider | Relationship | Event |
+|:------------|:---------------|--------------|-------|"""
+        table_list = [table]
+        for d in a['data_sources']:
+            for e in d['event_providers']:
+                for dm in e['data_model']:
+                    table_list.append("| {} | {} | {} | {} |".format(d['name'],e['name'],dm['relationship'],dm['event_id']))
+        table_strings = '\n'.join(map(str, table_list))
+        nb['cells'].append(nbf.v4.new_markdown_cell(table_strings))
+        ### *** ANALYTIC QUERY - LOGIC
         nb['cells'].append(nbf.v4.new_code_cell(
             """df = spark.sql(
-    '''
+'''
 {}
-    '''
+'''
 )
 df.show(10,False)""".format(a['logic'])
         ))
-    # *** DETECTION BLINDSPOTS ****
-    if analytic['detection_blindspots']:
-        detection_blindspots = analytic['detection_blindspots']
-    else:
-        detection_blindspots = ''
-    nb['cells'].append(nbf.v4.new_markdown_cell("""## Detection Blindspots
-{}""".format(detection_blindspots)))
+    # *** KNOWN BYPASSES ****
+    nb['cells'].append(nbf.v4.new_markdown_cell("## Known Bypasses"))
+    table = """
+| Idea | Playbook |
+|:-----|:---------|"""
+    table_list = [table]
+    if analytic['known_bypasses']:
+        for b in analytic['known_bypasses']:
+            playbook_link = "https://github.com/OTRF/ThreatHunter-Playbook/blob/master/playbooks/{}.yaml".format(b['playbook'])
+            table_list.append("| {} | [{}]({}) |".format(b['idea'],b['playbook'],playbook_link))
+    table_strings = '\n'.join(map(str, table_list))
+    nb['cells'].append(nbf.v4.new_markdown_cell(table_strings))
+    # *** FALSE POSITIVES ****
+    nb['cells'].append(nbf.v4.new_markdown_cell("""## False Positives
+{}""".format(analytic['false_positives'])))
     # *** HUNTER NOTES ****
-    if analytic['hunter_notes']:
-        hunter_notes = analytic['hunter_notes']
-    else:
-        hunter_notes = ''
     nb['cells'].append(nbf.v4.new_markdown_cell("""## Hunter Notes
-{}""".format(hunter_notes)))
+{}""".format(analytic['additional_notes'])))
     # *** HUNT OUTPUT****
-    if analytic['hunt_output']:
-        output_table = """
-| Category | Type | Name     |
-| :--------| :----| :--------|"""
-        for output in analytic['hunt_output']:
+    output_table = """
+| Type | Link |
+| :----| :----|"""
+    if analytic['research_output']:
+        for output in analytic['research_output']:
             output_table += """
-| {} | {} | [{}]({}) |""".format(output['category'], output['type'], output['name'], output['url'])   
-    else:
-        output_table = ''
+| {} | [{}]({}) |""".format(output['type'],output['link'],output['link'])   
     nb['cells'].append(nbf.v4.new_markdown_cell("""## Hunt Output
 {}""".format(output_table)))
     # *** REFERENCES ****
+    references = ''
     if analytic['references']:
         references = analytic['references']
-    else:
-        references = ''
     nb['cells'].append(nbf.v4.new_markdown_cell("""## References
 {}""".format(references)))
     
@@ -169,14 +189,14 @@ df.show(10,False)""".format(a['logic'])
     # ***** Update Summary Tables *******
     for table in summary_table:
         if platform in table['platform'].lower():
-            for attack in analytic['attack_coverage']:
+            for attack in analytic['attack_mappings']:
                 for tactic in attack['tactics']:
                     analytic['location'] = attack_paths[tactic]
                     if analytic not in table['analytic']:
                         table['analytic'].append(analytic)
 
     # ***** Update main TOC template and creating notebook *****
-    for attack in analytic['attack_coverage']:
+    for attack in analytic['attack_mappings']:
         for toc in toc_template:
             if 'chapters' in toc.keys():
                 for chapter in toc['chapters']:
@@ -214,7 +234,7 @@ for summary in summary_table:
             metadata = dict()
             metadata['name'] = analytic['title']
             metadata['value'] = analytic['id'] 
-            for coverage in analytic['attack_coverage']:
+            for coverage in analytic['attack_mappings']:
                 technique = coverage['technique']
                 if technique not in techniques_mappings:
                     techniques_mappings[technique] = []

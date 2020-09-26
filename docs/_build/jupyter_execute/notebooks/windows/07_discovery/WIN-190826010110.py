@@ -3,16 +3,17 @@
 ## Metadata
 
 
-|               |    |
-|:--------------|:---|
-| id            | WIN-190826010110 |
-| author        | Roberto Rodriguez @Cyb3rWard0g |
-| creation date | 2019/08/26 |
-| platform      | Windows |
-| playbook link |  |
-        
+|                   |    |
+|:------------------|:---|
+| collaborators     | ['Roberto Rodriguez @Cyb3rWard0g', 'Jose Rodriguez @Cyb3rPandaH'] |
+| creation date     | 2019/08/26 |
+| modification date | 2020/09/20 |
+| playbook related  | [] |
 
-## Technical Description
+## Hypothesis
+Adversaries might be attempting to open up a handle to the service control manager (SCM) database on remote endpoints to check for local admin access in my environment.
+
+## Technical Context
 Often times, when an adversary lands on an endpoint, the current user does not have local administrator privileges over the compromised system.
 While some adversaries consider this situation a dead end, others find it very interesting to identify which machines on the network the current user has administrative access to.
 One common way to accomplish this is by attempting to open up a handle to the service control manager (SCM) database on remote endpoints in the network with SC_MANAGER_ALL_ACCESS (0xF003F) access rights.
@@ -20,14 +21,21 @@ The Service Control Manager (SCM) is a remote procedure call (RPC) server, so th
 Only processes with Administrator privileges are able to open a handle to the SCM database.
 This database is also known as the ServicesActive database.
 Therefore, it is very effective to check if the current user has administrative or local admin access to other endpoints in the network.
+
+## Offensive Tradecraft
 An adversary can simply use the Win32 API function [OpenSCManagerA](https://docs.microsoft.com/en-us/windows/win32/api/winsvc/nf-winsvc-openscmanagera) to attempt to establish a connection to the service control manager (SCM) on the specified computer and open the service control manager database.
 If this succeeds (A non-zero handle is returned), the current user context has local administrator acess to the remote host.
 
 Additional reading
 * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/service_control_manager.md
 
-## Hypothesis
-Adversaries might be attempting to open up a handle to the service control manager (SCM) database on remote endpoints to check for local admin access in my environment.
+## Mordor Test Data
+
+
+|           |           |
+|:----------|:----------|
+| metadata  | https://mordordatasets.com/notebooks/small/windows/07_discovery/SDWIN-190518224039.html        |
+| link      | [https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/discovery/host/empire_find_localadmin_smb_svcctl_OpenSCManager.zip](https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/discovery/host/empire_find_localadmin_smb_svcctl_OpenSCManager.zip)  |
 
 ## Analytics
 
@@ -36,126 +44,135 @@ Adversaries might be attempting to open up a handle to the service control manag
 from openhunt.mordorutils import *
 spark = get_spark()
 
-### Download & Process Mordor File
+### Download & Process Mordor Dataset
 
-mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/discovery/empire_find_local_admin.tar.gz"
+mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/discovery/host/empire_find_localadmin_smb_svcctl_OpenSCManager.zip"
 registerMordorSQLTable(spark, mordor_file, "mordorTable")
 
 ### Analytic I
+Detects non-system users failing to get a handle of the SCM database.
 
 
-| FP Rate  | Log Channel | Description   |
-| :--------| :-----------| :-------------|
-| Low       | ['Security']          | Detects non-system users failing to get a handle of the SCM database.            |
-            
+| Data source | Event Provider | Relationship | Event |
+|:------------|:---------------|--------------|-------|
+| File | Microsoft-Windows-Security-Auditing | User requested access File | 4656 |
 
 df = spark.sql(
-    '''
-SELECT `@timestamp`, computer_name, SubjectUserName, ProcessName, ObjectName
+'''
+SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName
 FROM mordorTable
-WHERE channel = "Security"
-    AND event_id = 4656
+WHERE LOWER(Channel) = "security"
+    AND EventID = 4656
     AND ObjectType = "SC_MANAGER OBJECT"
     AND ObjectName = "ServicesActive"
     AND AccessMask = "0xf003f"
     AND NOT SubjectLogonId = "0x3e4"
-    '''
+'''
 )
 df.show(10,False)
 
 ### Analytic II
+Look for non-system accounts performing privileged operations on protected subsystem objects such as the SCM database
 
 
-| FP Rate  | Log Channel | Description   |
-| :--------| :-----------| :-------------|
-| Low       | ['Security']          | Look for non-system accounts performing privileged operations on protected subsystem objects such as the SCM database            |
-            
+| Data source | Event Provider | Relationship | Event |
+|:------------|:---------------|--------------|-------|
+| File | Microsoft-Windows-Security-Auditing | User requested access File | 4674 |
 
 df = spark.sql(
-    '''
-SELECT `@timestamp`, computer_name, SubjectUserName, ProcessName, ObjectName, PrivilegeList, ObjectServer
+'''
+SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName, PrivilegeList, ObjectServer
 FROM mordorTable
-WHERE channel = "Security"
-    AND event_id = 4674
+WHERE LOWER(Channel) = "security"
+    AND EventID = 4674
     AND ObjectType = "SC_MANAGER OBJECT"
     AND ObjectName = "ServicesActive"
     AND PrivilegeList = "SeTakeOwnershipPrivilege"
     AND NOT SubjectLogonId = "0x3e4"
-    '''
+'''
 )
 df.show(10,False)
 
 ### Analytic III
+Look for inbound network connections to services.exe from other endpoints in the network. Same SourceAddress, but different Hostname
 
 
-| FP Rate  | Log Channel | Description   |
-| :--------| :-----------| :-------------|
-| Low       | ['Security']          | Look for inbound network connections to services.exe from other endpoints in the network. Same SourceAddress, but different computer_name            |
-            
+| Data source | Event Provider | Relationship | Event |
+|:------------|:---------------|--------------|-------|
+| Process | Microsoft-Windows-Security-Auditing | Process connected to Port | 5156 |
+| Process | Microsoft-Windows-Security-Auditing | Process connected to Ip | 5156 |
 
 df = spark.sql(
-    '''
-SELECT `@timestamp`, computer_name, Application, SourcePort, SourceAddress, DestPort, DestAddress
+'''
+SELECT `@timestamp`, Hostname, Application, SourcePort, SourceAddress, DestPort, DestAddress
 FROM mordorTable
-WHERE channel = "Security"
-    AND event_id = 5156
+WHERE LOWER(Channel) = "security"
+    AND EventID = 5156
     AND Application LIKE "%\\\services.exe"
     AND LayerRTID = 44
-    '''
+'''
 )
 df.show(10,False)
 
 ### Analytic IV
+Look for several network connection maded by services.exe from different endpoints to the same destination
 
 
-| FP Rate  | Log Channel | Description   |
-| :--------| :-----------| :-------------|
-| High       | ['Microsoft-Windows-Sysmon/Operational']          | Look for several network connection maded by services.exe from different endpoints to the same destination            |
-            
+| Data source | Event Provider | Relationship | Event |
+|:------------|:---------------|--------------|-------|
+| Process | Microsoft-Windows-Security-Auditing | Process connected to Port | 3 |
+| Process | Microsoft-Windows-Security-Auditing | Process connected to Ip | 3 |
 
 df = spark.sql(
-    '''
-SELECT `@timestamp`, computer_name, User, SourcePort, SourceIp, DestinationPort, DestinationIp
+'''
+SELECT `@timestamp`, Hostname, User, SourcePort, SourceIp, DestinationPort, DestinationIp
 FROM mordorTable
-WHERE channel = "Microsoft-Windows-Sysmon/Operational"
-    AND event_id = 3
+WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+    AND EventID = 3
     AND Image LIKE "%\\\services.exe"
-    '''
+'''
 )
 df.show(10,False)
 
 ### Analytic V
+Look for non-system accounts performing privileged operations on protected subsystem objects such as the SCM database from other endpoints in the network
 
 
-| FP Rate  | Log Channel | Description   |
-| :--------| :-----------| :-------------|
-| Low       | ['Security']          | Look for non-system accounts performing privileged operations on protected subsystem objects such as the SCM database from other endpoints in the network            |
-            
+| Data source | Event Provider | Relationship | Event |
+|:------------|:---------------|--------------|-------|
+| Authentication log | Microsoft-Windows-Security-Auditing | User authenticated Host | 4624 |
+| File | Microsoft-Windows-Security-Auditing | User requested access File | 4674 |
 
 df = spark.sql(
-    '''
-SELECT o.`@timestamp`, o.computer_name, o.SubjectUserName, o.ObjectType,o.ObjectName, o.PrivilegeList, a.IpAddress
+'''
+SELECT o.`@timestamp`, o.Hostname, o.SubjectUserName, o.ObjectType,o.ObjectName, o.PrivilegeList, a.IpAddress
 FROM mordorTable o
 INNER JOIN (
-    SELECT computer_name,TargetUserName,TargetLogonId,IpAddress
+    SELECT Hostname,TargetUserName,TargetLogonId,IpAddress
     FROM mordorTable
-    WHERE channel = "Security"
+    WHERE LOWER(Channel) = "security"
+        AND EventID = 4624
         AND LogonType = 3
-        AND IpAddress is not null
         AND NOT TargetUserName LIKE "%$"
     ) a
 ON o.SubjectLogonId = a.TargetLogonId
-WHERE o.channel = "Security"
-    AND o.event_id = 4674
+WHERE LOWER(o.Channel) = "security"
+    AND o.EventID = 4674
     AND o.ObjectType = "SC_MANAGER OBJECT"
     AND o.ObjectName = "ServicesActive"
     AND NOT o.SubjectLogonId = "0x3e4"
-    '''
+'''
 )
 df.show(10,False)
 
-## Detection Blindspots
+## Known Bypasses
 
+
+| Idea | Playbook |
+|:-----|:---------|
+
+## False Positives
+None
 
 ## Hunter Notes
 * Event id 4656 gets generated only when the OpenSCManager API call fails to get a handle to the SCM database. There is not SACL for SCM database so success attempts will not be logged.
@@ -167,10 +184,10 @@ df.show(10,False)
 
 ## Hunt Output
 
-| Category | Type | Name     |
-| :--------| :----| :--------|
-| signature | SIGMA | [win_scm_database_handle_failure](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_handle_failure.yml) |
-| signature | SIGMA | [win_scm_database_privileged_operation](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_privileged_operation.yml) |
+| Type | Link |
+| :----| :----|
+| Sigma Rule | [https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_handle_failure.yml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_handle_failure.yml) |
+| Sigma Rule | [https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_privileged_operation.yml](https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_privileged_operation.yml) |
 
 ## References
 * https://docs.microsoft.com/en-us/windows/win32/services/service-security-and-access-rights

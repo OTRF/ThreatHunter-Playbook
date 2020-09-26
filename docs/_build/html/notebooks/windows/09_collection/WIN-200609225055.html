@@ -2,9 +2,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Access to Microphone Device &#8212; Threat Hunter Playbook</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../../../_static/css/index.css" rel="stylesheet">
@@ -14,9 +15,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-dropdown.css" />
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/sphinx-book-theme.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -24,12 +24,10 @@
     <script src="../../../_static/togglebutton.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/mystnb.js"></script>
     <script src="../../../_static/sphinx-book-theme.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe,.cell"
@@ -52,7 +50,7 @@
 <meta property="og:url"         content="https://threathunterplaybook.com/notebooks/windows/09_collection/WIN-200609225055.html" />
 <meta property="og:type"        content="article" />
 <meta property="og:title"       content="Access to Microphone Device" />
-<meta property="og:description" content="Access to Microphone Device  Metadata          id  WIN-200609225055  author  Roberto Rodriguez @Cyb3rWard0g  creation date  2020/06/09  platform  Windows  playb" />
+<meta property="og:description" content="Access to Microphone Device  Metadata          collaborators  [‘Roberto Rodriguez @Cyb3rWard0g’, ‘Jose Rodriguez @Cyb3rPandaH’]  creation date  2020/06/09  modi" />
 <meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -206,6 +204,11 @@
       </a>
      </li>
      <li class="toctree-l3">
+      <a class="reference internal" href="../05_defense_evasion/WIN-191224222300.html">
+       Extended NetNTLM Downgrade
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="../05_defense_evasion/WIN-190407183310.html">
        Enable Remote Desktop Conections Registry
       </a>
@@ -235,11 +238,6 @@
      <li class="toctree-l3">
       <a class="reference internal" href="../06_credential_access/WIN-190725024610.html">
        SAM Registry Hive Handle Request
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../06_credential_access/WIN-191224222300.html">
-       Extended NetNTLM Downgrade
       </a>
      </li>
      <li class="toctree-l3">
@@ -350,6 +348,10 @@
 
  <!-- To handle the deprecated key -->
 
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
 </div>
 
 
@@ -459,13 +461,23 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#technical-description">
-   Technical Description
+  <a class="reference internal nav-link" href="#hypothesis">
+   Hypothesis
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hypothesis">
-   Hypothesis
+  <a class="reference internal nav-link" href="#technical-context">
+   Technical Context
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#offensive-tradecraft">
+   Offensive Tradecraft
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#mordor-test-data">
+   Mordor Test Data
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -479,8 +491,8 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#download-process-mordor-file">
-     Download &amp; Process Mordor File
+    <a class="reference internal nav-link" href="#download-process-mordor-dataset">
+     Download &amp; Process Mordor Dataset
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -496,8 +508,13 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#detection-blindspots">
-   Detection Blindspots
+  <a class="reference internal nav-link" href="#known-bypasses">
+   Known Bypasses
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#false-positives">
+   False Positives
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -536,35 +553,54 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>id</p></td>
-<td class="text-align:left"><p>WIN-200609225055</p></td>
+<tr class="row-even"><td class="text-align:left"><p>collaborators</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>author</p></td>
-<td class="text-align:left"><p>Roberto Rodriguez &#64;Cyb3rWard0g</p></td>
-</tr>
-<tr class="row-even"><td class="text-align:left"><p>creation date</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>creation date</p></td>
 <td class="text-align:left"><p>2020/06/09</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>platform</p></td>
-<td class="text-align:left"><p>Windows</p></td>
+<tr class="row-even"><td class="text-align:left"><p>modification date</p></td>
+<td class="text-align:left"><p>2020/09/20</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>playbook link</p></td>
-<td class="text-align:left"><p></p></td>
+<tr class="row-odd"><td class="text-align:left"><p>playbook related</p></td>
+<td class="text-align:left"><p>[]</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="technical-description">
-<h2>Technical Description<a class="headerlink" href="#technical-description" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="hypothesis">
+<h2>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">¶</a></h2>
+<p>Adversaries might be accessing the microphone in endpoints over the network.</p>
+</div>
+<div class="section" id="technical-context">
+<h2>Technical Context<a class="headerlink" href="#technical-context" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
+</div>
+<div class="section" id="offensive-tradecraft">
+<h2>Offensive Tradecraft<a class="headerlink" href="#offensive-tradecraft" title="Permalink to this headline">¶</a></h2>
 <p>An adversary can leverage a computer’s peripheral devices (e.g., microphones and webcams) or applications (e.g., voice and video call services) to capture audio recordings for the purpose of listening into sensitive conversations to gather information.
-Based on some research from <a class="reference external" href="https://twitter.com/svch0st">&#64;svch0st</a> you can to determine when and how long a process had access to the microphone of an endpoint by monitoring the following registry key:</p>
+Based on some research from <a class="reference external" href="https://twitter.com/svch0st">&#64;svch0st</a> you can to determine when and how long a process had access to the microphone of an endpoint by monitoring the following registry key</p>
 <ul class="simple">
 <li><p>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone.</p></li>
 </ul>
 </div>
-<div class="section" id="hypothesis">
-<h2>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">¶</a></h2>
-<p>Adversaries might be accessing the microphone in endpoints over the network.</p>
+<div class="section" id="mordor-test-data">
+<h2>Mordor Test Data<a class="headerlink" href="#mordor-test-data" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p></p></th>
+<th class="text-align:left head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>metadata</p></td>
+<td class="text-align:left"><p>https://mordordatasets.com/notebooks/small/windows/09_collection/SDWIN-200609225055.html</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>link</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/collection/host/msf_record_mic.zip">https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/collection/host/msf_record_mic.zip</a></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="analytics">
 <h2>Analytics<a class="headerlink" href="#analytics" title="Permalink to this headline">¶</a></h2>
@@ -572,19 +608,28 @@ Based on some research from <a class="reference external" href="https://twitter.
 <h3>Initialize Analytics Engine<a class="headerlink" href="#initialize-analytics-engine" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="n">spark</span> <span class="o">=</span> <span class="n">get_spark</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="download-process-mordor-file">
-<h3>Download &amp; Process Mordor File<a class="headerlink" href="#download-process-mordor-file" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="download-process-mordor-dataset">
+<h3>Download &amp; Process Mordor Dataset<a class="headerlink" href="#download-process-mordor-dataset" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/collection/msf_record_mic.zip&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/collection/host/msf_record_mic.zip&quot;</span>
 <span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+[+] DataFrame Returned !
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
 </pre></div>
 </div>
 </div>
@@ -592,32 +637,142 @@ Based on some research from <a class="reference external" href="https://twitter.
 </div>
 <div class="section" id="analytic-i">
 <h3>Analytic I<a class="headerlink" href="#analytic-i" title="Permalink to this headline">¶</a></h3>
+<p>Look for any creation or modification of registry keys under HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
-<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
-<td class="text-align:left"><p>Look for any creation or modification of registry keys under HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Windows Registry</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process created Windows registry key</p></td>
+<td><p>12</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Windows Registry</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process modified Windows registry key value</p></td>
+<td><p>13</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Windows Registry</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process modified Windows registry key value</p></td>
+<td><p>14</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Windows Registry</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process modified Windows registry key</p></td>
+<td><p>14</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT EventID, Message</span>
 <span class="sd">FROM mordorTable</span>
 <span class="sd">WHERE Channel = &#39;Microsoft-Windows-Sysmon/Operational&#39;</span>
 <span class="sd">  AND EventID IN (12,13,14)</span>
 <span class="sd">  AND LOWER(TargetObject) RLIKE &#39;.*consentstore\\\\\\\microphone.*&#39;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|EventID|Message                                                                                                                                                                                                                                                                                                                                                                                                                                            |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|12     |Registry object added or deleted:
+RuleName: -
+EventType: CreateKey
+UtcTime: 2020-06-10 02:51:54.724
+ProcessGuid: {6a910b9d-480e-5ee0-7e03-000000000400}
+ProcessId: 7920
+Image: C:\windows\system32\svchost.exe
+TargetObject: HKU\S-1-5-21-526538150-889687948-186688817-1106\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged                                                          |
+|13     |Registry value set:
+RuleName: -
+EventType: SetValue
+UtcTime: 2020-06-10 02:51:54.724
+ProcessGuid: {6a910b9d-480e-5ee0-7e03-000000000400}
+ProcessId: 7920
+Image: C:\windows\system32\svchost.exe
+TargetObject: HKU\S-1-5-21-526538150-889687948-186688817-1106\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged\Value
+Details: Allow                                                   |
+|12     |Registry object added or deleted:
+RuleName: -
+EventType: CreateKey
+UtcTime: 2020-06-10 02:51:55.398
+ProcessGuid: {6a910b9d-480e-5ee0-7e03-000000000400}
+ProcessId: 7920
+Image: C:\windows\system32\svchost.exe
+TargetObject: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone                                                                                                                 |
+|12     |Registry object added or deleted:
+RuleName: -
+EventType: CreateKey
+UtcTime: 2020-06-10 02:51:55.398
+ProcessGuid: {6a910b9d-480e-5ee0-7e03-000000000400}
+ProcessId: 7920
+Image: C:\windows\system32\svchost.exe
+TargetObject: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged                                                                                                     |
+|12     |Registry object added or deleted:
+RuleName: -
+EventType: CreateKey
+UtcTime: 2020-06-10 02:51:55.398
+ProcessGuid: {6a910b9d-480e-5ee0-7e03-000000000400}
+ProcessId: 7920
+Image: C:\windows\system32\svchost.exe
+TargetObject: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged\C:#Windows#System32#WindowsPowerShell#v1.0#powershell.exe                                           |
+|13     |Registry value set:
+RuleName: -
+EventType: SetValue
+UtcTime: 2020-06-10 02:51:55.398
+ProcessGuid: {6a910b9d-480e-5ee0-7e03-000000000400}
+ProcessId: 7920
+Image: C:\windows\system32\svchost.exe
+TargetObject: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged\C:#Windows#System32#WindowsPowerShell#v1.0#powershell.exe\LastUsedTimeStart
+Details: QWORD (0x01d63ed2-0x19fba509)|
+|12     |Registry object added or deleted:
+RuleName: -
+EventType: CreateKey
+UtcTime: 2020-06-10 02:51:55.398
+ProcessGuid: {6a910b9d-480e-5ee0-7e03-000000000400}
+ProcessId: 7920
+Image: C:\windows\system32\svchost.exe
+TargetObject: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged\C:#Windows#System32#WindowsPowerShell#v1.0#powershell.exe                                           |
+|13     |Registry value set:
+RuleName: -
+EventType: SetValue
+UtcTime: 2020-06-10 02:51:55.398
+ProcessGuid: {6a910b9d-480e-5ee0-7e03-000000000400}
+ProcessId: 7920
+Image: C:\windows\system32\svchost.exe
+TargetObject: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged\C:#Windows#System32#WindowsPowerShell#v1.0#powershell.exe\LastUsedTimeStop
+Details: QWORD (0x00000000-0x00000000) |
+|12     |Registry object added or deleted:
+RuleName: -
+EventType: CreateKey
+UtcTime: 2020-06-10 02:52:00.951
+ProcessGuid: {6a910b9d-480e-5ee0-7e03-000000000400}
+ProcessId: 7920
+Image: C:\windows\system32\svchost.exe
+TargetObject: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged\C:#Windows#System32#WindowsPowerShell#v1.0#powershell.exe                                           |
+|13     |Registry value set:
+RuleName: -
+EventType: SetValue
+UtcTime: 2020-06-10 02:52:00.951
+ProcessGuid: {6a910b9d-480e-5ee0-7e03-000000000400}
+ProcessId: 7920
+Image: C:\windows\system32\svchost.exe
+TargetObject: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged\C:#Windows#System32#WindowsPowerShell#v1.0#powershell.exe\LastUsedTimeStop
+Details: QWORD (0x01d63ed2-0x1d4adb0a) |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 </pre></div>
 </div>
 </div>
@@ -625,61 +780,272 @@ Based on some research from <a class="reference external" href="https://twitter.
 </div>
 <div class="section" id="analytic-ii">
 <h3>Analytic II<a class="headerlink" href="#analytic-ii" title="Permalink to this headline">¶</a></h3>
+<p>Look for any creation or modification of registry keys under HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
-<td class="text-align:left"><p>[‘Security’]</p></td>
-<td class="text-align:left"><p>Look for any creation or modification of registry keys under HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Windows Registry</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>Process accessed Windows registry key</p></td>
+<td><p>4663</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Windows Registry</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>User accessed Windows registry key</p></td>
+<td><p>4663</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Windows Registry</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>Process requested access Windows registry key</p></td>
+<td><p>4656</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Windows Registry</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>User requested access Windows registry key</p></td>
+<td><p>4656</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Windows Registry</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>Process modified Windows registry key value</p></td>
+<td><p>4657</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Windows Registry</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>User modified Windows registry key value</p></td>
+<td><p>4657</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT EventID, Message</span>
 <span class="sd">FROM mordorTable</span>
 <span class="sd">WHERE LOWER(Channel) = &#39;security&#39;</span>
 <span class="sd">  AND EventID IN (4656,4663,4657)</span>
 <span class="sd">  AND LOWER(ObjectName) RLIKE &#39;.*consentstore\\\\\\\microphone.*&#39;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|EventID|Message                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|4656   |A handle to an object was requested.
+
+Subject:
+	Security ID:		S-1-5-18
+	Account Name:		WORKSTATION6$
+	Account Domain:		MORDOR
+	Logon ID:		0x3E7
+
+Object:
+	Object Server:		Security
+	Object Type:		Key
+	Object Name:		\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged\C:#Windows#System32#WindowsPowerShell#v1.0#powershell.exe
+	Handle ID:		0x2f4
+	Resource Attributes:	-
+
+Process Information:
+	Process ID:		0x1ef0
+	Process Name:		C:\Windows\System32\svchost.exe
+
+Access Request Information:
+	Transaction ID:		{00000000-0000-0000-0000-000000000000}
+	Accesses:		DELETE
+				READ_CONTROL
+				WRITE_DAC
+				WRITE_OWNER
+				Query key value
+				Set key value
+				Create sub-key
+				Enumerate sub-keys
+				Notify about changes to keys
+				Create Link
+				
+	Access Reasons:		-
+	Access Mask:		0xF003F
+	Privileges Used for Access Check:	-
+	Restricted SID Count:	0|
+|4663   |An attempt was made to access an object.
+
+Subject:
+	Security ID:		S-1-5-18
+	Account Name:		WORKSTATION6$
+	Account Domain:		MORDOR
+	Logon ID:		0x3E7
+
+Object:
+	Object Server:		Security
+	Object Type:		Key
+	Object Name:		\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged\C:#Windows#System32#WindowsPowerShell#v1.0#powershell.exe
+	Handle ID:		0x2f4
+	Resource Attributes:	-
+
+Process Information:
+	Process ID:		0x1ef0
+	Process Name:		C:\Windows\System32\svchost.exe
+
+Access Request Information:
+	Accesses:		Set key value
+				
+	Access Mask:		0x2                                                                                                                                                                                                                                                                                                                                 |
+|4657   |A registry value was modified.
+
+Subject:
+	Security ID:		S-1-5-18
+	Account Name:		WORKSTATION6$
+	Account Domain:		MORDOR
+	Logon ID:		0x3E7
+
+Object:
+	Object Name:		\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged\C:#Windows#System32#WindowsPowerShell#v1.0#powershell.exe
+	Object Value Name:	LastUsedTimeStop
+	Handle ID:		0x2f4
+	Operation Type:		New registry value created
+
+Process Information:
+	Process ID:		0x1ef0
+	Process Name:		C:\Windows\System32\svchost.exe
+
+Change Information:
+	Old Value Type:		-
+	Old Value:		-
+	New Value Type:		REG_QWORD
+	New Value:		0x0                                                                                                                                                                                                                                                                                                        |
+|4656   |A handle to an object was requested.
+
+Subject:
+	Security ID:		S-1-5-18
+	Account Name:		WORKSTATION6$
+	Account Domain:		MORDOR
+	Logon ID:		0x3E7
+
+Object:
+	Object Server:		Security
+	Object Type:		Key
+	Object Name:		\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged\C:#Windows#System32#WindowsPowerShell#v1.0#powershell.exe
+	Handle ID:		0x1dc
+	Resource Attributes:	-
+
+Process Information:
+	Process ID:		0x1ef0
+	Process Name:		C:\Windows\System32\svchost.exe
+
+Access Request Information:
+	Transaction ID:		{00000000-0000-0000-0000-000000000000}
+	Accesses:		DELETE
+				READ_CONTROL
+				WRITE_DAC
+				WRITE_OWNER
+				Query key value
+				Set key value
+				Create sub-key
+				Enumerate sub-keys
+				Notify about changes to keys
+				Create Link
+				
+	Access Reasons:		-
+	Access Mask:		0xF003F
+	Privileges Used for Access Check:	-
+	Restricted SID Count:	0|
+|4663   |An attempt was made to access an object.
+
+Subject:
+	Security ID:		S-1-5-18
+	Account Name:		WORKSTATION6$
+	Account Domain:		MORDOR
+	Logon ID:		0x3E7
+
+Object:
+	Object Server:		Security
+	Object Type:		Key
+	Object Name:		\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged\C:#Windows#System32#WindowsPowerShell#v1.0#powershell.exe
+	Handle ID:		0x1dc
+	Resource Attributes:	-
+
+Process Information:
+	Process ID:		0x1ef0
+	Process Name:		C:\Windows\System32\svchost.exe
+
+Access Request Information:
+	Accesses:		Set key value
+				
+	Access Mask:		0x2                                                                                                                                                                                                                                                                                                                                 |
+|4657   |A registry value was modified.
+
+Subject:
+	Security ID:		S-1-5-18
+	Account Name:		WORKSTATION6$
+	Account Domain:		MORDOR
+	Logon ID:		0x3E7
+
+Object:
+	Object Name:		\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged\C:#Windows#System32#WindowsPowerShell#v1.0#powershell.exe
+	Object Value Name:	LastUsedTimeStop
+	Handle ID:		0x1dc
+	Operation Type:		Existing registry value modified
+
+Process Information:
+	Process ID:		0x1ef0
+	Process Name:		C:\Windows\System32\svchost.exe
+
+Change Information:
+	Old Value Type:		REG_QWORD
+	Old Value:		0x0
+	New Value Type:		REG_QWORD
+	New Value:		0x1D63ED21D4ADB0A                                                                                                                                                                                                                                                                          |
++-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 </pre></div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="detection-blindspots">
-<h2>Detection Blindspots<a class="headerlink" href="#detection-blindspots" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="known-bypasses">
+<h2>Known Bypasses<a class="headerlink" href="#known-bypasses" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Idea</p></th>
+<th class="text-align:left head"><p>Playbook</p></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+<div class="section" id="false-positives">
+<h2>False Positives<a class="headerlink" href="#false-positives" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
 </div>
 <div class="section" id="hunter-notes">
 <h2>Hunter Notes<a class="headerlink" href="#hunter-notes" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
 </div>
 <div class="section" id="hunt-output">
 <h2>Hunt Output<a class="headerlink" href="#hunt-output" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Category</p></th>
-<th class="text-align:left head"><p>Type</p></th>
-<th class="text-align:left head"><p>Name</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Type</p></th>
+<th class="text-align:left head"><p>Link</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>signature</p></td>
-<td class="text-align:left"><p>SIGMA</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_camera_microphone_access.yml">sysmon_camera_microphone_access</a></p></td>
+<tr class="row-even"><td class="text-align:left"><p>Sigma Rule</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_camera_microphone_access.yml">https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_camera_microphone_access.yml</a></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>signature</p></td>
-<td class="text-align:left"><p>SIGMA</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_camera_microphone_access.yml">win_camera_microphone_access</a></p></td>
+<tr class="row-odd"><td class="text-align:left"><p>Sigma Rule</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_camera_microphone_access.yml">https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_camera_microphone_access.yml</a></p></td>
 </tr>
 </tbody>
 </table>

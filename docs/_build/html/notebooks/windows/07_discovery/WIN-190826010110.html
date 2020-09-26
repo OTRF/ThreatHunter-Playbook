@@ -2,9 +2,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Remote Service Control Manager Handle &#8212; Threat Hunter Playbook</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../../../_static/css/index.css" rel="stylesheet">
@@ -14,9 +15,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-dropdown.css" />
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/sphinx-book-theme.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -24,12 +24,10 @@
     <script src="../../../_static/togglebutton.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/mystnb.js"></script>
     <script src="../../../_static/sphinx-book-theme.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe,.cell"
@@ -52,7 +50,7 @@
 <meta property="og:url"         content="https://threathunterplaybook.com/notebooks/windows/07_discovery/WIN-190826010110.html" />
 <meta property="og:type"        content="article" />
 <meta property="og:title"       content="Remote Service Control Manager Handle" />
-<meta property="og:description" content="Remote Service Control Manager Handle  Metadata          id  WIN-190826010110  author  Roberto Rodriguez @Cyb3rWard0g  creation date  2019/08/26  platform  Wind" />
+<meta property="og:description" content="Remote Service Control Manager Handle  Metadata          collaborators  [‘Roberto Rodriguez @Cyb3rWard0g’, ‘Jose Rodriguez @Cyb3rPandaH’]  creation date  2019/0" />
 <meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -206,6 +204,11 @@
       </a>
      </li>
      <li class="toctree-l3">
+      <a class="reference internal" href="../05_defense_evasion/WIN-191224222300.html">
+       Extended NetNTLM Downgrade
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="../05_defense_evasion/WIN-190407183310.html">
        Enable Remote Desktop Conections Registry
       </a>
@@ -235,11 +238,6 @@
      <li class="toctree-l3">
       <a class="reference internal" href="../06_credential_access/WIN-190725024610.html">
        SAM Registry Hive Handle Request
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../06_credential_access/WIN-191224222300.html">
-       Extended NetNTLM Downgrade
       </a>
      </li>
      <li class="toctree-l3">
@@ -350,6 +348,10 @@
 
  <!-- To handle the deprecated key -->
 
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
 </div>
 
 
@@ -459,13 +461,23 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#technical-description">
-   Technical Description
+  <a class="reference internal nav-link" href="#hypothesis">
+   Hypothesis
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hypothesis">
-   Hypothesis
+  <a class="reference internal nav-link" href="#technical-context">
+   Technical Context
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#offensive-tradecraft">
+   Offensive Tradecraft
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#mordor-test-data">
+   Mordor Test Data
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -479,8 +491,8 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#download-process-mordor-file">
-     Download &amp; Process Mordor File
+    <a class="reference internal nav-link" href="#download-process-mordor-dataset">
+     Download &amp; Process Mordor Dataset
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -511,8 +523,13 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#detection-blindspots">
-   Detection Blindspots
+  <a class="reference internal nav-link" href="#known-bypasses">
+   Known Bypasses
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#false-positives">
+   False Positives
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -551,43 +568,61 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>id</p></td>
-<td class="text-align:left"><p>WIN-190826010110</p></td>
+<tr class="row-even"><td class="text-align:left"><p>collaborators</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>author</p></td>
-<td class="text-align:left"><p>Roberto Rodriguez &#64;Cyb3rWard0g</p></td>
-</tr>
-<tr class="row-even"><td class="text-align:left"><p>creation date</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>creation date</p></td>
 <td class="text-align:left"><p>2019/08/26</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>platform</p></td>
-<td class="text-align:left"><p>Windows</p></td>
+<tr class="row-even"><td class="text-align:left"><p>modification date</p></td>
+<td class="text-align:left"><p>2020/09/20</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>playbook link</p></td>
-<td class="text-align:left"><p></p></td>
+<tr class="row-odd"><td class="text-align:left"><p>playbook related</p></td>
+<td class="text-align:left"><p>[]</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="technical-description">
-<h2>Technical Description<a class="headerlink" href="#technical-description" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="hypothesis">
+<h2>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">¶</a></h2>
+<p>Adversaries might be attempting to open up a handle to the service control manager (SCM) database on remote endpoints to check for local admin access in my environment.</p>
+</div>
+<div class="section" id="technical-context">
+<h2>Technical Context<a class="headerlink" href="#technical-context" title="Permalink to this headline">¶</a></h2>
 <p>Often times, when an adversary lands on an endpoint, the current user does not have local administrator privileges over the compromised system.
 While some adversaries consider this situation a dead end, others find it very interesting to identify which machines on the network the current user has administrative access to.
 One common way to accomplish this is by attempting to open up a handle to the service control manager (SCM) database on remote endpoints in the network with SC_MANAGER_ALL_ACCESS (0xF003F) access rights.
 The Service Control Manager (SCM) is a remote procedure call (RPC) server, so that service configuration and service control programs can manipulate services on remote machines.
 Only processes with Administrator privileges are able to open a handle to the SCM database.
 This database is also known as the ServicesActive database.
-Therefore, it is very effective to check if the current user has administrative or local admin access to other endpoints in the network.
-An adversary can simply use the Win32 API function <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/api/winsvc/nf-winsvc-openscmanagera">OpenSCManagerA</a> to attempt to establish a connection to the service control manager (SCM) on the specified computer and open the service control manager database.
+Therefore, it is very effective to check if the current user has administrative or local admin access to other endpoints in the network.</p>
+</div>
+<div class="section" id="offensive-tradecraft">
+<h2>Offensive Tradecraft<a class="headerlink" href="#offensive-tradecraft" title="Permalink to this headline">¶</a></h2>
+<p>An adversary can simply use the Win32 API function <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/api/winsvc/nf-winsvc-openscmanagera">OpenSCManagerA</a> to attempt to establish a connection to the service control manager (SCM) on the specified computer and open the service control manager database.
 If this succeeds (A non-zero handle is returned), the current user context has local administrator acess to the remote host.</p>
 <p>Additional reading</p>
 <ul class="simple">
 <li><p>https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/service_control_manager.md</p></li>
 </ul>
 </div>
-<div class="section" id="hypothesis">
-<h2>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">¶</a></h2>
-<p>Adversaries might be attempting to open up a handle to the service control manager (SCM) database on remote endpoints to check for local admin access in my environment.</p>
+<div class="section" id="mordor-test-data">
+<h2>Mordor Test Data<a class="headerlink" href="#mordor-test-data" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p></p></th>
+<th class="text-align:left head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>metadata</p></td>
+<td class="text-align:left"><p>https://mordordatasets.com/notebooks/small/windows/07_discovery/SDWIN-190518224039.html</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>link</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/discovery/host/empire_find_localadmin_smb_svcctl_OpenSCManager.zip">https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/discovery/host/empire_find_localadmin_smb_svcctl_OpenSCManager.zip</a></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="analytics">
 <h2>Analytics<a class="headerlink" href="#analytics" title="Permalink to this headline">¶</a></h2>
@@ -595,31 +630,28 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 <h3>Initialize Analytics Engine<a class="headerlink" href="#initialize-analytics-engine" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="n">spark</span> <span class="o">=</span> <span class="n">get_spark</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="download-process-mordor-file">
-<h3>Download &amp; Process Mordor File<a class="headerlink" href="#download-process-mordor-file" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="download-process-mordor-dataset">
+<h3>Download &amp; Process Mordor Dataset<a class="headerlink" href="#download-process-mordor-dataset" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/discovery/empire_find_local_admin.tar.gz&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/discovery/host/empire_find_localadmin_smb_svcctl_OpenSCManager.zip&quot;</span>
 <span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
-</pre></div>
-</div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing Data from Winlogbeat version 6..
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
 [+] DataFrame Returned !
 </pre></div>
 </div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
 </pre></div>
 </div>
 </div>
@@ -627,45 +659,48 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 </div>
 <div class="section" id="analytic-i">
 <h3>Analytic I<a class="headerlink" href="#analytic-i" title="Permalink to this headline">¶</a></h3>
+<p>Detects non-system users failing to get a handle of the SCM database.</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
-<td class="text-align:left"><p>[‘Security’]</p></td>
-<td class="text-align:left"><p>Detects non-system users failing to get a handle of the SCM database.</p></td>
+<tr class="row-even"><td class="text-align:left"><p>File</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>User requested access File</p></td>
+<td><p>4656</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT `@timestamp`, computer_name, SubjectUserName, ProcessName, ObjectName</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName</span>
 <span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE channel = &quot;Security&quot;</span>
-<span class="sd">    AND event_id = 4656</span>
+<span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
+<span class="sd">    AND EventID = 4656</span>
 <span class="sd">    AND ObjectType = &quot;SC_MANAGER OBJECT&quot;</span>
 <span class="sd">    AND ObjectName = &quot;ServicesActive&quot;</span>
 <span class="sd">    AND AccessMask = &quot;0xf003f&quot;</span>
 <span class="sd">    AND NOT SubjectLogonId = &quot;0x3e4&quot;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+----------------------+---------------+---------------+--------------------------------+--------------+
-|@timestamp            |computer_name  |SubjectUserName|ProcessName                     |ObjectName    |
-+----------------------+---------------+---------------+--------------------------------+--------------+
-|2019-05-18 18:41:17.45|HR001.shire.com|pgustavo       |C:\Windows\System32\services.exe|ServicesActive|
-+----------------------+---------------+---------------+--------------------------------+--------------+
-
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+---------------+--------------------------------+--------------+
+|@timestamp             |Hostname                   |SubjectUserName|ProcessName                     |ObjectName    |
++-----------------------+---------------------------+---------------+--------------------------------+--------------+
+|2020-09-22 02:16:09.806|WORKSTATION6.theshire.local|pgustavo       |C:\Windows\System32\services.exe|ServicesActive|
+|2020-09-22 02:16:30.92 |MORDORDC.theshire.local    |pgustavo       |C:\Windows\System32\services.exe|ServicesActive|
++-----------------------+---------------------------+---------------+--------------------------------+--------------+
 </pre></div>
 </div>
 </div>
@@ -673,46 +708,47 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 </div>
 <div class="section" id="analytic-ii">
 <h3>Analytic II<a class="headerlink" href="#analytic-ii" title="Permalink to this headline">¶</a></h3>
+<p>Look for non-system accounts performing privileged operations on protected subsystem objects such as the SCM database</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
-<td class="text-align:left"><p>[‘Security’]</p></td>
-<td class="text-align:left"><p>Look for non-system accounts performing privileged operations on protected subsystem objects such as the SCM database</p></td>
+<tr class="row-even"><td class="text-align:left"><p>File</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>User requested access File</p></td>
+<td><p>4674</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT `@timestamp`, computer_name, SubjectUserName, ProcessName, ObjectName, PrivilegeList, ObjectServer</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName, PrivilegeList, ObjectServer</span>
 <span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE channel = &quot;Security&quot;</span>
-<span class="sd">    AND event_id = 4674</span>
+<span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
+<span class="sd">    AND EventID = 4674</span>
 <span class="sd">    AND ObjectType = &quot;SC_MANAGER OBJECT&quot;</span>
 <span class="sd">    AND ObjectName = &quot;ServicesActive&quot;</span>
 <span class="sd">    AND PrivilegeList = &quot;SeTakeOwnershipPrivilege&quot;</span>
 <span class="sd">    AND NOT SubjectLogonId = &quot;0x3e4&quot;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+---------------+--------------------------------+--------------+------------------------+------------+
-|@timestamp             |computer_name   |SubjectUserName|ProcessName                     |ObjectName    |PrivilegeList           |ObjectServer|
-+-----------------------+----------------+---------------+--------------------------------+--------------+------------------------+------------+
-|2019-05-18 18:41:14.998|HFDC01.shire.com|pgustavo       |C:\Windows\System32\services.exe|ServicesActive|SeTakeOwnershipPrivilege|SC Manager  |
-|2019-05-18 18:41:17.473|IT001.shire.com |pgustavo       |C:\Windows\System32\services.exe|ServicesActive|SeTakeOwnershipPrivilege|SC Manager  |
-+-----------------------+----------------+---------------+--------------------------------+--------------+------------------------+------------+
-
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+---------------+--------------------------------+--------------+------------------------+------------+
+|@timestamp             |Hostname                   |SubjectUserName|ProcessName                     |ObjectName    |PrivilegeList           |ObjectServer|
++-----------------------+---------------------------+---------------+--------------------------------+--------------+------------------------+------------+
+|2020-09-22 02:16:08.637|WORKSTATION5.theshire.local|pgustavo       |C:\Windows\System32\services.exe|ServicesActive|SeTakeOwnershipPrivilege|SC Manager  |
++-----------------------+---------------------------+---------------+--------------------------------+--------------+------------------------+------------+
 </pre></div>
 </div>
 </div>
@@ -720,44 +756,50 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 </div>
 <div class="section" id="analytic-iii">
 <h3>Analytic III<a class="headerlink" href="#analytic-iii" title="Permalink to this headline">¶</a></h3>
+<p>Look for inbound network connections to services.exe from other endpoints in the network. Same SourceAddress, but different Hostname</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
-<td class="text-align:left"><p>[‘Security’]</p></td>
-<td class="text-align:left"><p>Look for inbound network connections to services.exe from other endpoints in the network. Same SourceAddress, but different computer_name</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>Process connected to Port</p></td>
+<td><p>5156</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>Process connected to Ip</p></td>
+<td><p>5156</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT `@timestamp`, computer_name, Application, SourcePort, SourceAddress, DestPort, DestAddress</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, Hostname, Application, SourcePort, SourceAddress, DestPort, DestAddress</span>
 <span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE channel = &quot;Security&quot;</span>
-<span class="sd">    AND event_id = 5156</span>
+<span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
+<span class="sd">    AND EventID = 5156</span>
 <span class="sd">    AND Application LIKE &quot;%\\\services.exe&quot;</span>
 <span class="sd">    AND LayerRTID = 44</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+-----------------------------------------------------+----------+-------------+--------+-------------+
-|@timestamp             |computer_name   |Application                                          |SourcePort|SourceAddress|DestPort|DestAddress  |
-+-----------------------+----------------+-----------------------------------------------------+----------+-------------+--------+-------------+
-|2019-05-18 18:41:14.984|HFDC01.shire.com|\device\harddiskvolume2\windows\system32\services.exe|58835     |172.18.39.106|53285   |172.18.39.5  |
-|2019-05-18 18:41:17.47 |IT001.shire.com |\device\harddiskvolume2\windows\system32\services.exe|58838     |172.18.39.106|49691   |172.18.39.105|
-+-----------------------+----------------+-----------------------------------------------------+----------+-------------+--------+-------------+
-
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+-----------------------------------------------------+----------+-------------+--------+-----------+
+|@timestamp             |Hostname                   |Application                                          |SourcePort|SourceAddress|DestPort|DestAddress|
++-----------------------+---------------------------+-----------------------------------------------------+----------+-------------+--------+-----------+
+|2020-09-22 02:16:09.804|WORKSTATION6.theshire.local|\device\harddiskvolume2\windows\system32\services.exe|54786     |172.18.39.5  |49726   |172.18.39.6|
++-----------------------+---------------------------+-----------------------------------------------------+----------+-------------+--------+-----------+
 </pre></div>
 </div>
 </div>
@@ -765,43 +807,49 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 </div>
 <div class="section" id="analytic-iv">
 <h3>Analytic IV<a class="headerlink" href="#analytic-iv" title="Permalink to this headline">¶</a></h3>
+<p>Look for several network connection maded by services.exe from different endpoints to the same destination</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>High</p></td>
-<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
-<td class="text-align:left"><p>Look for several network connection maded by services.exe from different endpoints to the same destination</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>Process connected to Port</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>Process connected to Ip</p></td>
+<td><p>3</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT `@timestamp`, computer_name, User, SourcePort, SourceIp, DestinationPort, DestinationIp</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, Hostname, User, SourcePort, SourceIp, DestinationPort, DestinationIp</span>
 <span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
-<span class="sd">    AND event_id = 3</span>
+<span class="sd">WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">    AND EventID = 3</span>
 <span class="sd">    AND Image LIKE &quot;%\\\services.exe&quot;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+-------------------+----------+-------------+---------------+-------------+
-|@timestamp             |computer_name   |User               |SourcePort|SourceIp     |DestinationPort|DestinationIp|
-+-----------------------+----------------+-------------------+----------+-------------+---------------+-------------+
-|2019-05-18 18:41:16.218|HFDC01.shire.com|NT AUTHORITY\SYSTEM|53285     |172.18.39.5  |58835          |172.18.39.106|
-|2019-05-18 18:41:18.504|IT001.shire.com |NT AUTHORITY\SYSTEM|49691     |172.18.39.105|58838          |172.18.39.106|
-+-----------------------+----------------+-------------------+----------+-------------+---------------+-------------+
-
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+-------------------+----------+-----------+---------------+-------------+
+|@timestamp             |Hostname                   |User               |SourcePort|SourceIp   |DestinationPort|DestinationIp|
++-----------------------+---------------------------+-------------------+----------+-----------+---------------+-------------+
+|2020-09-22 02:16:11.808|WORKSTATION6.theshire.local|NT AUTHORITY\SYSTEM|54786     |172.18.39.5|49726          |172.18.39.6  |
++-----------------------+---------------------------+-------------------+----------+-----------+---------------+-------------+
 </pre></div>
 </div>
 </div>
@@ -809,62 +857,80 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 </div>
 <div class="section" id="analytic-v">
 <h3>Analytic V<a class="headerlink" href="#analytic-v" title="Permalink to this headline">¶</a></h3>
+<p>Look for non-system accounts performing privileged operations on protected subsystem objects such as the SCM database from other endpoints in the network</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
-<td class="text-align:left"><p>[‘Security’]</p></td>
-<td class="text-align:left"><p>Look for non-system accounts performing privileged operations on protected subsystem objects such as the SCM database from other endpoints in the network</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Authentication log</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>User authenticated Host</p></td>
+<td><p>4624</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>File</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>User requested access File</p></td>
+<td><p>4674</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT o.`@timestamp`, o.computer_name, o.SubjectUserName, o.ObjectType,o.ObjectName, o.PrivilegeList, a.IpAddress</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT o.`@timestamp`, o.Hostname, o.SubjectUserName, o.ObjectType,o.ObjectName, o.PrivilegeList, a.IpAddress</span>
 <span class="sd">FROM mordorTable o</span>
 <span class="sd">INNER JOIN (</span>
-<span class="sd">    SELECT computer_name,TargetUserName,TargetLogonId,IpAddress</span>
+<span class="sd">    SELECT Hostname,TargetUserName,TargetLogonId,IpAddress</span>
 <span class="sd">    FROM mordorTable</span>
-<span class="sd">    WHERE channel = &quot;Security&quot;</span>
+<span class="sd">    WHERE LOWER(Channel) = &quot;security&quot;</span>
+<span class="sd">        AND EventID = 4624</span>
 <span class="sd">        AND LogonType = 3</span>
-<span class="sd">        AND IpAddress is not null</span>
 <span class="sd">        AND NOT TargetUserName LIKE &quot;%$&quot;</span>
 <span class="sd">    ) a</span>
 <span class="sd">ON o.SubjectLogonId = a.TargetLogonId</span>
-<span class="sd">WHERE o.channel = &quot;Security&quot;</span>
-<span class="sd">    AND o.event_id = 4674</span>
+<span class="sd">WHERE LOWER(o.Channel) = &quot;security&quot;</span>
+<span class="sd">    AND o.EventID = 4674</span>
 <span class="sd">    AND o.ObjectType = &quot;SC_MANAGER OBJECT&quot;</span>
 <span class="sd">    AND o.ObjectName = &quot;ServicesActive&quot;</span>
 <span class="sd">    AND NOT o.SubjectLogonId = &quot;0x3e4&quot;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+----------------+---------------+-----------------+--------------+------------------------+-------------+
-|@timestamp             |computer_name   |SubjectUserName|ObjectType       |ObjectName    |PrivilegeList           |IpAddress    |
-+-----------------------+----------------+---------------+-----------------+--------------+------------------------+-------------+
-|2019-05-18 18:41:14.998|HFDC01.shire.com|pgustavo       |SC_MANAGER OBJECT|ServicesActive|SeTakeOwnershipPrivilege|172.18.39.106|
-|2019-05-18 18:41:17.473|IT001.shire.com |pgustavo       |SC_MANAGER OBJECT|ServicesActive|SeTakeOwnershipPrivilege|172.18.39.106|
-+-----------------------+----------------+---------------+-----------------+--------------+------------------------+-------------+
-
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+--------+---------------+----------+----------+-------------+---------+
+|@timestamp|Hostname|SubjectUserName|ObjectType|ObjectName|PrivilegeList|IpAddress|
++----------+--------+---------------+----------+----------+-------------+---------+
++----------+--------+---------------+----------+----------+-------------+---------+
 </pre></div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="detection-blindspots">
-<h2>Detection Blindspots<a class="headerlink" href="#detection-blindspots" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="known-bypasses">
+<h2>Known Bypasses<a class="headerlink" href="#known-bypasses" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Idea</p></th>
+<th class="text-align:left head"><p>Playbook</p></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+<div class="section" id="false-positives">
+<h2>False Positives<a class="headerlink" href="#false-positives" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
 </div>
 <div class="section" id="hunter-notes">
 <h2>Hunter Notes<a class="headerlink" href="#hunter-notes" title="Permalink to this headline">¶</a></h2>
@@ -881,19 +947,16 @@ If this succeeds (A non-zero handle is returned), the current user context has l
 <h2>Hunt Output<a class="headerlink" href="#hunt-output" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Category</p></th>
-<th class="text-align:left head"><p>Type</p></th>
-<th class="text-align:left head"><p>Name</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Type</p></th>
+<th class="text-align:left head"><p>Link</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>signature</p></td>
-<td class="text-align:left"><p>SIGMA</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_handle_failure.yml">win_scm_database_handle_failure</a></p></td>
+<tr class="row-even"><td class="text-align:left"><p>Sigma Rule</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_handle_failure.yml">https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_handle_failure.yml</a></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>signature</p></td>
-<td class="text-align:left"><p>SIGMA</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_privileged_operation.yml">win_scm_database_privileged_operation</a></p></td>
+<tr class="row-odd"><td class="text-align:left"><p>Sigma Rule</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_privileged_operation.yml">https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_privileged_operation.yml</a></p></td>
 </tr>
 </tbody>
 </table>
