@@ -1,17 +1,19 @@
 title: Domain DPAPI Backup Key Extraction
 id: WIN-190620024610
-author: Roberto Rodriguez @Cyb3rWard0g
-playbook_link:
+collaborators:
+  - Roberto Rodriguez @Cyb3rWard0g
+  - Jose Rodriguez @Cyb3rPandaH
+playbooks_related:
 creation_date: 2019/06/20
+modification_date: 2020/09/20
 platform: Windows
-permissions_required:
-  - Domain Admin
-attack_coverage:
-  - technique: T1003
-    tactics:
+attack_mappings:
+  - tactics:
       - TA0006
+    technique: T1003
+    sub_technique: "004"
 hypothesis: Adversaries might be extracting the DPAPI domain backup key from my DC to be able to decrypt any domain user master key files.
-description: |-
+technical_context: |-
   Starting with Microsoft® Windows® 2000, the operating system began to provide a data protection application-programming interface (API).
   This Data Protection API (DPAPI) is a pair of function calls (CryptProtectData / CryptUnprotectData) that provide operating system-level data protection services to user and system processes.
   DPAPI initially generates a strong key called a MasterKey, which is protected by the user's password. DPAPI uses a standard cryptographic process called Password-Based Key Derivation to generate a key from the password.
@@ -19,6 +21,7 @@ description: |-
   
   When a computer is a member of a domain, DPAPI has a backup mechanism to allow unprotection of the data. When a MasterKey is generated, DPAPI talks to a Domain Controller.
   Domain Controllers have a domain-wide public/private key pair, associated solely with DPAPI. The local DPAPI client gets the Domain Controller public key from a Domain Controller by using a mutually authenticated and privacy protected RPC call. The client encrypts the MasterKey with the Domain Controller public key. It then stores this backup MasterKey along with the MasterKey protected by the user's password.
+offensive_tradecraft: |- 
   If an adversary obtains domain admin (or equivalent) privileges, the domain backup key can be stolen and used to decrypt any domain user master key.
   Tools such as Mimikatz with the method/module lsadump::backupkeys can be used to extract the domain backup key.
   It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) to retrieve the value for the G$BCKUPKEY_PREFERRED and G$BCKUPKEY_P LSA secrets.
@@ -26,15 +29,28 @@ description: |-
   Additional reading
   * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/data_protection_api.md
   * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/lsa_policy_objects.md
-validation_dataset:
-  - type: mordor
-    url: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_export_master_key.tar.gz
+validation:
+  permissions_required:
+    - Domain Admin
+  simulation:
+    commnads:
+      - None
+    script_url:
+      - None
+  test_data:
+    document: https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-190518235535.html
+    datasets:
+      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_export_master_key.tar.gz
 analytics:
   - name: Analytic I
-    data_sources:
-      - Security
-    false_positives: Low
     description: Monitor for any SecretObject with the string BCKUPKEY in the ObjectName
+    data_sources:
+      - attack_mapping: Windows active directory
+        - event_provider: Microsoft-Windows-Security-Auditing
+          data_model:
+            - relationship: User accessed AD Object
+              id: 8F2A7CAF-7886-4485-8DBB-BCFDA5A181B9
+              event_id: 4662
     logic: |-
       SELECT `@timestamp`, computer_name, ObjectServer, ObjectType, ObjectName
       FROM mordorTable
@@ -43,10 +59,20 @@ analytics:
           AND AccessMask = "0x2"
           AND lower(ObjectName) LIKE "%bckupkey%"
   - name: Analytic II
-    data_sources:
-      - Security
-    false_positives: Low
     description: We can get the user logon id of the user that accessed the *bckupkey* object and JOIN it with a successful logon event (4624) user logon id to find the source IP
+    data_sources:
+      - attack_mapping: Authentication log
+        - event_provider: Microsoft-Windows-Security-Auditing
+          data_model:
+            - relationship: User authenticated Host
+              id: C07F53CF-A125-40F8-BE5C-E42017A57C0F
+              event_id: 4624
+      - attack_mapping: Windows active directory
+        - event_provider: Microsoft-Windows-Security-Auditing
+          data_model:
+            - relationship: User accessed AD Object
+              id: 8F2A7CAF-7886-4485-8DBB-BCFDA5A181B9
+              event_id: 4662
     logic: |-
       SELECT o.`@timestamp`, o.computer_name, o.ObjectName, a.IpAddress
       FROM mordorTable o
@@ -54,6 +80,7 @@ analytics:
           SELECT computer_name,TargetUserName,TargetLogonId,IpAddress
           FROM mordorTable
           WHERE channel = "Security"
+              AND event_id = 4624
               AND LogonType = 3
               AND IpAddress is not null
               AND NOT TargetUserName LIKE "%$"
@@ -65,10 +92,14 @@ analytics:
           AND lower(o.ObjectName) LIKE "%bckupkey%"
           AND o.computer_name = a.computer_name
   - name: Analytic III
-    data_sources:
-      - Security
-    false_positives: Low
     description: Monitoring for access to the protected_storage service is very interesting to document potential DPAPI activity over the network
+    data_sources:
+      - attack_mapping: File
+        - event_provider: Microsoft-Windows-Security-Auditing
+          data_model:
+            - relationship: User accessed File
+              id: 2A9FC474-29C0-4582-9DA8-1F4197874F8C
+              event_id: 5145
     logic: |-
       SELECT `@timestamp`, computer_name, SubjectUserName, ShareName, RelativeTargetName, AccessMask, IpAddress
       FROM mordorTable
@@ -77,33 +108,30 @@ analytics:
           AND ShareName LIKE "%IPC%"
           AND RelativeTargetName = "protected_storage"
   - name: Analytic IV
-    data_sources:
-      - Security
-    false_positives: Low
     description: This event generates every time that a backup is attempted for the DPAPI Master Key. When a computer is a member of a domain, DPAPI has a backup mechanism to allow unprotection of the data. When a Master Key is generated, DPAPI communicates with a domain controller.
+    data_sources:
+      - attack_mapping: File
+        - event_provider: Microsoft-Windows-Security-Auditing
+          data_model:
+            - relationship: User requested access File
+              id: B0056295-3FA1-4B9F-890D-1D26EF740934
+              event_id: 4692
     logic: |-
       SELECT `@timestamp`, computer_name, SubjectUserName, MasterKeyId, RecoveryKeyId
       FROM mordorTable
       WHERE channel = "Security"
           AND event_id = 4692
-detection_blindspots:
-hunter_notes: |-
+research_notes:
+additional_notes: |-
   * Backup key can be displayed as base64 blob or exported as a .pvk file on disk (Mimikatz-like)
   * Windows security event 4692 (Backup of data protection master key was attempted) also generates every time a new DPAPI Master Key is generated
   * When a computer is a member of a domain, DPAPI has a backup mechanism to allow unprotection of the data. When a Master Key is generated, DPAPI communicates with a domain controller.
-hunt_output:
-  - category: signature
-    type: SIGMA
-    name: win_dpapi_domain_backupkey_extraction
-    url: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_backupkey_extraction.yml
-  - category: signature
-    type: SIGMA
-    name: win_protected_storage_service_access
-    url: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_protected_storage_service_access.yml
-  - category: signature
-    type: SIGMA
-    name: win_dpapi_domain_masterkey_backup_attempt
-    url: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_masterkey_backup_attempt.yml
+research_output:
+  - type: Sigma Rule
+    links:
+      - https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_backupkey_extraction.yml
+      - https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_protected_storage_service_access.yml
+      - https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_masterkey_backup_attempt.yml
 references: |-
   * https://www.harmj0y.net/blog/redteaming/operational-guidance-for-offensive-user-dpapi-abuse/
   * https://digital-forensics.sans.org/summit-archives/dfirprague14/Give_Me_the_Password_and_Ill_Rule_the_World_Francesco_Picasso.pdf

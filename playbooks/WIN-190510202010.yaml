@@ -1,29 +1,45 @@
 title: WDigest Downgrade
 id: WIN-190510202010
-author: Roberto Rodriguez @Cyb3rWard0g
-playbook_link:
+collaborators:
+  - Roberto Rodriguez @Cyb3rWard0g
+  - Jose Rodriguez @Cyb3rPandaH
+playbooks_related:
 creation_date: 2019/05/10
+modification_date: 2020/09/20
 platform: Windows
-permissions_required:
-  - Administrator
-attack_coverage:
-  - technique: T1112
-    tactics:
+attack_mappings:
+  - tactics:
       - TA0005
+    technique: T1112
+    sub_technique: None
 hypothesis: Adversaries might have updated the property value UseLogonCredential of HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest to 1 in order to be able to extract clear text passwords from memory contents of lsass.
-description: |-
+technical_context: |-
   Windows 8.1 introduced a registry setting that allows for disabling the storage of the user’s logon credential in clear text for the WDigest provider.
+offensive_tradecraft: |-
   This setting can be modified in the property UseLogonCredential for the registry key HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest.
   If this key does not exists, you can create it and set it to 1 to enable clear text passwords.
-validation_dataset:
-  - type: mordor
-    url: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/empire_wdigest_downgrade.tar.gz
+validation:
+  permissions_required:
+    - Administrator
+  simulation:
+    commnads:
+      - None
+    script_url:
+      - None
+  test_data:
+    document: https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-190518201922.html
+    datasets:
+      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/empire_wdigest_downgrade.tar.gz
 analytics:
   - name: Analytic I
-    data_sources:
-      - Microsoft-Windows-Sysmon/Operational
-    false_positives: Low
     description: Look for any process updating UseLogonCredential registry key value
+    data_sources:
+      - attack_mapping: Windows registry
+        - event_provider: Microsoft-Windows-Sysmon/Operational
+          data_model:
+            - relationship: Process modified Windows registry key value
+              id: 25EE8F70-C82B-4C43-A939-10CF156FBBFA
+              event_id: 13
     logic: |-
       SELECT `@timestamp`, computer_name, Image, TargetObject
       FROM mordorTable
@@ -31,13 +47,12 @@ analytics:
           AND event_id = 13
           AND TargetObject LIKE "%UseLogonCredential"
           AND Details = 1
-detection_blindspots:
-hunter_notes:
-hunt_output:
-  - category: signature
-    type: SIGMA
-    name: sysmon_wdigest_registry_modification
-    url: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_wdigest_registry_modification.yml
+research_notes:
+additional_notes:
+research__output:
+  - type: Sigma Rule
+    links:
+      - https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_wdigest_registry_modification.yml
 references: |-
   * https://github.com/samratashok/nishang/blob/master/Gather/Invoke-MimikatzWDigestDowngrade.ps1
   * https://blog.stealthbits.com/wdigest-clear-text-passwords-stealing-more-than-a-hash/

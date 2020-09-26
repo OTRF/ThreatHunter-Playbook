@@ -1,23 +1,25 @@
 title: Extended NetNTLM Downgrade
 id: WIN-191224222300
-author: Roberto Rodriguez @Cyb3rWard0g
-playbook_link:
+collaborators:
+  - Roberto Rodriguez @Cyb3rWard0g
+  - Jose Rodriguez @Cyb3rPandaH
+playbooks_related:
 creation_date: 2019/12/24
+modification_date: 2020/09/20
 platform: Windows
-permissions_required:
-  - Administrator
 attack_coverage:
-  - technique: T1003
-    tactics:
-      - TA0006
+  - tactics:
+      - TA0005
+    technique: T1112
+    sub_technique: None
 hypothesis: Adversaries might be downgrading the challenge/response authentication protocol used for network logons, the minimum security negotiated for applications using NTLMSSP, and security settings that restrict outgoing NTLM traffic to remote servers in my environment
-description: |-
+technical_context: |-
   LAN Manager (LM) includes client computer and server software from Microsoft that allows users to link personal devices together on a single network.
   Network capabilities include transparent file and print sharing, user security features, and network administration tools.
   In Active Directory domains, the Kerberos protocol is the default authentication protocol.
   However, if the Kerberos protocol is not negotiated for some reason, Active Directory uses LM, NTLM, or NTLM version 2 (NTLMv2).
 
-  LAN Manager authentication includes the LM, NTLM, and NTLMv2 variants, and it is the protocol that is used to authenticate all client devices running the Windows operating system when they perform the following operations:
+  LAN Manager authentication includes the LM, NTLM, and NTLMv2 variants, and it is the protocol that is used to authenticate all client devices running the Windows operating system when they perform the following operations
   
   * Join a domain
   * Authenticate between Active Directory forests
@@ -25,7 +27,7 @@ description: |-
   * Authenticate to computers that do not run Windows operating systems, beginning with Windows 2000
   * Authenticate to computers that are not in the domain
 
-  Prior to Windows NT 4.0 Service Pack 4 (SP4), Windows NT supported two kinds of challenge/response authentication: LanManager (LM) challenge/response and Windows NT challenge/response (also known as NTLM challenge/response)
+  Prior to Windows NT 4.0 Service Pack 4 (SP4), Windows NT supported two kinds of challenge/response authentication -> LanManager (LM) challenge/response and Windows NT challenge/response (also known as NTLM challenge/response)
   Windows NT also supported session security mechanisms that provided for message confidentiality and integrity.
   To allow access to servers that only support LM authentication, Windows NT clients prior to SP4 always use both, even to Windows NT servers that supported NTLM authentication.
   
@@ -36,17 +38,17 @@ description: |-
   In addition, the implementation of the NTLM Security Service Provider (SSP) has been enhanced to allow clients to control which variants of NTLM are used, and to allow servers to control which variants they will accept, by setting a new registry key appropriately.
   It also allows clients and servers to require the negotiation of message confidentiality (encryption), message integrity, 128-bit encryption, and NTLMv2 session security.
 
-  Control of NTLM security is through the following registry key:
+  Control of NTLM security is through the following registry key
 
   * HKEY_LOCAL_MACHINE\System\CurrentControlSet\control\LSA
 
-  Choice of the authentication protocol variants used and accepted is through the following value of that key:
+  Choice of the authentication protocol variants used and accepted is through the following value of that key
 
-  Value: LMCompatibilityLevel
-  Value Type: REG_DWORD - Number
-  Valid Range: 0-5
-  Default: 0
-  Description: This parameter specifies the type of authentication to be
+  Value -> LMCompatibilityLevel
+  Value Type -> REG_DWORD - Number
+  Valid Range -> 0-5
+  Default -> 0
+  Description -> This parameter specifies the type of authentication to be
   used.
 
   Level 0 - Send LM response and NTLM response; never use NTLMv2 session security
@@ -57,57 +59,85 @@ description: |-
   Level 5 - DC refuses LM and NTLM authenication (accepts only NTLMv2)
 
   Control over the minimum security negotiated for applications using NTLMSSP is
-  through the following key:
+  through the following key
 
   * HKEY_LOCAL_MACHINE\System\CurrentControlSet\control\LSA\MSV1_0
 
-  The following values are for this key:
+  The following values are for this key
 
-    * Value: NtlmMinClientSec
-    * Value Type: REG_DWORD - Number
-    * Valid Range: the logical 'or' of any of the following values:
+    * Value -> NtlmMinClientSec
+    * Value Type -> REG_DWORD - Number
+    * Valid Range -> the logical 'or' of any of the following values
       * 0x00000010
       * 0x00000020
       * 0x00080000
       * 0x20000000
-    * Default: 0
+    * Default -> 0
 
-    * Value: NtlmMinServerSec
-    * Value Type: REG_DWORD - Number
-    * Valid Range: same as NtlmMinClientSec
-    * Default: 0
-    * Description: This parameter specifies the minimum security to be used.
+    * Value -> NtlmMinServerSec
+    * Value Type -> REG_DWORD - Number
+    * Valid Range -> same as NtlmMinClientSec
+    * Default -> 0
+    * Description -> This parameter specifies the minimum security to be used.
       * 0x00000010  Message integrity
       * 0x00000020  Message confidentiality
       * 0x00080000  NTLMv2 session security
       * 0x20000000  128 bit encryption
-
+offensive_tradecraft: |-
   An adversary with administrator rights to a compromised endpoint could easily modify these settings and downgrade the challenge/response authentication protocol used for network logons and the minimum security negotiated for applications using NTLMSSP.
   This is very dangerous because it could enable NetNTLMv1 as a client on the compromised endpoit and make it authenticate to a rogue SMB server to capture the client’s response (an NTLM Hash).
-  If an organization is already restricting outgoing NTLM traffic to remote servers, it can be easily disabled by modifying the following registry key Property and setting it to 0:
-    * Key: HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0
-    * Property: RestrictSendingNTLMTraffic
-validation_dataset:
-  - type: mordor
-    url: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_extended_netntlm_downgrade.tar.gz
+  If an organization is already restricting outgoing NTLM traffic to remote servers, it can be easily disabled by modifying the following registry key Property and setting it to 0.
+    * Key -> HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0
+    * Property -> RestrictSendingNTLMTraffic
+validation:
+  permissions_required:
+    - Administrator
+  simulation:
+    commnads:
+      - None
+    script_url:
+      - None
+  test_data:
+    document: https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-191225045202.html
+    datasets:
+      - https://raw.githubusercontent.com/OTRF/mordor/master/small_datasets/windows/defense_evasion/host/empire_extended_netntlm_downgrade.tar.gz
 analytics:
   - name: Analytic I
-    data_sources:
-      - Security
-    false_positives: Low
     description: Look for non-system accounts getting a handle and accessing \REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa and \REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\MSV1_0 registry keys from a non-lsass process
+    data_sources:
+      - attack_mapping: Windows Registry
+        - event_provider: Microsoft-Windows-Security-Auditing
+          data_model:
+            - relationship: Process accessed Windows registry key
+              id: 91CBB928-CD58-46F7-90A8-E9B3C53D8269
+              event_id: 4663
+            - relationship: User accessed Windows registry key
+              id: 6CDE6D13-4873-4E88-9F16-72CE2F7ACC84
+              event_id: 4663
+            - relationship: Process requested access Windows registry key
+              id: 9DF48A52-109C-47E9-BA9B-B9C27CFCAACF
+              event_id: 4656
+            - relationship: User requested access Windows registry key
+              id: D2E1050F-F94E-4273-B9A5-044E835CF913
+              event_id: 4656
     logic: |-
       SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName, AccessMask, EventID, SubjectLogonId
       FROM mordorTable
       WHERE Channel = "security"
           AND EventID IN (4663, 4656)
+          AND ObjectType = Key
+          AND (ObjectName LIKE "%Lsa" OR ObjectName LIKE "%Lsa\MSV1_0")
           AND ProcessName NOT LIKE "%lsass.exe"
           AND SubjectLogonId != "0x3e7"
   - name: Analytic II
-    data_sources:
-      - Microsoft-Windows-Sysmon/Operational
-    false_positives: Low
     description: Look for processes modifying the values of the following registry key properties LMCompatibilityLevel,NtlmMinClientSec and RestrictSendingNTLMTraffic
+    data_sources:
+      - attack_mapping: Windows Registry
+        - event_provider: Microsoft-Windows-Security-Auditing
+          data_model:
+            - relationship: Process modified Windows registry key value
+              id: 25EE8F70-C82B-4C43-A939-10CF156FBBFA
+              event_id: 4657
     logic: |-
       SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName, OldValue, NewValue, SubjectLogonId
       FROM mordorTable
@@ -115,10 +145,14 @@ analytics:
           AND EventID = 4657
           AND ObjectValueName in ("LMCompatibilityLevel","NtlmMinClientSec","RestrictSendingNTLMTraffic")
   - name: Analytic III
-    data_sources:
-      - Security
-    false_positives: Low
     description: Look for processes modifying the values of the following registry key properties LMCompatibilityLevel,NtlmMinClientSec and RestrictSendingNTLMTraffic
+    data_sources:
+      - attack_mapping: Windows Registry
+        - event_provider: Microsoft-Windows-Sysmon/Operational
+          data_model:
+            - relationship: Process modified Windows registry key value
+              id: 25EE8F70-C82B-4C43-A939-10CF156FBBFA
+              event_id: 13
     logic: |-
       SELECT `@timestamp`, Hostname, Image, TargetObject, Details
       FROM mordorTable
@@ -129,15 +163,14 @@ analytics:
               TargetObject LIKE "%NtlmMinClientSec" OR
               TargetObject LIKE "%RestrictSendingNTLMTraffic"
           )
-detection_blindspots:
-hunter_notes: |-
+research_notes:
+additional_notes: |-
   * Make sure you have audit rules (SACL) applied to \REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa and \REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\MSV1_0
   * You can take the ProcessId of the process that performed the downgrade and explore its parents.
-hunt_output:
-  - category: signature
-    type: SIGMA
-    name: win_net_ntlm_downgrade
-    url: https://github.com/Neo23x0/sigma/blob/master/rules/windows/builtin/win_net_ntlm_downgrade.yml
+research_output:
+  - type: Sigma Rule
+    links:
+      - https://github.com/Neo23x0/sigma/blob/master/rules/windows/builtin/win_net_ntlm_downgrade.yml
 references: |-
   * https://shenaniganslabs.io/2019/01/14/Internal-Monologue.html
   * https://jeffpar.github.io/kbarchive/kb/147/Q147706/

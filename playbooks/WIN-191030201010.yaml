@@ -1,31 +1,47 @@
 title: Remote Interactive Task Manager LSASS Dump
 id: WIN-191030201010
-author: Roberto Rodriguez @Cyb3rWard0g
-playbook_link: WIN-1904101010
+collaborators:
+  - Roberto Rodriguez @Cyb3rWard0g
+  - Jose Rodriguez @Cyb3rPandaH
+playbooks_related:
+  - WIN-1904101010
 creation_date: 2019/10/30
+modification_date: 2020/09/20
 platform: Windows
-permissions_required:
-  - Administrator
 attack_coverage:
-  - technique: T1003
-    tactics:
+  - tactics:
       - TA0006
+    technique: T1003
+    sub_technique: "001"    
 hypothesis: Adversaries might be RDPing to computers in my environment and interactively dumping the memory contents of LSASS with task manager.
-description: |-
+technical_context:
+offensive_tradecraft: |-
   The Windows Task Manager may be used to dump the memory space of lsass.exe to disk for processing with a credential access tool such as Mimikatz.
   This is performed by launching Task Manager as a privileged user, selecting lsass.exe, and clicking “Create dump file”.
   This saves a dump file to disk with a deterministic name that includes the name of the process being dumped.
-validation_dataset:
-  - type: mordor
-    url: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/remoteinteractive_taskmngr_lsass_dump.tar.gz
-  - type: mordor
-    url: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/interactive_taskmngr_lsass_dump.tar.gz
+validation:
+  permissions_required:
+    - Administrator
+  simulation:
+    commnads:
+      - None
+    script_url:
+      - None
+  test_data:
+    document: https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-191027055035.html
+    datasets:
+      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/remoteinteractive_taskmngr_lsass_dump.tar.gz
+      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/interactive_taskmngr_lsass_dump.tar.gz
 analytics:
   - name: Analytic I
-    data_sources:
-      - Microsoft-Windows-Sysmon/Operational
-    false_positives: Medium
     description: Look for taskmgr creating files which name contains the string lsass and with extension .dmp.
+    data_sources:
+      - attack_mapping: File
+        - event_provider: Microsoft-Windows-Sysmon/Operational
+          data_model:
+            - relationship: Process created File
+              id: 6C37A2B4-250D-4548-BBA6-DF22DD8BC3BE
+              event_id: 11
     logic: |-
       SELECT `@timestamp`, computer_name, Image, TargetFilename, ProcessGuid
       FROM mordorTable
@@ -34,10 +50,14 @@ analytics:
           AND Image LIKE "%taskmgr.exe"
           AND lower(TargetFilename) RLIKE ".*lsass.*\.dmp"
   - name: Analytic II
-    data_sources:
-      - Microsoft-Windows-Sysmon/Operational
-    false_positives: Medium
     description: Look for task manager access lsass and with functions from dbgcore.dll or dbghelp.dll libraries
+    data_sources:
+      - attack_mapping: Process
+        - event_provider: Microsoft-Windows-Sysmon/Operational
+          data_model:
+            - relationship: Process accessed Process
+              id: 7FC7AD70-A886-4C69-8393-1288CC46E923
+              event_id: 10
     logic: |-
       SELECT `@timestamp`, computer_name, SourceImage, TargetImage, GrantedAccess
       FROM mordorTable
@@ -48,8 +68,12 @@ analytics:
           AND (lower(CallTrace) RLIKE ".*dbgcore\.dll.*" OR lower(CallTrace) RLIKE ".*dbghelp\.dll.*")
   - name: Analytic III
     data_sources:
-      - Microsoft-Windows-Sysmon/Operational
-    false_positives: Medium
+      - attack_mapping: Process
+        - event_provider: Microsoft-Windows-Sysmon/Operational
+          data_model:
+            - relationship: Process accessed Process
+              id: 7FC7AD70-A886-4C69-8393-1288CC46E923
+              event_id: 10
     description: Look for any process accessing lsass and with functions from dbgcore.dll or dbghelp.dll libraries
     logic: |-
       SELECT `@timestamp`, computer_name, SourceImage, TargetImage, GrantedAccess
@@ -59,10 +83,17 @@ analytics:
           AND lower(TargetImage) LIKE "%lsass.exe"
           AND (lower(CallTrace) RLIKE ".*dbgcore\.dll.*" OR lower(CallTrace) RLIKE ".*dbghelp\.dll.*")
   - name: Analytic IV
-    data_sources:
-      - Microsoft-Windows-Sysmon/Operational
-    false_positives: Low
     description: Look for combinations of process access and process creation to get more context around potential lsass dump form task manager or other binaries
+    data_sources:
+      - attack_mapping: Process
+        - event_provider: Microsoft-Windows-Sysmon/Operational
+          data_model:
+            - relationship: Process accessed Process
+              id: 7FC7AD70-A886-4C69-8393-1288CC46E923
+              event_id: 10
+            - relationship: Process created Process
+              id: DE5A1D57-9569-4BA7-B2DC-27760F999A9A
+              event_id: 1
     logic: |-
       SELECT o.`@timestamp`, o.computer_name, o.Image, o.LogonId, o.ProcessGuid, a.SourceProcessGUID, o.CommandLine
       FROM mordorTable o
@@ -78,11 +109,23 @@ analytics:
       WHERE o.channel = "Microsoft-Windows-Sysmon/Operational"
           AND o.event_id = 1
   - name: Analytic V
-    data_sources:
-      - Microsoft-Windows-Sysmon/Operational
-      - Security
-    false_positives: Low
     description: Look for binaries accessing lsass that are running under the same logon context of a user over an RDP session
+    data_sources:
+      - attack_mapping: Process
+        - event_provider: Microsoft-Windows-Sysmon/Operational
+          data_model:
+            - relationship: Process accessed Process
+              id: 7FC7AD70-A886-4C69-8393-1288CC46E923
+              event_id: 10
+            - relationship: Process created Process
+              id: DE5A1D57-9569-4BA7-B2DC-27760F999A9A
+              event_id: 1
+      - attack_mapping: Authentication log
+        - event_provider: Microsoft-Windows-Security-Auditing
+          data_model:
+            - relationship: User authenticated Host
+              id: C07F53CF-A125-40F8-BE5C-E42017A57C0F
+              event_id: 4778
     logic: |-
       SELECT o.`@timestamp`, o.computer_name, o.SessionName, o.AccountName, o.ClientName, o.ClientAddress, a.Image, a.CommandLine
       FROM mordorTable o
@@ -107,9 +150,9 @@ analytics:
       ON o.LogonID = a.LogonId
       WHERE lower(o.channel) = "security"
           AND o.event_id = 4778
-detection_blindspots:
-hunter_notes: |-
+research_notes:
+additional_notes: |-
   * Add context to your queries by joining RDP remote interactive authentication events by the logon ID.
-hunt_output:
+research_output:
 references: |-
   * https://car.mitre.org/analytics/CAR-2019-08-001/

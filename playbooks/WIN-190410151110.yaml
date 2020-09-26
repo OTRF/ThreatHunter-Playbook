@@ -1,39 +1,63 @@
 title: Basic PowerShell Execution
 id: WIN-190410151110
-author: Roberto Rodriguez @Cyb3rWard0g
-playbook_link:
+author:
+  - Roberto Rodriguez @Cyb3rWard0g
+  - Jose Rodriguez @Cyb3rPandaH
+playbooks_related:
 creation_date: 2019/04/10
+modification_date: 2020/09/20
 platform: Windows
-permissions_required:
-  - User
-attack_coverage:
-  - technique: T1086
-    tactics:
+attack_mappings:
+  - tactics:
       - TA0002
+    technique: T1059
+    sub_technique: "001"
 hypothesis: Adversaries might be leveraging PowerShell to execute code within my environment
-description: |-
+technical_context:
+offensive_tradecraft: |-
   Adversaries can use PowerShell to perform a number of actions, including discovery of information and execution of code.
   Therefore, it is important to understand the basic artifacts left when PowerShell is used in your environment.
-validation_dataset:
-  - type: mordor
-    url: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/execution/empire_launcher_vbs.tar.gz
+validation:
+  permissions_required:
+    - User
+  simulation:
+    commnads:
+      - None
+    script_url:
+      - None
+  test_data:
+    document: https://mordordatasets.com/notebooks/small/windows/02_execution/SDWIN-190518182022.html
+    datasets:
+      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/execution/empire_launcher_vbs.zip
 analytics:
   - name: Analytic I
-    data_sources:
-      - Microsoft-Windows-PowerShell/Operational
-      - PowerShell
-    false_positives: Medium
     description: Within the classic PowerShell log, event ID 400 indicates when a new PowerShell host process has started. You can filter on powershell.exe as a host application if you want to or leave it without a filter to captuer every single PowerShell host
+    data_sources:
+      - attack_mapping: Powershell
+        - event_provider: Windows PowerShell
+          data_model:
+            - relationship: Application host started
+              id: 489EB588-AF22-4981-BBE9-B2662260B4E9
+              event_id: 400
+        - event_provider: Microsoft-Windows-PowerShell/Operational
+          data_model:
+            - relationship: User started Application host
+              id: A8429FAF-D8F2-435E-A45F-01DAE7B1FCDD
+              event_id: 4103
     logic: |-
       SELECT `@timestamp`, computer_name, channel
       FROM mordorTable
       WHERE (channel = "Microsoft-Windows-PowerShell/Operational" OR channel = "Windows PowerShell")
           AND (event_id = 400 OR event_id = 4103)
   - name: Analytic II
-    data_sources:
-      - Security
-    false_positives: High
     description: Looking for non-interactive powershell session might be a sign of PowerShell being executed by another application in the background
+    data_sources:
+      - attack_mapping: Process
+        - event_provider: Microsoft-Windows-Security-Auditing
+          data_model:
+            - relationship: Process created Process
+              id: DE5A1D57-9569-4BA7-B2DC-27760F999A9A
+              event_id: 4688
     logic: |-
       SELECT `@timestamp`, computer_name, NewProcessName, ParentProcessName
       FROM mordorTable
@@ -42,10 +66,14 @@ analytics:
           AND NewProcessName LIKE "%powershell.exe"
           AND NOT ParentProcessName LIKE "%explorer.exe"
   - name: Analytic III
-    data_sources:
-      - Microsoft-Windows-Sysmon/Operational
-    false_positives: High
     description: Looking for non-interactive powershell session might be a sign of PowerShell being executed by another application in the background
+    data_sources:
+      - attack_mapping: Process
+        - event_provider: Microsoft-Windows-Sysmon/Operational
+          data_model:
+            - relationship: Process created Process
+              id: DE5A1D57-9569-4BA7-B2DC-27760F999A9A
+              event_id: 1
     logic: |-
       SELECT `@timestamp`, computer_name, Image, ParentImage
       FROM mordorTable
@@ -54,10 +82,14 @@ analytics:
           AND Image LIKE "%powershell.exe"
           AND NOT ParentImage LIKE "%explorer.exe"
   - name: Analytic IV
-    data_sources:
-      - Microsoft-Windows-Sysmon/Operational
-    false_positives: Medium
     description: Monitor for processes loading PowerShell DLL *system.management.automation*
+    data_sources:
+      - attack_mapping: Module
+        - event_provider: Microsoft-Windows-Sysmon/Operational
+          data_model:
+            - relationship: Process loaded Dll
+              id: 109A870F-84A2-4CE4-948A-4773CD283F76
+              event_id: 7
     logic: |-
       SELECT `@timestamp`, computer_name, Image, ImageLoaded
       FROM mordorTable
@@ -65,10 +97,14 @@ analytics:
           AND event_id = 7
           AND (lower(Description) = "system.management.automation" OR lower(ImageLoaded) LIKE "%system.management.automation%")
   - name: Analytic V
-    data_sources:
-      - Microsoft-Windows-Sysmon/Operational
-    false_positives: Medium
     description: Monitoring for PSHost* pipes is another interesting way to find PowerShell execution
+    data_sources:
+      - attack_mapping: Named Pipe
+        - event_provider: Microsoft-Windows-Sysmon/Operational
+          data_model:
+            - relationship: Process created Pipe
+              id: 46DB1AB1-E327-4173-9A39-F6877A9C6189
+              event_id: 17
     logic: |-
       SELECT `@timestamp`, computer_name, Image, PipeName
       FROM mordorTable
@@ -76,37 +112,31 @@ analytics:
           AND event_id = 17
           AND lower(PipeName) LIKE "\\\\pshost%"
   - name: Analytic VI
-    data_sources:
-      - Microsoft-Windows-Sysmon/Operational
-    false_positives: Medium
     description: The “PowerShell Named Pipe IPC” event will indicate the name of the PowerShell AppDomain that started. Sign of PowerShell execution
+    data_sources:
+      - attack_mapping: Powershell
+        - event_provider: Microsoft-Windows-PowerShell/Operational
+          data_model:
+            - relationship: Application domain started
+              id: 4E1ACF5F-D021-4618-9E9E-D96E91025A90
+              event_id: 53504
     logic: |-
       SELECT `@timestamp`, computer_name, message
       FROM mordorTable
       WHERE channel = "Microsoft-Windows-PowerShell/Operational"
           AND event_id = 53504
-detection_blindspots:
-hunter_notes: |-
+research_notes:
+additional_notes: |-
   * Explore the data produced in your environment with the analytics above and document what normal looks like from a PowerShell perspective.
   * If execution of PowerShell happens all the time in your environment, I suggest to categorize the data you collect by business unit to build profiles and be able to filter out potential noise.
   * You can also stack the values of the command line arguments being used. You can hash the command line arguments too and stack the values.
-hunt_output:
-  - category: signature
-    type: SIGMA
-    name: sysmon_powershell_execution_moduleload
-    url: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_powershell_execution_moduleload.yml
-  - category: signature
-    type: SIGMA
-    name: sysmon_powershell_execution_pipe
-    url: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_powershell_execution_pipe.yml
-  - category: signature
-    type: SIGMA
-    name: sysmon_non_interactive_powershell_execution
-    url: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_non_interactive_powershell_execution.yml
-  - category: signature
-    type: SIGMA
-    name: win_non_interactive_powershell
-    url: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_non_interactive_powershell.yml
+research_output:
+  - type: Sigma Rule
+    links: 
+      - https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_powershell_execution_moduleload.yml
+      - https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_powershell_execution_pipe.yml
+      - https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_non_interactive_powershell_execution.yml
+      - https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_non_interactive_powershell.yml
 references: |-
   * https://github.com/darkoperator/Presentations/blob/master/PSConfEU%202019%20Tracking%20PowerShell%20Usage.pdf
   * https://posts.specterops.io/abusing-powershell-desired-state-configuration-for-lateral-movement-ca42ddbe6f06

@@ -1,34 +1,59 @@
 title: PowerShell Remote Session
 id: WIN-190511223310
-author: Roberto Rodriguez @Cyb3rWard0g
-playbook_link: WIN-190410151110
+collaborators:
+  - Roberto Rodriguez @Cyb3rWard0g
+  - Jose Rodriguez @Cyb3rPandaH
+playbooks_related:
+  - WIN-190410151110
 creation_date: 2019/05/11
+modification_date: 2020/09/20
 platform: Windows
-permissions_required:
-  - Administrator
-attack_coverage:
-  - technique: T1086
-    tactics:
+attack_mappings:
+  - tactics:
       - TA0002
-  - technique: T1028
-    tactics:
+    technique: T1059
+    sub_technique: "001"
+  - tactics:
       - TA0002
+    technique: T1021
+    sub_technique: "006"
+  - tactics:
       - TA0008
+    technique: T1021
+    sub_technique: "006"
 hypothesis: Adversaries might be leveraging remote powershell sessions to execute code on remote systems throughout my environment
-description: |-
+technical_context:
+offensive_tradecraft: |-
   Adversaries can use PowerShell to perform a number of actions, including discovery of information and execution of code.
   In addition, it can be used to execute code remotely via Windows Remote Management (WinRM) services.
   Therefore, it is important to understand the basic artifacts left when PowerShell is used to execute code remotely via a remote powershell session.
-validation_dataset:
-  - type: mordor
-    url: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/execution/empire_invoke_psremoting.tar.gz
+validation:
+  permissions_required:
+    - Administrator
+  simulation:
+    commnads:
+      - None
+    script_url:
+      - None
+  test_data:
+    document: https://mordordatasets.com/notebooks/small/windows/02_execution/SDWIN-190518211456.html
+    datasets:
+      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/execution/empire_invoke_psremoting.tar.gz
 analytics:
   - name: Analytic I
-    data_sources:
-      - PowerShell
-      - Microsoft-Windows-PowerShell/Operational
-    false_positives: Medium
     description: Process wsmprovhost hosts the active remote session on the target. Therefore, it is important to monitor for any the initialization of the PowerShell host wsmprovhost
+    data_sources:
+      - attack_mapping: Powershell
+        - event_provider: Windows PowerShell
+          data_model:
+            - relationship: Application host started
+              id: 489EB588-AF22-4981-BBE9-B2662260B4E9
+              event_id: 400
+        - event_provider: Microsoft-Windows-PowerShell/Operational
+          data_model:
+            - relationship: User started Application host
+              id: A8429FAF-D8F2-435E-A45F-01DAE7B1FCDD
+              event_id: 4103
     logic: |-
       SELECT `@timestamp`, computer_name, channel
       FROM mordorTable
@@ -36,10 +61,14 @@ analytics:
           AND (event_id = 400 OR event_id = 4103)
           AND message LIKE "%Host Application%wsmprovhost%"
   - name: Analytic II
-    data_sources:
-      - Security
-    false_positives: Low
     description: Monitor for any incoming network connection where the destination port is either 5985 or 5986. That will be hosted most likely by the System process. Layer ID:44
+    data_sources:
+      - attack_mapping: Process
+        - event_provider: Microsoft-Windows-Security-Auditing
+          data_model:
+            - relationship: Process connected to Port
+              id: 56B242BF-1237-48DA-A699-BA64237CAF7F
+              event_id: 5156
     logic: |-
       SELECT `@timestamp`, computer_name, Application, SourceAddress, DestAddress, LayerName, LayerRTID
       FROM mordorTable
@@ -48,10 +77,14 @@ analytics:
           AND (DestPort = 5985 OR DestPort = 5986)
           AND LayerRTID = 44
   - name: Analytic III
-    data_sources:
-      - Security
-    false_positives: Low
     description: Process wsmprovhost hosts the active remote session on the target. Therefore, from a process creation perspective, it is to document any instances of wsmprovhost being spawned and spawning other processes
+    data_sources:
+      - attack_mapping: Process
+        - event_provider: Microsoft-Windows-Security-Auditing
+          data_model:
+            - relationship: Process created Process
+              id: DE5A1D57-9569-4BA7-B2DC-27760F999A9A
+              event_id: 4688
     logic: |-
       SELECT `@timestamp`, computer_name, ParentProcessName, NewProcessName
       FROM mordorTable
@@ -59,10 +92,14 @@ analytics:
           AND event_id = 4688
           AND (ParentProcessName LIKE "%wsmprovhost.exe" OR NewProcessName LIKE "%wsmprovhost.exe")
   - name: Analytic IV
-    data_sources:
-      - Microsoft-Windows-Sysmon/Operational
-    false_positives: Low
     description: Process wsmprovhost hosts the active remote session on the target. Therefore, from a process creation perspective, it is to document any instances of wsmprovhost being spawned and spawning other processes
+    data_sources:
+      - attack_mapping: Process
+        - event_provider: Microsoft-Windows-Sysmon/Operational
+          data_model:
+            - relationship: Process created Process
+              id: DE5A1D57-9569-4BA7-B2DC-27760F999A9A
+              event_id: 1
     logic: |-
       SELECT `@timestamp`, computer_name, ParentImage, Image
       FROM mordorTable
@@ -70,10 +107,14 @@ analytics:
           AND event_id = 1
           AND (ParentImage LIKE "%wsmprovhost.exe" OR Image LIKE "%wsmprovhost.exe")
   - name: Analytic V
-    data_sources:
-      - Microsoft-Windows-Sysmon/Operational
-    false_positives: Low
     description: Monitor for outbound network connection where the destination port is either 5985 or 5986 and the use is not NT AUTHORITY\NETWORK SERVICE
+    data_sources:
+      - attack_mapping: Process
+        - event_provider: Microsoft-Windows-Sysmon/Operational
+          data_model:
+            - relationship: User connected to Port
+              id: 476BC008-CB94-485F-A37A-3DBE7192E95F
+              event_id: 3
     logic: |-
       SELECT `@timestamp`, computer_name, User, Initiated, Image, SourceIp, DestinationIp
       FROM mordorTable
@@ -81,28 +122,18 @@ analytics:
           AND event_id = 3
           AND (DestinationPort = 5985 OR DestinationPort = 5986)
           AND NOT User = "NT AUTHORITY\\\\NETWORK SERVICE"
-detection_blindspots:
-hunter_notes: |-
+research_notes:
+additional_notes: |-
   * Explore the data produced in your lab environment with the analytics above and document what normal looks like from a PowerShell perspective. Then, take your findings and explore your production environment.
   * If powershell activity locally or remotely via winrm happens all the time in your environment, I suggest to categorize the data you collect by business unit or department to document profiles.
   * Layer 44 translatest to layer filter FWPM_LAYER_ALE_AUTH_RECV_ACCEPT_V4 / FWPM_LAYER_ALE_AUTH_RECV_ACCEPT_V6. This filtering layer allows for authorizing accept requests for incoming TCP connections, as well as authorizing incoming non-TCP traffic based on the first packet received. Looking for destination ports related to remote PowerShell Sessions and Layer 44 is very helpful.
-hunt_output:
-  - category: signature
-    type: SIGMA
-    name: powershell_remote_powershell_session
-    url: https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/powershell_remote_powershell_session.yml
-  - category: signature
-    type: SIGMA
-    name: sysmon_remote_powershell_session_network
-    url: https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_remote_powershell_session_network.yml
-  - category: signature
-    type: SIGMA
-    name: sysmon_remote_powershell_session_process
-    url: https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_remote_powershell_session_process.yml
-  - category: signature
-    type: SIGMA
-    name: win_remote_powershell_session
-    url: https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_remote_powershell_session.yml
+research_output:
+  - type: Sigma Rule
+    links: 
+      - https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/powershell_remote_powershell_session.yml
+      - https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_remote_powershell_session_network.yml
+      - https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_remote_powershell_session_process.yml
+      - https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_remote_powershell_session.yml
 references: |-
   * https://docs.microsoft.com/en-us/powershell/scripting/learn/remoting/running-remote-commands?view=powershell-6#windows-powershell-remoting
   * https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_remote_requirements?view=powershell-6
