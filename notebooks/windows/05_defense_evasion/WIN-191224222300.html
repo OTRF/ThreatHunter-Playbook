@@ -2,9 +2,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Extended NetNTLM Downgrade &#8212; Threat Hunter Playbook</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../../../_static/css/index.css" rel="stylesheet">
@@ -14,9 +15,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-dropdown.css" />
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/sphinx-book-theme.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -24,12 +24,10 @@
     <script src="../../../_static/togglebutton.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/mystnb.js"></script>
     <script src="../../../_static/sphinx-book-theme.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe,.cell"
@@ -37,22 +35,22 @@
         const thebe_selector_output = ".output,.cell_output"
     </script>
     <script async="async" src="../../../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://threathunterplaybook.com/notebooks/windows/06_credential_access/WIN-191224222300.html" />
+    <link rel="canonical" href="https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/WIN-191224222300.html" />
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Active Directory Replication From Non-Domain-Controller Accounts" href="WIN-180815210510.html" />
-    <link rel="prev" title="SAM Registry Hive Handle Request" href="WIN-190725024610.html" />
+    <link rel="next" title="Enable Remote Desktop Conections Registry" href="WIN-190407183310.html" />
+    <link rel="prev" title="DLL Injection via CreateRemoteThread and LoadLibrary" href="WIN-180719170510.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://threathunterplaybook.com/notebooks/windows/06_credential_access/WIN-191224222300.html" />
+<meta property="og:url"         content="https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/WIN-191224222300.html" />
 <meta property="og:type"        content="article" />
 <meta property="og:title"       content="Extended NetNTLM Downgrade" />
-<meta property="og:description" content="Extended NetNTLM Downgrade  Metadata          id  WIN-191224222300  author  Roberto Rodriguez @Cyb3rWard0g  creation date  2019/12/24  platform  Windows  playbo" />
+<meta property="og:description" content="Extended NetNTLM Downgrade  Metadata          collaborators  [‘Roberto Rodriguez @Cyb3rWard0g’, ‘Jose Rodriguez @Cyb3rPandaH’]  creation date  2019/12/24  modif" />
 <meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -195,46 +193,14 @@
      </li>
     </ul>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../05_defense_evasion/defense_evasion.html">
-     Defense Evasion
-    </a>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../05_defense_evasion/WIN-180719170510.html">
-       DLL Injection via CreateRemoteThread and LoadLibrary
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../05_defense_evasion/WIN-190407183310.html">
-       Enable Remote Desktop Conections Registry
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../05_defense_evasion/WIN-190510202010.html">
-       WDigest Downgrade
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../05_defense_evasion/WIN-190101151110.html">
-       Active Directory Replication User Backdoor
-      </a>
-     </li>
-    </ul>
-   </li>
    <li class="toctree-l2 current active">
-    <a class="reference internal" href="credential_access.html">
-     Credential Access
+    <a class="reference internal" href="defense_evasion.html">
+     Defense Evasion
     </a>
     <ul class="current">
      <li class="toctree-l3">
-      <a class="reference internal" href="WIN-190620024610.html">
-       Domain DPAPI Backup Key Extraction
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="WIN-190725024610.html">
-       SAM Registry Hive Handle Request
+      <a class="reference internal" href="WIN-180719170510.html">
+       DLL Injection via CreateRemoteThread and LoadLibrary
       </a>
      </li>
      <li class="toctree-l3 current active">
@@ -243,17 +209,49 @@
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="WIN-180815210510.html">
+      <a class="reference internal" href="WIN-190407183310.html">
+       Enable Remote Desktop Conections Registry
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="WIN-190510202010.html">
+       WDigest Downgrade
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="WIN-190101151110.html">
+       Active Directory Replication User Backdoor
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../06_credential_access/credential_access.html">
+     Credential Access
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../06_credential_access/WIN-190620024610.html">
+       Domain DPAPI Backup Key Extraction
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../06_credential_access/WIN-190725024610.html">
+       SAM Registry Hive Handle Request
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../06_credential_access/WIN-180815210510.html">
        Active Directory Replication From Non-Domain-Controller Accounts
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="WIN-191030201010.html">
+      <a class="reference internal" href="../06_credential_access/WIN-191030201010.html">
        Remote Interactive Task Manager LSASS Dump
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="WIN-170105221010.html">
+      <a class="reference internal" href="../06_credential_access/WIN-170105221010.html">
        LSASS Access from Non System Account
       </a>
      </li>
@@ -350,6 +348,10 @@
 
  <!-- To handle the deprecated key -->
 
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
 </div>
 
 
@@ -382,7 +384,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../../_sources/notebooks/windows/06_credential_access/WIN-191224222300.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../../../_sources/notebooks/windows/05_defense_evasion/WIN-191224222300.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -402,10 +404,10 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/OTRF/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Fnotebooks/windows/06_credential_access/WIN-191224222300.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/OTRF/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Fnotebooks/windows/05_defense_evasion/WIN-191224222300.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/OTRF/ThreatHunter-Playbook/edit/master/docs/notebooks/windows/06_credential_access/WIN-191224222300.ipynb"><button
+        <a class="edit-button" href="https://github.com/OTRF/ThreatHunter-Playbook/edit/master/docs/notebooks/windows/05_defense_evasion/WIN-191224222300.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -424,7 +426,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/OTRF/ThreatHunter-Playbook/master?urlpath=tree/docs/notebooks/windows/06_credential_access/WIN-191224222300.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/OTRF/ThreatHunter-Playbook/master?urlpath=tree/docs/notebooks/windows/05_defense_evasion/WIN-191224222300.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../../../_static/images/logo_binder.svg"
@@ -432,7 +434,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/OTRF/ThreatHunter-Playbook/blob/master/docs/notebooks/windows/06_credential_access/WIN-191224222300.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/OTRF/ThreatHunter-Playbook/blob/master/docs/notebooks/windows/05_defense_evasion/WIN-191224222300.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -459,13 +461,23 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#technical-description">
-   Technical Description
+  <a class="reference internal nav-link" href="#hypothesis">
+   Hypothesis
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hypothesis">
-   Hypothesis
+  <a class="reference internal nav-link" href="#technical-context">
+   Technical Context
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#offensive-tradecraft">
+   Offensive Tradecraft
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#mordor-test-data">
+   Mordor Test Data
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -479,8 +491,8 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#download-process-mordor-file">
-     Download &amp; Process Mordor File
+    <a class="reference internal nav-link" href="#download-process-mordor-dataset">
+     Download &amp; Process Mordor Dataset
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -501,8 +513,13 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#detection-blindspots">
-   Detection Blindspots
+  <a class="reference internal nav-link" href="#known-bypasses">
+   Known Bypasses
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#false-positives">
+   False Positives
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -541,31 +558,32 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>id</p></td>
-<td class="text-align:left"><p>WIN-191224222300</p></td>
+<tr class="row-even"><td class="text-align:left"><p>collaborators</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>author</p></td>
-<td class="text-align:left"><p>Roberto Rodriguez &#64;Cyb3rWard0g</p></td>
-</tr>
-<tr class="row-even"><td class="text-align:left"><p>creation date</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>creation date</p></td>
 <td class="text-align:left"><p>2019/12/24</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>platform</p></td>
-<td class="text-align:left"><p>Windows</p></td>
+<tr class="row-even"><td class="text-align:left"><p>modification date</p></td>
+<td class="text-align:left"><p>2020/09/20</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>playbook link</p></td>
-<td class="text-align:left"><p></p></td>
+<tr class="row-odd"><td class="text-align:left"><p>playbook related</p></td>
+<td class="text-align:left"><p>[]</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="technical-description">
-<h2>Technical Description<a class="headerlink" href="#technical-description" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="hypothesis">
+<h2>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">¶</a></h2>
+<p>Adversaries might be downgrading the challenge/response authentication protocol used for network logons, the minimum security negotiated for applications using NTLMSSP, and security settings that restrict outgoing NTLM traffic to remote servers in my environment</p>
+</div>
+<div class="section" id="technical-context">
+<h2>Technical Context<a class="headerlink" href="#technical-context" title="Permalink to this headline">¶</a></h2>
 <p>LAN Manager (LM) includes client computer and server software from Microsoft that allows users to link personal devices together on a single network.
 Network capabilities include transparent file and print sharing, user security features, and network administration tools.
 In Active Directory domains, the Kerberos protocol is the default authentication protocol.
 However, if the Kerberos protocol is not negotiated for some reason, Active Directory uses LM, NTLM, or NTLM version 2 (NTLMv2).</p>
-<p>LAN Manager authentication includes the LM, NTLM, and NTLMv2 variants, and it is the protocol that is used to authenticate all client devices running the Windows operating system when they perform the following operations:</p>
+<p>LAN Manager authentication includes the LM, NTLM, and NTLMv2 variants, and it is the protocol that is used to authenticate all client devices running the Windows operating system when they perform the following operations</p>
 <ul class="simple">
 <li><p>Join a domain</p></li>
 <li><p>Authenticate between Active Directory forests</p></li>
@@ -573,24 +591,24 @@ However, if the Kerberos protocol is not negotiated for some reason, Active Dire
 <li><p>Authenticate to computers that do not run Windows operating systems, beginning with Windows 2000</p></li>
 <li><p>Authenticate to computers that are not in the domain</p></li>
 </ul>
-<p>Prior to Windows NT 4.0 Service Pack 4 (SP4), Windows NT supported two kinds of challenge/response authentication: LanManager (LM) challenge/response and Windows NT challenge/response (also known as NTLM challenge/response)
-Windows NT also supported session security mechanisms that provided for message confidentiality and integrity.
+<p>Prior to Windows NT 4.0 Service Pack 4 (SP4), Windows NT supported two kinds of challenge/response authentication -&gt; LanManager (LM) challenge/response and Windows NT challenge/response (also known as NTLM challenge/response)
+Windows NT also supported session security mechanisms that provided for Message confidentiality and integrity.
 To allow access to servers that only support LM authentication, Windows NT clients prior to SP4 always use both, even to Windows NT servers that supported NTLM authentication.</p>
 <p>LM authentication is not as strong as Windows NT authentication so some customers may want to disable its use, because an attacker eavesdropping on network traffic will attack the weaker protocol.
 A successful attack can compromise the user’s password.
 Microsoft has developed an enhancement to NTLM called NTLMv2 that significantly improves both the authentication and session security mechanisms.</p>
 <p>In addition, the implementation of the NTLM Security Service Provider (SSP) has been enhanced to allow clients to control which variants of NTLM are used, and to allow servers to control which variants they will accept, by setting a new registry key appropriately.
-It also allows clients and servers to require the negotiation of message confidentiality (encryption), message integrity, 128-bit encryption, and NTLMv2 session security.</p>
-<p>Control of NTLM security is through the following registry key:</p>
+It also allows clients and servers to require the negotiation of Message confidentiality (encryption), Message integrity, 128-bit encryption, and NTLMv2 session security.</p>
+<p>Control of NTLM security is through the following registry key</p>
 <ul class="simple">
 <li><p>HKEY_LOCAL_MACHINE\System\CurrentControlSet\control\LSA</p></li>
 </ul>
-<p>Choice of the authentication protocol variants used and accepted is through the following value of that key:</p>
-<p>Value: LMCompatibilityLevel
-Value Type: REG_DWORD - Number
-Valid Range: 0-5
-Default: 0
-Description: This parameter specifies the type of authentication to be
+<p>Choice of the authentication protocol variants used and accepted is through the following value of that key</p>
+<p>Value -&gt; LMCompatibilityLevel
+Value Type -&gt; REG_DWORD - Number
+Valid Range -&gt; 0-5
+Default -&gt; 0
+Description -&gt; This parameter specifies the type of authentication to be
 used.</p>
 <p>Level 0 - Send LM response and NTLM response; never use NTLMv2 session security
 Level 1 - Use NTLMv2 session security if negotiated
@@ -599,15 +617,15 @@ Level 3 - Send NTLMv2 authentication  only
 Level 4 - DC refuses LM authentication
 Level 5 - DC refuses LM and NTLM authenication (accepts only NTLMv2)</p>
 <p>Control over the minimum security negotiated for applications using NTLMSSP is
-through the following key:</p>
+through the following key</p>
 <ul class="simple">
 <li><p>HKEY_LOCAL_MACHINE\System\CurrentControlSet\control\LSA\MSV1_0</p></li>
 </ul>
-<p>The following values are for this key:</p>
+<p>The following values are for this key</p>
 <ul class="simple">
-<li><p>Value: NtlmMinClientSec</p></li>
-<li><p>Value Type: REG_DWORD - Number</p></li>
-<li><p>Valid Range: the logical ‘or’ of any of the following values:</p>
+<li><p>Value -&gt; NtlmMinClientSec</p></li>
+<li><p>Value Type -&gt; REG_DWORD - Number</p></li>
+<li><p>Valid Range -&gt; the logical ‘or’ of any of the following values</p>
 <ul>
 <li><p>0x00000010</p></li>
 <li><p>0x00000020</p></li>
@@ -615,12 +633,12 @@ through the following key:</p>
 <li><p>0x20000000</p></li>
 </ul>
 </li>
-<li><p>Default: 0</p></li>
-<li><p>Value: NtlmMinServerSec</p></li>
-<li><p>Value Type: REG_DWORD - Number</p></li>
-<li><p>Valid Range: same as NtlmMinClientSec</p></li>
-<li><p>Default: 0</p></li>
-<li><p>Description: This parameter specifies the minimum security to be used.</p>
+<li><p>Default -&gt; 0</p></li>
+<li><p>Value -&gt; NtlmMinServerSec</p></li>
+<li><p>Value Type -&gt; REG_DWORD - Number</p></li>
+<li><p>Valid Range -&gt; same as NtlmMinClientSec</p></li>
+<li><p>Default -&gt; 0</p></li>
+<li><p>Description -&gt; This parameter specifies the minimum security to be used.</p>
 <ul>
 <li><p>0x00000010  Message integrity</p></li>
 <li><p>0x00000020  Message confidentiality</p></li>
@@ -629,17 +647,34 @@ through the following key:</p>
 </ul>
 </li>
 </ul>
+</div>
+<div class="section" id="offensive-tradecraft">
+<h2>Offensive Tradecraft<a class="headerlink" href="#offensive-tradecraft" title="Permalink to this headline">¶</a></h2>
 <p>An adversary with administrator rights to a compromised endpoint could easily modify these settings and downgrade the challenge/response authentication protocol used for network logons and the minimum security negotiated for applications using NTLMSSP.
 This is very dangerous because it could enable NetNTLMv1 as a client on the compromised endpoit and make it authenticate to a rogue SMB server to capture the client’s response (an NTLM Hash).
-If an organization is already restricting outgoing NTLM traffic to remote servers, it can be easily disabled by modifying the following registry key Property and setting it to 0:</p>
+If an organization is already restricting outgoing NTLM traffic to remote servers, it can be easily disabled by modifying the following registry key Property and setting it to 0.</p>
 <ul class="simple">
-<li><p>Key: HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0</p></li>
-<li><p>Property: RestrictSendingNTLMTraffic</p></li>
+<li><p>Key -&gt; HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0</p></li>
+<li><p>Property -&gt; RestrictSendingNTLMTraffic</p></li>
 </ul>
 </div>
-<div class="section" id="hypothesis">
-<h2>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">¶</a></h2>
-<p>Adversaries might be downgrading the challenge/response authentication protocol used for network logons, the minimum security negotiated for applications using NTLMSSP, and security settings that restrict outgoing NTLM traffic to remote servers in my environment</p>
+<div class="section" id="mordor-test-data">
+<h2>Mordor Test Data<a class="headerlink" href="#mordor-test-data" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p></p></th>
+<th class="text-align:left head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>metadata</p></td>
+<td class="text-align:left"><p>https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-191225045202.html</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>link</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/host/empire_monologue_netntlm_downgrade.zip">https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/host/empire_monologue_netntlm_downgrade.zip</a></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="analytics">
 <h2>Analytics<a class="headerlink" href="#analytics" title="Permalink to this headline">¶</a></h2>
@@ -647,18 +682,18 @@ If an organization is already restricting outgoing NTLM traffic to remote server
 <h3>Initialize Analytics Engine<a class="headerlink" href="#initialize-analytics-engine" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="n">spark</span> <span class="o">=</span> <span class="n">get_spark</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="download-process-mordor-file">
-<h3>Download &amp; Process Mordor File<a class="headerlink" href="#download-process-mordor-file" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="download-process-mordor-dataset">
+<h3>Download &amp; Process Mordor Dataset<a class="headerlink" href="#download-process-mordor-dataset" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_extended_netntlm_downgrade.tar.gz&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/host/empire_monologue_netntlm_downgrade.zip&quot;</span>
 <span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -667,31 +702,51 @@ If an organization is already restricting outgoing NTLM traffic to remote server
 </div>
 <div class="section" id="analytic-i">
 <h3>Analytic I<a class="headerlink" href="#analytic-i" title="Permalink to this headline">¶</a></h3>
+<p>Look for non-system accounts getting a handle and accessing \REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa and \REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\MSV1_0 registry keys from a non-lsass process</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
-<td class="text-align:left"><p>[‘Security’]</p></td>
-<td class="text-align:left"><p>Look for non-system accounts getting a handle and accessing \REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa and \REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\MSV1_0 registry keys from a non-lsass process</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Windows Registry</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>Process accessed Windows registry key</p></td>
+<td><p>4663</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Windows Registry</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>User accessed Windows registry key</p></td>
+<td><p>4663</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Windows Registry</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>Process requested access Windows registry key</p></td>
+<td><p>4656</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Windows Registry</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>User requested access Windows registry key</p></td>
+<td><p>4656</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName, AccessMask, EventID, SubjectLogonId</span>
 <span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE Channel = &quot;security&quot;</span>
+<span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
 <span class="sd">    AND EventID IN (4663, 4656)</span>
+<span class="sd">    AND ObjectType = Key</span>
+<span class="sd">    AND (ObjectName LIKE &quot;%Lsa&quot; OR ObjectName LIKE &quot;%Lsa\MSV1_0&quot;)</span>
 <span class="sd">    AND ProcessName NOT LIKE &quot;%lsass.exe&quot;</span>
 <span class="sd">    AND SubjectLogonId != &quot;0x3e7&quot;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
@@ -701,30 +756,33 @@ If an organization is already restricting outgoing NTLM traffic to remote server
 </div>
 <div class="section" id="analytic-ii">
 <h3>Analytic II<a class="headerlink" href="#analytic-ii" title="Permalink to this headline">¶</a></h3>
+<p>Look for processes modifying the values of the following registry key properties LMCompatibilityLevel,NtlmMinClientSec and RestrictSendingNTLMTraffic</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
-<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
-<td class="text-align:left"><p>Look for processes modifying the values of the following registry key properties LMCompatibilityLevel,NtlmMinClientSec and RestrictSendingNTLMTraffic</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Windows Registry</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>Process modified Windows registry key value</p></td>
+<td><p>4657</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName, OldValue, NewValue, SubjectLogonId</span>
 <span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE Channel = &quot;security&quot;</span>
+<span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
 <span class="sd">    AND EventID = 4657</span>
 <span class="sd">    AND ObjectValueName in (&quot;LMCompatibilityLevel&quot;,&quot;NtlmMinClientSec&quot;,&quot;RestrictSendingNTLMTraffic&quot;)</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
@@ -734,24 +792,27 @@ If an organization is already restricting outgoing NTLM traffic to remote server
 </div>
 <div class="section" id="analytic-iii">
 <h3>Analytic III<a class="headerlink" href="#analytic-iii" title="Permalink to this headline">¶</a></h3>
+<p>Look for processes modifying the values of the following registry key properties LMCompatibilityLevel,NtlmMinClientSec and RestrictSendingNTLMTraffic</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
-<td class="text-align:left"><p>[‘Security’]</p></td>
-<td class="text-align:left"><p>Look for processes modifying the values of the following registry key properties LMCompatibilityLevel,NtlmMinClientSec and RestrictSendingNTLMTraffic</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Windows Registry</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process modified Windows registry key value</p></td>
+<td><p>13</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT `@timestamp`, Hostname, Image, TargetObject, Details</span>
 <span class="sd">FROM mordorTable</span>
 <span class="sd">WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
@@ -761,7 +822,7 @@ If an organization is already restricting outgoing NTLM traffic to remote server
 <span class="sd">        TargetObject LIKE &quot;%NtlmMinClientSec&quot; OR</span>
 <span class="sd">        TargetObject LIKE &quot;%RestrictSendingNTLMTraffic&quot;</span>
 <span class="sd">    )</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
@@ -770,8 +831,21 @@ If an organization is already restricting outgoing NTLM traffic to remote server
 </div>
 </div>
 </div>
-<div class="section" id="detection-blindspots">
-<h2>Detection Blindspots<a class="headerlink" href="#detection-blindspots" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="known-bypasses">
+<h2>Known Bypasses<a class="headerlink" href="#known-bypasses" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Idea</p></th>
+<th class="text-align:left head"><p>Playbook</p></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+<div class="section" id="false-positives">
+<h2>False Positives<a class="headerlink" href="#false-positives" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
 </div>
 <div class="section" id="hunter-notes">
 <h2>Hunter Notes<a class="headerlink" href="#hunter-notes" title="Permalink to this headline">¶</a></h2>
@@ -784,15 +858,13 @@ If an organization is already restricting outgoing NTLM traffic to remote server
 <h2>Hunt Output<a class="headerlink" href="#hunt-output" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Category</p></th>
-<th class="text-align:left head"><p>Type</p></th>
-<th class="text-align:left head"><p>Name</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Type</p></th>
+<th class="text-align:left head"><p>Link</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>signature</p></td>
-<td class="text-align:left"><p>SIGMA</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://github.com/Neo23x0/sigma/blob/master/rules/windows/builtin/win_net_ntlm_downgrade.yml">win_net_ntlm_downgrade</a></p></td>
+<tr class="row-even"><td class="text-align:left"><p>Sigma Rule</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://github.com/Neo23x0/sigma/blob/master/rules/windows/builtin/win_net_ntlm_downgrade.yml">https://github.com/Neo23x0/sigma/blob/master/rules/windows/builtin/win_net_ntlm_downgrade.yml</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -825,7 +897,7 @@ If an organization is already restricting outgoing NTLM traffic to remote server
         },
         kernelOptions: {
             kernelName: "pyspark3",
-            path: "./notebooks/windows/06_credential_access"
+            path: "./notebooks/windows/05_defense_evasion"
         },
         predefinedOutput: true
     }
@@ -840,8 +912,8 @@ If an organization is already restricting outgoing NTLM traffic to remote server
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="WIN-190725024610.html" title="previous page">SAM Registry Hive Handle Request</a>
-    <a class='right-next' id="next-link" href="WIN-180815210510.html" title="next page">Active Directory Replication From Non-Domain-Controller Accounts</a>
+    <a class='left-prev' id="prev-link" href="WIN-180719170510.html" title="previous page">DLL Injection via CreateRemoteThread and LoadLibrary</a>
+    <a class='right-next' id="next-link" href="WIN-190407183310.html" title="next page">Enable Remote Desktop Conections Registry</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

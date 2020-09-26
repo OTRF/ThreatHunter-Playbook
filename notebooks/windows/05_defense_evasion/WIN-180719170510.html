@@ -2,9 +2,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DLL Injection via CreateRemoteThread and LoadLibrary &#8212; Threat Hunter Playbook</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../../../_static/css/index.css" rel="stylesheet">
@@ -14,9 +15,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-dropdown.css" />
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/sphinx-book-theme.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -24,12 +24,10 @@
     <script src="../../../_static/togglebutton.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/mystnb.js"></script>
     <script src="../../../_static/sphinx-book-theme.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe,.cell"
@@ -41,7 +39,7 @@
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Enable Remote Desktop Conections Registry" href="WIN-190407183310.html" />
+    <link rel="next" title="Extended NetNTLM Downgrade" href="WIN-191224222300.html" />
     <link rel="prev" title="Defense Evasion" href="defense_evasion.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -52,7 +50,7 @@
 <meta property="og:url"         content="https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/WIN-180719170510.html" />
 <meta property="og:type"        content="article" />
 <meta property="og:title"       content="DLL Injection via CreateRemoteThread and LoadLibrary" />
-<meta property="og:description" content="DLL Injection via CreateRemoteThread and LoadLibrary  Metadata          id  WIN-180719170510  author  Roberto Rodriguez @Cyb3rWard0g  creation date  2018/07/19 " />
+<meta property="og:description" content="DLL Injection via CreateRemoteThread and LoadLibrary  Metadata          collaborators  [‘Roberto Rodriguez @Cyb3rWard0g’, ‘Jose Rodriguez @Cyb3rPandaH’]  creati" />
 <meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -206,6 +204,11 @@
       </a>
      </li>
      <li class="toctree-l3">
+      <a class="reference internal" href="WIN-191224222300.html">
+       Extended NetNTLM Downgrade
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="WIN-190407183310.html">
        Enable Remote Desktop Conections Registry
       </a>
@@ -235,11 +238,6 @@
      <li class="toctree-l3">
       <a class="reference internal" href="../06_credential_access/WIN-190725024610.html">
        SAM Registry Hive Handle Request
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../06_credential_access/WIN-191224222300.html">
-       Extended NetNTLM Downgrade
       </a>
      </li>
      <li class="toctree-l3">
@@ -350,6 +348,10 @@
 
  <!-- To handle the deprecated key -->
 
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
 </div>
 
 
@@ -459,8 +461,13 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#technical-description">
-   Technical Description
+  <a class="reference internal nav-link" href="#hypothesis">
+   Hypothesis
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#technical-context">
+   Technical Context
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -486,8 +493,13 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hypothesis">
-   Hypothesis
+  <a class="reference internal nav-link" href="#offensive-tradecraft">
+   Offensive Tradecraft
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#mordor-test-data">
+   Mordor Test Data
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -501,8 +513,8 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#download-process-mordor-file">
-     Download &amp; Process Mordor File
+    <a class="reference internal nav-link" href="#download-process-mordor-dataset">
+     Download &amp; Process Mordor Dataset
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -518,8 +530,13 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#detection-blindspots">
-   Detection Blindspots
+  <a class="reference internal nav-link" href="#known-bypasses">
+   Known Bypasses
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#false-positives">
+   False Positives
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -558,28 +575,27 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>id</p></td>
-<td class="text-align:left"><p>WIN-180719170510</p></td>
+<tr class="row-even"><td class="text-align:left"><p>collaborators</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>author</p></td>
-<td class="text-align:left"><p>Roberto Rodriguez &#64;Cyb3rWard0g</p></td>
-</tr>
-<tr class="row-even"><td class="text-align:left"><p>creation date</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>creation date</p></td>
 <td class="text-align:left"><p>2018/07/19</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>platform</p></td>
-<td class="text-align:left"><p>Windows</p></td>
+<tr class="row-even"><td class="text-align:left"><p>modification date</p></td>
+<td class="text-align:left"><p>2020/09/20</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>playbook link</p></td>
-<td class="text-align:left"><p></p></td>
+<tr class="row-odd"><td class="text-align:left"><p>playbook related</p></td>
+<td class="text-align:left"><p>[]</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="technical-description">
-<h2>Technical Description<a class="headerlink" href="#technical-description" title="Permalink to this headline">¶</a></h2>
-<p>This technique is one of the most common techniques used to inject malware into another process.
-The malware writes the path to its malicious dynamic-link library (DLL) in the virtual address space of another process, and ensures the remote process loads it by creating a remote thread in the target process.</p>
+<div class="section" id="hypothesis">
+<h2>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">¶</a></h2>
+<p>Adversaries might be injecting a dll to another process to execute code via CreateRemoteThread and LoadLibrary functions.</p>
+</div>
+<div class="section" id="technical-context">
+<h2>Technical Context<a class="headerlink" href="#technical-context" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="get-handle-to-target-processs">
 <h3>Get Handle to Target Processs<a class="headerlink" href="#get-handle-to-target-processs" title="Permalink to this headline">¶</a></h3>
 <p>The malware first needs to target a process for injection (e.g. svchost.exe).
@@ -614,9 +630,28 @@ Besides the memory address of the remote function you want to call, CreateRemote
 LoadLibrary wants the memory address of where you wrote that DLL path from earlier, so provide CreateRemoteThread that address as well.</p>
 </div>
 </div>
-<div class="section" id="hypothesis">
-<h2>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">¶</a></h2>
-<p>Adversaries might be injecting a dll to another process to execute code via CreateRemoteThread and LoadLibrary functions.</p>
+<div class="section" id="offensive-tradecraft">
+<h2>Offensive Tradecraft<a class="headerlink" href="#offensive-tradecraft" title="Permalink to this headline">¶</a></h2>
+<p>This technique is one of the most common techniques used to inject malware into another process.
+The malware writes the path to its malicious dynamic-link library (DLL) in the virtual address space of another process, and ensures the remote process loads it by creating a remote thread in the target process.</p>
+</div>
+<div class="section" id="mordor-test-data">
+<h2>Mordor Test Data<a class="headerlink" href="#mordor-test-data" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p></p></th>
+<th class="text-align:left head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>metadata</p></td>
+<td class="text-align:left"><p>https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-190518221344.html</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>link</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/host/empire_dllinjection_LoadLibrary_CreateRemoteThread.zip">https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/host/empire_dllinjection_LoadLibrary_CreateRemoteThread.zip</a></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="analytics">
 <h2>Analytics<a class="headerlink" href="#analytics" title="Permalink to this headline">¶</a></h2>
@@ -624,31 +659,26 @@ LoadLibrary wants the memory address of where you wrote that DLL path from earli
 <h3>Initialize Analytics Engine<a class="headerlink" href="#initialize-analytics-engine" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="n">spark</span> <span class="o">=</span> <span class="n">get_spark</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="download-process-mordor-file">
-<h3>Download &amp; Process Mordor File<a class="headerlink" href="#download-process-mordor-file" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="download-process-mordor-dataset">
+<h3>Download &amp; Process Mordor Dataset<a class="headerlink" href="#download-process-mordor-dataset" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/empire_dll_injection.tar.gz&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/host/empire_dllinjection_LoadLibrary_CreateRemoteThread.zip&quot;</span>
 <span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
-</pre></div>
-</div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing Data from Winlogbeat version 6..
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
 [+] DataFrame Returned !
-</pre></div>
-</div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
+[+] Temporary SparkSQL View: mordorTable 
 </pre></div>
 </div>
 </div>
@@ -656,43 +686,45 @@ LoadLibrary wants the memory address of where you wrote that DLL path from earli
 </div>
 <div class="section" id="analytic-i">
 <h3>Analytic I<a class="headerlink" href="#analytic-i" title="Permalink to this headline">¶</a></h3>
+<p>Look for any use of the CreateRemoteThread function to create a remote thread starting at the memory address (which means this will execute LoadLibrary in the remote process)</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>High</p></td>
-<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
-<td class="text-align:left"><p>Look for any use of the CreateRemoteThread function to create a remote thread starting at the memory address (which means this will execute LoadLibrary in the remote process)</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process wrote to Process</p></td>
+<td><p>8</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT `@timestamp`, computer_name, SourceImage, TargetImage</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, Hostname, SourceImage, TargetImage</span>
 <span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
-<span class="sd">    AND event_id = 8</span>
+<span class="sd">WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">    AND EventID = 8</span>
 <span class="sd">    AND lower(StartModule) LIKE &quot;%kernel32.dll&quot;</span>
 <span class="sd">    AND StartFunction = &quot;LoadLibraryA&quot;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------+---------------------------------------------------------+-------------------------------+
-|@timestamp             |computer_name  |SourceImage                                              |TargetImage                    |
-+-----------------------+---------------+---------------------------------------------------------+-------------------------------+
-|2019-05-18 18:15:33.697|HR001.shire.com|C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|C:\Windows\System32\notepad.exe|
-+-----------------------+---------------+---------------------------------------------------------+-------------------------------+
-
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+-------------------------+---------------------------------------------------------+-------------------------------+
+|@timestamp             |Hostname                 |SourceImage                                              |TargetImage                    |
++-----------------------+-------------------------+---------------------------------------------------------+-------------------------------+
+|2020-07-22 00:01:04.994|WORKSTATION5.mordor.local|C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|C:\Windows\System32\notepad.exe|
++-----------------------+-------------------------+---------------------------------------------------------+-------------------------------+
 </pre></div>
 </div>
 </div>
@@ -700,60 +732,81 @@ LoadLibrary wants the memory address of where you wrote that DLL path from earli
 </div>
 <div class="section" id="analytic-ii">
 <h3>Analytic II<a class="headerlink" href="#analytic-ii" title="Permalink to this headline">¶</a></h3>
+<p>You can look for the same file being created and loaded. The process that creates the file and loads the file are not the same.</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
-<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
-<td class="text-align:left"><p>You can look for the same file being created and loaded. The process that creates the file and loads the file are not the same.</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Module</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process loaded Dll</p></td>
+<td><p>7</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>File</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process created File</p></td>
+<td><p>11</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT f.`@timestamp` AS file_date, m.`@timestamp` AS module_date, f.computer_name, f.Image AS file_image, m.Image AS module_image, m.ImageLoaded, f.TargetFilename</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT f.`@timestamp` AS file_date, m.`@timestamp` AS module_date, f.Hostname, f.Image AS file_image, m.Image AS module_image, m.ImageLoaded, f.TargetFilename</span>
 <span class="sd">FROM mordorTable f</span>
 <span class="sd">INNER JOIN (</span>
-<span class="sd">    SELECT `@timestamp`,computer_name,Image,ImageLoaded,TargetLogonId,IpAddress</span>
+<span class="sd">    SELECT `@timestamp`,Hostname,Image,ImageLoaded,TargetLogonId,IpAddress</span>
 <span class="sd">    FROM mordorTable</span>
-<span class="sd">    WHERE channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
-<span class="sd">        AND event_id = 7</span>
+<span class="sd">    WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">        AND EventID = 7</span>
 <span class="sd">    ) m</span>
 <span class="sd">ON f.TargetFilename = m.ImageLoaded</span>
-<span class="sd">WHERE f.channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
-<span class="sd">    AND f.event_id = 11</span>
-<span class="sd">    AND f.computer_name = m.computer_name</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">WHERE f.Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">    AND f.EventID = 11</span>
+<span class="sd">    AND f.Hostname = m.Hostname</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-----------------------+-----------------------+---------------+---------------------------------------------------------+-------------------------------+--------------------------------+--------------------------------+
-|file_date              |module_date            |computer_name  |file_image                                               |module_image                   |ImageLoaded                     |TargetFilename                  |
-+-----------------------+-----------------------+---------------+---------------------------------------------------------+-------------------------------+--------------------------------+--------------------------------+
-|2019-05-18 18:14:14.414|2019-05-18 18:15:34.722|HR001.shire.com|C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|C:\Windows\System32\notepad.exe|C:\Windows\System32\launcher.dll|C:\Windows\System32\launcher.dll|
-+-----------------------+-----------------------+---------------+---------------------------------------------------------+-------------------------------+--------------------------------+--------------------------------+
-
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+---------+-----------+--------+----------+------------+-----------+--------------+
+|file_date|module_date|Hostname|file_image|module_image|ImageLoaded|TargetFilename|
++---------+-----------+--------+----------+------------+-----------+--------------+
++---------+-----------+--------+----------+------------+-----------+--------------+
 </pre></div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="detection-blindspots">
-<h2>Detection Blindspots<a class="headerlink" href="#detection-blindspots" title="Permalink to this headline">¶</a></h2>
-<p>Instead of passing the address of the LoadLibrary, adversaries can copy the malicious code into an existing open process and cause it to execute (either via a small shellcode, or by calling CreateRemoteThread) via a technique known as PE injection.
-The advantage of this is that the adversary does not have to drop a malicious DLL on the disk.
-Similar to the basic dll injection technique, the malware allocates memory in a host process (e.g. VirtualAllocEx), and instead of writing a “DLL path” it writes its malicious code by calling WriteProcessMemory.</p>
+<div class="section" id="known-bypasses">
+<h2>Known Bypasses<a class="headerlink" href="#known-bypasses" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Idea</p></th>
+<th class="text-align:left head"><p>Playbook</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>Instead of passing the address of the LoadLibrary, adversaries can copy the malicious code into an existing open process and cause it to execute (either via a small shellcode, or by calling CreateRemoteThread) via a technique known as PE injection.</p></td>
+<td class="text-align:left"><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>The advantage of this is that the adversary does not have to drop a malicious DLL on the disk.
+Similar to the basic dll injection technique, the malware allocates memory in a host process (e.g. VirtualAllocEx), and instead of writing a “DLL path” it writes its malicious code by calling WriteProcessMemory. | <a class="reference external" href="https://github.com/OTRF/ThreatHunter-Playbook/blob/master/playbooks/None.yaml">None</a> |</p>
+</div>
+<div class="section" id="false-positives">
+<h2>False Positives<a class="headerlink" href="#false-positives" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
 </div>
 <div class="section" id="hunter-notes">
 <h2>Hunter Notes<a class="headerlink" href="#hunter-notes" title="Permalink to this headline">¶</a></h2>
@@ -766,15 +819,13 @@ Similar to the basic dll injection technique, the malware allocates memory in a 
 <h2>Hunt Output<a class="headerlink" href="#hunt-output" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Category</p></th>
-<th class="text-align:left head"><p>Type</p></th>
-<th class="text-align:left head"><p>Name</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Type</p></th>
+<th class="text-align:left head"><p>Link</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>signature</p></td>
-<td class="text-align:left"><p>SIGMA</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_createremotethread_loadlibrary.yml">sysmon_createremotethread_loadlibrary</a></p></td>
+<tr class="row-even"><td class="text-align:left"><p>Sigma Rule</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_createremotethread_loadlibrary.yml">https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_createremotethread_loadlibrary.yml</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -824,7 +875,7 @@ Similar to the basic dll injection technique, the malware allocates memory in a 
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="defense_evasion.html" title="previous page">Defense Evasion</a>
-    <a class='right-next' id="next-link" href="WIN-190407183310.html" title="next page">Enable Remote Desktop Conections Registry</a>
+    <a class='right-next' id="next-link" href="WIN-191224222300.html" title="next page">Extended NetNTLM Downgrade</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

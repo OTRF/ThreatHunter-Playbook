@@ -2,9 +2,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PowerShell Remote Session &#8212; Threat Hunter Playbook</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../../../_static/css/index.css" rel="stylesheet">
@@ -14,9 +15,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-dropdown.css" />
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/sphinx-book-theme.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -24,12 +24,10 @@
     <script src="../../../_static/togglebutton.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/mystnb.js"></script>
     <script src="../../../_static/sphinx-book-theme.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe,.cell"
@@ -52,7 +50,7 @@
 <meta property="og:url"         content="https://threathunterplaybook.com/notebooks/windows/02_execution/WIN-190511223310.html" />
 <meta property="og:type"        content="article" />
 <meta property="og:title"       content="PowerShell Remote Session" />
-<meta property="og:description" content="PowerShell Remote Session  Metadata          id  WIN-190511223310  author  Roberto Rodriguez @Cyb3rWard0g  creation date  2019/05/11  platform  Windows  playboo" />
+<meta property="og:description" content="PowerShell Remote Session  Metadata          collaborators  [‘Roberto Rodriguez @Cyb3rWard0g’, ‘Jose Rodriguez @Cyb3rPandaH’]  creation date  2019/05/11  modifi" />
 <meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -206,6 +204,11 @@
       </a>
      </li>
      <li class="toctree-l3">
+      <a class="reference internal" href="../05_defense_evasion/WIN-191224222300.html">
+       Extended NetNTLM Downgrade
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="../05_defense_evasion/WIN-190407183310.html">
        Enable Remote Desktop Conections Registry
       </a>
@@ -235,11 +238,6 @@
      <li class="toctree-l3">
       <a class="reference internal" href="../06_credential_access/WIN-190725024610.html">
        SAM Registry Hive Handle Request
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../06_credential_access/WIN-191224222300.html">
-       Extended NetNTLM Downgrade
       </a>
      </li>
      <li class="toctree-l3">
@@ -350,6 +348,10 @@
 
  <!-- To handle the deprecated key -->
 
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
 </div>
 
 
@@ -459,13 +461,23 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#technical-description">
-   Technical Description
+  <a class="reference internal nav-link" href="#hypothesis">
+   Hypothesis
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hypothesis">
-   Hypothesis
+  <a class="reference internal nav-link" href="#technical-context">
+   Technical Context
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#offensive-tradecraft">
+   Offensive Tradecraft
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#mordor-test-data">
+   Mordor Test Data
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -479,8 +491,8 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#download-process-mordor-file">
-     Download &amp; Process Mordor File
+    <a class="reference internal nav-link" href="#download-process-mordor-dataset">
+     Download &amp; Process Mordor Dataset
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -511,8 +523,13 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#detection-blindspots">
-   Detection Blindspots
+  <a class="reference internal nav-link" href="#known-bypasses">
+   Known Bypasses
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#false-positives">
+   False Positives
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -551,33 +568,52 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>id</p></td>
-<td class="text-align:left"><p>WIN-190511223310</p></td>
+<tr class="row-even"><td class="text-align:left"><p>collaborators</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>author</p></td>
-<td class="text-align:left"><p>Roberto Rodriguez &#64;Cyb3rWard0g</p></td>
-</tr>
-<tr class="row-even"><td class="text-align:left"><p>creation date</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>creation date</p></td>
 <td class="text-align:left"><p>2019/05/11</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>platform</p></td>
-<td class="text-align:left"><p>Windows</p></td>
+<tr class="row-even"><td class="text-align:left"><p>modification date</p></td>
+<td class="text-align:left"><p>2020/09/20</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>playbook link</p></td>
-<td class="text-align:left"><p>WIN-190410151110</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>playbook related</p></td>
+<td class="text-align:left"><p>[‘WIN-190410151110’]</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="technical-description">
-<h2>Technical Description<a class="headerlink" href="#technical-description" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="hypothesis">
+<h2>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">¶</a></h2>
+<p>Adversaries might be leveraging remote powershell sessions to execute code on remote systems throughout my environment</p>
+</div>
+<div class="section" id="technical-context">
+<h2>Technical Context<a class="headerlink" href="#technical-context" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
+</div>
+<div class="section" id="offensive-tradecraft">
+<h2>Offensive Tradecraft<a class="headerlink" href="#offensive-tradecraft" title="Permalink to this headline">¶</a></h2>
 <p>Adversaries can use PowerShell to perform a number of actions, including discovery of information and execution of code.
 In addition, it can be used to execute code remotely via Windows Remote Management (WinRM) services.
 Therefore, it is important to understand the basic artifacts left when PowerShell is used to execute code remotely via a remote powershell session.</p>
 </div>
-<div class="section" id="hypothesis">
-<h2>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">¶</a></h2>
-<p>Adversaries might be leveraging remote powershell sessions to execute code on remote systems throughout my environment</p>
+<div class="section" id="mordor-test-data">
+<h2>Mordor Test Data<a class="headerlink" href="#mordor-test-data" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p></p></th>
+<th class="text-align:left head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>metadata</p></td>
+<td class="text-align:left"><p>https://mordordatasets.com/notebooks/small/windows/02_execution/SDWIN-190518211456.html</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>link</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/empire_psremoting_stager.zip">https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/empire_psremoting_stager.zip</a></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="analytics">
 <h2>Analytics<a class="headerlink" href="#analytics" title="Permalink to this headline">¶</a></h2>
@@ -585,19 +621,28 @@ Therefore, it is important to understand the basic artifacts left when PowerShel
 <h3>Initialize Analytics Engine<a class="headerlink" href="#initialize-analytics-engine" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="n">spark</span> <span class="o">=</span> <span class="n">get_spark</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="download-process-mordor-file">
-<h3>Download &amp; Process Mordor File<a class="headerlink" href="#download-process-mordor-file" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="download-process-mordor-dataset">
+<h3>Download &amp; Process Mordor Dataset<a class="headerlink" href="#download-process-mordor-dataset" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/execution/empire_invoke_psremoting.tar.gz&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/empire_psremoting_stager.zip&quot;</span>
 <span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+[+] DataFrame Returned !
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
 </pre></div>
 </div>
 </div>
@@ -605,32 +650,48 @@ Therefore, it is important to understand the basic artifacts left when PowerShel
 </div>
 <div class="section" id="analytic-i">
 <h3>Analytic I<a class="headerlink" href="#analytic-i" title="Permalink to this headline">¶</a></h3>
+<p>Process wsmprovhost hosts the active remote session on the target. Therefore, it is important to monitor for any the initialization of the PowerShell host wsmprovhost</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
-<td class="text-align:left"><p>[‘PowerShell’, ‘Microsoft-Windows-PowerShell/Operational’]</p></td>
-<td class="text-align:left"><p>Process wsmprovhost hosts the active remote session on the target. Therefore, it is important to monitor for any the initialization of the PowerShell host wsmprovhost</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Powershell</p></td>
+<td class="text-align:left"><p>Windows PowerShell</p></td>
+<td><p>Application host started</p></td>
+<td><p>400</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Powershell</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-PowerShell/Operational</p></td>
+<td><p>User started Application host</p></td>
+<td><p>4103</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT `@timestamp`, computer_name, channel</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, Hostname, Channel</span>
 <span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE (channel = &quot;Microsoft-Windows-PowerShell/Operational&quot; OR channel = &quot;Windows PowerShell&quot;)</span>
-<span class="sd">    AND (event_id = 400 OR event_id = 4103)</span>
-<span class="sd">    AND message LIKE &quot;%Host Application%wsmprovhost%&quot;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">WHERE (Channel = &quot;Microsoft-Windows-PowerShell/Operational&quot; OR Channel = &quot;Windows PowerShell&quot;)</span>
+<span class="sd">    AND (EventID = 400 OR EventID = 4103)</span>
+<span class="sd">    AND Message LIKE &quot;%Host Application%wsmprovhost%&quot;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+--------+-------+
+|@timestamp|Hostname|Channel|
++----------+--------+-------+
++----------+--------+-------+
 </pre></div>
 </div>
 </div>
@@ -638,33 +699,47 @@ Therefore, it is important to understand the basic artifacts left when PowerShel
 </div>
 <div class="section" id="analytic-ii">
 <h3>Analytic II<a class="headerlink" href="#analytic-ii" title="Permalink to this headline">¶</a></h3>
+<p>Monitor for any incoming network connection where the destination port is either 5985 or 5986. That will be hosted most likely by the System process. Layer ID:44</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
-<td class="text-align:left"><p>[‘Security’]</p></td>
-<td class="text-align:left"><p>Monitor for any incoming network connection where the destination port is either 5985 or 5986. That will be hosted most likely by the System process. Layer ID:44</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>Process connected to Port</p></td>
+<td><p>5156</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT `@timestamp`, computer_name, Application, SourceAddress, DestAddress, LayerName, LayerRTID</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, Hostname, Application, SourceAddress, DestAddress, LayerName, LayerRTID</span>
 <span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE channel = &quot;Security&quot;</span>
-<span class="sd">    AND event_id = 5156</span>
+<span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
+<span class="sd">    AND EventID = 5156</span>
 <span class="sd">    AND (DestPort = 5985 OR DestPort = 5986)</span>
 <span class="sd">    AND LayerRTID = 44</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+-----------+-------------+-----------+---------+---------+
+|@timestamp             |Hostname                   |Application|SourceAddress|DestAddress|LayerName|LayerRTID|
++-----------------------+---------------------------+-----------+-------------+-----------+---------+---------+
+|2020-09-20 17:09:09.8  |WORKSTATION6.theshire.local|System     |172.18.39.5  |172.18.39.6|%%14610  |44       |
+|2020-09-20 17:09:11.902|WORKSTATION6.theshire.local|System     |172.18.39.5  |172.18.39.6|%%14610  |44       |
+|2020-09-20 17:09:12.962|WORKSTATION6.theshire.local|System     |172.18.39.5  |172.18.39.6|%%14610  |44       |
++-----------------------+---------------------------+-----------+-------------+-----------+---------+---------+
 </pre></div>
 </div>
 </div>
@@ -672,32 +747,45 @@ Therefore, it is important to understand the basic artifacts left when PowerShel
 </div>
 <div class="section" id="analytic-iii">
 <h3>Analytic III<a class="headerlink" href="#analytic-iii" title="Permalink to this headline">¶</a></h3>
+<p>Process wsmprovhost hosts the active remote session on the target. Therefore, from a process creation perspective, it is to document any instances of wsmprovhost being spawned and spawning other processes</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
-<td class="text-align:left"><p>[‘Security’]</p></td>
-<td class="text-align:left"><p>Process wsmprovhost hosts the active remote session on the target. Therefore, from a process creation perspective, it is to document any instances of wsmprovhost being spawned and spawning other processes</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>Process created Process</p></td>
+<td><p>4688</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT `@timestamp`, computer_name, ParentProcessName, NewProcessName</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, Hostname, ParentProcessName, NewProcessName</span>
 <span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE channel = &quot;Security&quot;</span>
-<span class="sd">    AND event_id = 4688</span>
+<span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
+<span class="sd">    AND EventID = 4688</span>
 <span class="sd">    AND (ParentProcessName LIKE &quot;%wsmprovhost.exe&quot; OR NewProcessName LIKE &quot;%wsmprovhost.exe&quot;)</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+-----------------------------------+---------------------------------------------------------+
+|@timestamp             |Hostname                   |ParentProcessName                  |NewProcessName                                           |
++-----------------------+---------------------------+-----------------------------------+---------------------------------------------------------+
+|2020-09-20 17:09:09.825|WORKSTATION6.theshire.local|C:\Windows\System32\svchost.exe    |C:\Windows\System32\wsmprovhost.exe                      |
+|2020-09-20 17:09:12.968|WORKSTATION6.theshire.local|C:\Windows\System32\wsmprovhost.exe|C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|
++-----------------------+---------------------------+-----------------------------------+---------------------------------------------------------+
 </pre></div>
 </div>
 </div>
@@ -705,32 +793,45 @@ Therefore, it is important to understand the basic artifacts left when PowerShel
 </div>
 <div class="section" id="analytic-iv">
 <h3>Analytic IV<a class="headerlink" href="#analytic-iv" title="Permalink to this headline">¶</a></h3>
+<p>Process wsmprovhost hosts the active remote session on the target. Therefore, from a process creation perspective, it is to document any instances of wsmprovhost being spawned and spawning other processes</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
-<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
-<td class="text-align:left"><p>Process wsmprovhost hosts the active remote session on the target. Therefore, from a process creation perspective, it is to document any instances of wsmprovhost being spawned and spawning other processes</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process created Process</p></td>
+<td><p>1</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT `@timestamp`, computer_name, ParentImage, Image</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, Hostname, ParentImage, Image</span>
 <span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
-<span class="sd">    AND event_id = 1</span>
+<span class="sd">WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">    AND EventID = 1</span>
 <span class="sd">    AND (ParentImage LIKE &quot;%wsmprovhost.exe&quot; OR Image LIKE &quot;%wsmprovhost.exe&quot;)</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+-----------------------------------+---------------------------------------------------------+
+|@timestamp             |Hostname                   |ParentImage                        |Image                                                    |
++-----------------------+---------------------------+-----------------------------------+---------------------------------------------------------+
+|2020-09-20 17:09:09.817|WORKSTATION6.theshire.local|C:\Windows\System32\svchost.exe    |C:\Windows\System32\wsmprovhost.exe                      |
+|2020-09-20 17:09:12.956|WORKSTATION6.theshire.local|C:\Windows\System32\wsmprovhost.exe|C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|
++-----------------------+---------------------------+-----------------------------------+---------------------------------------------------------+
 </pre></div>
 </div>
 </div>
@@ -738,41 +839,71 @@ Therefore, it is important to understand the basic artifacts left when PowerShel
 </div>
 <div class="section" id="analytic-v">
 <h3>Analytic V<a class="headerlink" href="#analytic-v" title="Permalink to this headline">¶</a></h3>
+<p>Monitor for outbound network connection where the destination port is either 5985 or 5986 and the use is not NT AUTHORITY\NETWORK SERVICE</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
-<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
-<td class="text-align:left"><p>Monitor for outbound network connection where the destination port is either 5985 or 5986 and the use is not NT AUTHORITY\NETWORK SERVICE</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>User connected to Port</p></td>
+<td><p>3</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT `@timestamp`, computer_name, User, Initiated, Image, SourceIp, DestinationIp</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, Hostname, User, Initiated, Image, SourceIp, DestinationIp</span>
 <span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
-<span class="sd">    AND event_id = 3</span>
+<span class="sd">WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">    AND EventID = 3</span>
 <span class="sd">    AND (DestinationPort = 5985 OR DestinationPort = 5986)</span>
 <span class="sd">    AND NOT User = &quot;NT AUTHORITY\\\\NETWORK SERVICE&quot;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+-------------------+---------+---------------------------------------------------------+-----------+-------------+
+|@timestamp             |Hostname                   |User               |Initiated|Image                                                    |SourceIp   |DestinationIp|
++-----------------------+---------------------------+-------------------+---------+---------------------------------------------------------+-----------+-------------+
+|2020-09-20 17:09:11.867|WORKSTATION6.theshire.local|NT AUTHORITY\SYSTEM|false    |System                                                   |172.18.39.5|172.18.39.6  |
+|2020-09-20 17:09:11.877|WORKSTATION5.theshire.local|THESHIRE\pgustavo  |true     |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|172.18.39.5|172.18.39.6  |
+|2020-09-20 17:09:13.263|WORKSTATION5.theshire.local|THESHIRE\pgustavo  |true     |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|172.18.39.5|172.18.39.6  |
+|2020-09-20 17:09:13.264|WORKSTATION5.theshire.local|THESHIRE\pgustavo  |true     |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|172.18.39.5|172.18.39.6  |
+|2020-09-20 17:09:14.375|WORKSTATION6.theshire.local|NT AUTHORITY\SYSTEM|false    |System                                                   |172.18.39.5|172.18.39.6  |
+|2020-09-20 17:09:14.443|WORKSTATION6.theshire.local|NT AUTHORITY\SYSTEM|false    |System                                                   |172.18.39.5|172.18.39.6  |
++-----------------------+---------------------------+-------------------+---------+---------------------------------------------------------+-----------+-------------+
 </pre></div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="detection-blindspots">
-<h2>Detection Blindspots<a class="headerlink" href="#detection-blindspots" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="known-bypasses">
+<h2>Known Bypasses<a class="headerlink" href="#known-bypasses" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Idea</p></th>
+<th class="text-align:left head"><p>Playbook</p></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+<div class="section" id="false-positives">
+<h2>False Positives<a class="headerlink" href="#false-positives" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
 </div>
 <div class="section" id="hunter-notes">
 <h2>Hunter Notes<a class="headerlink" href="#hunter-notes" title="Permalink to this headline">¶</a></h2>
@@ -786,27 +917,22 @@ Therefore, it is important to understand the basic artifacts left when PowerShel
 <h2>Hunt Output<a class="headerlink" href="#hunt-output" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Category</p></th>
-<th class="text-align:left head"><p>Type</p></th>
-<th class="text-align:left head"><p>Name</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Type</p></th>
+<th class="text-align:left head"><p>Link</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>signature</p></td>
-<td class="text-align:left"><p>SIGMA</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/powershell_remote_powershell_session.yml">powershell_remote_powershell_session</a></p></td>
+<tr class="row-even"><td class="text-align:left"><p>Sigma Rule</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/powershell_remote_powershell_session.yml">https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/powershell_remote_powershell_session.yml</a></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>signature</p></td>
-<td class="text-align:left"><p>SIGMA</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_remote_powershell_session_network.yml">sysmon_remote_powershell_session_network</a></p></td>
+<tr class="row-odd"><td class="text-align:left"><p>Sigma Rule</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_remote_powershell_session_network.yml">https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_remote_powershell_session_network.yml</a></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>signature</p></td>
-<td class="text-align:left"><p>SIGMA</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_remote_powershell_session_process.yml">sysmon_remote_powershell_session_process</a></p></td>
+<tr class="row-even"><td class="text-align:left"><p>Sigma Rule</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_remote_powershell_session_process.yml">https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_remote_powershell_session_process.yml</a></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>signature</p></td>
-<td class="text-align:left"><p>SIGMA</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_remote_powershell_session.yml">win_remote_powershell_session</a></p></td>
+<tr class="row-odd"><td class="text-align:left"><p>Sigma Rule</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_remote_powershell_session.yml">https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_remote_powershell_session.yml</a></p></td>
 </tr>
 </tbody>
 </table>

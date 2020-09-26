@@ -2,9 +2,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Remote WMI ActiveScriptEventConsumers &#8212; Threat Hunter Playbook</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../../../_static/css/index.css" rel="stylesheet">
@@ -14,9 +15,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-dropdown.css" />
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/sphinx-book-theme.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -24,12 +24,10 @@
     <script src="../../../_static/togglebutton.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/mystnb.js"></script>
     <script src="../../../_static/sphinx-book-theme.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe,.cell"
@@ -52,7 +50,7 @@
 <meta property="og:url"         content="https://threathunterplaybook.com/notebooks/windows/03_persistence/WIN-200902020333.html" />
 <meta property="og:type"        content="article" />
 <meta property="og:title"       content="Remote WMI ActiveScriptEventConsumers" />
-<meta property="og:description" content="Remote WMI ActiveScriptEventConsumers  Metadata          id  WIN-200902020333  author  Roberto Rodriguez @Cyb3rWard0g  creation date  2020/09/02  platform  Wind" />
+<meta property="og:description" content="Remote WMI ActiveScriptEventConsumers  Metadata          collaborators  [‘Roberto Rodriguez @Cyb3rWard0g’, ‘Jose Rodriguez @Cyb3rPandaH’]  creation date  2020/0" />
 <meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -206,6 +204,11 @@
       </a>
      </li>
      <li class="toctree-l3">
+      <a class="reference internal" href="../05_defense_evasion/WIN-191224222300.html">
+       Extended NetNTLM Downgrade
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="../05_defense_evasion/WIN-190407183310.html">
        Enable Remote Desktop Conections Registry
       </a>
@@ -235,11 +238,6 @@
      <li class="toctree-l3">
       <a class="reference internal" href="../06_credential_access/WIN-190725024610.html">
        SAM Registry Hive Handle Request
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../06_credential_access/WIN-191224222300.html">
-       Extended NetNTLM Downgrade
       </a>
      </li>
      <li class="toctree-l3">
@@ -350,6 +348,10 @@
 
  <!-- To handle the deprecated key -->
 
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
 </div>
 
 
@@ -459,13 +461,23 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#technical-description">
-   Technical Description
+  <a class="reference internal nav-link" href="#hypothesis">
+   Hypothesis
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hypothesis">
-   Hypothesis
+  <a class="reference internal nav-link" href="#technical-context">
+   Technical Context
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#offensive-tradecraft">
+   Offensive Tradecraft
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#mordor-test-data">
+   Mordor Test Data
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -479,8 +491,8 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#download-process-mordor-file">
-     Download &amp; Process Mordor File
+    <a class="reference internal nav-link" href="#download-process-mordor-dataset">
+     Download &amp; Process Mordor Dataset
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -526,8 +538,13 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#detection-blindspots">
-   Detection Blindspots
+  <a class="reference internal nav-link" href="#known-bypasses">
+   Known Bypasses
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#false-positives">
+   False Positives
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -566,44 +583,62 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>id</p></td>
-<td class="text-align:left"><p>WIN-200902020333</p></td>
+<tr class="row-even"><td class="text-align:left"><p>collaborators</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>author</p></td>
-<td class="text-align:left"><p>Roberto Rodriguez &#64;Cyb3rWard0g</p></td>
-</tr>
-<tr class="row-even"><td class="text-align:left"><p>creation date</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>creation date</p></td>
 <td class="text-align:left"><p>2020/09/02</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>platform</p></td>
-<td class="text-align:left"><p>Windows</p></td>
+<tr class="row-even"><td class="text-align:left"><p>modification date</p></td>
+<td class="text-align:left"><p>2020/09/20</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>playbook link</p></td>
-<td class="text-align:left"><p></p></td>
+<tr class="row-odd"><td class="text-align:left"><p>playbook related</p></td>
+<td class="text-align:left"><p>[]</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="technical-description">
-<h2>Technical Description<a class="headerlink" href="#technical-description" title="Permalink to this headline">¶</a></h2>
-<p>Threat actors can achieve remote code execution by using WMI event subscriptions. Normally, a permanent WMI event subscription is designed to persist and respond to certain events.
-According to <a class="reference external" href="https://twitter.com/mattifestation">Matt Graeber</a>, if an attacker wanted to execute a single payload however, the respective event consumer would just need to delete its corresponding event filter, consumer, and filter to consumer binding.
-The advantage of this technique is that the payload runs as SYSTEM, and it avoids having a payload be displayed in plaintext in the presence of command line auditing.</p>
-<p>One of the components of an Event subscription is the event consumer. It is basically the main action that gets executed when a filter triggers (i.e. monitor for authentication events. if one occurs. trigger the consumer).</p>
-<p>According to <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/standard-consumer-classes">MS Documentation</a>, there are several WMI consumer classes available:</p>
-<ul class="simple">
-<li><p>ActiveScriptEventConsumer: Executes a predefined script in an arbitrary scripting language when an event is delivered to it. Example: <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/running-a-script-based-on-an-event">Running a Script Based on an Event</a></p></li>
-<li><p>CommandLineEventConsumer: Launches an arbitrary process in the local system context when an event is delivered to it. Example: <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/running-a-program-from-the-command-line-based-on-an-event">Running a Program from the Command Line Based on an Event</a></p></li>
-<li><p>LogFileEventConsumer: Writes customized strings to a text log file when events are delivered to it. Example: <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/writing-to-a-log-file-based-on-an-event">Writing to a Log File Based on an Event</a></p></li>
-<li><p>NTEventLogEventConsumer: Logs a specific message to the Windows event log when an event is delivered to it. Example: <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/logging-to-nt-event-log-based-on-an-event">Logging to NT Event Log Based on an Event</a></p></li>
-<li><p>ScriptingStandardConsumerSetting 	Provides registration data common to all instances of the ActiveScriptEventConsumer class.</p></li>
-<li><p>SMTPEventConsumer 	Sends an email message using SMTP each time an event is delivered to it. Example: <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/sending-e-mail-based-on-an-event">Sending Email Based on an Event</a></p></li>
-</ul>
-<p>The ActiveScriptEventConsumer class allows for the execution of scripting code from either JScript or VBScript engines. Finally, the WMI script host process is <code class="docutils literal notranslate"><span class="pre">%SystemRoot%\system32\wbem\scrcons.exe</span></code>.</p>
-</div>
 <div class="section" id="hypothesis">
 <h2>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">¶</a></h2>
 <p>Adversaries might be leveraging WMI ActiveScriptEventConsumers remotely to move laterally in my network.</p>
+</div>
+<div class="section" id="technical-context">
+<h2>Technical Context<a class="headerlink" href="#technical-context" title="Permalink to this headline">¶</a></h2>
+<p>One of the components of an Event subscription is the event consumer. It is basically the main action that gets executed when a filter triggers (i.e. monitor for authentication events. if one occurs. trigger the consumer).</p>
+<p>According to <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/standard-consumer-classes">MS Documentation</a>, there are several WMI consumer classes available</p>
+<ul class="simple">
+<li><p>ActiveScriptEventConsumer -&gt; Executes a predefined script in an arbitrary scripting language when an event is delivered to it. Example -&gt; <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/running-a-script-based-on-an-event">Running a Script Based on an Event</a></p></li>
+<li><p>CommandLineEventConsumer -&gt; Launches an arbitrary process in the local system context when an event is delivered to it. Example -&gt; <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/running-a-program-from-the-command-line-based-on-an-event">Running a Program from the Command Line Based on an Event</a></p></li>
+<li><p>LogFileEventConsumer -&gt; Writes customized strings to a text log file when events are delivered to it. Example -&gt; <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/writing-to-a-log-file-based-on-an-event">Writing to a Log File Based on an Event</a></p></li>
+<li><p>NTEventLogEventConsumer -&gt; Logs a specific Message to the Windows event log when an event is delivered to it. Example -&gt; <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/logging-to-nt-event-log-based-on-an-event">Logging to NT Event Log Based on an Event</a></p></li>
+<li><p>ScriptingStandardConsumerSetting 	Provides registration data common to all instances of the ActiveScriptEventConsumer class.</p></li>
+<li><p>SMTPEventConsumer 	Sends an email Message using SMTP each time an event is delivered to it. Example -&gt; <a class="reference external" href="https://docs.microsoft.com/en-us/windows/win32/wmisdk/sending-e-mail-based-on-an-event">Sending Email Based on an Event</a></p></li>
+</ul>
+<p>The ActiveScriptEventConsumer class allows for the execution of scripting code from either JScript or VBScript engines. Finally, the WMI script host process is <code class="docutils literal notranslate"><span class="pre">%SystemRoot%\system32\wbem\scrcons.exe</span></code>.</p>
+</div>
+<div class="section" id="offensive-tradecraft">
+<h2>Offensive Tradecraft<a class="headerlink" href="#offensive-tradecraft" title="Permalink to this headline">¶</a></h2>
+<p>Threat actors can achieve remote code execution by using WMI event subscriptions. Normally, a permanent WMI event subscription is designed to persist and respond to certain events.
+According to <a class="reference external" href="https://twitter.com/mattifestation">Matt Graeber</a>, if an attacker wanted to execute a single payload however, the respective event consumer would just need to delete its corresponding event filter, consumer, and filter to consumer binding.
+The advantage of this technique is that the payload runs as SYSTEM, and it avoids having a payload be displayed in plaintext in the presence of command line auditing.</p>
+</div>
+<div class="section" id="mordor-test-data">
+<h2>Mordor Test Data<a class="headerlink" href="#mordor-test-data" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p></p></th>
+<th class="text-align:left head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>metadata</p></td>
+<td class="text-align:left"><p>https://mordordatasets.com/notebooks/small/windows/08_lateral_movement/SDWIN-200724174200.html</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>link</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers.zip">https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers.zip</a></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="analytics">
 <h2>Analytics<a class="headerlink" href="#analytics" title="Permalink to this headline">¶</a></h2>
@@ -611,24 +646,24 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 <h3>Initialize Analytics Engine<a class="headerlink" href="#initialize-analytics-engine" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="n">spark</span> <span class="o">=</span> <span class="n">get_spark</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="download-process-mordor-file">
-<h3>Download &amp; Process Mordor File<a class="headerlink" href="#download-process-mordor-file" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="download-process-mordor-dataset">
+<h3>Download &amp; Process Mordor Dataset<a class="headerlink" href="#download-process-mordor-dataset" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/covenant_wmi_event_subscription.zip&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers.zip&quot;</span>
 <span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
 [+] DataFrame Returned !
 [+] Temporary SparkSQL View: mordorTable 
 </pre></div>
@@ -638,43 +673,45 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 </div>
 <div class="section" id="analytic-i">
 <h3>Analytic I<a class="headerlink" href="#analytic-i" title="Permalink to this headline">¶</a></h3>
+<p>Look for the creation of Event consumers of script type.</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
-<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
-<td class="text-align:left"><p>Look for the creation of Event consumers of script type.</p></td>
+<tr class="row-even"><td class="text-align:left"><p>WMI object</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>User created Wmi consumer</p></td>
+<td><p>20</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT EventID, EventType</span>
 <span class="sd">FROM mordorTable</span>
 <span class="sd">WHERE Channel = &#39;Microsoft-Windows-Sysmon/Operational&#39;</span>
 <span class="sd">  AND EventID = 20</span>
 <span class="sd">  AND LOWER(Message) Like &#39;%type: script%&#39;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-------+----------------+
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-------+----------------+
 |EventID|EventType       |
 +-------+----------------+
 |20     |WmiConsumerEvent|
 |20     |WmiConsumerEvent|
 +-------+----------------+
-
 </pre></div>
 </div>
 </div>
@@ -682,42 +719,44 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 </div>
 <div class="section" id="analytic-ii">
 <h3>Analytic II<a class="headerlink" href="#analytic-ii" title="Permalink to this headline">¶</a></h3>
+<p>Look for the creation of Event consumers of script type (i.e vbscript).</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
-<td class="text-align:left"><p>[‘Microsoft-Windows-WMI-Activity/Operational’]</p></td>
-<td class="text-align:left"><p>Look for the creation of Event consumers of script type (i.e vbscript).</p></td>
+<tr class="row-even"><td class="text-align:left"><p>WMI object</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-WMI-Activity/Operational</p></td>
+<td><p>Wmi subscription created</p></td>
+<td><p>5861</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT EventID, SourceName</span>
 <span class="sd">FROM mordorTable</span>
 <span class="sd">WHERE Channel = &#39;Microsoft-Windows-WMI-Activity/Operational&#39;</span>
 <span class="sd">  AND EventID = 5861</span>
 <span class="sd">  AND LOWER(Message) LIKE &#39;%scriptingengine = &quot;vbscript&quot;%&#39;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-------+------------------------------+
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-------+------------------------------+
 |EventID|SourceName                    |
 +-------+------------------------------+
 |5861   |Microsoft-Windows-WMI-Activity|
 +-------+------------------------------+
-
 </pre></div>
 </div>
 </div>
@@ -725,42 +764,44 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 </div>
 <div class="section" id="analytic-iii">
 <h3>Analytic III<a class="headerlink" href="#analytic-iii" title="Permalink to this headline">¶</a></h3>
+<p>Look for any indicators that the WMI script host process %SystemRoot%\system32\wbem\scrcons.exe is created. This is created by svchost.exe.</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
-<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
-<td class="text-align:left"><p>Look for any indicators that the WMI script host process %SystemRoot%\system32\wbem\scrcons.exe is created. This is created by svchost.exe.</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process created Process</p></td>
+<td><p>1</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT ParentImage, Image, CommandLine, ProcessId, ProcessGuid</span>
 <span class="sd">FROM mordorTable</span>
 <span class="sd">WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
 <span class="sd">    AND EventID = 1</span>
 <span class="sd">    AND Image LIKE &#39;%scrcons%&#39;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-------------------------------+------------------------------------+-----------------------------------------------+---------+--------------------------------------+
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-------------------------------+------------------------------------+-----------------------------------------------+---------+--------------------------------------+
 |ParentImage                    |Image                               |CommandLine                                    |ProcessId|ProcessGuid                           |
 +-------------------------------+------------------------------------+-----------------------------------------------+---------+--------------------------------------+
 |C:\Windows\System32\svchost.exe|C:\Windows\System32\wbem\scrcons.exe|C:\windows\system32\wbem\scrcons.exe -Embedding|972      |{c4e35f20-f8ea-5f4e-c504-000000000400}|
 +-------------------------------+------------------------------------+-----------------------------------------------+---------+--------------------------------------+
-
 </pre></div>
 </div>
 </div>
@@ -768,42 +809,44 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 </div>
 <div class="section" id="analytic-iv">
 <h3>Analytic IV<a class="headerlink" href="#analytic-iv" title="Permalink to this headline">¶</a></h3>
+<p>Look for any indicators that the WMI script host process %SystemRoot%\system32\wbem\scrcons.exe is created. This is created by svchost.exe.</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
-<td class="text-align:left"><p>[‘Security’]</p></td>
-<td class="text-align:left"><p>Look for any indicators that the WMI script host process %SystemRoot%\system32\wbem\scrcons.exe is created. This is created by svchost.exe.</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>Process created Process</p></td>
+<td><p>4688</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT ParentProcessName, NewProcessName, CommandLine, NewProcessId</span>
 <span class="sd">FROM mordorTable</span>
 <span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
 <span class="sd">    AND EventID = 4688</span>
 <span class="sd">    AND NewProcessName LIKE &#39;%scrcons%&#39;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+-------------------------------+------------------------------------+-----------------------------------------------+------------+
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-------------------------------+------------------------------------+-----------------------------------------------+------------+
 |ParentProcessName              |NewProcessName                      |CommandLine                                    |NewProcessId|
 +-------------------------------+------------------------------------+-----------------------------------------------+------------+
 |C:\Windows\System32\svchost.exe|C:\Windows\System32\wbem\scrcons.exe|C:\windows\system32\wbem\scrcons.exe -Embedding|0x3cc       |
 +-------------------------------+------------------------------------+-----------------------------------------------+------------+
-
 </pre></div>
 </div>
 </div>
@@ -811,24 +854,27 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 </div>
 <div class="section" id="analytic-v">
 <h3>Analytic V<a class="headerlink" href="#analytic-v" title="Permalink to this headline">¶</a></h3>
+<p>Look for any indicators that the WMI script host process %SystemRoot%\system32\wbem\scrcons.exe is being used. You can do this by looking for a few modules being loaded by a process.</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
-<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
-<td class="text-align:left"><p>Look for any indicators that the WMI script host process %SystemRoot%\system32\wbem\scrcons.exe is being used. You can do this by looking for a few modules being loaded by a process.</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Module</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process loaded Dll</p></td>
+<td><p>7</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT Image, ImageLoaded, Description, ProcessGuid</span>
 <span class="sd">FROM mordorTable</span>
 <span class="sd">WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
@@ -840,14 +886,14 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 <span class="sd">        &#39;c:\\\windows\\\system32\\\wshom.ocx&#39;,</span>
 <span class="sd">        &#39;c:\\\windows\\\system32\\\scrrun.dll&#39;</span>
 <span class="sd">    )</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+------------------------------------+-------------------------------------+---------------------------------------+--------------------------------------+
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+------------------------------------+-------------------------------------+---------------------------------------+--------------------------------------+
 |Image                               |ImageLoaded                          |Description                            |ProcessGuid                           |
 +------------------------------------+-------------------------------------+---------------------------------------+--------------------------------------+
 |C:\Windows\System32\wbem\scrcons.exe|C:\Windows\System32\wbem\scrcons.exe |WMI Standard Event Consumer - scripting|{c4e35f20-f8ea-5f4e-c504-000000000400}|
@@ -856,7 +902,6 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 |C:\Windows\System32\wbem\scrcons.exe|C:\Windows\System32\wshom.ocx        |Windows Script Host Runtime Library    |{c4e35f20-f8ea-5f4e-c504-000000000400}|
 |C:\Windows\System32\wbem\scrcons.exe|C:\Windows\System32\scrrun.dll       |Microsoft ® Script Runtime             |{c4e35f20-f8ea-5f4e-c504-000000000400}|
 +------------------------------------+-------------------------------------+---------------------------------------+--------------------------------------+
-
 </pre></div>
 </div>
 </div>
@@ -864,24 +909,37 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 </div>
 <div class="section" id="analytic-vi">
 <h3>Analytic VI<a class="headerlink" href="#analytic-vi" title="Permalink to this headline">¶</a></h3>
+<p>Look for any indicators that the WMI script host process %SystemRoot%\system32\wbem\scrcons.exe is being used and add some context to it that might not be normal in your environment. You can add network connections context to look for any scrcons.exe reaching out to external hosts over the network.</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
-<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
-<td class="text-align:left"><p>Look for any indicators that the WMI script host process %SystemRoot%\system32\wbem\scrcons.exe is being used and add some context to it that might not be normal in your environment. You can add network connections context to look for any scrcons.exe reaching out to external hosts over the network.</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process created Process</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process connected to Ip</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Module</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process loaded Dll</p></td>
+<td><p>7</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT d.`@timestamp`, c.Image, d.DestinationIp, d.ProcessId</span>
 <span class="sd">FROM mordorTable d</span>
 <span class="sd">INNER JOIN (</span>
@@ -908,23 +966,22 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 <span class="sd">ON d.ProcessGuid = c.ProcessGuid</span>
 <span class="sd">WHERE d.Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
 <span class="sd">    AND d.EventID = 3</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+------------------------+------------------------------------+-------------+---------+
-|@timestamp              |Image                               |DestinationIp|ProcessId|
-+------------------------+------------------------------------+-------------+---------+
-|2020-09-02T01:44:15.877Z|C:\Windows\System32\wbem\scrcons.exe|10.10.10.5   |972      |
-|2020-09-02T01:44:15.877Z|C:\Windows\System32\wbem\scrcons.exe|10.10.10.5   |972      |
-|2020-09-02T01:44:15.877Z|C:\Windows\System32\wbem\scrcons.exe|10.10.10.5   |972      |
-|2020-09-02T01:44:15.877Z|C:\Windows\System32\wbem\scrcons.exe|10.10.10.5   |972      |
-|2020-09-02T01:44:15.877Z|C:\Windows\System32\wbem\scrcons.exe|10.10.10.5   |972      |
-+------------------------+------------------------------------+-------------+---------+
-
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+------------------------------------+-------------+---------+
+|@timestamp             |Image                               |DestinationIp|ProcessId|
++-----------------------+------------------------------------+-------------+---------+
+|2020-09-01 21:44:15.877|C:\Windows\System32\wbem\scrcons.exe|10.10.10.5   |972      |
+|2020-09-01 21:44:15.877|C:\Windows\System32\wbem\scrcons.exe|10.10.10.5   |972      |
+|2020-09-01 21:44:15.877|C:\Windows\System32\wbem\scrcons.exe|10.10.10.5   |972      |
+|2020-09-01 21:44:15.877|C:\Windows\System32\wbem\scrcons.exe|10.10.10.5   |972      |
+|2020-09-01 21:44:15.877|C:\Windows\System32\wbem\scrcons.exe|10.10.10.5   |972      |
++-----------------------+------------------------------------+-------------+---------+
 </pre></div>
 </div>
 </div>
@@ -932,24 +989,37 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 </div>
 <div class="section" id="analytic-vii">
 <h3>Analytic VII<a class="headerlink" href="#analytic-vii" title="Permalink to this headline">¶</a></h3>
+<p>One of the main goals is to find context that could tell us that scrcons.exe was used over the network (Lateral Movement). One way would be to add a network logon session as context to some of the previous events.</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
-<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’, ‘Security’]</p></td>
-<td class="text-align:left"><p>One of the main goals is to find context that could tell us that scrcons.exe was used over the network (Lateral Movement). One way would be to add a network logon session as context to some of the previous events.</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process created Process</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Module</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process loaded Dll</p></td>
+<td><p>7</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Authentication log</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>User authenticated Host</p></td>
+<td><p>4624</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT d.`@timestamp`, d.TargetUserName, c.Image, c.ProcessId</span>
 <span class="sd">FROM mordorTable d</span>
 <span class="sd">INNER JOIN (</span>
@@ -977,23 +1047,22 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 <span class="sd">WHERE LOWER(d.Channel) = &quot;security&quot;</span>
 <span class="sd">    AND d.EventID = 4624</span>
 <span class="sd">    AND d.LogonType = 3</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+------------------------+--------------+------------------------------------+---------+
-|@timestamp              |TargetUserName|Image                               |ProcessId|
-+------------------------+--------------+------------------------------------+---------+
-|2020-09-02T01:44:11.726Z|pgustavo      |C:\Windows\System32\wbem\scrcons.exe|972      |
-|2020-09-02T01:44:11.726Z|pgustavo      |C:\Windows\System32\wbem\scrcons.exe|972      |
-|2020-09-02T01:44:11.726Z|pgustavo      |C:\Windows\System32\wbem\scrcons.exe|972      |
-|2020-09-02T01:44:11.726Z|pgustavo      |C:\Windows\System32\wbem\scrcons.exe|972      |
-|2020-09-02T01:44:11.726Z|pgustavo      |C:\Windows\System32\wbem\scrcons.exe|972      |
-+------------------------+--------------+------------------------------------+---------+
-
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+--------------+------------------------------------+---------+
+|@timestamp             |TargetUserName|Image                               |ProcessId|
++-----------------------+--------------+------------------------------------+---------+
+|2020-09-01 21:44:11.726|pgustavo      |C:\Windows\System32\wbem\scrcons.exe|972      |
+|2020-09-01 21:44:11.726|pgustavo      |C:\Windows\System32\wbem\scrcons.exe|972      |
+|2020-09-01 21:44:11.726|pgustavo      |C:\Windows\System32\wbem\scrcons.exe|972      |
+|2020-09-01 21:44:11.726|pgustavo      |C:\Windows\System32\wbem\scrcons.exe|972      |
+|2020-09-01 21:44:11.726|pgustavo      |C:\Windows\System32\wbem\scrcons.exe|972      |
++-----------------------+--------------+------------------------------------+---------+
 </pre></div>
 </div>
 </div>
@@ -1001,69 +1070,84 @@ The advantage of this technique is that the payload runs as SYSTEM, and it avoid
 </div>
 <div class="section" id="analytic-viii">
 <h3>Analytic VIII<a class="headerlink" href="#analytic-viii" title="Permalink to this headline">¶</a></h3>
+<p>One of the main goals is to find context that could tell us that scrcons.exe was used over the network (Lateral Movement). One way would be to add a network logon session as context to some of the previous events.</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
-<td class="text-align:left"><p>[‘Security’]</p></td>
-<td class="text-align:left"><p>One of the main goals is to find context that could tell us that scrcons.exe was used over the network (Lateral Movement). One way would be to add a network logon session as context to some of the previous events.</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Authentication log</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>User authenticated Host</p></td>
+<td><p>4624</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT `@timestamp`, TargetUserName,ImpersonationLevel, LogonType, ProcessName</span>
 <span class="sd">FROM mordorTable</span>
 <span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
 <span class="sd">    AND EventID = 4624</span>
 <span class="sd">    AND LogonType = 3</span>
 <span class="sd">    AND ProcessName LIKE &#39;%scrcons.exe&#39;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>+------------------------+--------------+------------------+---------+------------------------------------+
-|@timestamp              |TargetUserName|ImpersonationLevel|LogonType|ProcessName                         |
-+------------------------+--------------+------------------+---------+------------------------------------+
-|2020-09-02T01:44:11.726Z|pgustavo      |%%1832            |3        |C:\Windows\System32\wbem\scrcons.exe|
-+------------------------+--------------+------------------+---------+------------------------------------+
-
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+--------------+------------------+---------+------------------------------------+
+|@timestamp             |TargetUserName|ImpersonationLevel|LogonType|ProcessName                         |
++-----------------------+--------------+------------------+---------+------------------------------------+
+|2020-09-01 21:44:11.726|pgustavo      |%%1832            |3        |C:\Windows\System32\wbem\scrcons.exe|
++-----------------------+--------------+------------------+---------+------------------------------------+
 </pre></div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="detection-blindspots">
-<h2>Detection Blindspots<a class="headerlink" href="#detection-blindspots" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="known-bypasses">
+<h2>Known Bypasses<a class="headerlink" href="#known-bypasses" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Idea</p></th>
+<th class="text-align:left head"><p>Playbook</p></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+<div class="section" id="false-positives">
+<h2>False Positives<a class="headerlink" href="#false-positives" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
 </div>
 <div class="section" id="hunter-notes">
 <h2>Hunter Notes<a class="headerlink" href="#hunter-notes" title="Permalink to this headline">¶</a></h2>
-<p>[‘Baseline your environment to identify normal activity. Apparently, SCCM leverages WMI event subscriptions.’]</p>
+<ul class="simple">
+<li><p>Baseline your environment to identify normal activity. Apparently, SCCM leverages WMI event subscriptions.</p></li>
+</ul>
 </div>
 <div class="section" id="hunt-output">
 <h2>Hunt Output<a class="headerlink" href="#hunt-output" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Category</p></th>
-<th class="text-align:left head"><p>Type</p></th>
-<th class="text-align:left head"><p>Name</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Type</p></th>
+<th class="text-align:left head"><p>Link</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>signature</p></td>
-<td class="text-align:left"><p>SIGMA</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_scrcons_remote_wmi_scripteventconsumer.yml">win_scrcons_remote_wmi_scripteventconsumer</a></p></td>
+<tr class="row-even"><td class="text-align:left"><p>Sigma Rule</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_scrcons_remote_wmi_scripteventconsumer.yml">https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_scrcons_remote_wmi_scripteventconsumer.yml</a></p></td>
 </tr>
 </tbody>
 </table>

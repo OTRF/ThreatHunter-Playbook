@@ -2,9 +2,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LSASS Access from Non System Account &#8212; Threat Hunter Playbook</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../../../_static/css/index.css" rel="stylesheet">
@@ -14,9 +15,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-dropdown.css" />
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/sphinx-book-theme.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -24,12 +24,10 @@
     <script src="../../../_static/togglebutton.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/mystnb.js"></script>
     <script src="../../../_static/sphinx-book-theme.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe,.cell"
@@ -52,7 +50,7 @@
 <meta property="og:url"         content="https://threathunterplaybook.com/notebooks/windows/06_credential_access/WIN-170105221010.html" />
 <meta property="og:type"        content="article" />
 <meta property="og:title"       content="LSASS Access from Non System Account" />
-<meta property="og:description" content="LSASS Access from Non System Account  Metadata          id  WIN-170105221010  author  Roberto Rodriguez @Cyb3rWard0g  creation date  2017/01/05  platform  Windo" />
+<meta property="og:description" content="LSASS Access from Non System Account  Metadata          collaborators  [‘Roberto Rodriguez @Cyb3rWard0g’]  creation date  2017/01/05  modification date  2017/01" />
 <meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -206,6 +204,11 @@
       </a>
      </li>
      <li class="toctree-l3">
+      <a class="reference internal" href="../05_defense_evasion/WIN-191224222300.html">
+       Extended NetNTLM Downgrade
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="../05_defense_evasion/WIN-190407183310.html">
        Enable Remote Desktop Conections Registry
       </a>
@@ -235,11 +238,6 @@
      <li class="toctree-l3">
       <a class="reference internal" href="WIN-190725024610.html">
        SAM Registry Hive Handle Request
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="WIN-191224222300.html">
-       Extended NetNTLM Downgrade
       </a>
      </li>
      <li class="toctree-l3">
@@ -350,6 +348,10 @@
 
  <!-- To handle the deprecated key -->
 
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
 </div>
 
 
@@ -459,13 +461,23 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#technical-description">
-   Technical Description
+  <a class="reference internal nav-link" href="#hypothesis">
+   Hypothesis
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hypothesis">
-   Hypothesis
+  <a class="reference internal nav-link" href="#technical-context">
+   Technical Context
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#offensive-tradecraft">
+   Offensive Tradecraft
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#mordor-test-data">
+   Mordor Test Data
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -479,8 +491,8 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#download-process-mordor-file">
-     Download &amp; Process Mordor File
+    <a class="reference internal nav-link" href="#download-process-mordor-dataset">
+     Download &amp; Process Mordor Dataset
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -511,8 +523,13 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#detection-blindspots">
-   Detection Blindspots
+  <a class="reference internal nav-link" href="#known-bypasses">
+   Known Bypasses
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#false-positives">
+   False Positives
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -551,37 +568,55 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>id</p></td>
-<td class="text-align:left"><p>WIN-170105221010</p></td>
+<tr class="row-even"><td class="text-align:left"><p>collaborators</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’]</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>author</p></td>
-<td class="text-align:left"><p>Roberto Rodriguez &#64;Cyb3rWard0g</p></td>
-</tr>
-<tr class="row-even"><td class="text-align:left"><p>creation date</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>creation date</p></td>
 <td class="text-align:left"><p>2017/01/05</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>platform</p></td>
-<td class="text-align:left"><p>Windows</p></td>
+<tr class="row-even"><td class="text-align:left"><p>modification date</p></td>
+<td class="text-align:left"><p>2017/01/05</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>playbook link</p></td>
-<td class="text-align:left"><p>WIN-1904101010</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>playbook related</p></td>
+<td class="text-align:left"><p>[‘WIN-1904101010’]</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="technical-description">
-<h2>Technical Description<a class="headerlink" href="#technical-description" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="hypothesis">
+<h2>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">¶</a></h2>
+<p>Adversaries might be using a non system account to access LSASS and extract credentials from memory.</p>
+</div>
+<div class="section" id="technical-context">
+<h2>Technical Context<a class="headerlink" href="#technical-context" title="Permalink to this headline">¶</a></h2>
 <p>After a user logs on, a variety of credentials are generated and stored in the Local Security Authority Subsystem Service (LSASS) process in memory.
 This is meant to facilitate single sign-on (SSO) ensuring a user isn’t prompted each time resource access is requested.
-The credential data may include Kerberos tickets, NTLM password hashes, LM password hashes (if the password is &lt;15 characters, depending on Windows OS version and patch level), and even clear-text passwords (to support WDigest and SSP authentication among others.
-Adversaries look to get access to the credential data and do it so by finding a way to access the contents of memory of the LSASS process.
+The credential data may include Kerberos tickets, NTLM password hashes, LM password hashes (if the password is &lt;15 characters, depending on Windows OS version and patch level), and even clear-text passwords (to support WDigest and SSP authentication among others.</p>
+</div>
+<div class="section" id="offensive-tradecraft">
+<h2>Offensive Tradecraft<a class="headerlink" href="#offensive-tradecraft" title="Permalink to this headline">¶</a></h2>
+<p>Adversaries look to get access to the credential data and do it so by finding a way to access the contents of memory of the LSASS process.
 For example, tools like Mimikatz get credential data by listing all available provider credentials with its SEKURLSA::LogonPasswords module.
 The module uses a Kernel32 function called OpenProcess to get a handle to lsass to then access LSASS and dump password data for currently logged on (or recently logged on) accounts as well as services running under the context of user credentials.
 Even though most adversaries might inject into a System process to blend in with most applications accessing LSASS, there are ocassions where adversaries do not elevate to System and use the available administrator rights from the user since that is the minimum requirement to access LSASS.</p>
 </div>
-<div class="section" id="hypothesis">
-<h2>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">¶</a></h2>
-<p>Adversaries might be using a non system account to access LSASS and extract credentials from memory.</p>
+<div class="section" id="mordor-test-data">
+<h2>Mordor Test Data<a class="headerlink" href="#mordor-test-data" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p></p></th>
+<th class="text-align:left head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>metadata</p></td>
+<td class="text-align:left"><p>https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-190518202151.html</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>link</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/host/empire_mimikatz_logonpasswords.zip">https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/host/empire_mimikatz_logonpasswords.zip</a></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="analytics">
 <h2>Analytics<a class="headerlink" href="#analytics" title="Permalink to this headline">¶</a></h2>
@@ -589,19 +624,26 @@ Even though most adversaries might inject into a System process to blend in with
 <h3>Initialize Analytics Engine<a class="headerlink" href="#initialize-analytics-engine" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openhunt.mordorutils</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="n">spark</span> <span class="o">=</span> <span class="n">get_spark</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="download-process-mordor-file">
-<h3>Download &amp; Process Mordor File<a class="headerlink" href="#download-process-mordor-file" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="download-process-mordor-dataset">
+<h3>Download &amp; Process Mordor Dataset<a class="headerlink" href="#download-process-mordor-dataset" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_logonpasswords.zip&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/host/empire_mimikatz_logonpasswords.zip&quot;</span>
 <span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+[+] DataFrame Returned !
+[+] Temporary SparkSQL View: mordorTable 
 </pre></div>
 </div>
 </div>
@@ -609,33 +651,51 @@ Even though most adversaries might inject into a System process to blend in with
 </div>
 <div class="section" id="analytic-i">
 <h3>Analytic I<a class="headerlink" href="#analytic-i" title="Permalink to this headline">¶</a></h3>
+<p>Look for non-system accounts getting a handle to and accessing lsass</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Low</p></td>
-<td class="text-align:left"><p>[‘Security’]</p></td>
-<td class="text-align:left"><p>Look for non-system accounts getting a handle and access lsass</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>Process accessed Process</p></td>
+<td><p>4663</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>Process requested_access Process</p></td>
+<td><p>4656</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT `@timestamp`, computer_name, SubjectUserName, ProcessName, ObjectName, AccessMask, event_id</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName, AccessMask, EventID</span>
 <span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE channel = &quot;Security&quot;</span>
-<span class="sd">    AND (event_id = 4663 OR event_id = 4656)</span>
+<span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
+<span class="sd">    AND (EventID = 4663 OR EventID = 4656)</span>
 <span class="sd">    AND ObjectName LIKE &quot;%lsass.exe&quot;</span>
 <span class="sd">    AND NOT SubjectUserName LIKE &quot;%$&quot;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+---------------+---------------------------------------------------------+--------------------------------------------------+----------+-------+
+|@timestamp             |Hostname                   |SubjectUserName|ProcessName                                              |ObjectName                                        |AccessMask|EventID|
++-----------------------+---------------------------+---------------+---------------------------------------------------------+--------------------------------------------------+----------+-------+
+|2020-08-07 10:32:57.592|WORKSTATION5.theshire.local|pgustavo       |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|\Device\HarddiskVolume2\Windows\System32\lsass.exe|0x1010    |4656   |
+|2020-08-07 10:32:57.592|WORKSTATION5.theshire.local|pgustavo       |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|\Device\HarddiskVolume2\Windows\System32\lsass.exe|0x10      |4663   |
++-----------------------+---------------------------+---------------+---------------------------------------------------------+--------------------------------------------------+----------+-------+
 </pre></div>
 </div>
 </div>
@@ -643,33 +703,45 @@ Even though most adversaries might inject into a System process to blend in with
 </div>
 <div class="section" id="analytic-ii">
 <h3>Analytic II<a class="headerlink" href="#analytic-ii" title="Permalink to this headline">¶</a></h3>
+<p>Processes opening handles and accessing Lsass with potential dlls in memory (i.e UNKNOWN in CallTrace)</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
-<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
-<td class="text-align:left"><p>Processes opening handles and accessing Lsass with potential dlls in memory (i.e UNKNOWN in CallTrace)</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process accessed Process</p></td>
+<td><p>10</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT `@timestamp`, computer_name, SourceImage, TargetImage, GrantedAccess, SourceProcessGUID</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, Hostname, SourceImage, TargetImage, GrantedAccess, SourceProcessGUID</span>
 <span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
-<span class="sd">    AND event_id = 10</span>
+<span class="sd">WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">    AND EventID = 10</span>
 <span class="sd">    AND TargetImage LIKE &quot;%lsass.exe&quot;</span>
 <span class="sd">    AND CallTrace LIKE &quot;%UNKNOWN%&quot;</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+---------------------------------------------------------+-----------------------------+-------------+--------------------------------------+
+|@timestamp             |Hostname                   |SourceImage                                              |TargetImage                  |GrantedAccess|SourceProcessGUID                     |
++-----------------------+---------------------------+---------------------------------------------------------+-----------------------------+-------------+--------------------------------------+
+|2020-08-07 10:32:57.589|WORKSTATION5.theshire.local|C:\windows\System32\WindowsPowerShell\v1.0\powershell.exe|C:\windows\system32\lsass.exe|0x1010       |{297bc33e-65d0-5f2d-8207-000000000400}|
++-----------------------+---------------------------+---------------------------------------------------------+-----------------------------+-------------+--------------------------------------+
 </pre></div>
 </div>
 </div>
@@ -677,28 +749,31 @@ Even though most adversaries might inject into a System process to blend in with
 </div>
 <div class="section" id="analytic-iii">
 <h3>Analytic III<a class="headerlink" href="#analytic-iii" title="Permalink to this headline">¶</a></h3>
+<p>Look for processes loading a few known DLLs loaded by tools like Mimikatz to interact with credentials</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
-<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
-<td class="text-align:left"><p>Look for processes loading a few known DLLs loaded by tools like Mimikatz to interact with credentials</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Module</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process loaded Dll</p></td>
+<td><p>7</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT ProcessGuid,Image, COUNT(DISTINCT ImageLoaded) AS hits</span>
 <span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
-<span class="sd">    AND event_id = 7</span>
+<span class="sd">WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">    AND EventID = 7</span>
 <span class="sd">    AND ( </span>
 <span class="sd">        ImageLoaded LIKE &quot;%samlib.dll&quot;</span>
 <span class="sd">        OR ImageLoaded LIKE &quot;%vaultcli.dll&quot;</span>
@@ -708,9 +783,17 @@ Even though most adversaries might inject into a System process to blend in with
 <span class="sd">    )</span>
 <span class="sd">    AND `@timestamp` BETWEEN &quot;2019-03-00 00:00:00.000&quot; AND &quot;2019-06-20 00:00:00.000&quot;</span>
 <span class="sd">    GROUP BY ProcessGuid,Image ORDER BY hits DESC LIMIT 10</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------+-----+----+
+|ProcessGuid|Image|hits|
++-----------+-----+----+
++-----------+-----+----+
 </pre></div>
 </div>
 </div>
@@ -718,31 +801,39 @@ Even though most adversaries might inject into a System process to blend in with
 </div>
 <div class="section" id="analytic-iv">
 <h3>Analytic IV<a class="headerlink" href="#analytic-iv" title="Permalink to this headline">¶</a></h3>
+<p>Join processes opening a handle and accessing LSASS with potential DLLs loaded in memory and processes loading a few known DLLs loaded by tools like Mimikatz to interact with credentials</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
-<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
-<td class="text-align:left"><p>Join processes opening a handle and accessing LSASS with potential DLLs loaded in memory and processes loading a few known DLLs loaded by tools like Mimikatz to interact with credentials</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Module</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process loaded Dll</p></td>
+<td><p>7</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process accessed Process</p></td>
+<td><p>10</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT a.`@timestamp`, a.computer_name, m.Image, a.SourceProcessGUID</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT a.`@timestamp`, a.Hostname, m.Image, a.SourceProcessGUID</span>
 <span class="sd">FROM mordorTable a</span>
 <span class="sd">INNER JOIN (</span>
 <span class="sd">    SELECT ProcessGuid,Image, COUNT(DISTINCT ImageLoaded) AS hits</span>
 <span class="sd">    FROM mordorTable</span>
-<span class="sd">    WHERE channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
-<span class="sd">        AND event_id = 7</span>
+<span class="sd">    WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">        AND EventID = 7</span>
 <span class="sd">        AND ( </span>
 <span class="sd">            ImageLoaded LIKE &quot;%samlib.dll&quot;</span>
 <span class="sd">            OR ImageLoaded LIKE &quot;%vaultcli.dll&quot;</span>
@@ -754,14 +845,22 @@ Even though most adversaries might inject into a System process to blend in with
 <span class="sd">        GROUP BY ProcessGuid,Image ORDER BY hits DESC LIMIT 10</span>
 <span class="sd">    ) m</span>
 <span class="sd">ON a.SourceProcessGUID = m.ProcessGuid</span>
-<span class="sd">WHERE a.channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
-<span class="sd">    AND a.event_id = 10</span>
+<span class="sd">WHERE a.Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">    AND a.EventID = 10</span>
 <span class="sd">    AND a.TargetImage LIKE &quot;%lsass.exe&quot;</span>
 <span class="sd">    AND a.CallTrace LIKE &quot;%UNKNOWN%&quot;</span>
 <span class="sd">    AND m.hits &gt;= 3</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+--------+-----+-----------------+
+|@timestamp|Hostname|Image|SourceProcessGUID|
++----------+--------+-----+-----------------+
++----------+--------+-----+-----------------+
 </pre></div>
 </div>
 </div>
@@ -769,25 +868,38 @@ Even though most adversaries might inject into a System process to blend in with
 </div>
 <div class="section" id="analytic-v">
 <h3>Analytic V<a class="headerlink" href="#analytic-v" title="Permalink to this headline">¶</a></h3>
+<p>Join non system accounts creating processes that open handles and access LSASS with potential DLLs loaded in memory and load a few known DLLs loaded by tools like Mimikatz to interact with credentials on ProcessGuid values</p>
 <table class="colwidths-auto table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>FP Rate</p></th>
-<th class="text-align:left head"><p>Log Channel</p></th>
-<th class="text-align:left head"><p>Description</p></th>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>Medium</p></td>
-<td class="text-align:left"><p>[‘Microsoft-Windows-Sysmon/Operational’]</p></td>
-<td class="text-align:left"><p>Join non system accounts creating processes that open handles and access LSASS with potential DLLs loaded in memory and load a few known DLLs loaded by tools like Mimikatz to interact with credentials on ProcessGuid values</p></td>
+<tr class="row-even"><td class="text-align:left"><p>Module</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process loaded Dll</p></td>
+<td><p>7</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process accessed Process</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Process</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>User created Process</p></td>
+<td><p>1</p></td>
 </tr>
 </tbody>
 </table>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT p.`@timestamp`, p.computer_name, p.Image, p.User</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT p.`@timestamp`, p.Hostname, p.Image, p.User</span>
 <span class="sd">FROM mordorTable p</span>
 <span class="sd">INNER JOIN (</span>
 <span class="sd">    SELECT a.SourceProcessGUID</span>
@@ -795,8 +907,8 @@ Even though most adversaries might inject into a System process to blend in with
 <span class="sd">    INNER JOIN (</span>
 <span class="sd">        SELECT ProcessGuid,Image, COUNT(DISTINCT ImageLoaded) AS hits</span>
 <span class="sd">        FROM mordorTable</span>
-<span class="sd">        WHERE channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
-<span class="sd">            AND event_id = 7</span>
+<span class="sd">        WHERE Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">            AND EventID = 7</span>
 <span class="sd">            AND ( </span>
 <span class="sd">                ImageLoaded LIKE &quot;%samlib.dll&quot;</span>
 <span class="sd">                OR ImageLoaded LIKE &quot;%vaultcli.dll&quot;</span>
@@ -808,27 +920,52 @@ Even though most adversaries might inject into a System process to blend in with
 <span class="sd">            GROUP BY ProcessGuid,Image ORDER BY hits DESC LIMIT 10</span>
 <span class="sd">    ) m</span>
 <span class="sd">    ON a.SourceProcessGUID = m.ProcessGuid</span>
-<span class="sd">    WHERE a.channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
-<span class="sd">        AND a.event_id = 10</span>
+<span class="sd">    WHERE a.Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">        AND a.EventID = 10</span>
 <span class="sd">        AND a.TargetImage LIKE &quot;%lsass.exe&quot;</span>
 <span class="sd">        AND a.CallTrace LIKE &quot;%UNKNOWN%&quot;</span>
 <span class="sd">        AND m.hits &gt;= 3</span>
 <span class="sd">) s</span>
 <span class="sd">ON p.ProcessGuid = s.SourceProcessGUID</span>
-<span class="sd">WHERE p.channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
-<span class="sd">    AND p.event_id = 1</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">WHERE p.Channel = &quot;Microsoft-Windows-Sysmon/Operational&quot;</span>
+<span class="sd">    AND p.EventID = 1</span>
+<span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+--------+-----+----+
+|@timestamp|Hostname|Image|User|
++----------+--------+-----+----+
++----------+--------+-----+----+
 </pre></div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="detection-blindspots">
-<h2>Detection Blindspots<a class="headerlink" href="#detection-blindspots" title="Permalink to this headline">¶</a></h2>
-<p>The Microsoft Monitoring Agent binary pmfexe.exe is one of the most common ones that accesses Lsass.exe with at least 0x10 permissions as System. That could be useful to blend in through the noise.</p>
+<div class="section" id="known-bypasses">
+<h2>Known Bypasses<a class="headerlink" href="#known-bypasses" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Idea</p></th>
+<th class="text-align:left head"><p>Playbook</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>Inject into known processes accessing LSASS on a regular basis such as pmfexe.exe and as System</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://github.com/OTRF/ThreatHunter-Playbook/blob/master/playbooks/None.yaml">None</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="false-positives">
+<h2>False Positives<a class="headerlink" href="#false-positives" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>The Microsoft Monitoring Agent binary pmfexe.exe is one of the most common ones that accesses Lsass.exe with at least 0x10 permissions as System. That could be useful to blend in through the noise.</p></li>
+</ul>
 </div>
 <div class="section" id="hunter-notes">
 <h2>Hunter Notes<a class="headerlink" href="#hunter-notes" title="Permalink to this headline">¶</a></h2>
@@ -852,6 +989,15 @@ Even though most adversaries might inject into a System process to blend in with
 </div>
 <div class="section" id="hunt-output">
 <h2>Hunt Output<a class="headerlink" href="#hunt-output" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Type</p></th>
+<th class="text-align:left head"><p>Link</p></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>

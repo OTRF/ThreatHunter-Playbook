@@ -1,0 +1,99 @@
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/usr/local/lib/python3.8/site-packages/nbclient/client.py", line 1082, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/usr/local/lib/python3.8/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/usr/local/lib/python3.8/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/usr/local/Cellar/python@3.8/3.8.5/Frameworks/Python.framework/Versions/3.8/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/usr/local/lib/python3.8/site-packages/nbclient/client.py", line 535, in async_execute
+    await self.async_execute_cell(
+  File "/usr/local/lib/python3.8/site-packages/nbclient/client.py", line 827, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/usr/local/lib/python3.8/site-packages/nbclient/client.py", line 735, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Importing Libraries
+from bokeh.io import show
+from bokeh.plotting import figure
+from bokeh.models import ColumnDataSource, LabelSet, HoverTool
+from bokeh.transform import dodge
+import pandas as pd
+
+# You need to run this code at the beginning in order to show visualization using Jupyter Notebooks
+from bokeh.io import output_notebook
+output_notebook()
+apt29= pd.read_json('https://raw.githubusercontent.com/OTRF/ThreatHunter-Playbook/master/docs/evals/apt29/data/otr_results.json')
+summary = (
+    apt29
+    .groupby(['step','stepname']).agg(total=pd.NamedAgg(column="substep", aggfunc="nunique"))
+    .join(
+        apt29[apt29['detectiontype'] == 'Telemetry']
+        .groupby(['step','stepname']).agg(telemetry=pd.NamedAgg(column="vendor", aggfunc="count"))
+    )
+).reset_index()
+summary['percentage'] = (summary['telemetry'] / summary['total']).map("{:.0%}".format)
+# Get Total Average Telemetry coverage
+total_avg_percentage = '{0:.0f}'.format((summary['telemetry'].sum() / summary['total'].sum() * 100))
+
+# Lists of values to create ColumnDataSource
+stepname = summary['stepname'].tolist()
+total = summary['total'].tolist()
+telemetry = summary['telemetry'].tolist()
+percentage = summary['percentage'].tolist()
+
+# Creating ColumnDataSource object: source of data for visualization
+source = ColumnDataSource(data={'stepname':stepname,'sub-Steps':total,'covered':telemetry,'percentage':percentage})
+
+# Defining HoverTool object (Display info with Mouse): It is applied to chart named 'needHover'
+hover_tool = HoverTool(names = ['needHover'],tooltips = [("Covered", "@covered"),("Percentage", "@percentage")])
+
+# Creating Figure
+p = figure(x_range=stepname,y_range=(0,23),plot_height=550,plot_width=600,toolbar_location='right',tools=[hover_tool])
+
+# Creating Vertical Bar Charts
+p.vbar(x=dodge('stepname',0.0,range=p.x_range),top='sub-Steps',width=0.7,source=source,color="#c9d9d3",legend_label="Total")
+p.vbar(x=dodge('stepname',0.0, range=p.x_range),top='covered',width=0.7,source=source,color="#718dbf",legend_label="Covered", name = 'needHover')
+
+# Adding Legend
+p.legend.location = "top_right"
+p.legend.orientation = "vertical"
+p.legend.border_line_width = 3
+p.legend.border_line_color = "black"
+p.legend.border_line_alpha = 0.3
+
+# Adding Title
+p.title.text = 'Telemetry Detection Category (Average Coverage: {}%)'.format(total_avg_percentage)
+p.title.align = 'center'
+p.title.text_font_size = '12pt'
+
+# Adding Axis Labels
+p.xaxis.axis_label = 'Emulation Steps'
+p.xaxis.major_label_orientation = 45
+
+p.yaxis.axis_label = 'Count of Sub-Steps'
+
+# Adding Data Label: Only for total of sub-steps
+total_label = LabelSet(x='stepname',y='sub-Steps',text='sub-Steps',text_align='center',level='glyph',source= source)
+p.add_layout(total_label)
+
+#Showing visualization
+show(p)
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+[0;32m<ipython-input-1-194336bf2286>[0m in [0;36m<module>[0;34m[0m
+[1;32m      1[0m [0;31m# Importing Libraries[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 2[0;31m [0;32mfrom[0m [0mbokeh[0m[0;34m.[0m[0mio[0m [0;32mimport[0m [0mshow[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      3[0m [0;32mfrom[0m [0mbokeh[0m[0;34m.[0m[0mplotting[0m [0;32mimport[0m [0mfigure[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      4[0m [0;32mfrom[0m [0mbokeh[0m[0;34m.[0m[0mmodels[0m [0;32mimport[0m [0mColumnDataSource[0m[0;34m,[0m [0mLabelSet[0m[0;34m,[0m [0mHoverTool[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      5[0m [0;32mfrom[0m [0mbokeh[0m[0;34m.[0m[0mtransform[0m [0;32mimport[0m [0mdodge[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mModuleNotFoundError[0m: No module named 'bokeh'
+ModuleNotFoundError: No module named 'bokeh'
+
