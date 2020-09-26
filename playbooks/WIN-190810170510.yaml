@@ -24,76 +24,72 @@ offensive_tradecraft: |-
   * Filter – An action to trigger off of
   * Consumer – An action to take upon triggering the filter
   * Binding – Registers a FilterConsumer
-validation:
-  permissions_required:
-    - Administrator
-  simulation:
-    commnads:
-      - None
-    script_url:
-      - None
-  test_data:
-    document: https://mordordatasets.com/notebooks/small/windows/03_persistence/SDWIN-190518184306.html
-    datasets:
-      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/persistence/empire_elevated_wmi.tar.gz
+test_data:
+  metadata: https://mordordatasets.com/notebooks/small/windows/03_persistence/SDWIN-190518184306.html
+  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/persistence/host/empire_wmi_local_event_subscriptions_elevated_user.zip
 analytics:
   - name: Analytic I
     description: Look for WMI event filters registered
     data_sources:
-      - attack_mapping: WMI object
-        - event_provider: Microsoft-Windows-Sysmon/Operational
+      - name: WMI object
+        event_providers:
+        - name: Microsoft-Windows-Sysmon/Operational
           data_model:
             - relationship: User created Wmi filter
               id: AE378A1D-E665-461A-B478-539AFB5E37EF
               event_id: 19
     logic: |-
-      SELECT `@timestamp`, computer_name, User, EventNamespace, Name, Query
+      SELECT `@timestamp`, Hostname, User, EventNamespace, Name, Query
       FROM mordorTable
-      WHERE channel = "Microsoft-Windows-Sysmon/Operational"
-          AND event_id = 19
+      WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+          AND EventID = 19
   - name: Analytic II
     description: Look for WMI event consumers registered
     data_sources:
-      - attack_mapping: WMI object
-        - event_provider: Microsoft-Windows-Sysmon/Operational
+      - name: WMI object
+        event_providers:
+        - name: Microsoft-Windows-Sysmon/Operational
           data_model:
             - relationship: User created Wmi consumer
               id: B5CD1D3E-3947-453B-ADEA-896A8F110A64
               event_id: 20
     logic: |-
-      SELECT `@timestamp`, computer_name, User, Name, Type, Destination
+      SELECT `@timestamp`, Hostname, User, Name, Type, Destination
       FROM mordorTable
-      WHERE channel = "Microsoft-Windows-Sysmon/Operational"
-          AND event_id = 20
+      WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+          AND EventID = 20
   - name: Analytic III
     description: Look for WMI consumers binding to filters
     data_sources:
-      - attack_mapping: WMI object
-        - event_provider: Microsoft-Windows-Sysmon/Operational
+      - name: WMI object
+        event_providers:
+        - name: Microsoft-Windows-Sysmon/Operational
           data_model:
             - relationship: User created Wmi subscription
               id: 73A84308-955C-43E7-B882-81EA1C8092D4
               event_id: 21
     logic: |-
-      SELECT `@timestamp`, computer_name, User, Operation, Consumer, Filter
+      SELECT `@timestamp`, Hostname, User, Operation, Consumer, Filter
       FROM mordorTable
-      WHERE channel = "Microsoft-Windows-Sysmon/Operational"
-          AND event_id = 21
+      WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+          AND EventID = 21
   - name: Analytic IV
     description: Look for events related to the registration of FilterToConsumerBinding
     data_sources:
-      - attack_mapping: WMI object
-        - event_provider: Microsoft-Windows-WMI-Activity/Operational
+      - name: WMI object
+        event_providers:
+        - name: Microsoft-Windows-WMI-Activity/Operational
           data_model:
             - relationship: Wmi subscription created
               id: F3B6DD23-4DBE-4214-A2D7-10E7103D815F
               event_id: 5861
     logic: |-
-      SELECT `@timestamp`, computer_name, message
+      SELECT `@timestamp`, Hostname, Message
       FROM mordorTable
-      WHERE channel = "Microsoft-Windows-WMI-Activity/Operational"
-          AND event_id = 5861
-research_notes:
+      WHERE Channel = "Microsoft-Windows-WMI-Activity/Operational"
+          AND EventID = 5861
+known_bypasses:
+false_positives:
 additional_notes:
 research_output:
 references: |-

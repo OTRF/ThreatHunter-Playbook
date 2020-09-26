@@ -17,33 +17,26 @@ technical_context:
 offensive_tradecraft: |-
     Adversaries may execute a binary, command, or script via a method that interacts with Windows services, such as the Service Control Manager.
     This can be done by by adversaries creating a new service.
-validation:
-  permissions_required:
-    - Administrator
-  simulation:
-    commnads:
-      - None
-    script_url:
-      - None
-  test_data:
-    document: https://mordordatasets.com/notebooks/small/windows/08_lateral_movement/SDWIN-190518210652.html
-    datasets:
-      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/empire_invoke_psexec.zip
+test_data:
+  metadata: https://mordordatasets.com/notebooks/small/windows/08_lateral_movement/SDWIN-190518210652.html
+  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/empire_psexec_dcerpc_tcp_svcctl.zip
 analytics:
   - name: Analytic I
     description: Look for new services being created in your environment and stack the values of it
     data_sources:
-      - attack_mapping: Service
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Service
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: User created Service
               id: BB243122-F345-4ED6-97A7-FBA2A1AF7C38
               event_id: 4697
     logic: |-
-      SELECT `@timestamp`, computer_name, SubjectUserName ServiceName, ServiceType, ServiceStartType, ServiceAccount
+      SELECT `@timestamp`, Hostname, SubjectUserName ServiceName, ServiceType, ServiceStartType, ServiceAccount
       FROM mordorTable
-      WHERE channel = "Security" AND event_id = 4697
-research_notes:
+      WHERE LOWER(Channel) = "security" AND EventID = 4697
+known_bypasses:
+false_positives:
 additional_notes: |-
   * If there are a lot of unique services being created in your environment, try to categorize the data based on the bussiness unit.
   * Identify the source of unique services being created everyday. I have seen Microsoft applications doing this.

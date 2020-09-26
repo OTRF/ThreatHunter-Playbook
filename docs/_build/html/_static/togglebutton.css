@@ -1,62 +1,74 @@
 /* Visibility of the target */
-.toggle {
-    transition: opacity .5s;
+.toggle, div.admonition.toggle .admonition-title ~ * {
+    transition: opacity .5s, height .5s;
 }
 
-.toggle-hidden {
+.toggle-hidden:not(.admonition) {
     visibility: hidden;
     opacity: 0;
     height: 1.5em;
-    margin: 0px !important;
-    padding: 0px !important;
+    margin: 0px;
+    padding: 0px;
+}
+
+/* Overrides for admonition toggles */
+
+/* Titles should cut off earlier to avoid overlapping w/ button */
+div.admonition.toggle p.admonition-title {
+    padding-right: 25%;
+}
+
+/* hides all the content of a page until de-toggled */
+div.admonition.toggle-hidden .admonition-title ~ * {
+    height: 0;
+    margin: 0;
+    float: left; /* so they overlap when hidden */
+    opacity: 0;
+    visibility: hidden;
 }
 
 /* Toggle buttons inside admonitions so we see the title */
-.toggle-body {
+.toggle.admonition {
     position: relative;
 }
 
-.toggle-body .admonition-title:after {
-    content: "";
+.toggle.admonition.admonition-title:after {
+    content: "" !important;
 }
 
-.toggle-body button.toggle-button {
+/* Note, we'll over-ride this in sphinx-book-theme */
+.toggle.admonition button.toggle-button {
     margin-right: 0.5em;
     right: 0em;
     position: absolute;
-    top: .3em;
+    top: .2em;
 }
-
-/* These should be totally hidden since they're inside an admonition */
-
-.toggle-body .toggle-hidden * {
-    margin: 0em;
-    padding: 0em;
-}
-
 
 /* General button style */
 button.toggle-button {
     background: #999;
     border: none;
     z-index: 999;
-    font-size: 0.7em;
     right: -2.5em;
     margin-left: -2.5em; /* A hack to keep code blocks from being pushed left */
     position: relative;
     float: right;
     border-radius: 100%;
-    width: 23px;
-    height: 23px;
+    width: 1.5em;
+    height: 1.5em;
     padding: 0px;
 }
 
-button.toggle-button.toggle-button-hidden:before {
-    content: "Click to show";
-    position: absolute;
-    left: -6.5em;
-    bottom: .4em;
+@media (min-width: 768px) {
+    button.toggle-button.toggle-button-hidden:before {
+        content: "Click to show";
+        position: absolute;
+        font-size: .8em;
+        left: -6.5em;
+        bottom: .4em;
+    }
 }
+
 
 /* Plus / minus toggles */
 .toggle-button .bar {

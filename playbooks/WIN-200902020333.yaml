@@ -23,38 +23,29 @@ technical_context: |-
   * ActiveScriptEventConsumer -> Executes a predefined script in an arbitrary scripting language when an event is delivered to it. Example -> [Running a Script Based on an Event](https://docs.microsoft.com/en-us/windows/win32/wmisdk/running-a-script-based-on-an-event)
   * CommandLineEventConsumer -> Launches an arbitrary process in the local system context when an event is delivered to it. Example -> [Running a Program from the Command Line Based on an Event](https://docs.microsoft.com/en-us/windows/win32/wmisdk/running-a-program-from-the-command-line-based-on-an-event)
   * LogFileEventConsumer -> Writes customized strings to a text log file when events are delivered to it. Example -> [Writing to a Log File Based on an Event](https://docs.microsoft.com/en-us/windows/win32/wmisdk/writing-to-a-log-file-based-on-an-event)
-  * NTEventLogEventConsumer -> Logs a specific message to the Windows event log when an event is delivered to it. Example -> [Logging to NT Event Log Based on an Event](https://docs.microsoft.com/en-us/windows/win32/wmisdk/logging-to-nt-event-log-based-on-an-event)
+  * NTEventLogEventConsumer -> Logs a specific Message to the Windows event log when an event is delivered to it. Example -> [Logging to NT Event Log Based on an Event](https://docs.microsoft.com/en-us/windows/win32/wmisdk/logging-to-nt-event-log-based-on-an-event)
   * ScriptingStandardConsumerSetting 	Provides registration data common to all instances of the ActiveScriptEventConsumer class.
-  * SMTPEventConsumer 	Sends an email message using SMTP each time an event is delivered to it. Example -> [Sending Email Based on an Event](https://docs.microsoft.com/en-us/windows/win32/wmisdk/sending-e-mail-based-on-an-event)
+  * SMTPEventConsumer 	Sends an email Message using SMTP each time an event is delivered to it. Example -> [Sending Email Based on an Event](https://docs.microsoft.com/en-us/windows/win32/wmisdk/sending-e-mail-based-on-an-event)
   
   The ActiveScriptEventConsumer class allows for the execution of scripting code from either JScript or VBScript engines. Finally, the WMI script host process is `%SystemRoot%\system32\wbem\scrcons.exe`.
 offensive_tradecraft: |-
   Threat actors can achieve remote code execution by using WMI event subscriptions. Normally, a permanent WMI event subscription is designed to persist and respond to certain events.
   According to [Matt Graeber](https://twitter.com/mattifestation), if an attacker wanted to execute a single payload however, the respective event consumer would just need to delete its corresponding event filter, consumer, and filter to consumer binding.
   The advantage of this technique is that the payload runs as SYSTEM, and it avoids having a payload be displayed in plaintext in the presence of command line auditing.
-validation:
-  permissions_required:
-    - Administrator
-  simulation:
-    commnads:
-      - None
-    script_url:
-      - None
-  test_data:
-    document: https://mordordatasets.com/notebooks/small/windows/08_lateral_movement/SDWIN-200724174200.html
-    datasets:
-      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/covenant_wmi_event_subscription.zip
+test_data:
+  metadata: https://mordordatasets.com/notebooks/small/windows/08_lateral_movement/SDWIN-200724174200.html
+  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers.zip
 analytics:
   - name: Analytic I
     description: Look for the creation of Event consumers of script type.
     data_sources:
-      - attack_mapping: WMI object
-        - event_provider: Microsoft-Windows-Sysmon/Operational
+      - name: WMI object
+        event_providers:
+        - name: Microsoft-Windows-Sysmon/Operational
           data_model:
             - relationship: User created Wmi consumer
               id: B5CD1D3E-3947-453B-ADEA-896A8F110A64
-              event_id:
-                - 20
+              event_id: 20
     logic: |-
       SELECT EventID, EventType
       FROM mordorTable
@@ -64,13 +55,13 @@ analytics:
   - name: Analytic II
     description: Look for the creation of Event consumers of script type (i.e vbscript).
     data_sources:
-      - attack_mapping: WMI object
-        - event_provider: Microsoft-Windows-WMI-Activity/Operational
+      - name: WMI object
+        event_providers:
+        - name: Microsoft-Windows-WMI-Activity/Operational
           data_model:
             - relationship: Wmi subscription created
               id: F3B6DD23-4DBE-4214-A2D7-10E7103D815F
-              event_id:
-                - 5861
+              event_id: 5861
     logic: |-
       SELECT EventID, SourceName
       FROM mordorTable
@@ -80,13 +71,13 @@ analytics:
   - name: Analytic III
     description: Look for any indicators that the WMI script host process %SystemRoot%\system32\wbem\scrcons.exe is created. This is created by svchost.exe.
     data_sources:
-      - attack_mapping: Process
-        - event_provider: Microsoft-Windows-Sysmon/Operational
+      - name: Process
+        event_providers:
+        - name: Microsoft-Windows-Sysmon/Operational
           data_model:
             - relationship: Process created Process
               id: DE5A1D57-9569-4BA7-B2DC-27760F999A9A
-              event_id:
-                - 1
+              event_id: 1
     logic: |-
       SELECT ParentImage, Image, CommandLine, ProcessId, ProcessGuid
       FROM mordorTable
@@ -96,13 +87,13 @@ analytics:
   - name: Analytic IV
     description: Look for any indicators that the WMI script host process %SystemRoot%\system32\wbem\scrcons.exe is created. This is created by svchost.exe.
     data_sources:
-      - attack_mapping: Process
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Process
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: Process created Process
               id: DE5A1D57-9569-4BA7-B2DC-27760F999A9A
-              event_id:
-                - 4688
+              event_id: 4688
     logic: |-
       SELECT ParentProcessName, NewProcessName, CommandLine, NewProcessId
       FROM mordorTable
@@ -112,13 +103,13 @@ analytics:
   - name: Analytic V
     description: Look for any indicators that the WMI script host process %SystemRoot%\system32\wbem\scrcons.exe is being used. You can do this by looking for a few modules being loaded by a process.
     data_sources:
-      - attack_mapping: Module
-        - event_provider: Microsoft-Windows-Sysmon/Operational
+      - name: Module
+        event_providers:
+        - name: Microsoft-Windows-Sysmon/Operational
           data_model:
             - relationship: Process loaded Dll
               id: 109A870F-84A2-4CE4-948A-4773CD283F76
-              event_id:
-                - 7
+              event_id: 7
     logic: |-
       SELECT Image, ImageLoaded, Description, ProcessGuid
       FROM mordorTable
@@ -134,24 +125,23 @@ analytics:
   - name: Analytic VI
     description: Look for any indicators that the WMI script host process %SystemRoot%\system32\wbem\scrcons.exe is being used and add some context to it that might not be normal in your environment. You can add network connections context to look for any scrcons.exe reaching out to external hosts over the network. 
     data_sources:
-      - attack_mapping: Process
-        - event_provider: Microsoft-Windows-Sysmon/Operational
+      - name: Process
+        event_providers:
+        - name: Microsoft-Windows-Sysmon/Operational
           data_model:
             - relationship: Process created Process
               id: DE5A1D57-9569-4BA7-B2DC-27760F999A9A
-              event_id:
-                - 1
+              event_id: 1
             - relationship: Process connected to Ip
               id: D8EE542C-1F6B-4101-96E8-5E1E0926FAB6
-              event_id:
-                - 3
-      - attack_mapping: Module
-        - event_provider: Microsoft-Windows-Sysmon/Operational
+              event_id: 3
+      - name: Module
+        event_providers:
+        - name: Microsoft-Windows-Sysmon/Operational
           data_model:
             - relationship: Process loaded Dll
               id: 109A870F-84A2-4CE4-948A-4773CD283F76
-              event_id:
-                - 7
+              event_id: 7
     logic: |-
       SELECT d.`@timestamp`, c.Image, d.DestinationIp, d.ProcessId
       FROM mordorTable d
@@ -182,27 +172,27 @@ analytics:
   - name: Analytic VII
     description: One of the main goals is to find context that could tell us that scrcons.exe was used over the network (Lateral Movement). One way would be to add a network logon session as context to some of the previous events.
     data_sources:
-      - attack_mapping: Process
-        - event_provider: Microsoft-Windows-Sysmon/Operational
+      - name: Process
+        event_providers:
+        - name: Microsoft-Windows-Sysmon/Operational
           data_model:
             - relationship: Process created Process
               id: DE5A1D57-9569-4BA7-B2DC-27760F999A9A
-              event_id:
-                - 1
-      - attack_mapping: Module
-        - event_provider: Microsoft-Windows-Sysmon/Operational
+              event_id: 1
+      - name: Module
+        event_providers:
+        - name: Microsoft-Windows-Sysmon/Operational
           data_model:
             - relationship: Process loaded Dll
               id: 109A870F-84A2-4CE4-948A-4773CD283F76
-              event_id:
-                - 7
-      - attack_mapping: Authentication log
-        - event_provider: Microsoft-Windows-Security-Auditing
+              event_id: 7
+      - name: Authentication log
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: User authenticated Host
               id: C07F53CF-A125-40F8-BE5C-E42017A57C0F
-              event_id:
-                - 4624
+              event_id: 4624
     logic: |-
       SELECT d.`@timestamp`, d.TargetUserName, c.Image, c.ProcessId
       FROM mordorTable d
@@ -234,13 +224,13 @@ analytics:
   - name: Analytic VIII
     description: One of the main goals is to find context that could tell us that scrcons.exe was used over the network (Lateral Movement). One way would be to add a network logon session as context to some of the previous events.
     data_sources:
-      - attack_mapping: Authentication log
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Authentication log
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: User authenticated Host
               id: C07F53CF-A125-40F8-BE5C-E42017A57C0F
-              event_id:
-                - 4624
+              event_id: 4624
     logic: |-
       SELECT `@timestamp`, TargetUserName,ImpersonationLevel, LogonType, ProcessName
       FROM mordorTable
@@ -248,13 +238,13 @@ analytics:
           AND EventID = 4624
           AND LogonType = 3
           AND ProcessName LIKE '%scrcons.exe'
-research_notes:
+known_bypasses:
+false_positives:
 additional_notes: |-
   * Baseline your environment to identify normal activity. Apparently, SCCM leverages WMI event subscriptions.
 research_output:
   - type: Sigma Rule
-    links:
-      - https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_scrcons_remote_wmi_scripteventconsumer.yml
+    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_scrcons_remote_wmi_scripteventconsumer.yml
 references: |-
   * https://www.mdsec.co.uk/2020/09/i-like-to-move-it-windows-lateral-movement-part-1-wmi-event-subscription/
   * https://www.fireeye.com/content/dam/fireeye-www/services/pdfs/sans-dfir-2015.pdf

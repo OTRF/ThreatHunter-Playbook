@@ -29,26 +29,16 @@ offensive_tradecraft: |-
 
   Additional Reading
   * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/logon_session.md
-validation:
-  permissions_required:
-    - User
-  simulation:
-    commnads:
-      - None
-    script_url:
-      - None
-  test_data:
-    document: https://mordordatasets.com/notebooks/small/windows/02_execution/SDWIN-190518214442.html
-    datasets:
-      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/execution/empire_invoke_wmi.tar.gz
-      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/execution/empire_wmic_add_user.tar.gz
-      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/execution/empire_invoke_wmi_debugger.tar.gz
+test_data:
+  metadata: https://mordordatasets.com/notebooks/small/windows/08_lateral_movement/SDWIN-200921001437.html
+  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod.zip
 analytics:
   - name: Analytic I
     description: Look for wmiprvse.exe spawning processes that are part of non-system account sessions.
     data_sources:
-      - attack_mapping: Process
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Process
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: Process created Process
               id: DE5A1D57-9569-4BA7-B2DC-27760F999A9A
@@ -57,16 +47,18 @@ analytics:
               id: D206A4A4-B387-4324-AA00-C72BB1904BB7
               event_id: 4688
     logic: |-
-      SELECT `@timestamp`, computer_name, SubjectUserName, TargetUserName, NewProcessName, CommandLine
+      SELECT `@timestamp`, Hostname, SubjectUserName, TargetUserName, NewProcessName, CommandLine
       FROM mordorTable
-      WHERE channel = "Security"
-          AND event_id = 4688
+      WHERE LOWER(Channel) = "security"
+          AND EventID = 4688
           AND lower(ParentProcessName) LIKE "%wmiprvse.exe"
           AND NOT TargetLogonId = "0x3e7"
   - name: Analytic II
     description: Look for wmiprvse.exe spawning processes that are part of non-system account sessions.
     data_sources:
-      - event_provider: Microsoft-Windows-Sysmon/Operational
+      - name: Process
+        event_providers:
+        - name: Microsoft-Windows-Sysmon/Operational
           data_model:
             - relationship: Process created Process
               id: DE5A1D57-9569-4BA7-B2DC-27760F999A9A
@@ -75,16 +67,18 @@ analytics:
               id: D206A4A4-B387-4324-AA00-C72BB1904BB7
               event_id: 1
     logic: |-
-      SELECT `@timestamp`, computer_name, User, Image, CommandLine
+      SELECT `@timestamp`, Hostname, User, Image, CommandLine
       FROM mordorTable
-      WHERE channel = "Microsoft-Windows-Sysmon/Operational"
-          AND event_id = 1
+      WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+          AND EventID = 1
           AND lower(ParentImage) LIKE "%wmiprvse.exe"
           AND NOT LogonId = "0x3e7"
   - name: Analytic III
     description: Look for non-system accounts leveraging WMI over the netwotk to execute code
     data_sources:
-      - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Process
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: Process created Process
               id: DE5A1D57-9569-4BA7-B2DC-27760F999A9A
@@ -92,35 +86,38 @@ analytics:
             - relationship: User created Process
               id: D206A4A4-B387-4324-AA00-C72BB1904BB7
               event_id: 4688
+      - name: Authentication log
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
+          data_model:
             - relationship: User authenticated Host
               id: C07F53CF-A125-40F8-BE5C-E42017A57C0F
               event_id: 4624
     logic: |-
-      SELECT o.`@timestamp`, o.computer_name, o.SubjectUserName, o.TargetUserName, o.NewProcessName, o.CommandLine, a.IpAddress
+      SELECT o.`@timestamp`, o.Hostname, o.SubjectUserName, o.TargetUserName, o.NewProcessName, o.CommandLine, a.IpAddress
       FROM mordorTable o
       INNER JOIN (
-          SELECT computer_name,TargetUserName,TargetLogonId,IpAddress
+          SELECT Hostname,TargetUserName,TargetLogonId,IpAddress
           FROM mordorTable
-          WHERE channel = "Security"
-              AND event_id = 4624
+          WHERE LOWER(Channel) = "security"
+              AND EventID = 4624
               AND LogonType = 3
-              AND IpAddress is not null
               AND NOT TargetUserName LIKE "%$"
           ) a
       ON o.TargetLogonId = a.TargetLogonId
-      WHERE o.channel = "Security"
-          AND o.event_id = 4688
+      WHERE LOWER(o.Channel) = "security"
+          AND o.EventID = 4688
           AND lower(o.ParentProcessName) LIKE "%wmiprvse.exe"
           AND NOT o.TargetLogonId = "0x3e7"
-research_notes:
+known_bypasses:
+false_positives:
 additional_notes: |-
   * Stack the child processes of wmiprvse.exe in your environment. This is very helpful to reduce the number of false positive and understand your environment. You can categorize the data returned by business unit.
   * Look for wmiprvse.exe spawning new processes that are part of a network type logon session.
   * Enrich events with Network Logon events (4624 - Logon Type 3)
 research_output:
   - type: Sigma Rule
-    links:
-      - https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_wmi_module_load.yml
+    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_wmi_module_load.yml
 references: |-
   * https://posts.specterops.io/threat-hunting-with-jupyter-notebooks-part-4-sql-join-via-apache-sparksql-6630928c931e
   * https://posts.specterops.io/real-time-sysmon-processing-via-ksql-and-helk-part-3-basic-use-case-8fbf383cb54f

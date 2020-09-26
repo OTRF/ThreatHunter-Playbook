@@ -3,21 +3,30 @@
 ## Metadata
 
 
-|               |    |
-|:--------------|:---|
-| id            | WIN-190815181010 |
-| author        | Roberto Rodriguez @Cyb3rWard0g |
-| creation date | 2019/08/15 |
-| platform      | Windows |
-| playbook link | WIN-190813181020 |
-        
-
-## Technical Description
-Adversaries may execute a binary, command, or script via a method that interacts with Windows services, such as the Service Control Manager. This can be done by by adversaries creating a new service.
-Adversaries can create services remotely to execute code and move lateraly across the environment.
+|                   |    |
+|:------------------|:---|
+| collaborators     | ['Roberto Rodriguez @Cyb3rWard0g', 'Jose Rodriguez @Cyb3rPandaH'] |
+| creation date     | 2019/08/15 |
+| modification date | 2020/09/20 |
+| playbook related  | ['WIN-190813181020'] |
 
 ## Hypothesis
 Adversaries might be creating new services remotely to execute code and move laterally in my environment
+
+## Technical Context
+None
+
+## Offensive Tradecraft
+Adversaries may execute a binary, command, or script via a method that interacts with Windows services, such as the Service Control Manager. This can be done by by adversaries creating a new service.
+Adversaries can create services remotely to execute code and move lateraly across the environment.
+
+## Mordor Test Data
+
+
+|           |           |
+|:----------|:----------|
+| metadata  | https://mordordatasets.com/notebooks/small/windows/08_lateral_movement/SDWIN-190518210652.html        |
+| link      | [https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/empire_psexec_dcerpc_tcp_svcctl.zip](https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/empire_psexec_dcerpc_tcp_svcctl.zip)  |
 
 ## Analytics
 
@@ -26,40 +35,47 @@ Adversaries might be creating new services remotely to execute code and move lat
 from openhunt.mordorutils import *
 spark = get_spark()
 
-### Download & Process Mordor File
+### Download & Process Mordor Dataset
 
-mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/empire_invoke_psexec.zip"
+mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/empire_psexec_dcerpc_tcp_svcctl.zip"
 registerMordorSQLTable(spark, mordor_file, "mordorTable")
 
 ### Analytic I
+Look for new services being created in your environment under a network logon session (3). That is a sign that the service creation was performed from another endpoint in the environment
 
 
-| FP Rate  | Log Channel | Description   |
-| :--------| :-----------| :-------------|
-| Low       | ['Security']          | Look for new services being created in your environment under a network logon session (3). That is a sign that the service creation was performed from another endpoint in the environment            |
-            
+| Data source | Event Provider | Relationship | Event |
+|:------------|:---------------|--------------|-------|
+| Service | Microsoft-Windows-Security-Auditing | User created Service | 4697 |
+| Authentication log | Microsoft-Windows-Security-Auditing | User authenticated Host | 4624 |
 
 df = spark.sql(
-    '''
-SELECT o.`@timestamp`, o.computer_name, o.SubjectUserName, o.SubjectUserName, o.ServiceName, a.IpAddress
+'''
+SELECT o.`@timestamp`, o.Hostname, o.SubjectUserName, o.SubjectUserName, o.ServiceName, a.IpAddress
 FROM mordorTable o
 INNER JOIN (
-    SELECT computer_name,TargetUserName,TargetLogonId,IpAddress
+    SELECT Hostname,TargetUserName,TargetLogonId,IpAddress
     FROM mordorTable
-    WHERE channel = "Security"
-        AND LogonType = 3
-        AND IpAddress is not null
+    WHERE LOWER(Channel) = "security"
+        AND EventID = 4624
+        AND LogonType = 3            
         AND NOT TargetUserName LIKE "%$"
     ) a
 ON o.SubjectLogonId = a.TargetLogonId
-WHERE o.channel = "Security"
-    AND o.event_id = 4697
-    '''
+WHERE LOWER(o.Channel) = "security"
+    AND o.EventID = 4697
+'''
 )
 df.show(10,False)
 
-## Detection Blindspots
+## Known Bypasses
 
+
+| Idea | Playbook |
+|:-----|:---------|
+
+## False Positives
+None
 
 ## Hunter Notes
 * If there are a lot of unique services being created in your environment, try to categorize the data based on the bussiness unit.
@@ -69,6 +85,8 @@ df.show(10,False)
 
 ## Hunt Output
 
+| Type | Link |
+| :----| :----|
 
 ## References
 * https://www.powershellempire.com/?page_id=523

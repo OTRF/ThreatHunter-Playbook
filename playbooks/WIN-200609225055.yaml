@@ -18,38 +18,29 @@ offensive_tradecraft: |-
   An adversary can leverage a computer's peripheral devices (e.g., microphones and webcams) or applications (e.g., voice and video call services) to capture audio recordings for the purpose of listening into sensitive conversations to gather information.
   Based on some research from [@svch0st](https://twitter.com/svch0st) you can to determine when and how long a process had access to the microphone of an endpoint by monitoring the following registry key
     * HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\.
-validation:
-  permissions_required:
-    - User
-  simulation:
-    commnads:
-      - None
-    script_url:
-      - None
-  test_data:
-    document: https://mordordatasets.com/notebooks/small/windows/09_collection/SDWIN-200609225055.html
-    datasets:
-      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/collection/msf_record_mic.zip
+test_data:
+  metadata: https://mordordatasets.com/notebooks/small/windows/09_collection/SDWIN-200609225055.html
+  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/collection/host/msf_record_mic.zip
 analytics:
   - name: Analytic I
     description: Look for any creation or modification of registry keys under HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged
     data_sources:
-      - attack_mapping: Windows Registry
-        - event_provider: Microsoft-Windows-Sysmon/Operational
+      - name: Windows Registry
+        event_providers:
+        - name: Microsoft-Windows-Sysmon/Operational
           data_model:
             - relationship: Process created Windows registry key
               id: 07EBB983-0817-4A07-813D-4137CE1C847A
-              event_id:
-                - 12
+              event_id: 12
             - relationship: Process modified Windows registry key value
               id: 25EE8F70-C82B-4C43-A939-10CF156FBBFA
-              event_id:
-                - 13
-                - 14
+              event_id: 13
+            - relationship: Process modified Windows registry key value
+              id: 25EE8F70-C82B-4C43-A939-10CF156FBBFA
+              event_id: 14
             - relationship: Process modified Windows registry key
               id: 50884412-D21F-478E-810B-0C06A6133CED
-              event_id:
-                - 14
+              event_id: 14
     logic: |-
       SELECT EventID, Message
       FROM mordorTable
@@ -59,8 +50,9 @@ analytics:
   - name: Analytic II
     description: Look for any creation or modification of registry keys under HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged
     data_sources:
-      - attack_mapping: Windows Registry
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Windows Registry
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: Process accessed Windows registry key
               id: 91CBB928-CD58-46F7-90A8-E9B3C53D8269
@@ -86,12 +78,13 @@ analytics:
       WHERE LOWER(Channel) = 'security'
         AND EventID IN (4656,4663,4657)
         AND LOWER(ObjectName) RLIKE '.*consentstore\\\\\\\microphone.*'
-research_notes:
+known_bypasses:
+false_positives:
 additional_notes:
 research_output:
   - type: Sigma Rule
-    links: 
-      - https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_camera_microphone_access.yml
-      - https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_camera_microphone_access.yml
+    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_camera_microphone_access.yml
+  - type: Sigma Rule
+    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_camera_microphone_access.yml
 references: |-
   * https://medium.com/@7a616368/can-you-track-processes-accessing-the-camera-and-microphone-7e6885b37072

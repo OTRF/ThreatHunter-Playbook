@@ -27,34 +27,25 @@ offensive_tradecraft: |-
   
   Additional reading
   * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/service_control_manager.md
-validation:
-  permissions_required:
-    - Administrator
-    - User
-  simulation:
-    commnads:
-      - None
-    script_url:
-      - None
-  test_data:
-    document: https://mordordatasets.com/notebooks/small/windows/07_discovery/SDWIN-190518224039.html
-    datasets:
-      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/discovery/empire_find_local_admin.tar.gz
+test_data:
+  metadata: https://mordordatasets.com/notebooks/small/windows/07_discovery/SDWIN-190518224039.html
+  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/discovery/host/empire_find_localadmin_smb_svcctl_OpenSCManager.zip
 analytics:
   - name: Analytic I
     description: Detects non-system users failing to get a handle of the SCM database.
     data_sources:
-      - attack_mapping: File
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: File
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: User requested access File
               id: B0056295-3FA1-4B9F-890D-1D26EF740934
               event_id: 4656
     logic: |-
-      SELECT `@timestamp`, computer_name, SubjectUserName, ProcessName, ObjectName
+      SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName
       FROM mordorTable
-      WHERE channel = "Security"
-          AND event_id = 4656
+      WHERE LOWER(Channel) = "security"
+          AND EventID = 4656
           AND ObjectType = "SC_MANAGER OBJECT"
           AND ObjectName = "ServicesActive"
           AND AccessMask = "0xf003f"
@@ -62,98 +53,105 @@ analytics:
   - name: Analytic II
     description: Look for non-system accounts performing privileged operations on protected subsystem objects such as the SCM database
     data_sources:
-      - attack_mapping: File
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: File
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: User requested access File
               id: B0056295-3FA1-4B9F-890D-1D26EF740934
               event_id: 4674
     logic: |-
-      SELECT `@timestamp`, computer_name, SubjectUserName, ProcessName, ObjectName, PrivilegeList, ObjectServer
+      SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName, PrivilegeList, ObjectServer
       FROM mordorTable
-      WHERE channel = "Security"
-          AND event_id = 4674
+      WHERE LOWER(Channel) = "security"
+          AND EventID = 4674
           AND ObjectType = "SC_MANAGER OBJECT"
           AND ObjectName = "ServicesActive"
           AND PrivilegeList = "SeTakeOwnershipPrivilege"
           AND NOT SubjectLogonId = "0x3e4"
   - name: Analytic III
-    description: Look for inbound network connections to services.exe from other endpoints in the network. Same SourceAddress, but different computer_name
+    description: Look for inbound network connections to services.exe from other endpoints in the network. Same SourceAddress, but different Hostname
     data_sources:
-      - attack_mapping: Process
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Process
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: Process connected to Port
               id: 56B242BF-1237-48DA-A699-BA64237CAF7F
               event_id: 5156
-      - attack_mapping: Process
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Process
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: Process connected to Ip
               id: D8EE542C-1F6B-4101-96E8-5E1E0926FAB6
               event_id: 5156
     logic: |-
-      SELECT `@timestamp`, computer_name, Application, SourcePort, SourceAddress, DestPort, DestAddress
+      SELECT `@timestamp`, Hostname, Application, SourcePort, SourceAddress, DestPort, DestAddress
       FROM mordorTable
-      WHERE channel = "Security"
-          AND event_id = 5156
+      WHERE LOWER(Channel) = "security"
+          AND EventID = 5156
           AND Application LIKE "%\\\services.exe"
           AND LayerRTID = 44
   - name: Analytic IV
     description: Look for several network connection maded by services.exe from different endpoints to the same destination
     data_sources:
-      - attack_mapping: Process
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Process
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: Process connected to Port
               id: 56B242BF-1237-48DA-A699-BA64237CAF7F
               event_id: 3
-      - attack_mapping: Process
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Process
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: Process connected to Ip
               id: D8EE542C-1F6B-4101-96E8-5E1E0926FAB6
               event_id: 3
     logic: |-
-      SELECT `@timestamp`, computer_name, User, SourcePort, SourceIp, DestinationPort, DestinationIp
+      SELECT `@timestamp`, Hostname, User, SourcePort, SourceIp, DestinationPort, DestinationIp
       FROM mordorTable
-      WHERE channel = "Microsoft-Windows-Sysmon/Operational"
-          AND event_id = 3
+      WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+          AND EventID = 3
           AND Image LIKE "%\\\services.exe"
   - name: Analytic V
     description: Look for non-system accounts performing privileged operations on protected subsystem objects such as the SCM database from other endpoints in the network
     data_sources:
-      - attack_mapping: Authentication log
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Authentication log
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: User authenticated Host
               id: C07F53CF-A125-40F8-BE5C-E42017A57C0F
               event_id: 4624
-      - attack_mapping: File
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: File
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: User requested access File
               id: B0056295-3FA1-4B9F-890D-1D26EF740934
               event_id: 4674
     logic: |-
-      SELECT o.`@timestamp`, o.computer_name, o.SubjectUserName, o.ObjectType,o.ObjectName, o.PrivilegeList, a.IpAddress
+      SELECT o.`@timestamp`, o.Hostname, o.SubjectUserName, o.ObjectType,o.ObjectName, o.PrivilegeList, a.IpAddress
       FROM mordorTable o
       INNER JOIN (
-          SELECT computer_name,TargetUserName,TargetLogonId,IpAddress
+          SELECT Hostname,TargetUserName,TargetLogonId,IpAddress
           FROM mordorTable
-          WHERE channel = "Security"
-              AND event_id = 4624
+          WHERE LOWER(Channel) = "security"
+              AND EventID = 4624
               AND LogonType = 3
-              AND IpAddress is not null
               AND NOT TargetUserName LIKE "%$"
           ) a
       ON o.SubjectLogonId = a.TargetLogonId
-      WHERE o.channel = "Security"
-          AND o.event_id = 4674
+      WHERE LOWER(o.Channel) = "security"
+          AND o.EventID = 4674
           AND o.ObjectType = "SC_MANAGER OBJECT"
           AND o.ObjectName = "ServicesActive"
           AND NOT o.SubjectLogonId = "0x3e4"
-research_notes:
+known_bypasses:
+false_positives:
 additional_notes: |-
   * Event id 4656 gets generated only when the OpenSCManager API call fails to get a handle to the SCM database. There is not SACL for SCM database so success attempts will not be logged.
   * Event id 4674 gets triggered when the SCM database is accessed. Filter known or common accounts that obtain a handle to SCM on a regular basis (i.e vulnerability scanners)
@@ -163,9 +161,9 @@ additional_notes: |-
   * Event id 5156 gets generated on the target as an inbound network event with process name services.exe. You might have to stack the SourceAddress field value based on your environment noise.
 research_output:
   - type: Sigma Rule
-    links:
-      - https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_handle_failure.yml
-      - https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_privileged_operation.yml
+    link: https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_handle_failure.yml
+  - type: Sigma Rule
+    link: https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_privileged_operation.yml
 references: |-
   * https://docs.microsoft.com/en-us/windows/win32/services/service-security-and-access-rights
   * https://github.com/EmpireProject/Empire/blob/dev/data/module_source/situational_awareness/network/powerview.ps1#L15473

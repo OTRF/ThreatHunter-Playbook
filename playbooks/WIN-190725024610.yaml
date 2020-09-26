@@ -31,26 +31,16 @@ offensive_tradecraft: |-
   Additional reading
   * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/security_account_manager_database.md
   * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/syskey.md
-validation:
-  permissions_required:
-    - System
-  simulation:
-    commnads:
-      - None
-    script_url:
-      - None
-  test_data:
-    document: https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-190625103712.html
-    datasets:
-      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_lsadump_sam.tar.gz
-      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_powerdump.tar.gz
-      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_reg_sam.tar.gz
+test_data:
+  metadata: https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-190625103712.html
+  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/host/empire_mimikatz_sam_access.zip
 analytics:
   - name: Analytic I
     description: Monitor for any handle requested for the SAM registry hive
     data_sources:
-      - attack_mapping: Windows registry
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Windows registry
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: Process requested access Windows registry key
               id: 9DF48A52-109C-47E9-BA9B-B9C27CFCAACF
@@ -59,19 +49,20 @@ analytics:
               id: D2E1050F-F94E-4273-B9A5-044E835CF913
               event_id: 4656
     logic: |-
-      SELECT `@timestamp`, computer_name, SubjectUserName, ProcessName, ObjectName, AccessMask
+      SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName, AccessMask
       FROM mordorTable
-      WHERE channel = "Security"
-          AND event_id = 4656
+      WHERE LOWER(Channel) = "security"
+          AND EventID = 4656
           AND ObjectType = "Key"
           AND lower(ObjectName) LIKE "%sam"
-research_notes:
+known_bypasses:
+false_positives:
 additional_notes:
 research_output:
   - type: Sigma Rule
-    links:
-      - https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_sam_registry_hive_handle_request.yml
-      - https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_sam_registry_hive_dump_via_reg_utility.yml
+    link: https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_sam_registry_hive_handle_request.yml
+  - type: Sigma Rule
+    link: https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_sam_registry_hive_dump_via_reg_utility.yml
 references: |-
   * http://www.harmj0y.net/blog/activedirectory/remote-hash-extraction-on-demand-via-host-security-descriptor-modification/
   * https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump

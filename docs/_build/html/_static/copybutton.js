@@ -60,46 +60,6 @@ const temporarilyChangeTooltip = (el, newText) => {
   setTimeout(() => el.setAttribute('data-tooltip', oldText), 2000)
 }
 
-// Callback when a copy button is clicked. Will be passed the node that was clicked
-// should then grab the text and replace pieces of text that shouldn't be used in output
-var copyTargetText = (trigger) => {
-  var target = document.querySelector(trigger.attributes['data-clipboard-target'].value);
-  var textContent = target.innerText.split('\n');
-  var copybuttonPromptText = ''; // Inserted from config
-  var onlyCopyPromptLines = true; // Inserted from config
-  var removePrompts = true; // Inserted from config
-
-  // Text content line filtering based on prompts (if a prompt text is given)
-  if (copybuttonPromptText.length > 0) {
-    // If only copying prompt lines, remove all lines that don't start w/ prompt
-    if (onlyCopyPromptLines) {
-      linesWithPrompt = textContent.filter((line) => {
-        return line.startsWith(copybuttonPromptText) || (line.length == 0); // Keep newlines
-      });
-      // Check to make sure we have at least one non-empty line
-      var nonEmptyLines = linesWithPrompt.filter((line) => {return line.length > 0});
-      // If we detected lines w/ prompt, then overwrite textContent w/ those lines
-      if ((linesWithPrompt.length > 0) && (nonEmptyLines.length > 0)) {
-        textContent = linesWithPrompt;
-      }
-    }
-    // Remove the starting prompt from any remaining lines
-    if (removePrompts) {
-      textContent.forEach((line, index) => {
-        if (line.startsWith(copybuttonPromptText)) {
-          textContent[index] = line.slice(copybuttonPromptText.length);
-        }
-      });
-    }
-  }
-  textContent = textContent.join('\n');
-  // Remove a trailing newline to avoid auto-running when pasting
-  if (textContent.endsWith("\n")) {
-     textContent = textContent.slice(0, -1)
-  }
-  return textContent
-}
-
 const addCopyButtonToCodeCells = () => {
   // If ClipboardJS hasn't loaded, wait a bit and try again. This
   // happens because we load ClipboardJS asynchronously.
@@ -121,6 +81,60 @@ const addCopyButtonToCodeCells = () => {
     </a>`
     codeCell.insertAdjacentHTML('afterend', clipboardButton(id))
   })
+
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
+
+// Callback when a copy button is clicked. Will be passed the node that was clicked
+// should then grab the text and replace pieces of text that shouldn't be used in output
+function formatCopyText(textContent, copybuttonPromptText, isRegexp = false, onlyCopyPromptLines = true, removePrompts = true) {
+
+    var regexp;
+    var match;
+
+    // create regexp to capture prompt and remaining line
+    if (isRegexp) {
+        regexp = new RegExp('^(' + copybuttonPromptText + ')(.*)')
+    } else {
+        regexp = new RegExp('^(' + escapeRegExp(copybuttonPromptText) + ')(.*)')
+    }
+
+    const outputLines = [];
+    var promptFound = false;
+    for (const line of textContent.split('\n')) {
+        match = line.match(regexp)
+        if (match) {
+            promptFound = true
+            if (removePrompts) {
+                outputLines.push(match[2])
+            } else {
+                outputLines.push(line)
+            }
+        } else {
+            if (!onlyCopyPromptLines) {
+                outputLines.push(line)
+            }
+        }
+    }
+
+    // If no lines with the prompt were found then just use original lines
+    if (promptFound) {
+        textContent = outputLines.join('\n');
+    }
+
+    // Remove a trailing newline to avoid auto-running when pasting
+    if (textContent.endsWith("\n")) {
+        textContent = textContent.slice(0, -1)
+    }
+    return textContent
+}
+
+
+var copyTargetText = (trigger) => {
+  var target = document.querySelector(trigger.attributes['data-clipboard-target'].value);
+  return formatCopyText(target.innerText, '', false, true,  true)
+}
 
   // Initialize with a callback so we can modify the text before copy
   const clipboard = new ClipboardJS('.copybtn', {text: copyTargetText})

@@ -29,109 +29,106 @@ offensive_tradecraft: |-
   Additional reading
   * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/data_protection_api.md
   * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/lsa_policy_objects.md
-validation:
-  permissions_required:
-    - Domain Admin
-  simulation:
-    commnads:
-      - None
-    script_url:
-      - None
-  test_data:
-    document: https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-190518235535.html
-    datasets:
-      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_mimikatz_export_master_key.tar.gz
+test_data:
+  metadata: https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-190518235535.html
+  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/host/empire_mimikatz_backupkeys_dcerpc_smb_lsarpc.zip
 analytics:
   - name: Analytic I
     description: Monitor for any SecretObject with the string BCKUPKEY in the ObjectName
     data_sources:
-      - attack_mapping: Windows active directory
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Windows active directory
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: User accessed AD Object
               id: 8F2A7CAF-7886-4485-8DBB-BCFDA5A181B9
               event_id: 4662
     logic: |-
-      SELECT `@timestamp`, computer_name, ObjectServer, ObjectType, ObjectName
+      SELECT `@timestamp`, Hostname, ObjectServer, ObjectType, ObjectName
       FROM mordorTable
-      WHERE channel = "Security"
-          AND event_id = 4662
+      WHERE LOWER(Channel) = "security"
+          AND EventID = 4662
           AND AccessMask = "0x2"
           AND lower(ObjectName) LIKE "%bckupkey%"
   - name: Analytic II
     description: We can get the user logon id of the user that accessed the *bckupkey* object and JOIN it with a successful logon event (4624) user logon id to find the source IP
     data_sources:
-      - attack_mapping: Authentication log
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Authentication log
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: User authenticated Host
               id: C07F53CF-A125-40F8-BE5C-E42017A57C0F
               event_id: 4624
-      - attack_mapping: Windows active directory
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Windows active directory
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: User accessed AD Object
               id: 8F2A7CAF-7886-4485-8DBB-BCFDA5A181B9
               event_id: 4662
     logic: |-
-      SELECT o.`@timestamp`, o.computer_name, o.ObjectName, a.IpAddress
+      SELECT o.`@timestamp`, o.Hostname, o.ObjectName, a.IpAddress
       FROM mordorTable o
       INNER JOIN (
-          SELECT computer_name,TargetUserName,TargetLogonId,IpAddress
+          SELECT Hostname,TargetUserName,TargetLogonId,IpAddress
           FROM mordorTable
-          WHERE channel = "Security"
-              AND event_id = 4624
+          WHERE LOWER(Channel) = "security"
+              AND EventID = 4624
               AND LogonType = 3
-              AND IpAddress is not null
               AND NOT TargetUserName LIKE "%$"
           ) a
       ON o.SubjectLogonId = a.TargetLogonId
-      WHERE channel = "Security"
-          AND o.event_id = 4662
+      WHERE LOWER(Channel) = "security"
+          AND o.EventID = 4662
           AND o.AccessMask = "0x2"
           AND lower(o.ObjectName) LIKE "%bckupkey%"
-          AND o.computer_name = a.computer_name
+          AND o.Hostname = a.Hostname
   - name: Analytic III
     description: Monitoring for access to the protected_storage service is very interesting to document potential DPAPI activity over the network
     data_sources:
-      - attack_mapping: File
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: File
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: User accessed File
               id: 2A9FC474-29C0-4582-9DA8-1F4197874F8C
               event_id: 5145
     logic: |-
-      SELECT `@timestamp`, computer_name, SubjectUserName, ShareName, RelativeTargetName, AccessMask, IpAddress
+      SELECT `@timestamp`, Hostname, SubjectUserName, ShareName, RelativeTargetName, AccessMask, IpAddress
       FROM mordorTable
-      WHERE channel = "Security"
-          AND event_id = 5145
+      WHERE LOWER(Channel) = "security"
+          AND EventID = 5145
           AND ShareName LIKE "%IPC%"
           AND RelativeTargetName = "protected_storage"
   - name: Analytic IV
     description: This event generates every time that a backup is attempted for the DPAPI Master Key. When a computer is a member of a domain, DPAPI has a backup mechanism to allow unprotection of the data. When a Master Key is generated, DPAPI communicates with a domain controller.
     data_sources:
-      - attack_mapping: File
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: File
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: User requested access File
               id: B0056295-3FA1-4B9F-890D-1D26EF740934
               event_id: 4692
     logic: |-
-      SELECT `@timestamp`, computer_name, SubjectUserName, MasterKeyId, RecoveryKeyId
+      SELECT `@timestamp`, Hostname, SubjectUserName, MasterKeyId, RecoveryKeyId
       FROM mordorTable
-      WHERE channel = "Security"
-          AND event_id = 4692
-research_notes:
+      WHERE LOWER(Channel) = "security"
+          AND EventID = 4692
+known_bypasses:
+false_positives:
 additional_notes: |-
   * Backup key can be displayed as base64 blob or exported as a .pvk file on disk (Mimikatz-like)
   * Windows security event 4692 (Backup of data protection master key was attempted) also generates every time a new DPAPI Master Key is generated
   * When a computer is a member of a domain, DPAPI has a backup mechanism to allow unprotection of the data. When a Master Key is generated, DPAPI communicates with a domain controller.
 research_output:
   - type: Sigma Rule
-    links:
-      - https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_backupkey_extraction.yml
-      - https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_protected_storage_service_access.yml
-      - https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_masterkey_backup_attempt.yml
+    link: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_backupkey_extraction.yml
+  - type: Sigma Rule
+    link: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_protected_storage_service_access.yml
+  - type: Sigma Rule
+    link: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_masterkey_backup_attempt.yml
 references: |-
   * https://www.harmj0y.net/blog/redteaming/operational-guidance-for-offensive-user-dpapi-abuse/
   * https://digital-forensics.sans.org/summit-archives/dfirprague14/Give_Me_the_Password_and_Ill_Rule_the_World_Francesco_Picasso.pdf

@@ -1,17 +1,29 @@
 var initToggleItems = () => {
   var itemsToToggle = document.querySelectorAll(togglebuttonSelector);
-
+  console.log(itemsToToggle, togglebuttonSelector)
   // Add the button to each admonition and hook up a callback to toggle visibility
   itemsToToggle.forEach((item, index) => {
     var toggleID = `toggle-${index}`;
     var buttonID = `button-${toggleID}`;
-    item.setAttribute('id', toggleID);
     var collapseButton = `
       <button id="${buttonID}" class="toggle-button" data-target="${toggleID}" data-button="${buttonID}">
           <div class="bar horizontal" data-button="${buttonID}"></div>
           <div class="bar vertical" data-button="${buttonID}"></div>
       </button>`;
-    item.insertAdjacentHTML('beforebegin', collapseButton);
+
+    item.setAttribute('id', toggleID);
+
+    if (!item.classList.contains("toggle")){
+      item.classList.add("toggle");
+    }
+
+    // If it's an admonition block, then we'll add the button inside
+    if (item.classList.contains("admonition")) {
+      item.insertAdjacentHTML("afterbegin", collapseButton);
+    } else {
+      item.insertAdjacentHTML('beforebegin', collapseButton);
+    }
+
     thisButton = $(`#${buttonID}`);
     thisButton.on('click', toggleClickHandler);
     if (!item.classList.contains("toggle-shown")) {
@@ -24,7 +36,6 @@ var initToggleItems = () => {
 var toggleHidden = (button) => {
   target = button.dataset['target']
   var itemToToggle = document.getElementById(target);
-  console.log(itemToToggle)
   if (itemToToggle.classList.contains("toggle-hidden")) {
     itemToToggle.classList.remove("toggle-hidden");
     button.classList.remove("toggle-button-hidden");

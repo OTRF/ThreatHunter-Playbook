@@ -7,7 +7,7 @@ playbooks_related:
 creation_date: 2019/12/24
 modification_date: 2020/09/20
 platform: Windows
-attack_coverage:
+attack_mappings:
   - tactics:
       - TA0005
     technique: T1112
@@ -28,7 +28,7 @@ technical_context: |-
   * Authenticate to computers that are not in the domain
 
   Prior to Windows NT 4.0 Service Pack 4 (SP4), Windows NT supported two kinds of challenge/response authentication -> LanManager (LM) challenge/response and Windows NT challenge/response (also known as NTLM challenge/response)
-  Windows NT also supported session security mechanisms that provided for message confidentiality and integrity.
+  Windows NT also supported session security mechanisms that provided for Message confidentiality and integrity.
   To allow access to servers that only support LM authentication, Windows NT clients prior to SP4 always use both, even to Windows NT servers that supported NTLM authentication.
   
   LM authentication is not as strong as Windows NT authentication so some customers may want to disable its use, because an attacker eavesdropping on network traffic will attack the weaker protocol.
@@ -36,7 +36,7 @@ technical_context: |-
   Microsoft has developed an enhancement to NTLM called NTLMv2 that significantly improves both the authentication and session security mechanisms.
   
   In addition, the implementation of the NTLM Security Service Provider (SSP) has been enhanced to allow clients to control which variants of NTLM are used, and to allow servers to control which variants they will accept, by setting a new registry key appropriately.
-  It also allows clients and servers to require the negotiation of message confidentiality (encryption), message integrity, 128-bit encryption, and NTLMv2 session security.
+  It also allows clients and servers to require the negotiation of Message confidentiality (encryption), Message integrity, 128-bit encryption, and NTLMv2 session security.
 
   Control of NTLM security is through the following registry key
 
@@ -89,24 +89,16 @@ offensive_tradecraft: |-
   If an organization is already restricting outgoing NTLM traffic to remote servers, it can be easily disabled by modifying the following registry key Property and setting it to 0.
     * Key -> HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0
     * Property -> RestrictSendingNTLMTraffic
-validation:
-  permissions_required:
-    - Administrator
-  simulation:
-    commnads:
-      - None
-    script_url:
-      - None
-  test_data:
-    document: https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-191225045202.html
-    datasets:
-      - https://raw.githubusercontent.com/OTRF/mordor/master/small_datasets/windows/defense_evasion/host/empire_extended_netntlm_downgrade.tar.gz
+test_data:
+  metadata: https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-191225045202.html
+  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/host/empire_monologue_netntlm_downgrade.zip
 analytics:
   - name: Analytic I
     description: Look for non-system accounts getting a handle and accessing \REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa and \REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\MSV1_0 registry keys from a non-lsass process
     data_sources:
-      - attack_mapping: Windows Registry
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Windows Registry
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: Process accessed Windows registry key
               id: 91CBB928-CD58-46F7-90A8-E9B3C53D8269
@@ -123,7 +115,7 @@ analytics:
     logic: |-
       SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName, AccessMask, EventID, SubjectLogonId
       FROM mordorTable
-      WHERE Channel = "security"
+      WHERE LOWER(Channel) = "security"
           AND EventID IN (4663, 4656)
           AND ObjectType = Key
           AND (ObjectName LIKE "%Lsa" OR ObjectName LIKE "%Lsa\MSV1_0")
@@ -132,8 +124,9 @@ analytics:
   - name: Analytic II
     description: Look for processes modifying the values of the following registry key properties LMCompatibilityLevel,NtlmMinClientSec and RestrictSendingNTLMTraffic
     data_sources:
-      - attack_mapping: Windows Registry
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Windows Registry
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: Process modified Windows registry key value
               id: 25EE8F70-C82B-4C43-A939-10CF156FBBFA
@@ -141,14 +134,15 @@ analytics:
     logic: |-
       SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName, OldValue, NewValue, SubjectLogonId
       FROM mordorTable
-      WHERE Channel = "security"
+      WHERE LOWER(Channel) = "security"
           AND EventID = 4657
           AND ObjectValueName in ("LMCompatibilityLevel","NtlmMinClientSec","RestrictSendingNTLMTraffic")
   - name: Analytic III
     description: Look for processes modifying the values of the following registry key properties LMCompatibilityLevel,NtlmMinClientSec and RestrictSendingNTLMTraffic
     data_sources:
-      - attack_mapping: Windows Registry
-        - event_provider: Microsoft-Windows-Sysmon/Operational
+      - name: Windows Registry
+        event_providers:
+        - name: Microsoft-Windows-Sysmon/Operational
           data_model:
             - relationship: Process modified Windows registry key value
               id: 25EE8F70-C82B-4C43-A939-10CF156FBBFA
@@ -163,14 +157,14 @@ analytics:
               TargetObject LIKE "%NtlmMinClientSec" OR
               TargetObject LIKE "%RestrictSendingNTLMTraffic"
           )
-research_notes:
+known_bypasses:
+false_positives:
 additional_notes: |-
   * Make sure you have audit rules (SACL) applied to \REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa and \REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\MSV1_0
   * You can take the ProcessId of the process that performed the downgrade and explore its parents.
 research_output:
   - type: Sigma Rule
-    links:
-      - https://github.com/Neo23x0/sigma/blob/master/rules/windows/builtin/win_net_ntlm_downgrade.yml
+    link: https://github.com/Neo23x0/sigma/blob/master/rules/windows/builtin/win_net_ntlm_downgrade.yml
 references: |-
   * https://shenaniganslabs.io/2019/01/14/Internal-Monologue.html
   * https://jeffpar.github.io/kbarchive/kb/147/Q147706/

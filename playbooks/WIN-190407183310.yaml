@@ -7,7 +7,7 @@ playbooks_related:
 creation_date: 2019/04/07
 modification_date: 2020/09/20
 platform: Windows
-attack_mapping:
+attack_mappings:
   - tactics:
       - TA0005
     technique: T1112
@@ -25,43 +25,35 @@ offensive_tradecraft: |-
   An adversary can also specify how users are authenticated.
   Setting UserAuthentication=0 in the Microsoft-Windows-TerminalServices-RDP-WinStationExtensions component (HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp) helps make sure that users can connect remotely from computers that don't run Remote Desktop by using network-level authentication.
   This is the equivalent of Allow connections from computers running any version of Remote Desktop (less secure) security setting.
-validation:
-  permissions_required:
-    - Administrator
-  simulation:
-    commnads:
-      - None
-    script_url:
-      - None
-  test_data:
-    document: https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-190518203650.html
-    datasets:
-      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/empire_enable_rdp.tar.gz
+test_data:
+  metadata: https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-190518203650.html
+  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/host/empire_enable_rdp.tar.gz
 analytics:
   - name: Analytic I
     description: Look for any process updating fDenyTSConnections or UserAuthentication registry key values
     data_sources:
-      - attack_mapping: Windows registry
-        - event_provider: Microsoft-Windows-Sysmon/Operational
+      - name: Windows registry
+        event_providers:
+        - name: Microsoft-Windows-Sysmon/Operational
           data_model:
             - relationship: Process modified Windows registry key value
               id: 25EE8F70-C82B-4C43-A939-10CF156FBBFA
               event_id: 13
     logic: |-
-      SELECT `@timestamp`, computer_name, Image, TargetObject
+      SELECT `@timestamp`, Hostname, Image, TargetObject
       FROM mordorTable
-      WHERE channel = "Microsoft-Windows-Sysmon/Operational"
-          AND event_id = 13
+      WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+          AND EventID = 13
           AND (TargetObject LIKE "%fDenyTSConnections"
               OR TargetObject LIKE "%UserAuthentication")
           AND Details = "DWORD (0x00000000)"
-research_notes:
+known_bypasses:
+false_positives:
 additional_notes: |-
   * if the activity defined above happens frequently in your environment, you cshould Stack the processeses modifying the registry key values.
 research_output:
   - type: Sigma Rule
-    links:
-      - https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_rdp_registry_modification.yml
+    link: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_rdp_registry_modification.yml
 references: |-
   * https://attack.mitre.org/techniques/T1076/
   * https://github.com/EmpireProject/Empire/blob/master/lib/modules/powershell/management/enable_rdp.py

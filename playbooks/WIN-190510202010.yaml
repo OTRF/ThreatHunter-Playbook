@@ -18,41 +18,33 @@ technical_context: |-
 offensive_tradecraft: |-
   This setting can be modified in the property UseLogonCredential for the registry key HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest.
   If this key does not exists, you can create it and set it to 1 to enable clear text passwords.
-validation:
-  permissions_required:
-    - Administrator
-  simulation:
-    commnads:
-      - None
-    script_url:
-      - None
-  test_data:
-    document: https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-190518201922.html
-    datasets:
-      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/empire_wdigest_downgrade.tar.gz
+test_data:
+  metadata: https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-190518201922.html
+  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/host/empire_wdigest_downgrade.tar.gz
 analytics:
   - name: Analytic I
     description: Look for any process updating UseLogonCredential registry key value
     data_sources:
-      - attack_mapping: Windows registry
-        - event_provider: Microsoft-Windows-Sysmon/Operational
+      - name: Windows registry
+        event_providers:
+        - name: Microsoft-Windows-Sysmon/Operational
           data_model:
             - relationship: Process modified Windows registry key value
               id: 25EE8F70-C82B-4C43-A939-10CF156FBBFA
               event_id: 13
     logic: |-
-      SELECT `@timestamp`, computer_name, Image, TargetObject
+      SELECT `@timestamp`, Hostname, Image, TargetObject
       FROM mordorTable
-      WHERE channel = "Microsoft-Windows-Sysmon/Operational"
-          AND event_id = 13
+      WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+          AND EventID = 13
           AND TargetObject LIKE "%UseLogonCredential"
           AND Details = 1
-research_notes:
+known_bypasses:
+false_positives:
 additional_notes:
-research__output:
+research_output:
   - type: Sigma Rule
-    links:
-      - https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_wdigest_registry_modification.yml
+    link: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_wdigest_registry_modification.yml
 references: |-
   * https://github.com/samratashok/nishang/blob/master/Gather/Invoke-MimikatzWDigestDowngrade.ps1
   * https://blog.stealthbits.com/wdigest-clear-text-passwords-stealing-more-than-a-hash/

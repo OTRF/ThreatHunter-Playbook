@@ -1,68 +1,79 @@
 Traceback (most recent call last):
-  File "/usr/local/lib/python3.7/site-packages/jupyter_cache/executors/basic.py", line 157, in execute
-    executenb(nb_bundle.nb, cwd=tmpdirname)
-  File "/usr/local/lib/python3.7/site-packages/nbconvert/preprocessors/execute.py", line 737, in executenb
-    return ep.preprocess(nb, resources, km=km)[0]
-  File "/usr/local/lib/python3.7/site-packages/nbconvert/preprocessors/execute.py", line 405, in preprocess
-    nb, resources = super(ExecutePreprocessor, self).preprocess(nb, resources)
-  File "/usr/local/lib/python3.7/site-packages/nbconvert/preprocessors/base.py", line 69, in preprocess
-    nb.cells[index], resources = self.preprocess_cell(cell, resources, index)
-  File "/usr/local/lib/python3.7/site-packages/nbconvert/preprocessors/execute.py", line 448, in preprocess_cell
-    raise CellExecutionError.from_cell_and_msg(cell, out)
-nbconvert.preprocessors.execute.CellExecutionError: An error occurred while executing the following cell:
+  File "/usr/local/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/usr/local/lib/python3.8/site-packages/nbclient/client.py", line 1082, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/usr/local/lib/python3.8/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/usr/local/lib/python3.8/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/usr/local/Cellar/python@3.8/3.8.5/Frameworks/Python.framework/Versions/3.8/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/usr/local/lib/python3.8/site-packages/nbclient/client.py", line 535, in async_execute
+    await self.async_execute_cell(
+  File "/usr/local/lib/python3.8/site-packages/nbclient/client.py", line 827, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/usr/local/lib/python3.8/site-packages/nbclient/client.py", line 735, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-mordor_file = "https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_extended_netntlm_downgrade.tar.gz"
-registerMordorSQLTable(spark, mordor_file, "mordorTable")
+df = spark.sql(
+'''
+SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName, AccessMask, EventID, SubjectLogonId
+FROM mordorTable
+WHERE LOWER(Channel) = "security"
+    AND EventID IN (4663, 4656)
+    AND ObjectType = Key
+    AND (ObjectName LIKE "%Lsa" OR ObjectName LIKE "%Lsa\MSV1_0")
+    AND ProcessName NOT LIKE "%lsass.exe"
+    AND SubjectLogonId != "0x3e7"
+'''
+)
+df.show(10,False)
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mFileNotFoundError[0m                         Traceback (most recent call last)
-[0;32m<ipython-input-2-d6f2d7da2375>[0m in [0;36m<module>[0;34m[0m
-[1;32m      1[0m [0mmordor_file[0m [0;34m=[0m [0;34m"https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_extended_netntlm_downgrade.tar.gz"[0m[0;34m[0m[0;34m[0m[0m
-[0;32m----> 2[0;31m [0mregisterMordorSQLTable[0m[0;34m([0m[0mspark[0m[0;34m,[0m [0mmordor_file[0m[0;34m,[0m [0;34m"mordorTable"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m
-[0;32m/usr/local/lib/python3.7/site-packages/openhunt/mordorutils.py[0m in [0;36mregisterMordorSQLTable[0;34m(spark, url, tableName)[0m
-[1;32m     11[0m [0;34m[0m[0m
-[1;32m     12[0m [0;32mdef[0m [0mregisterMordorSQLTable[0m[0;34m([0m[0mspark[0m[0;34m,[0m [0murl[0m[0;34m,[0m [0mtableName[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 13[0;31m     [0mmordorJSONPath[0m [0;34m=[0m [0mdownloadMordorFile[0m[0;34m([0m[0murl[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     14[0m     [0mmordorDF[0m [0;34m=[0m [0mreadJSON[0m[0;34m([0m[0mmordorJSONPath[0m[0;34m,[0m [0mspark[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     15[0m     [0mmordorDF[0m [0;34m=[0m [0mprocessDataFrame[0m[0;34m([0m[0mmordorDF[0m[0;34m,[0m [0mspark[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;31mAnalysisException[0m                         Traceback (most recent call last)
+[0;32m<ipython-input-3-6563a4cfce89>[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m df = spark.sql(
+[0m[1;32m      2[0m '''
+[1;32m      3[0m [0mSELECT[0m[0;31m [0m[0;31m`[0m[0;34m@[0m[0mtimestamp[0m[0;31m`[0m[0;34m,[0m [0mHostname[0m[0;34m,[0m [0mSubjectUserName[0m[0;34m,[0m [0mProcessName[0m[0;34m,[0m [0mObjectName[0m[0;34m,[0m [0mAccessMask[0m[0;34m,[0m [0mEventID[0m[0;34m,[0m [0mSubjectLogonId[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      4[0m [0mFROM[0m [0mmordorTable[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      5[0m [0mWHERE[0m [0mLOWER[0m[0;34m([0m[0mChannel[0m[0;34m)[0m [0;34m=[0m [0;34m"security"[0m[0;34m[0m[0;34m[0m[0m
 
-[0;32m/usr/local/lib/python3.7/site-packages/openhunt/mordorutils.py[0m in [0;36mdownloadMordorFile[0;34m(url, dest)[0m
-[1;32m      7[0m [0;32mdef[0m [0mdownloadMordorFile[0m[0;34m([0m[0murl[0m[0;34m,[0m [0mdest[0m[0;34m=[0m[0;34m"/tmp/"[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      8[0m     [0mmordorFile[0m [0;34m=[0m [0mdownloadFile[0m[0;34m([0m[0murl[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0;32m----> 9[0;31m     [0mmordorJSONPath[0m [0;34m=[0m [0mdecompressJSON[0m[0;34m([0m[0mmordorFile[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     10[0m     [0;32mreturn[0m [0mmordorJSONPath[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     11[0m [0;34m[0m[0m
+[0;32m/var/lib/spark/python/pyspark/sql/session.py[0m in [0;36msql[0;34m(self, sqlQuery)[0m
+[1;32m    644[0m         [0;34m[[0m[0mRow[0m[0;34m([0m[0mf1[0m[0;34m=[0m[0;36m1[0m[0;34m,[0m [0mf2[0m[0;34m=[0m[0;34mu'row1'[0m[0;34m)[0m[0;34m,[0m [0mRow[0m[0;34m([0m[0mf1[0m[0;34m=[0m[0;36m2[0m[0;34m,[0m [0mf2[0m[0;34m=[0m[0;34mu'row2'[0m[0;34m)[0m[0;34m,[0m [0mRow[0m[0;34m([0m[0mf1[0m[0;34m=[0m[0;36m3[0m[0;34m,[0m [0mf2[0m[0;34m=[0m[0;34mu'row3'[0m[0;34m)[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[1;32m    645[0m         """
+[0;32m--> 646[0;31m         [0;32mreturn[0m [0mDataFrame[0m[0;34m([0m[0mself[0m[0;34m.[0m[0m_jsparkSession[0m[0;34m.[0m[0msql[0m[0;34m([0m[0msqlQuery[0m[0;34m)[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0m_wrapped[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    647[0m [0;34m[0m[0m
+[1;32m    648[0m     [0;34m@[0m[0msince[0m[0;34m([0m[0;36m2.0[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 
-[0;32m/usr/local/lib/python3.7/site-packages/openhunt/utils.py[0m in [0;36mdecompressJSON[0;34m(filePath)[0m
-[1;32m     15[0m [0;34m[0m[0m
-[1;32m     16[0m [0;32mdef[0m [0mdecompressJSON[0m[0;34m([0m[0mfilePath[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 17[0;31m     [0mtf[0m [0;34m=[0m [0mtarfile[0m[0;34m.[0m[0mopen[0m[0;34m([0m[0mfilePath[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     18[0m     [0;32mfor[0m [0mmember[0m [0;32min[0m [0mtf[0m[0;34m.[0m[0mgetmembers[0m[0;34m([0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     19[0m         [0mtf[0m[0;34m.[0m[0mextract[0m[0;34m([0m[0mmember[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m/var/lib/spark/python/lib/py4j-0.10.9-src.zip/py4j/java_gateway.py[0m in [0;36m__call__[0;34m(self, *args)[0m
+[1;32m   1302[0m [0;34m[0m[0m
+[1;32m   1303[0m         [0manswer[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mgateway_client[0m[0;34m.[0m[0msend_command[0m[0;34m([0m[0mcommand[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1304[0;31m         return_value = get_return_value(
+[0m[1;32m   1305[0m             answer, self.gateway_client, self.target_id, self.name)
+[1;32m   1306[0m [0;34m[0m[0m
 
-[0;32m/usr/local/Cellar/python/3.7.6_1/Frameworks/Python.framework/Versions/3.7/lib/python3.7/tarfile.py[0m in [0;36mopen[0;34m(cls, name, mode, fileobj, bufsize, **kwargs)[0m
-[1;32m   1571[0m                     [0msaved_pos[0m [0;34m=[0m [0mfileobj[0m[0;34m.[0m[0mtell[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m   1572[0m                 [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m-> 1573[0;31m                     [0;32mreturn[0m [0mfunc[0m[0;34m([0m[0mname[0m[0;34m,[0m [0;34m"r"[0m[0;34m,[0m [0mfileobj[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m   1574[0m                 [0;32mexcept[0m [0;34m([0m[0mReadError[0m[0;34m,[0m [0mCompressionError[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m   1575[0m                     [0;32mif[0m [0mfileobj[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m/var/lib/spark/python/pyspark/sql/utils.py[0m in [0;36mdeco[0;34m(*a, **kw)[0m
+[1;32m    135[0m                 [0;31m# Hide where the exception came from that shows a non-Pythonic[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    136[0m                 [0;31m# JVM exception message.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 137[0;31m                 [0mraise_from[0m[0;34m([0m[0mconverted[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    138[0m             [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    139[0m                 [0;32mraise[0m[0;34m[0m[0;34m[0m[0m
 
-[0;32m/usr/local/Cellar/python/3.7.6_1/Frameworks/Python.framework/Versions/3.7/lib/python3.7/tarfile.py[0m in [0;36mgzopen[0;34m(cls, name, mode, fileobj, compresslevel, **kwargs)[0m
-[1;32m   1636[0m [0;34m[0m[0m
-[1;32m   1637[0m         [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m-> 1638[0;31m             [0mfileobj[0m [0;34m=[0m [0mgzip[0m[0;34m.[0m[0mGzipFile[0m[0;34m([0m[0mname[0m[0;34m,[0m [0mmode[0m [0;34m+[0m [0;34m"b"[0m[0;34m,[0m [0mcompresslevel[0m[0;34m,[0m [0mfileobj[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m   1639[0m         [0;32mexcept[0m [0mOSError[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m   1640[0m             [0;32mif[0m [0mfileobj[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m [0;32mand[0m [0mmode[0m [0;34m==[0m [0;34m'r'[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m/var/lib/spark/python/pyspark/sql/utils.py[0m in [0;36mraise_from[0;34m(e)[0m
 
-[0;32m/usr/local/Cellar/python/3.7.6_1/Frameworks/Python.framework/Versions/3.7/lib/python3.7/gzip.py[0m in [0;36m__init__[0;34m(self, filename, mode, compresslevel, fileobj, mtime)[0m
-[1;32m    161[0m             [0mmode[0m [0;34m+=[0m [0;34m'b'[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    162[0m         [0;32mif[0m [0mfileobj[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 163[0;31m             [0mfileobj[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mmyfileobj[0m [0;34m=[0m [0mbuiltins[0m[0;34m.[0m[0mopen[0m[0;34m([0m[0mfilename[0m[0;34m,[0m [0mmode[0m [0;32mor[0m [0;34m'rb'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    164[0m         [0;32mif[0m [0mfilename[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    165[0m             [0mfilename[0m [0;34m=[0m [0mgetattr[0m[0;34m([0m[0mfileobj[0m[0;34m,[0m [0;34m'name'[0m[0;34m,[0m [0;34m''[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;31mAnalysisException[0m: cannot resolve '`Key`' given input columns: [mordorTable.@timestamp, mordorTable.@version, mordorTable.AccessList, mordorTable.AccessMask, mordorTable.AccessReason, mordorTable.AccountName, mordorTable.AccountType, mordorTable.ActivityID, mordorTable.AdditionalInfo, mordorTable.AdditionalInfo2, mordorTable.Application, mordorTable.AuthenticationPackageName, mordorTable.CallTrace, mordorTable.Category, mordorTable.Channel, mordorTable.CommandLine, mordorTable.Company, mordorTable.ContextInfo, mordorTable.CreationUtcTime, mordorTable.CurrentDirectory, mordorTable.Description, mordorTable.DestAddress, mordorTable.DestPort, mordorTable.DestinationHostname, mordorTable.DestinationIp, mordorTable.DestinationIsIpv6, mordorTable.DestinationPort, mordorTable.DestinationPortName, mordorTable.Details, mordorTable.Direction, mordorTable.Domain, mordorTable.ElevatedToken, mordorTable.EventCountTotal, mordorTable.EventID, mordorTable.EventIdx, mordorTable.EventReceivedTime, mordorTable.EventTime, mordorTable.EventType, mordorTable.FileVersion, mordorTable.FilterRTID, mordorTable.GrantedAccess, mordorTable.GroupMembership, mordorTable.HandleId, mordorTable.Hashes, mordorTable.Hostname, mordorTable.Image, mordorTable.ImageLoaded, mordorTable.ImpersonationLevel, mordorTable.Initiated, mordorTable.IntegrityLevel, mordorTable.IpAddress, mordorTable.IpPort, mordorTable.KeyLength, mordorTable.Keywords, mordorTable.LayerName, mordorTable.LayerRTID, mordorTable.LmPackageName, mordorTable.LogonGuid, mordorTable.LogonId, mordorTable.LogonProcessName, mordorTable.LogonType, mordorTable.MandatoryLabel, mordorTable.Message, mordorTable.NewProcessId, mordorTable.NewProcessName, mordorTable.NewValue, mordorTable.NewValueType, mordorTable.ObjectName, mordorTable.ObjectServer, mordorTable.ObjectType, mordorTable.ObjectValueName, mordorTable.OldValue, mordorTable.OldValueType, mordorTable.Opcode, mordorTable.OpcodeValue, mordorTable.OperationType, mordorTable.OriginalFileName, mordorTable.ParentCommandLine, mordorTable.ParentImage, mordorTable.ParentProcessGuid, mordorTable.ParentProcessId, mordorTable.ParentProcessName, mordorTable.Payload, mordorTable.PipeName, mordorTable.PrivilegeList, mordorTable.ProcessGuid, mordorTable.ProcessID, mordorTable.ProcessName, mordorTable.Product, mordorTable.Properties, mordorTable.Protocol, mordorTable.ProviderGuid, mordorTable.RecordNumber, mordorTable.RemoteMachineID, mordorTable.RemoteUserID, mordorTable.ResourceAttributes, mordorTable.RestrictedAdminMode, mordorTable.RestrictedSidCount, mordorTable.Service, mordorTable.Severity, mordorTable.SeverityValue, mordorTable.Signature, mordorTable.SignatureStatus, mordorTable.Signed, mordorTable.SourceAddress, mordorTable.SourceHandleId, mordorTable.SourceHostname, mordorTable.SourceImage, mordorTable.SourceIp, mordorTable.SourceIsIpv6, mordorTable.SourceModuleName, mordorTable.SourceModuleType, mordorTable.SourceName, mordorTable.SourcePort, mordorTable.SourcePortName, mordorTable.SourceProcessGUID, mordorTable.SourceProcessId, mordorTable.SourceThreadId, mordorTable.Status, mordorTable.SubjectDomainName, mordorTable.SubjectLogonId, mordorTable.SubjectUserName, mordorTable.SubjectUserSid, mordorTable.TargetDomainName, mordorTable.TargetFilename, mordorTable.TargetHandleId, mordorTable.TargetImage, mordorTable.TargetLinkedLogonId, mordorTable.TargetLogonId, mordorTable.TargetObject, mordorTable.TargetOutboundDomainName, mordorTable.TargetOutboundUserName, mordorTable.TargetProcessGUID, mordorTable.TargetProcessId, mordorTable.TargetUserName, mordorTable.TargetUserSid, mordorTable.Task, mordorTable.TerminalSessionId, mordorTable.ThreadID, mordorTable.TokenElevationType, mordorTable.TransactionId, mordorTable.TransmittedServices, mordorTable.User, mordorTable.UserID, mordorTable.UtcTime, mordorTable.Version, mordorTable.VirtualAccount, mordorTable.WorkstationName, mordorTable.host, mordorTable.port, mordorTable.type]; line 6 pos 21;
+'Project ['@timestamp, 'Hostname, 'SubjectUserName, 'ProcessName, 'ObjectName, 'AccessMask, 'EventID, 'SubjectLogonId]
++- 'Filter ((((lower(Channel#21) = security) AND cast(EventID#40L as bigint) IN (cast(4663 as bigint),cast(4656 as bigint))) AND (ObjectType#76 = 'Key)) AND (((ObjectName#74 LIKE %Lsa OR ObjectName#74 LIKE %LsaMSV1_0) AND NOT ProcessName#94 LIKE %lsass.exe) AND NOT (SubjectLogonId#127 = 0x3e7)))
+   +- SubqueryAlias mordorTable
+      +- Relation[@timestamp#7,@version#8,AccessList#9,AccessMask#10,AccessReason#11,AccountName#12,AccountType#13,ActivityID#14,AdditionalInfo#15,AdditionalInfo2#16,Application#17,AuthenticationPackageName#18,CallTrace#19,Category#20,Channel#21,CommandLine#22,Company#23,ContextInfo#24,CreationUtcTime#25,CurrentDirectory#26,Description#27,DestAddress#28,DestPort#29,DestinationHostname#30,... 127 more fields] json
 
-[0;31mFileNotFoundError[0m: [Errno 2] No such file or directory: '/tmp/empire_extended_netntlm_downgrade.tar.gz'
-FileNotFoundError: [Errno 2] No such file or directory: '/tmp/empire_extended_netntlm_downgrade.tar.gz'
+AnalysisException: cannot resolve '`Key`' given input columns: [mordorTable.@timestamp, mordorTable.@version, mordorTable.AccessList, mordorTable.AccessMask, mordorTable.AccessReason, mordorTable.AccountName, mordorTable.AccountType, mordorTable.ActivityID, mordorTable.AdditionalInfo, mordorTable.AdditionalInfo2, mordorTable.Application, mordorTable.AuthenticationPackageName, mordorTable.CallTrace, mordorTable.Category, mordorTable.Channel, mordorTable.CommandLine, mordorTable.Company, mordorTable.ContextInfo, mordorTable.CreationUtcTime, mordorTable.CurrentDirectory, mordorTable.Description, mordorTable.DestAddress, mordorTable.DestPort, mordorTable.DestinationHostname, mordorTable.DestinationIp, mordorTable.DestinationIsIpv6, mordorTable.DestinationPort, mordorTable.DestinationPortName, mordorTable.Details, mordorTable.Direction, mordorTable.Domain, mordorTable.ElevatedToken, mordorTable.EventCountTotal, mordorTable.EventID, mordorTable.EventIdx, mordorTable.EventReceivedTime, mordorTable.EventTime, mordorTable.EventType, mordorTable.FileVersion, mordorTable.FilterRTID, mordorTable.GrantedAccess, mordorTable.GroupMembership, mordorTable.HandleId, mordorTable.Hashes, mordorTable.Hostname, mordorTable.Image, mordorTable.ImageLoaded, mordorTable.ImpersonationLevel, mordorTable.Initiated, mordorTable.IntegrityLevel, mordorTable.IpAddress, mordorTable.IpPort, mordorTable.KeyLength, mordorTable.Keywords, mordorTable.LayerName, mordorTable.LayerRTID, mordorTable.LmPackageName, mordorTable.LogonGuid, mordorTable.LogonId, mordorTable.LogonProcessName, mordorTable.LogonType, mordorTable.MandatoryLabel, mordorTable.Message, mordorTable.NewProcessId, mordorTable.NewProcessName, mordorTable.NewValue, mordorTable.NewValueType, mordorTable.ObjectName, mordorTable.ObjectServer, mordorTable.ObjectType, mordorTable.ObjectValueName, mordorTable.OldValue, mordorTable.OldValueType, mordorTable.Opcode, mordorTable.OpcodeValue, mordorTable.OperationType, mordorTable.OriginalFileName, mordorTable.ParentCommandLine, mordorTable.ParentImage, mordorTable.ParentProcessGuid, mordorTable.ParentProcessId, mordorTable.ParentProcessName, mordorTable.Payload, mordorTable.PipeName, mordorTable.PrivilegeList, mordorTable.ProcessGuid, mordorTable.ProcessID, mordorTable.ProcessName, mordorTable.Product, mordorTable.Properties, mordorTable.Protocol, mordorTable.ProviderGuid, mordorTable.RecordNumber, mordorTable.RemoteMachineID, mordorTable.RemoteUserID, mordorTable.ResourceAttributes, mordorTable.RestrictedAdminMode, mordorTable.RestrictedSidCount, mordorTable.Service, mordorTable.Severity, mordorTable.SeverityValue, mordorTable.Signature, mordorTable.SignatureStatus, mordorTable.Signed, mordorTable.SourceAddress, mordorTable.SourceHandleId, mordorTable.SourceHostname, mordorTable.SourceImage, mordorTable.SourceIp, mordorTable.SourceIsIpv6, mordorTable.SourceModuleName, mordorTable.SourceModuleType, mordorTable.SourceName, mordorTable.SourcePort, mordorTable.SourcePortName, mordorTable.SourceProcessGUID, mordorTable.SourceProcessId, mordorTable.SourceThreadId, mordorTable.Status, mordorTable.SubjectDomainName, mordorTable.SubjectLogonId, mordorTable.SubjectUserName, mordorTable.SubjectUserSid, mordorTable.TargetDomainName, mordorTable.TargetFilename, mordorTable.TargetHandleId, mordorTable.TargetImage, mordorTable.TargetLinkedLogonId, mordorTable.TargetLogonId, mordorTable.TargetObject, mordorTable.TargetOutboundDomainName, mordorTable.TargetOutboundUserName, mordorTable.TargetProcessGUID, mordorTable.TargetProcessId, mordorTable.TargetUserName, mordorTable.TargetUserSid, mordorTable.Task, mordorTable.TerminalSessionId, mordorTable.ThreadID, mordorTable.TokenElevationType, mordorTable.TransactionId, mordorTable.TransmittedServices, mordorTable.User, mordorTable.UserID, mordorTable.UtcTime, mordorTable.Version, mordorTable.VirtualAccount, mordorTable.WorkstationName, mordorTable.host, mordorTable.port, mordorTable.type]; line 6 pos 21;
+'Project ['@timestamp, 'Hostname, 'SubjectUserName, 'ProcessName, 'ObjectName, 'AccessMask, 'EventID, 'SubjectLogonId]
++- 'Filter ((((lower(Channel#21) = security) AND cast(EventID#40L as bigint) IN (cast(4663 as bigint),cast(4656 as bigint))) AND (ObjectType#76 = 'Key)) AND (((ObjectName#74 LIKE %Lsa OR ObjectName#74 LIKE %LsaMSV1_0) AND NOT ProcessName#94 LIKE %lsass.exe) AND NOT (SubjectLogonId#127 = 0x3e7)))
+   +- SubqueryAlias mordorTable
+      +- Relation[@timestamp#7,@version#8,AccessList#9,AccessMask#10,AccessReason#11,AccountName#12,AccountType#13,ActivityID#14,AdditionalInfo#15,AdditionalInfo2#16,Application#17,AuthenticationPackageName#18,CallTrace#19,Category#20,Channel#21,CommandLine#22,Company#23,ContextInfo#24,CreationUtcTime#25,CurrentDirectory#26,Description#27,DestAddress#28,DestPort#29,DestinationHostname#30,... 127 more fields] json
+
 

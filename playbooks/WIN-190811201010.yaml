@@ -25,33 +25,25 @@ technical_context: |-
   C:\Windows\System32\wbem\wmiutils.dll
 offensive_tradecraft: |-
   Adversaries could leverage the WMI modules above to execute WMI tasks bypassing controls looking for wmiprvse.exe or wmiapsrv.exe activity.
-validation:
-  permissions_required:
-    - User
-  simulation:
-    commnads:
-      - None
-    script_url:
-      - None
-  test_data:
-    document: https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-190518200432.html
-    datasets:
-      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/empire_psinject.tar.gz
+test_data:
+  metadata: https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-190518200432.html
+  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/host/empire_psinject_PEinjection.zip
 analytics:
   - name: Analytic I
     description: Look for processes (non wmiprvse.exe or WmiApSrv.exe) loading wmi modules
     data_sources:
-      - attack_mapping: Module
-        - event_provider: Microsoft-Windows-Sysmon/Operational
+      - name: Module
+        event_providers:
+        - name: Microsoft-Windows-Sysmon/Operational
           data_model:
             - relationship: Process loaded Dll
               id: 109A870F-84A2-4CE4-948A-4773CD283F76
               event_id: 7
     logic: |-
-      SELECT `@timestamp`, computer_name, Image, ImageLoaded
+      SELECT `@timestamp`, Hostname, Image, ImageLoaded
       FROM mordorTable
-      WHERE channel = "Microsoft-Windows-Sysmon/Operational"
-          AND event_id = 7
+      WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
+          AND EventID = 7
           AND (
               lower(ImageLoaded) LIKE "%wmiclnt.dll"
               OR lower(ImageLoaded) LIKE "%WmiApRpl.dll"
@@ -68,14 +60,14 @@ analytics:
               OR lower(Image) LIKE "%wmiapsrv.exe"
               OR lower(Image) LIKE "%svchost.exe"
           )
-research_notes:
+known_bypasses:
+false_positives:
 additional_notes: |-
   * Stack the processes loading WMI modules and document the activity in your environment.
   * Stack child processes (if any) of non wmiprvse.exe loading wmi modules
 research_output:
   - type: Sigma Rule
-    links:
-      - https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_wmi_module_load.yml
+    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_wmi_module_load.yml
 references: |-
   * https://posts.specterops.io/threat-hunting-with-jupyter-notebooks-part-4-sql-join-via-apache-sparksql-6630928c931e
   * https://posts.specterops.io/real-time-sysmon-processing-via-ksql-and-helk-part-3-basic-use-case-8fbf383cb54f

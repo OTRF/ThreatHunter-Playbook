@@ -8,8 +8,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   This is the first interactive Jupyter book in the infosec community!
 execute:
   execute_notebooks: cache
-  exclude_patterns:
-    - 'APT 29 Evaluation'
+  run_in_temp: true
 
 html:
   favicon: images/logo/favicon.ico

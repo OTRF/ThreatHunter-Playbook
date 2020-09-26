@@ -33,33 +33,25 @@ offensive_tradecraft: |-
   
   Additional reading
   * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/active_directory_replication.md
-validation:
-  permissions_required:
-    - Domain Admin
-  simulation:
-    commands:
-      - None
-    script_url:
-      - None
-  test_data:
-    document: https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-190301174830.html
-    datasets:
-      - https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/empire_dcsync.tar.gz
+test_data:
+  metadata: https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-190301174830.html
+  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/host/empire_dcsync_dcerpc_drsuapi_DsGetNCChanges.zip
 analytics:
   - name: Analytic I
     description: Monitoring for non-dc machine accounts accessing active directory objects on domain controllers with replication rights might be suspicious
     data_sources:
-      - attack_mapping: Windows active directory
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Windows active directory
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: User accessed AD Object
               id: 8F2A7CAF-7886-4485-8DBB-BCFDA5A181B9
               event_id: 4662
     logic: |-
-      SELECT `@timestamp`, computer_name, SubjectUserName, SubjectLogonId
+      SELECT `@timestamp`, Hostname, SubjectUserName, SubjectLogonId
       FROM mordorTable
-      WHERE channel = "Security"
-          AND event_id = 4662
+      WHERE LOWER(Channel) = "security"
+          AND EventID = 4662
           AND AccessMask = "0x100"
           AND (
               Properties LIKE "%1131f6aa_9c07_11d1_f79f_00c04fc2dcd2%"
@@ -70,56 +62,54 @@ analytics:
   - name: Analytic II
     description: You can use successful authentication events on the domain controller to get information about the source of the AD Replication Service request
     data_sources:
-      - attack_mapping: Authentication log
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Authentication log
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: User authenticated Host
               id: C07F53CF-A125-40F8-BE5C-E42017A57C0F
               event_id: 4624
-      - attack_mapping: Windows active directory
-        - event_provider: Microsoft-Windows-Security-Auditing
+      - name: Windows active directory
+        event_providers:
+        - name: Microsoft-Windows-Security-Auditing
           data_model:
             - relationship: User accessed AD Object
               id: 8F2A7CAF-7886-4485-8DBB-BCFDA5A181B9
               event_id: 4662
     logic: |-
-      SELECT o.`@timestamp`, o.computer_name, o.SubjectUserName, o.SubjectLogonId, a.IpAddress
+      SELECT o.`@timestamp`, o.Hostname, o.SubjectUserName, o.SubjectLogonId, a.IpAddress
       FROM mordorTable o
       INNER JOIN (
-          SELECT computer_name,TargetUserName,TargetLogonId,IpAddress
+          SELECT Hostname,TargetUserName,TargetLogonId,IpAddress
           FROM mordorTable
-          WHERE channel = "Security"
-              AND event_id = 4624
+          WHERE LOWER(Channel) = "security"
+              AND EventID = 4624
               AND LogonType = 3
-              AND IpAddress is not null
               AND NOT TargetUserName LIKE "%$"
           ) a
       ON o.SubjectLogonId = a.TargetLogonId
-      WHERE o.channel = "Security"
-          AND o.event_id = 4662
+      WHERE LOWER(o.Channel) = "security"
+          AND o.EventID = 4662
           AND o.AccessMask = "0x100"
           AND (
               o.Properties LIKE "%1131f6aa_9c07_11d1_f79f_00c04fc2dcd2%"
               OR o.Properties LIKE "%1131f6ad_9c07_11d1_f79f_00c04fc2dcd2%"
               OR o.Properties LIKE "%89e95b76_444d_4c62_991a_0facbeda640c%"
           )
-          AND o.computer_name = a.computer_name
+          AND o.Hostname = a.Hostname
           AND NOT o.SubjectUserName LIKE "%$"
-research_notes:
-   - analytic: I
-     known_bypasses:
-      - idea: |-
-        Adversaries could perform the replication request from a Domain Controller (DC) and with the DC machine account (*$) to make it look like usual/common replication activity.
-        playbook: No
-    false_positives:
+known_bypasses:
+- idea: |-
+    Adversaries could perform the replication request from a Domain Controller (DC) and with the DC machine account (*$) to make it look like usual/common replication activity.
+  playbook:
+false_positives:
 additional_notes: |-
   * As stated before, when an adversary utilizes directory replication services to connect to a DC, a RPC Client call operation with the RPC Interface GUID of E3514235-4B06-11D1-AB04-00C04FC2DCD2 is performed pointing to the targeted DC. This activity is recorded at the source endpoint, from where the replication request is being performed from, via the Microsoft-Windows-RPC ETW provider. Even though the Microsoft-Windows-RPC ETW provider provides great visibility for replication operations at the source endpoint level, it does not have an event tracing session writing events to an .evtx file which does not make it practical to use it at scale yet.
   * You can collect information from the Microsoft-Windows-RPC ETW provider and filter on RPC Interface GUID E3514235-4B06-11D1-AB04-00C04FC2DCD2 with SilkETW. One example here > https://twitter.com/FuzzySec/status/1127249052175872000
   * You can correlate security events 4662 and 4624 (Logon Type 3) by their Logon ID on the Domain Controller (DC) that received the replication request. This will tell you where the AD replication request came from. This will also allow you to know if it came from another DC or not.
 research_output:
   - type: Sigma Rule
-    links:
-      - https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_ad_replication_non_machine_account.yml
+    link: https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_ad_replication_non_machine_account.yml
 references: |-
   * https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/1522b774-6464-41a3-87a5-1e5633c3fbbb
   * https://docs.microsoft.com/en-us/windows/desktop/adschema/c-domain
