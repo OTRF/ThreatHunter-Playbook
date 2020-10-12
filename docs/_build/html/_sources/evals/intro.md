@@ -1,1 +1,0 @@
-# ATT&CK Evaluations

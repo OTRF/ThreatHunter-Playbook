@@ -23,6 +23,7 @@
       sections:
       - file: notebooks/windows/02_execution/WIN-190815181010
       - file: notebooks/windows/02_execution/WIN-190810201010
+      - file: notebooks/windows/02_execution/WIN-201009173318
       - file: notebooks/windows/02_execution/WIN-190410151110
       - file: notebooks/windows/02_execution/WIN-190813181020
       - file: notebooks/windows/02_execution/WIN-190815181010
@@ -60,6 +61,9 @@
       - file: notebooks/windows/08_lateral_movement/WIN-190815181010
       - file: notebooks/windows/08_lateral_movement/WIN-190810201010
       - file: notebooks/windows/08_lateral_movement/WIN-200902020333
+      - file: notebooks/windows/08_lateral_movement/WIN-201012004336
+      - file: notebooks/windows/08_lateral_movement/WIN-201009173318
+      - file: notebooks/windows/08_lateral_movement/WIN-201009183000
       - file: notebooks/windows/08_lateral_movement/WIN-190511223310
     - file: notebooks/windows/09_collection/collection
       sections:
