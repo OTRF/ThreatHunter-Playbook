@@ -1,0 +1,23 @@
+title: T1047 Wmiprvse Wbemcomn DLL Hijack
+description: Detects a threat actor creating a file named `wbemcomn.dll` in the `C:\Windows\System32\wbem\` directory over the network and loading it for a WMI DLL Hijack scenario.
+status: experimental
+date: 2020/10/12
+author: Roberto Rodriguez @Cyb3rWard0g
+references:
+    - https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-201009173318.html
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection_one: 
+        EventID: 11
+        Image: System
+        TargetFilename: '*\wbem\wbemcomn.dll'
+    selection_two: 
+        EventID: 7
+        Image: '*\wmiprvse.exe'
+        ImageLoaded: '*\wbem\wbemcomn.dll'
+    condition: selection_one or selection_two
+falsepositives:
+    - Unknown
+level: critical
