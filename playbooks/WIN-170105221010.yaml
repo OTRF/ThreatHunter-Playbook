@@ -11,7 +11,7 @@ attack_mappings:
   - tactics:
     - TA0006
     technique: T1003
-    sub-technique:
+    sub-technique: "001"
 hypothesis: Adversaries might be using a non system account to access LSASS and extract credentials from memory.
 technical_context: |-
   After a user logs on, a variety of credentials are generated and stored in the Local Security Authority Subsystem Service (LSASS) process in memory.

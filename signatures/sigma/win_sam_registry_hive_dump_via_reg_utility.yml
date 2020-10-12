@@ -1,13 +1,14 @@
-title: T1012 SAM Registry Hive Dump via Reg Utility
+title: SAM Registry Hive Dump via Reg Utility
+id: 66b495a5-6d0c-4e2d-ae75-5b59b9907da3
 description: Detects handle to SAM registry hive via reg utility
 status: experimental
 date: 2019/08/12
-author: Roberto Rodriguez @Cyb3rWard0g
-references:
-    - https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/playbooks/windows/06_credential_access/T1003_credential_dumping/sam_registry_hive_dump_reg_utility.md
+author: Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)
 tags:
     - attack.credential_access
-    - attack.t1003
+    - attack.t1003.002
+references:
+    - https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/playbooks/windows/06_credential_access/T1003_credential_dumping/sam_registry_hive_dump_reg_utility.md
 logsource:
     product: windows
     service: security

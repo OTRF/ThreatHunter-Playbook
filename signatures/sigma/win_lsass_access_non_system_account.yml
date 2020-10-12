@@ -1,13 +1,14 @@
-title: T1003 LSASS Access from Non System Account
+title: LSASS Access from Non System Account
+id: 7deee4b5-eccd-4e21-ba40-ef38a385426f
 description: Detects potential mimikatz-like tools accessing LSASS from non system account
 status: experimental
 date: 2019/06/20
-author: Roberto Rodriguez @Cyb3rWard0g
-references:
-    - https://threathunterplaybook.com/notebooks/windows/06_credential_access/WIN-170105221010.html
+author: Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)
 tags:
     - attack.credential_access
-    - attack.t1003
+    - attack.t1003.001
+references:
+    - https://threathunterplaybook.com/notebooks/windows/06_credential_access/WIN-170105221010.html
 logsource:
     product: windows
     service: security

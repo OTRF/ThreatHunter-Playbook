@@ -1,13 +1,14 @@
-title: T1003 Protected Storage Service Access
+title: Protected Storage Service Access
+id: e084a5c0-0658-443b-9cc3-06c0f8898012
 description: Detects access to a protected_storage service over the network. Potential abuse of DPAPI to extract domain backup keys from Domain Controllers
 status: experimental
 date: 2019/08/10
-author: Roberto Rodriguez @Cyb3rWard0g
+author: Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)
+tags:
+    - attack.credential_access
+    - attack.t1003.004
 references:
     - https://threathunterplaybook.com/notebooks/windows/06_credential_access/WIN-190620024610.html
-tags:
-    - attack.lateral_movement
-    - attack.T1021
 logsource:
     product: windows
     service: security

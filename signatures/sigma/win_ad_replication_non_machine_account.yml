@@ -1,13 +1,14 @@
-title: T1003 Active Directory Replication from Non Machine Account
+title: Active Directory Replication from Non Machine Account
+id: d4d8ade8-9bbf-4be3-8138-051a6b4d9097
 description: Detects potential abuse of Active Directory Replication Service (ADRS) from a non machine account to request credentials.
 status: experimental
 date: 2019/07/26
-author: Roberto Rodriguez @Cyb3rWard0g
-references:
-    - https://threathunterplaybook.com/notebooks/windows/06_credential_access/WIN-180815210510.html
+author: Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)
 tags:
     - attack.credential_access
-    - attack.t1003
+    - attack.t1003.006
+references:
+    - https://threathunterplaybook.com/notebooks/windows/06_credential_access/WIN-180815210510.html
 logsource:
     product: windows
     service: security

@@ -1,8 +1,12 @@
-title: T1086 Remote PowerShell Session
+title: Remote PowerShell Session
+id: 042c7e8c-2e11-4b43-bf4d-c803882fcc37
 description: Detects remote PowerShell sessions
 status: experimental
 date: 2019/08/10
-author: Roberto Rodriguez @Cyb3rWard0g
+author: Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)
+tags:
+    - attack.execution
+    - attack.t1059.001
 references:
     - https://threathunterplaybook.com/notebooks/windows/02_execution/WIN-190511223310.html
 logsource:

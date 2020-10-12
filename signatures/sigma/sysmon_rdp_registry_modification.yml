@@ -1,8 +1,12 @@
-title: T1112 RDP Registry Modification
+title: RDP Registry Modification
+id: df032a39-27e8-4fa2-bdf1-2863827c2c45
 description: Detects potential malicious modification of the property value of fDenyTSConnections and UserAuthentication to enable remote desktop connections.
 status: experimental
 date: 2019/09/12
-author: Roberto Rodriguez @Cyb3rWard0g
+author: Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)
+tags:
+    - attack.defense_evasion
+    - attack.t1112
 references:
     - https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/WIN-190407183310.html
 logsource:

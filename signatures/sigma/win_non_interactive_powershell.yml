@@ -1,8 +1,12 @@
-title: T1086 Non Interactive PowerShell
+title: Non Interactive PowerShell
+id: 1f8d49a9-7126-48a6-9f8e-715453d4226f
 description: Detects non-interactive PowerShell activity by looking at powershell.exe with not explorer.exe as a parent.
 status: experimental
 date: 2019/12/10
-author: Roberto Rodriguez @Cyb3rWard0g
+author: Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)
+tags:
+    - attack.execution
+    - attack.t1059.001
 references:
     - https://threathunterplaybook.com/notebooks/windows/02_execution/WIN-190410151110.html
 logsource:

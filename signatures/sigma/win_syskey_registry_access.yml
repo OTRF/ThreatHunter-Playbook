@@ -1,13 +1,14 @@
 title: T1012 SysKey Registry Keys Access
+id: d1442959-2c5c-4b7e-8fdc-0de846be4e16
 description: Detects handle requests and access operations to specific registry keys to calculate the SysKey
 status: experimental
 date: 2019/08/12
-author: Roberto Rodriguez @Cyb3rWard0g
-references:
-    - https://threathunterplaybook.com/notebooks/windows/07_discovery/WIN-190625024610.html
+author: Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)
 tags:
     - attack.discovery
     - attack.t1012
+references:
+    - https://threathunterplaybook.com/notebooks/windows/07_discovery/WIN-190625024610.html
 logsource:
     product: windows
     service: security

@@ -1,8 +1,12 @@
-title: T1222 Active Directory Replication User Backdoor
+title: Active Directory Replication User Backdoor
+id: 815109b2-32d4-436e-b958-1f3db41c3954
 description: Detects modification of the security descriptor of a domain object to grant active directory replication permissions to any user
 status: experimental
 date: 2019/09/12
-author: Roberto Rodriguez @Cyb3rWard0g
+author: Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)
+tags:
+    - attack.defense_evasion
+    - attack.t1222
 references:
     - https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/WIN-190101151110.html
 logsource:

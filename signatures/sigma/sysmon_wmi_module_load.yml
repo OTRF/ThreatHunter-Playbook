@@ -1,8 +1,12 @@
-title: T1047 WMI Modules Loaded
+title: WMI Modules Loaded
+id: 30fc055c-5bb3-4cff-9ac4-713632adc935
 description: Detects non wmiprvse loading WMI modules
 status: experimental
 date: 2019/08/10
-author: Roberto Rodriguez @Cyb3rWard0g
+author: Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)
+tags:
+    - attack.execution
+    - attack.t1047
 references:
     - https://threathunterplaybook.com/notebooks/windows/02_execution/WIN-190811201010.html
 logsource:
