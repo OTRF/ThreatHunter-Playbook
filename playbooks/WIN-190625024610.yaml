@@ -68,7 +68,7 @@ additional_notes: |-
   * Look for the same process accessing all those registry keys in a short period of time.
 research_output:
   - type: Sigma Rule
-    link: https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_syskey_registry_access.yml
+    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_syskey_registry_access.yml
 references: |-
   * https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump
   * https://adsecurity.org/?page_id=1821#LSADUMPSAM

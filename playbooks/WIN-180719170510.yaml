@@ -110,7 +110,7 @@ additional_notes: |-
   * Look for processes loading files that have just been created on disk (i.e 1min time window). Stack the values of the processes and files involved. You can tag the files as signed or unsigned depending on the information provided in the security events.
 research_output:
   - type: Sigma Rule
-    link: https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_createremotethread_loadlibrary.yml
+    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_createremotethread_loadlibrary.yml
 references: |-
   * https://www.endgame.com/blog/technical-blog/ten-process-injection-techniques-technical-survey-common-and-trending-process
   * https://resources.infosecinstitute.com/using-createremotethread-for-dll-injection-on-windows/

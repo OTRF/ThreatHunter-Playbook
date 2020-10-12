@@ -161,9 +161,9 @@ additional_notes: |-
   * Event id 5156 gets generated on the target as an inbound network event with process name services.exe. You might have to stack the SourceAddress field value based on your environment noise.
 research_output:
   - type: Sigma Rule
-    link: https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_handle_failure.yml
+    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_scm_database_handle_failure.yml
   - type: Sigma Rule
-    link: https://github.com/Cyb3rWard0g/ThreatHunter-Playbook/tree/master/signatures/sigma/win_scm_database_privileged_operation.yml
+    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_scm_database_privileged_operation.yml
 references: |-
   * https://docs.microsoft.com/en-us/windows/win32/services/service-security-and-access-rights
   * https://github.com/EmpireProject/Empire/blob/dev/data/module_source/situational_awareness/network/powerview.ps1#L15473
