@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Domain DPAPI Backup Key Extraction &#8212; Threat Hunter Playbook</title>
+    <title>Remote DCOM IErtUtil DLL Hijack &#8212; Threat Hunter Playbook</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../../../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../_static/sphinx-book-theme.css" type="text/css" />
@@ -35,22 +35,22 @@
         const thebe_selector_output = ".output,.cell_output"
     </script>
     <script async="async" src="../../../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://threathunterplaybook.com/notebooks/windows/06_credential_access/WIN-190620024610.html" />
+    <link rel="canonical" href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-201009183000.html" />
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="SAM Registry Hive Handle Request" href="WIN-190725024610.html" />
-    <link rel="prev" title="Credential Access" href="credential_access.html" />
+    <link rel="next" title="PowerShell Remote Session" href="WIN-190511223310.html" />
+    <link rel="prev" title="Remote WMI Wbemcomn DLL Hijack" href="WIN-201009173318.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
 
 
 <!-- Opengraph tags -->
-<meta property="og:url"         content="https://threathunterplaybook.com/notebooks/windows/06_credential_access/WIN-190620024610.html" />
+<meta property="og:url"         content="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-201009183000.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Domain DPAPI Backup Key Extraction" />
-<meta property="og:description" content="Domain DPAPI Backup Key Extraction  Metadata          collaborators  [‘Roberto Rodriguez @Cyb3rWard0g’, ‘Jose Rodriguez @Cyb3rPandaH’]  creation date  2019/06/2" />
+<meta property="og:title"       content="Remote DCOM IErtUtil DLL Hijack" />
+<meta property="og:description" content="Remote DCOM IErtUtil DLL Hijack  Metadata          collaborators  [‘Roberto Rodriguez @Cyb3rWard0g’, ‘Jose Rodriguez @Cyb3rPandaH’]  creation date  2020/10/09  " />
 <meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -230,33 +230,33 @@
      </li>
     </ul>
    </li>
-   <li class="toctree-l2 current active">
-    <a class="reference internal" href="credential_access.html">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../06_credential_access/credential_access.html">
      Credential Access
     </a>
-    <ul class="current">
-     <li class="toctree-l3 current active">
-      <a class="current reference internal" href="#">
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../06_credential_access/WIN-190620024610.html">
        Domain DPAPI Backup Key Extraction
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="WIN-190725024610.html">
+      <a class="reference internal" href="../06_credential_access/WIN-190725024610.html">
        SAM Registry Hive Handle Request
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="WIN-180815210510.html">
+      <a class="reference internal" href="../06_credential_access/WIN-180815210510.html">
        Active Directory Replication From Non-Domain-Controller Accounts
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="WIN-191030201010.html">
+      <a class="reference internal" href="../06_credential_access/WIN-191030201010.html">
        Remote Interactive Task Manager LSASS Dump
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="WIN-170105221010.html">
+      <a class="reference internal" href="../06_credential_access/WIN-170105221010.html">
        LSASS Access from Non System Account
       </a>
      </li>
@@ -284,43 +284,43 @@
      </li>
     </ul>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../08_lateral_movement/lateral_movement.html">
+   <li class="toctree-l2 current active">
+    <a class="reference internal" href="lateral_movement.html">
      Lateral Movement
     </a>
-    <ul>
+    <ul class="current">
      <li class="toctree-l3">
-      <a class="reference internal" href="../08_lateral_movement/WIN-190815181010.html">
+      <a class="reference internal" href="WIN-190815181010.html">
        Remote Service creation
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../08_lateral_movement/WIN-190810201010.html">
+      <a class="reference internal" href="WIN-190810201010.html">
        WMI Win32_Process Class and Create Method for Remote Execution
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../08_lateral_movement/WIN-200902020333.html">
+      <a class="reference internal" href="WIN-200902020333.html">
        Remote WMI ActiveScriptEventConsumers
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../08_lateral_movement/WIN-201012004336.html">
+      <a class="reference internal" href="WIN-201012004336.html">
        SMB Create Remote File
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../08_lateral_movement/WIN-201009173318.html">
+      <a class="reference internal" href="WIN-201009173318.html">
        Remote WMI Wbemcomn DLL Hijack
       </a>
      </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../08_lateral_movement/WIN-201009183000.html">
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
        Remote DCOM IErtUtil DLL Hijack
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../08_lateral_movement/WIN-190511223310.html">
+      <a class="reference internal" href="WIN-190511223310.html">
        PowerShell Remote Session
       </a>
      </li>
@@ -404,7 +404,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../../_sources/notebooks/windows/06_credential_access/WIN-190620024610.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../../../_sources/notebooks/windows/08_lateral_movement/WIN-201009183000.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -424,10 +424,10 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/OTRF/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Fnotebooks/windows/06_credential_access/WIN-190620024610.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/OTRF/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Fnotebooks/windows/08_lateral_movement/WIN-201009183000.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/OTRF/ThreatHunter-Playbook/edit/master/docs/notebooks/windows/06_credential_access/WIN-190620024610.ipynb"><button
+        <a class="edit-button" href="https://github.com/OTRF/ThreatHunter-Playbook/edit/master/docs/notebooks/windows/08_lateral_movement/WIN-201009183000.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -446,7 +446,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/OTRF/ThreatHunter-Playbook/master?urlpath=tree/docs/notebooks/windows/06_credential_access/WIN-190620024610.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/OTRF/ThreatHunter-Playbook/master?urlpath=tree/docs/notebooks/windows/08_lateral_movement/WIN-201009183000.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../../../_static/images/logo_binder.svg"
@@ -454,7 +454,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/OTRF/ThreatHunter-Playbook/blob/master/docs/notebooks/windows/06_credential_access/WIN-190620024610.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/OTRF/ThreatHunter-Playbook/blob/master/docs/notebooks/windows/08_lateral_movement/WIN-201009183000.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -572,8 +572,8 @@
         
               <div>
                 
-  <div class="section" id="domain-dpapi-backup-key-extraction">
-<h1>Domain DPAPI Backup Key Extraction<a class="headerlink" href="#domain-dpapi-backup-key-extraction" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="remote-dcom-iertutil-dll-hijack">
+<h1>Remote DCOM IErtUtil DLL Hijack<a class="headerlink" href="#remote-dcom-iertutil-dll-hijack" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="metadata">
 <h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-auto table">
@@ -587,40 +587,30 @@
 <td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>creation date</p></td>
-<td class="text-align:left"><p>2019/06/20</p></td>
+<td class="text-align:left"><p>2020/10/09</p></td>
 </tr>
 <tr class="row-even"><td class="text-align:left"><p>modification date</p></td>
-<td class="text-align:left"><p>2020/09/20</p></td>
+<td class="text-align:left"><p>2020/10/09</p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>playbook related</p></td>
-<td class="text-align:left"><p>[]</p></td>
+<td class="text-align:left"><p>[‘WIN-201012004336’]</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="hypothesis">
 <h2>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">¶</a></h2>
-<p>Adversaries might be extracting the DPAPI domain backup key from my DC to be able to decrypt any domain user master key files.</p>
+<p>Threat actors might be copying files remotely to abuse a DLL hijack opportunity found on the DCOM InternetExplorer.Application Class.</p>
 </div>
 <div class="section" id="technical-context">
 <h2>Technical Context<a class="headerlink" href="#technical-context" title="Permalink to this headline">¶</a></h2>
-<p>Starting with Microsoft® Windows® 2000, the operating system began to provide a data protection application-programming interface (API).
-This Data Protection API (DPAPI) is a pair of function calls (CryptProtectData / CryptUnprotectData) that provide operating system-level data protection services to user and system processes.
-DPAPI initially generates a strong key called a MasterKey, which is protected by the user’s password. DPAPI uses a standard cryptographic process called Password-Based Key Derivation to generate a key from the password.
-This password-derived key is then used with Triple-DES to encrypt the MasterKey, which is finally stored in the user’s profile directory.</p>
-<p>When a computer is a member of a domain, DPAPI has a backup mechanism to allow unprotection of the data. When a MasterKey is generated, DPAPI talks to a Domain Controller.
-Domain Controllers have a domain-wide public/private key pair, associated solely with DPAPI. The local DPAPI client gets the Domain Controller public key from a Domain Controller by using a mutually authenticated and privacy protected RPC call. The client encrypts the MasterKey with the Domain Controller public key. It then stores this backup MasterKey along with the MasterKey protected by the user’s password.</p>
 </div>
 <div class="section" id="offensive-tradecraft">
 <h2>Offensive Tradecraft<a class="headerlink" href="#offensive-tradecraft" title="Permalink to this headline">¶</a></h2>
-<p>If an adversary obtains domain admin (or equivalent) privileges, the domain backup key can be stolen and used to decrypt any domain user master key.
-Tools such as Mimikatz with the method/module lsadump::backupkeys can be used to extract the domain backup key.
-It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) to retrieve the value for the G<span class="math notranslate nohighlight">\(BCKUPKEY_PREFERRED and G\)</span>BCKUPKEY_P LSA secrets.</p>
-<p>Additional reading</p>
-<ul class="simple">
-<li><p>https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/data_protection_api.md</p></li>
-<li><p>https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/lsa_policy_objects.md</p></li>
-</ul>
+<p>A threat actor could use a known DLL hijack vulnerability on the DCOM InternetExplorer.Application Class while instantiating the object remotely.
+When the object instantiate, it looks for <code class="docutils literal notranslate"><span class="pre">iertutil.dll</span></code> in the <code class="docutils literal notranslate"><span class="pre">c:\Program</span> <span class="pre">Files\Internet</span> <span class="pre">Explorer\</span></code> directory. That DLL does not exist in that folder. Therefore, a threat actor could easily copy its own DLL in that folder and execute it by instantiating an object via the DCOM InternetExplorer.Application Class remotely.
+When the malicious DLL is loaded, there are various approaches to hijacking execution, but most likely a threat actor would want the DLL to act as a proxy to the real DLL to minimize the chances of interrupting normal operations.
+One way to do this is by cloning the export table from one DLL to another one. One known tool that can help with it is <a class="reference external" href="https://github.com/monoxgas/Koppeling">Koppeling</a>.</p>
 </div>
 <div class="section" id="mordor-test-data">
 <h2>Mordor Test Data<a class="headerlink" href="#mordor-test-data" title="Permalink to this headline">¶</a></h2>
@@ -632,10 +622,10 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-align:left"><p>metadata</p></td>
-<td class="text-align:left"><p>https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-190518235535.html</p></td>
+<td class="text-align:left"><p>https://mordordatasets.com/notebooks/small/windows/08_lateral_movement/SDWIN-201009183000.html</p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>link</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/host/empire_mimikatz_backupkeys_dcerpc_smb_lsarpc.zip">https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/host/empire_mimikatz_backupkeys_dcerpc_smb_lsarpc.zip</a></p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_dcom_iertutil_dll_hijack.zip">https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_dcom_iertutil_dll_hijack.zip</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -657,7 +647,7 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 <h3>Download &amp; Process Mordor Dataset<a class="headerlink" href="#download-process-mordor-dataset" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/host/empire_mimikatz_backupkeys_dcerpc_smb_lsarpc.zip&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_dcom_iertutil_dll_hijack.zip&quot;</span>
 <span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -666,96 +656,7 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 </div>
 <div class="section" id="analytic-i">
 <h3>Analytic I<a class="headerlink" href="#analytic-i" title="Permalink to this headline">¶</a></h3>
-<p>Monitor for any SecretObject with the string BCKUPKEY in the ObjectName</p>
-<table class="colwidths-auto table">
-<thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
-<th class="text-align:left head"><p>Event Provider</p></th>
-<th class="head"><p>Relationship</p></th>
-<th class="head"><p>Event</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-align:left"><p>Windows active directory</p></td>
-<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
-<td><p>User accessed AD Object</p></td>
-<td><p>4662</p></td>
-</tr>
-</tbody>
-</table>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT `@timestamp`, Hostname, ObjectServer, ObjectType, ObjectName</span>
-<span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
-<span class="sd">    AND EventID = 4662</span>
-<span class="sd">    AND AccessMask = &quot;0x2&quot;</span>
-<span class="sd">    AND lower(ObjectName) LIKE &quot;%bckupkey%&quot;</span>
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="analytic-ii">
-<h3>Analytic II<a class="headerlink" href="#analytic-ii" title="Permalink to this headline">¶</a></h3>
-<p>We can get the user logon id of the user that accessed the <em>bckupkey</em> object and JOIN it with a successful logon event (4624) user logon id to find the source IP</p>
-<table class="colwidths-auto table">
-<thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
-<th class="text-align:left head"><p>Event Provider</p></th>
-<th class="head"><p>Relationship</p></th>
-<th class="head"><p>Event</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-align:left"><p>Authentication log</p></td>
-<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
-<td><p>User authenticated Host</p></td>
-<td><p>4624</p></td>
-</tr>
-<tr class="row-odd"><td class="text-align:left"><p>Windows active directory</p></td>
-<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
-<td><p>User accessed AD Object</p></td>
-<td><p>4662</p></td>
-</tr>
-</tbody>
-</table>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT o.`@timestamp`, o.Hostname, o.ObjectName, a.IpAddress</span>
-<span class="sd">FROM mordorTable o</span>
-<span class="sd">INNER JOIN (</span>
-<span class="sd">    SELECT Hostname,TargetUserName,TargetLogonId,IpAddress</span>
-<span class="sd">    FROM mordorTable</span>
-<span class="sd">    WHERE LOWER(Channel) = &quot;security&quot;</span>
-<span class="sd">        AND EventID = 4624</span>
-<span class="sd">        AND LogonType = 3</span>
-<span class="sd">        AND NOT TargetUserName LIKE &quot;%$&quot;</span>
-<span class="sd">    ) a</span>
-<span class="sd">ON o.SubjectLogonId = a.TargetLogonId</span>
-<span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
-<span class="sd">    AND o.EventID = 4662</span>
-<span class="sd">    AND o.AccessMask = &quot;0x2&quot;</span>
-<span class="sd">    AND lower(o.ObjectName) LIKE &quot;%bckupkey%&quot;</span>
-<span class="sd">    AND o.Hostname = a.Hostname</span>
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="analytic-iii">
-<h3>Analytic III<a class="headerlink" href="#analytic-iii" title="Permalink to this headline">¶</a></h3>
-<p>Monitoring for access to the protected_storage service is very interesting to document potential DPAPI activity over the network</p>
+<p>Look for non-system accounts SMB accessing a <code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files\Internet</span> <span class="pre">Explorer\iertutil.dll</span></code> with write (0x2) access mask via an administrative share (i.e C$).</p>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
@@ -776,12 +677,13 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
 <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT `@timestamp`, Hostname, SubjectUserName, ShareName, RelativeTargetName, AccessMask, IpAddress</span>
+<span class="sd">SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, SubjectLogonId, IpAddress, IpPort, RelativeTargetName</span>
 <span class="sd">FROM mordorTable</span>
 <span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
 <span class="sd">    AND EventID = 5145</span>
-<span class="sd">    AND ShareName LIKE &quot;%IPC%&quot;</span>
-<span class="sd">    AND RelativeTargetName = &quot;protected_storage&quot;</span>
+<span class="sd">    AND RelativeTargetName LIKE &#39;%Internet Explorer\\\iertutil.dll&#39;</span>
+<span class="sd">    AND NOT SubjectUserName LIKE &#39;%$&#39;</span>
+<span class="sd">    AND AccessMask = &#39;0x2&#39;</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
@@ -790,9 +692,9 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 </div>
 </div>
 </div>
-<div class="section" id="analytic-iv">
-<h3>Analytic IV<a class="headerlink" href="#analytic-iv" title="Permalink to this headline">¶</a></h3>
-<p>This event generates every time that a backup is attempted for the DPAPI Master Key. When a computer is a member of a domain, DPAPI has a backup mechanism to allow unprotection of the data. When a Master Key is generated, DPAPI communicates with a domain controller.</p>
+<div class="section" id="analytic-ii">
+<h3>Analytic II<a class="headerlink" href="#analytic-ii" title="Permalink to this headline">¶</a></h3>
+<p>Look for <code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files\Internet</span> <span class="pre">Explorer\iertutil.dll</span></code> being accessed over the network with write (0x2) access mask via an administrative share (i.e C$) and created by the System process on the target system.</p>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
@@ -804,8 +706,13 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 <tbody>
 <tr class="row-even"><td class="text-align:left"><p>File</p></td>
 <td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
-<td><p>User requested access File</p></td>
-<td><p>4692</p></td>
+<td><p>User accessed File</p></td>
+<td><p>5145</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>File</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process created File</p></td>
+<td><p>11</p></td>
 </tr>
 </tbody>
 </table>
@@ -813,10 +720,133 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
 <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT `@timestamp`, Hostname, SubjectUserName, MasterKeyId, RecoveryKeyId</span>
-<span class="sd">FROM mordorTable</span>
-<span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
-<span class="sd">    AND EventID = 4692</span>
+<span class="sd">SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, SubjectLogonId, IpAddress, IpPort, RelativeTargetName</span>
+<span class="sd">FROM mordorTable b</span>
+<span class="sd">INNER JOIN (</span>
+<span class="sd">    SELECT LOWER(REVERSE(SPLIT(TargetFilename, &#39;\&#39;))[0]) as TargetFilename</span>
+<span class="sd">    FROM mordorTable</span>
+<span class="sd">    WHERE Channel = &#39;Microsoft-Windows-Sysmon/Operational&#39;</span>
+<span class="sd">        AND Image = &#39;System&#39;</span>
+<span class="sd">        AND EventID = 11</span>
+<span class="sd">        AND TargetFilename LIKE &#39;%Internet Explorer\\\iertutil.dll&#39;</span>
+<span class="sd">) a</span>
+<span class="sd">ON LOWER(REVERSE(SPLIT(RelativeTargetName, &#39;\&#39;))[0]) = a.TargetFilename</span>
+<span class="sd">WHERE LOWER(b.Channel) = &#39;security&#39;</span>
+<span class="sd">    AND b.EventID = 5145</span>
+<span class="sd">    AND b.AccessMask = &#39;0x2&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="analytic-iii">
+<h3>Analytic III<a class="headerlink" href="#analytic-iii" title="Permalink to this headline">¶</a></h3>
+<p>Look for <code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files\Internet</span> <span class="pre">Explorer\iertutil.dll</span></code> being accessed over the network with write (0x2) access mask via an administrative share (i.e C$) and created by the System process on the target system.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>File</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>User accessed File</p></td>
+<td><p>5145</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>File</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process created File</p></td>
+<td><p>11</p></td>
+</tr>
+</tbody>
+</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, SubjectLogonId, IpAddress, IpPort, RelativeTargetName</span>
+<span class="sd">FROM mordorTable b</span>
+<span class="sd">INNER JOIN (</span>
+<span class="sd">    SELECT LOWER(REVERSE(SPLIT(TargetFilename, &#39;\&#39;))[0]) as TargetFilename</span>
+<span class="sd">    FROM mordorTable</span>
+<span class="sd">    WHERE Channel = &#39;Microsoft-Windows-Sysmon/Operational&#39;</span>
+<span class="sd">        AND Image = &#39;System&#39;</span>
+<span class="sd">        AND EventID = 11</span>
+<span class="sd">        AND TargetFilename LIKE &#39;%Internet Explorer\\\iertutil.dll&#39;</span>
+<span class="sd">) a</span>
+<span class="sd">ON LOWER(REVERSE(SPLIT(RelativeTargetName, &#39;\&#39;))[0]) = a.TargetFilename</span>
+<span class="sd">WHERE LOWER(b.Channel) = &#39;security&#39;</span>
+<span class="sd">    AND b.EventID = 5145</span>
+<span class="sd">    AND b.AccessMask = &#39;0x2&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="analytic-iv">
+<h3>Analytic IV<a class="headerlink" href="#analytic-iv" title="Permalink to this headline">¶</a></h3>
+<p>Look for <code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files\Internet</span> <span class="pre">Explorer\iertutil.dll</span></code> being accessed over the network with write (0x2) access mask via an administrative share (i.e C$), created by the System process and loaded by the WMI provider host (wmiprvse.exe). All happening on the target system.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>File</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>User accessed File</p></td>
+<td><p>5145</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>File</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process created File</p></td>
+<td><p>11</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>File</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process loaded Dll</p></td>
+<td><p>7</p></td>
+</tr>
+</tbody>
+</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, SubjectLogonId, IpAddress, IpPort, RelativeTargetName</span>
+<span class="sd">FROM mordor d</span>
+<span class="sd">INNER JOIN (</span>
+<span class="sd">    SELECT LOWER(REVERSE(SPLIT(TargetFilename, &#39;\&#39;))[0]) as TargetFilename</span>
+<span class="sd">    FROM mordor b</span>
+<span class="sd">    INNER JOIN (</span>
+<span class="sd">        SELECT ImageLoaded</span>
+<span class="sd">        FROM mordor</span>
+<span class="sd">        WHERE Channel = &#39;Microsoft-Windows-Sysmon/Operational&#39;</span>
+<span class="sd">            AND EventID = 7</span>
+<span class="sd">            AND LOWER(Image) LIKE &#39;%iexplore.exe&#39;</span>
+<span class="sd">            AND ImageLoaded LIKE &#39;%Internet Explorer\\\iertutil.dll&#39;</span>
+<span class="sd">    ) a</span>
+<span class="sd">    ON b.TargetFilename = a.ImageLoaded</span>
+<span class="sd">    WHERE b.Channel = &#39;Microsoft-Windows-Sysmon/Operational&#39;</span>
+<span class="sd">        AND b.Image = &#39;System&#39;</span>
+<span class="sd">        AND b.EventID = 11</span>
+<span class="sd">) c</span>
+<span class="sd">ON LOWER(REVERSE(SPLIT(RelativeTargetName, &#39;\&#39;))[0]) = c.TargetFilename</span>
+<span class="sd">WHERE LOWER(d.Channel) = &#39;security&#39;</span>
+<span class="sd">    AND d.EventID = 5145</span>
+<span class="sd">    AND d.AccessMask = &#39;0x2&#39;</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
@@ -845,9 +875,8 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 <div class="section" id="hunter-notes">
 <h2>Hunter Notes<a class="headerlink" href="#hunter-notes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Backup key can be displayed as base64 blob or exported as a .pvk file on disk (Mimikatz-like)</p></li>
-<li><p>Windows security event 4692 (Backup of data protection master key was attempted) also generates every time a new DPAPI Master Key is generated</p></li>
-<li><p>When a computer is a member of a domain, DPAPI has a backup mechanism to allow unprotection of the data. When a Master Key is generated, DPAPI communicates with a domain controller.</p></li>
+<li><p>Baseline your environment to identify normal activity. Document all accounts creating files over the network via administrative shares.</p></li>
+<li><p>Baseline iexplore.exe execution and modules loaded (i.e signed and un-signed)</p></li>
 </ul>
 </div>
 <div class="section" id="hunt-output">
@@ -860,13 +889,10 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-align:left"><p>Sigma Rule</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_backupkey_extraction.yml">https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_backupkey_extraction.yml</a></p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_dcom_iertutil_dll_hijack.yml">https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_dcom_iertutil_dll_hijack.yml</a></p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>Sigma Rule</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_protected_storage_service_access.yml">https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_protected_storage_service_access.yml</a></p></td>
-</tr>
-<tr class="row-even"><td class="text-align:left"><p>Sigma Rule</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_masterkey_backup_attempt.yml">https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/win_dpapi_domain_masterkey_backup_attempt.yml</a></p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_dcom_iertutil_dll_hijack.yml">https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_dcom_iertutil_dll_hijack.yml</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -874,14 +900,7 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>https://www.harmj0y.net/blog/redteaming/operational-guidance-for-offensive-user-dpapi-abuse/</p></li>
-<li><p>https://digital-forensics.sans.org/summit-archives/dfirprague14/Give_Me_the_Password_and_Ill_Rule_the_World_Francesco_Picasso.pdf</p></li>
-<li><p>https://docs.microsoft.com/en-us/windows/desktop/devnotes/pstore</p></li>
-<li><p>https://github.com/gentilkiwi/mimikatz/blob/641a3b29acd326d07269300d94dceafea041f760/mimikatz/modules/kuhl_m_lsadump.c#L1907</p></li>
-<li><p>https://github.com/GhostPack/SharpDPAPI/blob/6388040a92e59fc0d5a82b4ec31599aa6778fd3b/SharpDPAPI/lib/Backup.cs#L43</p></li>
-<li><p>https://github.com/gentilkiwi/mimikatz/blob/641a3b29acd326d07269300d94dceafea041f760/mimikatz/modules/kuhl_m_lsadump.c#L1906-L1926</p></li>
-<li><p>https://github.com/gentilkiwi/mimikatz/blob/641a3b29acd326d07269300d94dceafea041f760/mimikatz/modules/kuhl_m_lsadump.c#L1758</p></li>
-<li><p>https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-lsad/88c6bd18-6c40-4a82-ae19-fe7bfec5108b</p></li>
+<li><p>https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dcom/64af4c57-5466-4fdf-9761-753ea926a494</p></li>
 </ul>
 </div>
 </div>
@@ -899,7 +918,7 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
         },
         kernelOptions: {
             kernelName: "pyspark3",
-            path: "./notebooks/windows/06_credential_access"
+            path: "./notebooks/windows/08_lateral_movement"
         },
         predefinedOutput: true
     }
@@ -914,8 +933,8 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="credential_access.html" title="previous page">Credential Access</a>
-    <a class='right-next' id="next-link" href="WIN-190725024610.html" title="next page">SAM Registry Hive Handle Request</a>
+    <a class='left-prev' id="prev-link" href="WIN-201009173318.html" title="previous page">Remote WMI Wbemcomn DLL Hijack</a>
+    <a class='right-next' id="next-link" href="WIN-190511223310.html" title="next page">PowerShell Remote Session</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

@@ -133,6 +133,11 @@
       </a>
      </li>
      <li class="toctree-l3">
+      <a class="reference internal" href="02_execution/WIN-201009173318.html">
+       Remote WMI Wbemcomn DLL Hijack
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="02_execution/WIN-190410151110.html">
        Basic PowerShell Execution
       </a>
@@ -297,6 +302,21 @@
      <li class="toctree-l3">
       <a class="reference internal" href="08_lateral_movement/WIN-200902020333.html">
        Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="08_lateral_movement/WIN-201012004336.html">
+       SMB Create Remote File
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="08_lateral_movement/WIN-201009173318.html">
+       Remote WMI Wbemcomn DLL Hijack
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="08_lateral_movement/WIN-201009183000.html">
+       Remote DCOM IErtUtil DLL Hijack
       </a>
      </li>
      <li class="toctree-l3">
@@ -522,24 +542,34 @@
 <td class="text-align:left"><p>Adversaries might be leveraging remote powershell sessions to execute code on remote systems throughout my environment</p></td>
 <td class="text-align:left"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>2019/10/30</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>2020/10/09</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-201009183000.html">Remote DCOM IErtUtil DLL Hijack</a></p></td>
+<td class="text-align:left"><p>Threat actors might be copying files remotely to abuse a DLL hijack opportunity found on the DCOM InternetExplorer.Application Class.</p></td>
+<td class="text-align:left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2019/10/30</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/06_credential_access/WIN-191030201010.html">Remote Interactive Task Manager LSASS Dump</a></p></td>
 <td class="text-align:left"><p>Adversaries might be RDPing to computers in my environment and interactively dumping the memory contents of LSASS with task manager.</p></td>
 <td class="text-align:left"><p></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>2019/08/26</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>2019/08/26</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/07_discovery/WIN-190826010110.html">Remote Service Control Manager Handle</a></p></td>
 <td class="text-align:left"><p>Adversaries might be attempting to open up a handle to the service control manager (SCM) database on remote endpoints to check for local admin access in my environment.</p></td>
 <td class="text-align:left"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>2019/08/15</p></td>
+<tr class="row-even"><td class="text-align:left"><p>2019/08/15</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-190815181010.html">Remote Service creation</a></p></td>
 <td class="text-align:left"><p>Adversaries might be creating new services remotely to execute code and move laterally in my environment</p></td>
 <td class="text-align:left"><p></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>2020/09/02</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>2020/09/02</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-200902020333.html">Remote WMI ActiveScriptEventConsumers</a></p></td>
 <td class="text-align:left"><p>Adversaries might be leveraging WMI ActiveScriptEventConsumers remotely to move laterally in my network.</p></td>
+<td class="text-align:left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/10/09</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/02_execution/WIN-201009173318.html">Remote WMI Wbemcomn DLL Hijack</a></p></td>
+<td class="text-align:left"><p>Threat actors might be copying files remotely to abuse a DLL hijack opportunity found on the WMI provider host (wmiprvse.exe).</p></td>
 <td class="text-align:left"><p></p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>2019/07/25</p></td>
@@ -552,27 +582,32 @@
 <td class="text-align:left"><p>Adversaries might be creating new services to execute code on a compromised endpoint in my environment</p></td>
 <td class="text-align:left"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>2019/06/25</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>2020/10/12</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-201012004336.html">SMB Create Remote File</a></p></td>
+<td class="text-align:left"><p>Adversaries might be creating a file remotely via the Server Message Block (SMB) Protocol.</p></td>
+<td class="text-align:left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2019/06/25</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/07_discovery/WIN-190625024610.html">SysKey Registry Keys Access</a></p></td>
 <td class="text-align:left"><p>Adversaries might be calculating the SysKey from registry key values to decrypt SAM entries</p></td>
 <td class="text-align:left"><p></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>2019/05/10</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>2019/05/10</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/WIN-190510202010.html">WDigest Downgrade</a></p></td>
 <td class="text-align:left"><p>Adversaries might have updated the property value UseLogonCredential of HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest to 1 in order to be able to extract clear text passwords from memory contents of lsass.</p></td>
 <td class="text-align:left"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>2019/08/10</p></td>
+<tr class="row-even"><td class="text-align:left"><p>2019/08/10</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/03_persistence/WIN-190810170510.html">WMI Eventing</a></p></td>
 <td class="text-align:left"><p>Adversaries might be leveraging WMI eventing for persistence in my environment.</p></td>
 <td class="text-align:left"><p></p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>2019/08/11</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>2019/08/11</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/02_execution/WIN-190811201010.html">WMI Module Load</a></p></td>
 <td class="text-align:left"><p>Adversaries might be leveraging WMI modules to execute WMI tasks bypassing controls monitoring for wmiprvse.exe or wmiapsrv.exe activity</p></td>
 <td class="text-align:left"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>2019/08/10</p></td>
+<tr class="row-even"><td class="text-align:left"><p>2019/08/10</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-190810201010.html">WMI Win32_Process Class and Create Method for Remote Execution</a></p></td>
 <td class="text-align:left"><p>Adversaries might be leveraging WMI Win32_Process class and method Create to execute code remotely across my environment</p></td>
 <td class="text-align:left"><p></p></td>
