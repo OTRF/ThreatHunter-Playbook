@@ -117,7 +117,7 @@ analytics:
       FROM mordorTable
       WHERE LOWER(Channel) = "security"
           AND EventID IN (4663, 4656)
-          AND ObjectType = Key
+          AND ObjectType = 'Key'
           AND (ObjectName LIKE "%Lsa" OR ObjectName LIKE "%Lsa\MSV1_0")
           AND ProcessName NOT LIKE "%lsass.exe"
           AND SubjectLogonId != "0x3e7"

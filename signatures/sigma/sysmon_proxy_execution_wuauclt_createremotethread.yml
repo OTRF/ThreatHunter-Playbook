@@ -1,0 +1,21 @@
+title: Proxy Execution Wuauclt CreateRemoteThread
+id: caf9eb8c-7595-4130-a334-bb831cd07810
+description: Detects the use of the Windows Update Client binary (wuauclt.exe) to proxy execute code and the CreateRemoteThread api to to bypass rules looking for it calling out to the Internet.
+status: experimental
+date: 2020/10/12
+author: Roberto Rodriguez (Cyb3rWard0g), OTR (Open Threat Research)
+tags:
+    - attack.defense_evasion
+    - attack.t1218
+references:
+    - https://dtm.uk/wuauclt/
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection:
+        - Image|contains: wuauclt
+    condition: selection
+falsepositives:
+    - Unknown
+level: critical

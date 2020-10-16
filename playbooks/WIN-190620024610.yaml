@@ -112,7 +112,7 @@ analytics:
               id: B0056295-3FA1-4B9F-890D-1D26EF740934
               event_id: 4692
     logic: |-
-      SELECT `@timestamp`, Hostname, SubjectUserName, MasterKeyId, RecoveryKeyId
+      SELECT `@timestamp`, Hostname, SubjectUserName
       FROM mordorTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 4692
