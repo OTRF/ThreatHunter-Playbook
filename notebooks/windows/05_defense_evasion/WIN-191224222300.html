@@ -40,7 +40,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Enable Remote Desktop Conections Registry" href="WIN-190407183310.html" />
-    <link rel="prev" title="DLL Injection via CreateRemoteThread and LoadLibrary" href="WIN-180719170510.html" />
+    <link rel="prev" title="Wuauclt CreateRemoteThread Execution" href="WIN-201012183248.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -206,6 +206,11 @@
      <li class="toctree-l3">
       <a class="reference internal" href="WIN-180719170510.html">
        DLL Injection via CreateRemoteThread and LoadLibrary
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="WIN-201012183248.html">
+       Wuauclt CreateRemoteThread Execution
       </a>
      </li>
      <li class="toctree-l3 current active">
@@ -718,6 +723,13 @@ If an organization is already restricting outgoing NTLM traffic to remote server
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+[+] DataFrame Returned !
+[+] Temporary SparkSQL View: mordorTable 
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-i">
@@ -762,13 +774,25 @@ If an organization is already restricting outgoing NTLM traffic to remote server
 <span class="sd">FROM mordorTable</span>
 <span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
 <span class="sd">    AND EventID IN (4663, 4656)</span>
-<span class="sd">    AND ObjectType = Key</span>
+<span class="sd">    AND ObjectType = &#39;Key&#39;</span>
 <span class="sd">    AND (ObjectName LIKE &quot;%Lsa&quot; OR ObjectName LIKE &quot;%Lsa\MSV1_0&quot;)</span>
 <span class="sd">    AND ProcessName NOT LIKE &quot;%lsass.exe&quot;</span>
 <span class="sd">    AND SubjectLogonId != &quot;0x3e7&quot;</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------+---------------+---------------------------------------------------------+--------------------------------------------------+----------+-------+--------------+
+|@timestamp             |Hostname       |SubjectUserName|ProcessName                                              |ObjectName                                        |AccessMask|EventID|SubjectLogonId|
++-----------------------+---------------+---------------+---------------------------------------------------------+--------------------------------------------------+----------+-------+--------------+
+|2019-12-24 23:52:33.145|IT001.shire.com|pgustavo       |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa|0x2       |4663   |0x49631       |
+|2019-12-24 23:52:33.145|IT001.shire.com|pgustavo       |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa|0x2001f   |4656   |0x49631       |
+|2019-12-24 23:52:33.154|IT001.shire.com|pgustavo       |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa|0x2001f   |4656   |0x49631       |
+|2019-12-24 23:52:33.154|IT001.shire.com|pgustavo       |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa|0x2       |4663   |0x49631       |
++-----------------------+---------------+---------------+---------------------------------------------------------+--------------------------------------------------+----------+-------+--------------+
 </pre></div>
 </div>
 </div>
@@ -805,6 +829,20 @@ If an organization is already restricting outgoing NTLM traffic to remote server
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------+---------------+---------------------------------------------------------+---------------------------------------------------------+---------+---------+--------------+
+|@timestamp             |Hostname       |SubjectUserName|ProcessName                                              |ObjectName                                               |OldValue |NewValue |SubjectLogonId|
++-----------------------+---------------+---------------+---------------------------------------------------------+---------------------------------------------------------+---------+---------+--------------+
+|2019-12-24 23:52:33.148|IT001.shire.com|pgustavo       |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\MSV1_0|2        |0        |0x49631       |
+|2019-12-24 23:52:33.157|IT001.shire.com|pgustavo       |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa       |2        |3        |0x49631       |
+|2019-12-24 23:52:33.158|IT001.shire.com|pgustavo       |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\MSV1_0|536870912|537395200|0x49631       |
+|2019-12-24 23:52:33.145|IT001.shire.com|pgustavo       |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa       |3        |2        |0x49631       |
+|2019-12-24 23:52:33.146|IT001.shire.com|pgustavo       |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\MSV1_0|537395200|536870912|0x49631       |
+|2019-12-24 23:52:33.16 |IT001.shire.com|pgustavo       |C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\MSV1_0|0        |2        |0x49631       |
++-----------------------+---------------+---------------+---------------------------------------------------------+---------------------------------------------------------+---------+---------+--------------+
 </pre></div>
 </div>
 </div>
@@ -845,6 +883,20 @@ If an organization is already restricting outgoing NTLM traffic to remote server
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------+---------------------------------------------------------+---------------------------------------------------------------------------+------------------+
+|@timestamp             |Hostname       |Image                                                    |TargetObject                                                               |Details           |
++-----------------------+---------------+---------------------------------------------------------+---------------------------------------------------------------------------+------------------+
+|2019-12-24 23:52:32.078|IT001.shire.com|C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|HKLM\System\CurrentControlSet\Control\Lsa\MSV1_0\NtlmMinClientSec          |DWORD (0x20000000)|
+|2019-12-24 23:52:32.078|IT001.shire.com|C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|HKLM\System\CurrentControlSet\Control\Lsa\LMCompatibilityLevel             |DWORD (0x00000002)|
+|2019-12-24 23:52:32.08 |IT001.shire.com|C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|HKLM\System\CurrentControlSet\Control\Lsa\MSV1_0\RestrictSendingNTLMTraffic|DWORD (0x00000000)|
+|2019-12-24 23:52:33.143|IT001.shire.com|C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|HKLM\System\CurrentControlSet\Control\Lsa\MSV1_0\NtlmMinClientSec          |DWORD (0x20080000)|
+|2019-12-24 23:52:33.142|IT001.shire.com|C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|HKLM\System\CurrentControlSet\Control\Lsa\LMCompatibilityLevel             |DWORD (0x00000003)|
+|2019-12-24 23:52:33.143|IT001.shire.com|C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe|HKLM\System\CurrentControlSet\Control\Lsa\MSV1_0\RestrictSendingNTLMTraffic|DWORD (0x00000002)|
++-----------------------+---------------+---------------------------------------------------------+---------------------------------------------------------------------------+------------------+
 </pre></div>
 </div>
 </div>
@@ -932,7 +984,7 @@ If an organization is already restricting outgoing NTLM traffic to remote server
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="WIN-180719170510.html" title="previous page">DLL Injection via CreateRemoteThread and LoadLibrary</a>
+    <a class='left-prev' id="prev-link" href="WIN-201012183248.html" title="previous page">Wuauclt CreateRemoteThread Execution</a>
     <a class='right-next' id="next-link" href="WIN-190407183310.html" title="next page">Enable Remote Desktop Conections Registry</a>
 
     </div>

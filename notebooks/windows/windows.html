@@ -209,6 +209,11 @@
       </a>
      </li>
      <li class="toctree-l3">
+      <a class="reference internal" href="05_defense_evasion/WIN-201012183248.html">
+       Wuauclt CreateRemoteThread Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="05_defense_evasion/WIN-191224222300.html">
        Extended NetNTLM Downgrade
       </a>
@@ -610,6 +615,11 @@
 <tr class="row-even"><td class="text-align:left"><p>2019/08/10</p></td>
 <td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-190810201010.html">WMI Win32_Process Class and Create Method for Remote Execution</a></p></td>
 <td class="text-align:left"><p>Adversaries might be leveraging WMI Win32_Process class and method Create to execute code remotely across my environment</p></td>
+<td class="text-align:left"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/10/12</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/WIN-201012183248.html">Wuauclt CreateRemoteThread Execution</a></p></td>
+<td class="text-align:left"><p>Adversaries might be proxy executing code via the Windows Update client utility in my environment and creating and running a thread in the virtual address space of another process via the CreateRemoteThread API to bypass rules looking for it calling out to the Internet.</p></td>
 <td class="text-align:left"><p></p></td>
 </tr>
 </tbody>

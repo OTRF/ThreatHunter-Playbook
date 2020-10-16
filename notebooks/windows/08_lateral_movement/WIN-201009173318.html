@@ -209,6 +209,11 @@
       </a>
      </li>
      <li class="toctree-l3">
+      <a class="reference internal" href="../05_defense_evasion/WIN-201012183248.html">
+       Wuauclt CreateRemoteThread Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="../05_defense_evasion/WIN-191224222300.html">
        Extended NetNTLM Downgrade
       </a>
@@ -835,10 +840,10 @@ One way to do this is by cloning the export table from one DLL to another one. O
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, SubjectLogonId, IpAddress, IpPort, RelativeTargetName</span>
-<span class="sd">FROM mordor d</span>
+<span class="sd">FROM mordorTable d</span>
 <span class="sd">INNER JOIN (</span>
 <span class="sd">    SELECT LOWER(REVERSE(SPLIT(TargetFilename, &#39;\&#39;))[0]) as TargetFilename</span>
-<span class="sd">    FROM mordor b</span>
+<span class="sd">    FROM mordorTable b</span>
 <span class="sd">    INNER JOIN (</span>
 <span class="sd">        SELECT ImageLoaded</span>
 <span class="sd">        FROM mordor</span>

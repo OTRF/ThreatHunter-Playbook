@@ -209,6 +209,11 @@
       </a>
      </li>
      <li class="toctree-l3">
+      <a class="reference internal" href="../05_defense_evasion/WIN-201012183248.html">
+       Wuauclt CreateRemoteThread Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="../05_defense_evasion/WIN-191224222300.html">
        Extended NetNTLM Downgrade
       </a>
@@ -656,6 +661,15 @@ The extended CIFS Protocol is known as the Server Message Block (SMB). The SMB2 
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+[+] DataFrame Returned !
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-i">
@@ -693,6 +707,14 @@ The extended CIFS Protocol is known as the Server Message Block (SMB). The SMB2 
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+--------+---------+---------------+--------------+----------+
+|@timestamp|Hostname|ShareName|SubjectUserName|SubjectLogonId|AccessMask|
++----------+--------+---------+---------------+--------------+----------+
++----------+--------+---------+---------------+--------------+----------+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-ii">
@@ -719,7 +741,7 @@ The extended CIFS Protocol is known as the Server Message Block (SMB). The SMB2 
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, b.SubjectLogonId, IpAddress, IpPort</span>
-<span class="sd">FROM mordor b</span>
+<span class="sd">FROM mordorTable b</span>
 <span class="sd">INNER JOIN (</span>
 <span class="sd">    SELECT SubjectLogonId</span>
 <span class="sd">    FROM mordorTable</span>
@@ -736,6 +758,14 @@ The extended CIFS Protocol is known as the Server Message Block (SMB). The SMB2 
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+--------+---------+---------------+--------------+---------+------+
+|@timestamp|Hostname|ShareName|SubjectUserName|SubjectLogonId|IpAddress|IpPort|
++----------+--------+---------+---------------+--------------+---------+------+
++----------+--------+---------+---------------+--------------+---------+------+
 </pre></div>
 </div>
 </div>
@@ -774,6 +804,14 @@ The extended CIFS Protocol is known as the Server Message Block (SMB). The SMB2 
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+--------+---------+---------------+--------------+---------+------+------------------+
+|@timestamp|Hostname|ShareName|SubjectUserName|SubjectLogonId|IpAddress|IpPort|RelativeTargetName|
++----------+--------+---------+---------------+--------------+---------+------+------------------+
++----------+--------+---------+---------------+--------------+---------+------+------------------+
 </pre></div>
 </div>
 </div>
@@ -836,6 +874,14 @@ The extended CIFS Protocol is known as the Server Message Block (SMB). The SMB2 
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+--------+---------+---------------+--------------+---------+------+------------------+
+|@timestamp|Hostname|ShareName|SubjectUserName|SubjectLogonId|IpAddress|IpPort|RelativeTargetName|
++----------+--------+---------+---------------+--------------+---------+------+------------------+
++----------+--------+---------+---------------+--------------+---------+------+------------------+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-v">
@@ -882,6 +928,14 @@ The extended CIFS Protocol is known as the Server Message Block (SMB). The SMB2 
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+--------+---------+---------------+--------------+---------+------+------------------+
+|@timestamp|Hostname|ShareName|SubjectUserName|SubjectLogonId|IpAddress|IpPort|RelativeTargetName|
++----------+--------+---------+---------------+--------------+---------+------+------------------+
++----------+--------+---------+---------------+--------------+---------+------+------------------+
 </pre></div>
 </div>
 </div>

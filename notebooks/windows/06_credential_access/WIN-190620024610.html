@@ -209,6 +209,11 @@
       </a>
      </li>
      <li class="toctree-l3">
+      <a class="reference internal" href="../05_defense_evasion/WIN-201012183248.html">
+       Wuauclt CreateRemoteThread Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="../05_defense_evasion/WIN-191224222300.html">
        Extended NetNTLM Downgrade
       </a>
@@ -662,6 +667,13 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+[+] DataFrame Returned !
+[+] Temporary SparkSQL View: mordorTable 
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-i">
@@ -696,6 +708,18 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+-----------------------+------------+------------+--------------------------------------------------------------+
+|@timestamp             |Hostname               |ObjectServer|ObjectType  |ObjectName                                                    |
++-----------------------+-----------------------+------------+------------+--------------------------------------------------------------+
+|2020-09-22 02:45:59.799|MORDORDC.theshire.local|LSA         |SecretObject|Policy\Secrets\G$BCKUPKEY_PREFERRED                           |
+|2020-09-22 02:45:59.799|MORDORDC.theshire.local|LSA         |SecretObject|Policy\Secrets\G$BCKUPKEY_b7638eb2-c641-40da-ac1c-f79d705bbc34|
+|2020-09-22 02:45:59.799|MORDORDC.theshire.local|LSA         |SecretObject|Policy\Secrets\G$BCKUPKEY_P                                   |
+|2020-09-22 02:45:59.799|MORDORDC.theshire.local|LSA         |SecretObject|Policy\Secrets\G$BCKUPKEY_74562e44-6689-4ede-9c63-1fc80a4efb16|
++-----------------------+-----------------------+------------+------------+--------------------------------------------------------------+
 </pre></div>
 </div>
 </div>
@@ -751,6 +775,18 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+-----------------------+--------------------------------------------------------------+-----------+
+|@timestamp             |Hostname               |ObjectName                                                    |IpAddress  |
++-----------------------+-----------------------+--------------------------------------------------------------+-----------+
+|2020-09-22 02:45:59.799|MORDORDC.theshire.local|Policy\Secrets\G$BCKUPKEY_PREFERRED                           |172.18.39.5|
+|2020-09-22 02:45:59.799|MORDORDC.theshire.local|Policy\Secrets\G$BCKUPKEY_b7638eb2-c641-40da-ac1c-f79d705bbc34|172.18.39.5|
+|2020-09-22 02:45:59.799|MORDORDC.theshire.local|Policy\Secrets\G$BCKUPKEY_P                                   |172.18.39.5|
+|2020-09-22 02:45:59.799|MORDORDC.theshire.local|Policy\Secrets\G$BCKUPKEY_74562e44-6689-4ede-9c63-1fc80a4efb16|172.18.39.5|
++-----------------------+-----------------------+--------------------------------------------------------------+-----------+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-iii">
@@ -788,6 +824,14 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+--------+---------------+---------+------------------+----------+---------+
+|@timestamp|Hostname|SubjectUserName|ShareName|RelativeTargetName|AccessMask|IpAddress|
++----------+--------+---------------+---------+------------------+----------+---------+
++----------+--------+---------------+---------+------------------+----------+---------+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-iv">
@@ -813,13 +857,21 @@ It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) 
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span>
 <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">SELECT `@timestamp`, Hostname, SubjectUserName, MasterKeyId, RecoveryKeyId</span>
+<span class="sd">SELECT `@timestamp`, Hostname, SubjectUserName</span>
 <span class="sd">FROM mordorTable</span>
 <span class="sd">WHERE LOWER(Channel) = &quot;security&quot;</span>
 <span class="sd">    AND EventID = 4692</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+--------+---------------+
+|@timestamp|Hostname|SubjectUserName|
++----------+--------+---------------+
++----------+--------+---------------+
 </pre></div>
 </div>
 </div>
