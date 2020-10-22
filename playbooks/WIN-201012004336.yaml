@@ -19,8 +19,8 @@ technical_context: |-
 offensive_tradecraft: |-
   Adversaries leverage SMB to copy files over the network to either execute code remotely or exfiltrate data.
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/08_lateral_movement/SDWIN-200724174200.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers.zip
+  metadata: https://mordordatasets.com/notebooks/small/windows/08_lateral_movement/SDWIN-200806015757.html
+  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_copy_smb_CreateRequest.zip
 analytics:
   - name: Analytic I
     description: Look for non-system accounts SMB connecting (Tree Connect) to a file share that is not IPC$.
