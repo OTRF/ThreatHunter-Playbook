@@ -666,6 +666,13 @@ One way to do this is by cloning the export table from one DLL to another one. O
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
+[+] DataFrame Returned !
+[+] Temporary SparkSQL View: mordorTable 
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-i">
@@ -701,6 +708,15 @@ One way to do this is by cloning the export table from one DLL to another one. O
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+---------+---------------+--------------+-----------+------+----------------------------------+
+|@timestamp             |Hostname                   |ShareName|SubjectUserName|SubjectLogonId|IpAddress  |IpPort|RelativeTargetName                |
++-----------------------+---------------------------+---------+---------------+--------------+-----------+------+----------------------------------+
+|2020-10-09 17:34:28.926|WORKSTATION6.theshire.local|\\*\C$   |pgustavo       |0x227a012     |172.18.39.5|50963 |Windows\System32\wbem\wbemcomn.dll|
++-----------------------+---------------------------+---------+---------------+--------------+-----------+------+----------------------------------+
 </pre></div>
 </div>
 </div>
@@ -754,6 +770,15 @@ One way to do this is by cloning the export table from one DLL to another one. O
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+---------+---------------+--------------+-----------+------+----------------------------------+
+|@timestamp             |Hostname                   |ShareName|SubjectUserName|SubjectLogonId|IpAddress  |IpPort|RelativeTargetName                |
++-----------------------+---------------------------+---------+---------------+--------------+-----------+------+----------------------------------+
+|2020-10-09 17:34:28.926|WORKSTATION6.theshire.local|\\*\C$   |pgustavo       |0x227a012     |172.18.39.5|50963 |Windows\System32\wbem\wbemcomn.dll|
++-----------------------+---------------------------+---------+---------------+--------------+-----------+------+----------------------------------+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-iii">
@@ -804,6 +829,15 @@ One way to do this is by cloning the export table from one DLL to another one. O
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+---------+---------------+--------------+-----------+------+----------------------------------+
+|@timestamp             |Hostname                   |ShareName|SubjectUserName|SubjectLogonId|IpAddress  |IpPort|RelativeTargetName                |
++-----------------------+---------------------------+---------+---------------+--------------+-----------+------+----------------------------------+
+|2020-10-09 17:34:28.926|WORKSTATION6.theshire.local|\\*\C$   |pgustavo       |0x227a012     |172.18.39.5|50963 |Windows\System32\wbem\wbemcomn.dll|
++-----------------------+---------------------------+---------+---------------+--------------+-----------+------+----------------------------------+
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="analytic-iv">
@@ -846,7 +880,7 @@ One way to do this is by cloning the export table from one DLL to another one. O
 <span class="sd">    FROM mordorTable b</span>
 <span class="sd">    INNER JOIN (</span>
 <span class="sd">        SELECT ImageLoaded</span>
-<span class="sd">        FROM mordor</span>
+<span class="sd">        FROM mordorTable</span>
 <span class="sd">        WHERE Channel = &#39;Microsoft-Windows-Sysmon/Operational&#39;</span>
 <span class="sd">            AND EventID = 7</span>
 <span class="sd">            AND LOWER(Image) LIKE &#39;%wmiprvse.exe&#39;</span>
@@ -864,6 +898,15 @@ One way to do this is by cloning the export table from one DLL to another one. O
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+---------+---------------+--------------+-----------+------+----------------------------------+
+|@timestamp             |Hostname                   |ShareName|SubjectUserName|SubjectLogonId|IpAddress  |IpPort|RelativeTargetName                |
++-----------------------+---------------------------+---------+---------------+--------------+-----------+------+----------------------------------+
+|2020-10-09 17:34:28.926|WORKSTATION6.theshire.local|\\*\C$   |pgustavo       |0x227a012     |172.18.39.5|50963 |Windows\System32\wbem\wbemcomn.dll|
++-----------------------+---------------------------+---------+---------------+--------------+-----------+------+----------------------------------+
 </pre></div>
 </div>
 </div>

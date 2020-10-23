@@ -631,10 +631,10 @@ The extended CIFS Protocol is known as the Server Message Block (SMB). The SMB2 
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-align:left"><p>metadata</p></td>
-<td class="text-align:left"><p>https://mordordatasets.com/notebooks/small/windows/08_lateral_movement/SDWIN-200724174200.html</p></td>
+<td class="text-align:left"><p>https://mordordatasets.com/notebooks/small/windows/08_lateral_movement/SDWIN-200806015757.html</p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>link</p></td>
-<td class="text-align:left"><p><a class="reference external" href="https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers.zip">https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers.zip</a></p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_copy_smb_CreateRequest.zip">https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_copy_smb_CreateRequest.zip</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -656,7 +656,7 @@ The extended CIFS Protocol is known as the Server Message Block (SMB). The SMB2 
 <h3>Download &amp; Process Mordor Dataset<a class="headerlink" href="#download-process-mordor-dataset" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers.zip&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mordor_file</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_copy_smb_CreateRequest.zip&quot;</span>
 <span class="n">registerMordorSQLTable</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">mordor_file</span><span class="p">,</span> <span class="s2">&quot;mordorTable&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -664,9 +664,7 @@ The extended CIFS Protocol is known as the Server Message Block (SMB). The SMB2 
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
 [+] DataFrame Returned !
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
+[+] Temporary SparkSQL View: mordorTable 
 </pre></div>
 </div>
 </div>
@@ -708,10 +706,11 @@ The extended CIFS Protocol is known as the Server Message Block (SMB). The SMB2 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+--------+---------+---------------+--------------+----------+
-|@timestamp|Hostname|ShareName|SubjectUserName|SubjectLogonId|AccessMask|
-+----------+--------+---------+---------------+--------------+----------+
-+----------+--------+---------+---------------+--------------+----------+
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+---------+---------------+--------------+----------+
+|@timestamp             |Hostname                   |ShareName|SubjectUserName|SubjectLogonId|AccessMask|
++-----------------------+---------------------------+---------+---------------+--------------+----------+
+|2020-09-22 14:53:32.341|WORKSTATION6.theshire.local|\\*\C$   |pgustavo       |0x4e13b2e     |0x1       |
++-----------------------+---------------------------+---------+---------------+--------------+----------+
 </pre></div>
 </div>
 </div>
@@ -762,10 +761,12 @@ The extended CIFS Protocol is known as the Server Message Block (SMB). The SMB2 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+--------+---------+---------------+--------------+---------+------+
-|@timestamp|Hostname|ShareName|SubjectUserName|SubjectLogonId|IpAddress|IpPort|
-+----------+--------+---------+---------------+--------------+---------+------+
-+----------+--------+---------+---------------+--------------+---------+------+
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+---------+---------------+--------------+-----------+------+
+|@timestamp             |Hostname                   |ShareName|SubjectUserName|SubjectLogonId|IpAddress  |IpPort|
++-----------------------+---------------------------+---------+---------------+--------------+-----------+------+
+|2020-09-22 14:53:32.341|WORKSTATION6.theshire.local|\\*\IPC$ |pgustavo       |0x4e13b2e     |172.18.39.5|62782 |
+|2020-09-22 14:53:32.341|WORKSTATION6.theshire.local|\\*\C$   |pgustavo       |0x4e13b2e     |172.18.39.5|62782 |
++-----------------------+---------------------------+---------+---------------+--------------+-----------+------+
 </pre></div>
 </div>
 </div>
@@ -808,10 +809,11 @@ The extended CIFS Protocol is known as the Server Message Block (SMB). The SMB2 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+--------+---------+---------------+--------------+---------+------+------------------+
-|@timestamp|Hostname|ShareName|SubjectUserName|SubjectLogonId|IpAddress|IpPort|RelativeTargetName|
-+----------+--------+---------+---------------+--------------+---------+------+------------------+
-+----------+--------+---------+---------------+--------------+---------+------+------------------+
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+---------+---------------+--------------+-----------+------+-------------------------+
+|@timestamp             |Hostname                   |ShareName|SubjectUserName|SubjectLogonId|IpAddress  |IpPort|RelativeTargetName       |
++-----------------------+---------------------------+---------+---------------+--------------+-----------+------+-------------------------+
+|2020-09-22 14:53:32.342|WORKSTATION6.theshire.local|\\*\C$   |pgustavo       |0x4e13b2e     |172.18.39.5|62782 |ProgramData\GruntHTTP.exe|
++-----------------------+---------------------------+---------+---------------+--------------+-----------+------+-------------------------+
 </pre></div>
 </div>
 </div>
@@ -875,10 +877,12 @@ The extended CIFS Protocol is known as the Server Message Block (SMB). The SMB2 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+--------+---------+---------------+--------------+---------+------+------------------+
-|@timestamp|Hostname|ShareName|SubjectUserName|SubjectLogonId|IpAddress|IpPort|RelativeTargetName|
-+----------+--------+---------+---------------+--------------+---------+------+------------------+
-+----------+--------+---------+---------------+--------------+---------+------+------------------+
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+---------+---------------+--------------+-----------+------+-------------------------+
+|@timestamp             |Hostname                   |ShareName|SubjectUserName|SubjectLogonId|IpAddress  |IpPort|RelativeTargetName       |
++-----------------------+---------------------------+---------+---------------+--------------+-----------+------+-------------------------+
+|2020-09-22 14:53:32.342|WORKSTATION6.theshire.local|\\*\C$   |pgustavo       |0x4e13b2e     |172.18.39.5|62782 |ProgramData\GruntHTTP.exe|
+|2020-09-22 14:53:32.342|WORKSTATION6.theshire.local|\\*\C$   |pgustavo       |0x4e13b2e     |172.18.39.5|62782 |ProgramData\GruntHTTP.exe|
++-----------------------+---------------------------+---------+---------------+--------------+-----------+------+-------------------------+
 </pre></div>
 </div>
 </div>
@@ -932,10 +936,12 @@ The extended CIFS Protocol is known as the Server Message Block (SMB). The SMB2 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+--------+---------+---------------+--------------+---------+------+------------------+
-|@timestamp|Hostname|ShareName|SubjectUserName|SubjectLogonId|IpAddress|IpPort|RelativeTargetName|
-+----------+--------+---------+---------------+--------------+---------+------+------------------+
-+----------+--------+---------+---------------+--------------+---------+------+------------------+
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+---------------------------+---------+---------------+--------------+-----------+------+-------------------------+
+|@timestamp             |Hostname                   |ShareName|SubjectUserName|SubjectLogonId|IpAddress  |IpPort|RelativeTargetName       |
++-----------------------+---------------------------+---------+---------------+--------------+-----------+------+-------------------------+
+|2020-09-22 14:53:32.342|WORKSTATION6.theshire.local|\\*\C$   |pgustavo       |0x4e13b2e     |172.18.39.5|62782 |ProgramData\GruntHTTP.exe|
+|2020-09-22 14:53:32.342|WORKSTATION6.theshire.local|\\*\C$   |pgustavo       |0x4e13b2e     |172.18.39.5|62782 |ProgramData\GruntHTTP.exe|
++-----------------------+---------------------------+---------+---------------+--------------+-----------+------+-------------------------+
 </pre></div>
 </div>
 </div>

@@ -665,9 +665,7 @@ Therefore, it is important to understand the basic artifacts left when PowerShel
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Processing a Spark DataFrame..
 [+] DataFrame Returned !
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[+] Temporary SparkSQL View: mordorTable 
+[+] Temporary SparkSQL View: mordorTable 
 </pre></div>
 </div>
 </div>
@@ -705,7 +703,7 @@ Therefore, it is important to understand the basic artifacts left when PowerShel
 <span class="sd">FROM mordorTable</span>
 <span class="sd">WHERE (Channel = &quot;Microsoft-Windows-PowerShell/Operational&quot; OR Channel = &quot;Windows PowerShell&quot;)</span>
 <span class="sd">    AND (EventID = 400 OR EventID = 4103)</span>
-<span class="sd">    AND Message LIKE &quot;%Host Application%wsmprovhost%&quot;</span>
+<span class="sd">    AND Message LIKE &quot;%HostApplication%wsmprovhost%&quot;</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="kc">False</span><span class="p">)</span>
@@ -713,10 +711,11 @@ Therefore, it is important to understand the basic artifacts left when PowerShel
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+--------+-------+
-|@timestamp|Hostname|Channel|
-+----------+--------+-------+
-+----------+--------+-------+
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-----------------------+------------+------------------+
+|@timestamp             |Hostname    |Channel           |
++-----------------------+------------+------------------+
+|2020-09-20 17:09:11.871|WORKSTATION6|Windows PowerShell|
++-----------------------+------------+------------------+
 </pre></div>
 </div>
 </div>

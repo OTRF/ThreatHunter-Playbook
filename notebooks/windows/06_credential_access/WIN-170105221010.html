@@ -50,7 +50,7 @@
 <meta property="og:url"         content="https://threathunterplaybook.com/notebooks/windows/06_credential_access/WIN-170105221010.html" />
 <meta property="og:type"        content="article" />
 <meta property="og:title"       content="LSASS Access from Non System Account" />
-<meta property="og:description" content="LSASS Access from Non System Account  Metadata          collaborators  [‘Roberto Rodriguez @Cyb3rWard0g’]  creation date  2017/01/05  modification date  2017/01" />
+<meta property="og:description" content="LSASS Access from Non System Account  Metadata          collaborators  [‘Roberto Rodriguez @Cyb3rWard0g’]  creation date  2017/01/05  modification date  2020/08" />
 <meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
 
 <meta name="twitter:card" content="summary" />
@@ -600,7 +600,7 @@
 <td class="text-align:left"><p>2017/01/05</p></td>
 </tr>
 <tr class="row-even"><td class="text-align:left"><p>modification date</p></td>
-<td class="text-align:left"><p>2017/01/05</p></td>
+<td class="text-align:left"><p>2020/08/05</p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>playbook related</p></td>
 <td class="text-align:left"><p>[‘WIN-1904101010’]</p></td>
@@ -866,7 +866,7 @@ Even though most adversaries might inject into a System process to blend in with
 <span class="sd">            OR ImageLoaded LIKE &quot;%winscard.dll&quot;</span>
 <span class="sd">            OR ImageLoaded LIKE &quot;%cryptdll.dll&quot;</span>
 <span class="sd">        )</span>
-<span class="sd">        AND `@timestamp` BETWEEN &quot;2019-03-00 00:00:00.000&quot; AND &quot;2019-06-20 00:00:00.000&quot;</span>
+<span class="sd">        AND `@timestamp` BETWEEN &quot;2020-06 00:00:00.000&quot; AND &quot;2020-10-20 00:00:00.000&quot;</span>
 <span class="sd">        GROUP BY ProcessGuid,Image ORDER BY hits DESC LIMIT 10</span>
 <span class="sd">    ) m</span>
 <span class="sd">ON a.SourceProcessGUID = m.ProcessGuid</span>
