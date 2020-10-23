@@ -132,7 +132,7 @@ analytics:
           data_model:
             - relationship: User requested access File
               id: B0056295-3FA1-4B9F-890D-1D26EF740934
-              event_id: 4674
+              event_id: 4656
     logic: |-
       SELECT o.`@timestamp`, o.Hostname, o.SubjectUserName, o.ObjectType,o.ObjectName, o.PrivilegeList, a.IpAddress
       FROM mordorTable o
@@ -146,9 +146,7 @@ analytics:
           ) a
       ON o.SubjectLogonId = a.TargetLogonId
       WHERE LOWER(o.Channel) = "security"
-          AND o.EventID = 4674
-          AND o.ObjectType = "SC_MANAGER OBJECT"
-          AND o.ObjectName = "ServicesActive"
+          AND o.EventID = 4656
           AND NOT o.SubjectLogonId = "0x3e4"
 known_bypasses:
 false_positives:

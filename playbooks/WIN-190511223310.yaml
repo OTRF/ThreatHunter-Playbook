@@ -51,7 +51,7 @@ analytics:
       FROM mordorTable
       WHERE (Channel = "Microsoft-Windows-PowerShell/Operational" OR Channel = "Windows PowerShell")
           AND (EventID = 400 OR EventID = 4103)
-          AND Message LIKE "%Host Application%wsmprovhost%"
+          AND Message LIKE "%HostApplication%wsmprovhost%"
   - name: Analytic II
     description: Monitor for any incoming network connection where the destination port is either 5985 or 5986. That will be hosted most likely by the System process. Layer ID:44
     data_sources:

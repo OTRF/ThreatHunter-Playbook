@@ -130,7 +130,7 @@ analytics:
           FROM mordorTable b
           INNER JOIN (
               SELECT ImageLoaded
-              FROM mordor
+              FROM mordorTable
               WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'
                   AND EventID = 7
                   AND LOWER(Image) LIKE '%iexplore.exe'

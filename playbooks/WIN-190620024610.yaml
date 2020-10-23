@@ -85,7 +85,7 @@ analytics:
           AND lower(o.ObjectName) LIKE "%bckupkey%"
           AND o.Hostname = a.Hostname
   - name: Analytic III
-    description: Monitoring for access to the protected_storage service is very interesting to document potential DPAPI activity over the network
+    description: Monitoring for access to the protected_storage named pipe via SMB is very interesting to identify potential DPAPI activity over the network. Mimikatz uses the Lsarpc named pipe now.
     data_sources:
       - name: File
         event_providers:
@@ -102,7 +102,7 @@ analytics:
           AND ShareName LIKE "%IPC%"
           AND RelativeTargetName = "protected_storage"
   - name: Analytic IV
-    description: This event generates every time that a backup is attempted for the DPAPI Master Key. When a computer is a member of a domain, DPAPI has a backup mechanism to allow unprotection of the data. When a Master Key is generated, DPAPI communicates with a domain controller.
+    description: This event generates every time that a backup is attempted for the DPAPI Master Key. When a computer is a member of a domain, DPAPI has a backup mechanism to allow unprotection of the data. When a Master Key is generated, DPAPI communicates with a domain controller. It migt be aleready created and this event might not trigger.
     data_sources:
       - name: File
         event_providers:

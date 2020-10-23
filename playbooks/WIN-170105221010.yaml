@@ -5,7 +5,7 @@ collaborators:
 playbooks_related:
   - WIN-1904101010
 creation_date: 2017/01/05
-modification_date: 2017/01/05
+modification_date: 2020/08/05
 platform: Windows
 attack_mappings:
   - tactics:
@@ -121,7 +121,7 @@ analytics:
                   OR ImageLoaded LIKE "%winscard.dll"
                   OR ImageLoaded LIKE "%cryptdll.dll"
               )
-              AND `@timestamp` BETWEEN "2019-03-00 00:00:00.000" AND "2019-06-20 00:00:00.000"
+              AND `@timestamp` BETWEEN "2020-06 00:00:00.000" AND "2020-10-20 00:00:00.000"
               GROUP BY ProcessGuid,Image ORDER BY hits DESC LIMIT 10
           ) m
       ON a.SourceProcessGUID = m.ProcessGuid
