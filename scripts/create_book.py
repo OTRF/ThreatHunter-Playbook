@@ -243,7 +243,7 @@ for summary in summary_table:
                     if metadata not in techniques_mappings[technique]:
                         techniques_mappings[technique].append(metadata)
         
-        VERSION = "3.0"
+        VERSION = "4.0"
         NAME = "THP {} Analytics".format(summary['platform'])
         DESCRIPTION = "Analytics covered by the Threat Hunter Playbook {} detection notebooks".format(summary['platform'])
         DOMAIN = "mitre-enterprise"
