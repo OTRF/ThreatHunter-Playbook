@@ -252,3 +252,4 @@ EventID 7: Image Loaded
 * https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-tsch/eb12c947-7e20-4a30-a528-85bc433cec44
 * https://docs.microsoft.com/en-us/windows/win32/taskschd/displaying-task-names-and-state--scripting-
 * https://docs.microsoft.com/en-us/windows/win32/taskschd/trigger-type
+* https://docs.microsoft.com/en-us/windows/win32/taskschd/tasksettings
