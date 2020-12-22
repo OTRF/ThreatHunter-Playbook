@@ -1,8 +1,8 @@
 title: Remote Service Control Manager Handle
 id: WIN-190826010110
 collaborators:
-  - Roberto Rodriguez @Cyb3rWard0g
-  - Jose Rodriguez @Cyb3rPandaH
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
 playbooks_related:
 creation_date: 2019/08/26
 modification_date: 2020/09/20

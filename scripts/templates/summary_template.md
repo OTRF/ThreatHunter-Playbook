@@ -8,5 +8,5 @@
 
 |Created|Analytic|Hypothesis|Author|
 | :---| :---| :---| :---|
-{% for s in summary['analytic']|sort(attribute='title') %}|{{s['creation_date']}} |[{{s['title']}}](https://threathunterplaybook.com/notebooks/windows/{{s['location']}}/{{s['id']}}.html) |{{s['hypothesis']}} |{{s['collaborators']}} |
+{% for s in summary['analytic']|sort(attribute='creation_date',reverse = True) %}|{{s['creation_date']}} |[{{s['title']}}](https://threathunterplaybook.com/notebooks/windows/{{s['location']}}/{{s['id']}}.html) |{{s['hypothesis']}} |{% for collaborator in s['collaborators'] %}{% set handle = collaborator.split('@') %} [{{collaborator}}](http://twitter.com/{{handle[1]}}){% if not loop.last %}, {% endif %}{% endfor %}  |
 {% endfor %}{% endif %}

@@ -1,8 +1,8 @@
 title: PowerShell Remote Session
 id: WIN-190511223310
 collaborators:
-  - Roberto Rodriguez @Cyb3rWard0g
-  - Jose Rodriguez @Cyb3rPandaH
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
 playbooks_related:
   - WIN-190410151110
 creation_date: 2019/05/11

@@ -1,8 +1,8 @@
 title: SAM Registry Hive Handle Request
 id: WIN-190725024610
 collaborators:
-  - Roberto Rodriguez @Cyb3rWard0g
-  - Jose Rodriguez @Cyb3rPandaH
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
 playbooks_related:
   - WIN-190625024610
 creation_date: 2019/07/25

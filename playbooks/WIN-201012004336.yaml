@@ -1,8 +1,8 @@
 title: SMB Create Remote File
 id: WIN-201012004336
 collaborators:
-  - Roberto Rodriguez @Cyb3rWard0g
-  - Jose Rodriguez @Cyb3rPandaH
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
 playbooks_related:
 creation_date: 2020/10/12
 modification_date: 2020/10/12

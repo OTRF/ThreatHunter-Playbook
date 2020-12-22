@@ -1,7 +1,7 @@
 title: Wuauclt CreateRemoteThread Execution
 id: WIN-201012183248
 collaborators:
-  - Roberto Rodriguez @Cyb3rWard0g
+  - '@Cyb3rWard0g'
 playbooks_related:
 creation_date: 2020/10/12
 modification_date: 2020/10/12

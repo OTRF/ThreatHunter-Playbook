@@ -1,7 +1,7 @@
 title: LSASS Access from Non System Account
 id: WIN-170105221010
 collaborators:
-  - Roberto Rodriguez @Cyb3rWard0g
+  - '@Cyb3rWard0g'
 playbooks_related:
   - WIN-1904101010
 creation_date: 2017/01/05

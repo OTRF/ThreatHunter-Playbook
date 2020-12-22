@@ -1,8 +1,8 @@
 title: Remote WMI Wbemcomn DLL Hijack
 id: WIN-201009173318
 collaborators:
-  - Roberto Rodriguez @Cyb3rWard0g
-  - Jose Rodriguez @Cyb3rPandaH
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
 playbooks_related:
   - WIN-201012004336
 creation_date: 2020/10/09

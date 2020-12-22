@@ -1,8 +1,8 @@
 title: Remote Service creation
 id: WIN-190815181010
 collaborators:
-  - Roberto Rodriguez @Cyb3rWard0g
-  - Jose Rodriguez @Cyb3rPandaH
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
 playbooks_related:
   - WIN-190813181020
 creation_date: 2019/08/15

@@ -1,8 +1,8 @@
 title: WMI Win32_Process Class and Create Method for Remote Execution
 id: WIN-190810201010
 collaborators:
-  - Roberto Rodriguez @Cyb3rWard0g
-  - Jose Rodriguez @Cyb3rPandaH
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
 playbooks_related:
 creation_date: 2019/08/10
 modification_date: 2020/09/20
