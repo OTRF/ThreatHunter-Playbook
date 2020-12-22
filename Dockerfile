@@ -22,7 +22,7 @@ RUN adduser --disabled-password \
 
 USER ${NB_USER}
 
-RUN python3 -m pip install openhunt==1.7.4 attackcti==0.3.0 bokeh==2.0.2  --user
+RUN python3 -m pip install openhunt==1.7.4 attackcti==0.3.4.3 bokeh==2.0.2  --user
 
 COPY docs ${HOME}/docs
 
