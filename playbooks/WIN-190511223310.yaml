@@ -14,10 +14,6 @@ attack_mappings:
     technique: T1059
     sub_technique: "001"
   - tactics:
-      - TA0002
-    technique: T1021
-    sub_technique: "006"
-  - tactics:
       - TA0008
     technique: T1021
     sub_technique: "006"

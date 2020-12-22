@@ -26,6 +26,6 @@ The Microsoft Windows security model enables you to control access to process ob
 | PROCESS_VM_WRITE (0x0020) | Required to write to memory in a process using WriteProcessMemory. |
 | SYNCHRONIZE (0x00100000L) | Required to wait for the process to terminate using the wait functions. |
 
-# References
+## References
 
 * https://msdn.microsoft.com/en-us/library/windows/desktop/ms684880(v=vs.85).aspx

@@ -7,6 +7,6 @@ When a user is successfully authenticated, the authentication package creates a 
 From a security event perspective the logon_id is first seen when a successful authentication event occurs.
 Based on the documentation provided by Microsoft and OSSEM, events from the Audit Logon subcategory are related to the creation of logon sessions and occur on the computer that was accessed. For an interactive logon, events are generated on the computer that was logged on to. For a network logon, such as accessing a share, events are generated on the computer that hosts the resource that was accessed.
 
-# References
+## References
 
 * https://docs.microsoft.com/en-us/windows/desktop/secauthn/lsa-logon-sessions

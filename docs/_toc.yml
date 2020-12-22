@@ -1,4 +1,21 @@
 - file: introduction
+- part: Knowledge Library
+  chapters:
+  - file: library/windows/intro
+    sections:
+    - file: library/windows/service_control_manager
+    - file: library/windows/mimikatz_openprocess_modules
+    - file: library/windows/security_account_manager_database
+    - file: library/windows/security_account_manager_protocol
+    - file: library/windows/adfs_dkm_keys
+    - file: library/windows/syskey
+    - file: library/windows/logon_session
+    - file: library/windows/security_assertion_markup_language
+    - file: library/windows/active_directory_replication
+    - file: library/windows/lsa_policy_objects
+    - file: library/windows/process_access_rights
+    - file: library/windows/data_protection_api
+    - file: library/windows/task_scheduler_service
 - part: Pre-Hunt Activities
   chapters:
   - file: pre-hunt/data_management
@@ -17,27 +34,26 @@
       - file: notebooks/campaigns/apt29Evals
 - part: Targeted Notebooks
   chapters:
-  - file: notebooks/windows/windows
+  - file: notebooks/windows/intro
     sections:
-    - file: notebooks/windows/02_execution/execution
+    - file: notebooks/windows/02_execution/intro
       sections:
       - file: notebooks/windows/02_execution/WIN-190815181010
       - file: notebooks/windows/02_execution/WIN-190810201010
       - file: notebooks/windows/02_execution/WIN-201009173318
       - file: notebooks/windows/02_execution/WIN-190410151110
       - file: notebooks/windows/02_execution/WIN-190813181020
-      - file: notebooks/windows/02_execution/WIN-190815181010
+      - file: notebooks/windows/02_execution/WIN-190610201010
       - file: notebooks/windows/02_execution/WIN-190811201010
       - file: notebooks/windows/02_execution/WIN-190511223310
-      - file: notebooks/windows/02_execution/WIN-190511223310
-    - file: notebooks/windows/03_persistence/persistence
+    - file: notebooks/windows/03_persistence/intro
       sections:
       - file: notebooks/windows/03_persistence/WIN-190810170510
       - file: notebooks/windows/03_persistence/WIN-200902020333
-    - file: notebooks/windows/04_privilege_escalation/privilege_escalation
+    - file: notebooks/windows/04_privilege_escalation/intro
       sections:
       - file: notebooks/windows/04_privilege_escalation/WIN-200902020333
-    - file: notebooks/windows/05_defense_evasion/defense_evasion
+    - file: notebooks/windows/05_defense_evasion/intro
       sections:
       - file: notebooks/windows/05_defense_evasion/WIN-180719170510
       - file: notebooks/windows/05_defense_evasion/WIN-201012183248
@@ -45,19 +61,19 @@
       - file: notebooks/windows/05_defense_evasion/WIN-190407183310
       - file: notebooks/windows/05_defense_evasion/WIN-190510202010
       - file: notebooks/windows/05_defense_evasion/WIN-190101151110
-    - file: notebooks/windows/06_credential_access/credential_access
+    - file: notebooks/windows/06_credential_access/intro
       sections:
       - file: notebooks/windows/06_credential_access/WIN-190620024610
       - file: notebooks/windows/06_credential_access/WIN-190725024610
       - file: notebooks/windows/06_credential_access/WIN-180815210510
       - file: notebooks/windows/06_credential_access/WIN-191030201010
       - file: notebooks/windows/06_credential_access/WIN-170105221010
-    - file: notebooks/windows/07_discovery/discovery
+    - file: notebooks/windows/07_discovery/intro
       sections:
       - file: notebooks/windows/07_discovery/WIN-190725024610
       - file: notebooks/windows/07_discovery/WIN-190625024610
       - file: notebooks/windows/07_discovery/WIN-190826010110
-    - file: notebooks/windows/08_lateral_movement/lateral_movement
+    - file: notebooks/windows/08_lateral_movement/intro
       sections:
       - file: notebooks/windows/08_lateral_movement/WIN-190815181010
       - file: notebooks/windows/08_lateral_movement/WIN-190810201010
@@ -66,13 +82,9 @@
       - file: notebooks/windows/08_lateral_movement/WIN-201009173318
       - file: notebooks/windows/08_lateral_movement/WIN-201009183000
       - file: notebooks/windows/08_lateral_movement/WIN-190511223310
-    - file: notebooks/windows/09_collection/collection
+    - file: notebooks/windows/09_collection/intro
       sections:
       - file: notebooks/windows/09_collection/WIN-200609225055
-  - file: notebooks/linux/linux
-    sections: []
-  - file: notebooks/mac/mac
-    sections: []
 - part: Tutorials
   chapters:
   - file: tutorials/jupyter/introduction

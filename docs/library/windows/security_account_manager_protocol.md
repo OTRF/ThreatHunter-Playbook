@@ -2,7 +2,7 @@
 
 Accounts are always created relative to an issuing authority. In Windows, the issuing authority is referred to as a domain. A domain can be either a local domain or extend across a network. Domains store information about their accounts in an account database. Windows uses Active Directory as the account database in domain-based environments, whereas in environments that are not domain-based, it uses the security account manager (SAM) built-in database as the account database.
 
-# Security Account Manager Remote Protocol (SAMRP) Client-To-Server (C)
+## Security Account Manager Remote Protocol (SAMRP) Client-To-Server (C)
 
 The Security Account Manager (SAM) Remote Protocol (Client-to-Server) depends on the RPC protocol (uses RPC as a transport), and provides management functionality for an account store or directory containing users and groups. The goal of this protocol is to enable IT administrators and end users to manage users, groups, and computers. This protocol achieves its goal by enabling the creation, reading, updating, and deleting of security principal information. These security principals could be in any account store. Windows implements this protocol, for example, in a directory service (Active Directory) and in a computer-local security account database known as the Security Account Manager (SAM) database.
 
@@ -60,7 +60,7 @@ By default, the SAM can be accessed remotely (via SAMR) by any authenticated use
 
 There are corresponding events that indicate when remote calls to the SAM are restricted, what accounts attempted to read from the SAM database, and more [here](https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-access-restrict-clients-allowed-to-make-remote-sam-calls#related-events).
 
-# References
+## References
 
 * https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-access-restrict-clients-allowed-to-make-remote-sam-calls#audit-only-mode
 * https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-samr/8aaff2f7-1edd-41a0-ab58-4807ac6124c5

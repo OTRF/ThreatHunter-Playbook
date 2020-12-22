@@ -67,7 +67,7 @@ The SC_MANAGER_CONNECT access right is implicitly specified by calling this func
 
 Before granting the requested access rights, the system checks the access token of the calling process against the discretionary access-control list of the security descriptor associated with the service control manager.
 
-# References
+## References
 
 * https://docs.microsoft.com/en-us/windows/win32/services/service-control-manager
 * https://docs.microsoft.com/en-us/windows/win32/services/scm-handles

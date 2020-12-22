@@ -18,7 +18,7 @@ However, the actual data needed is stored in a hidden field of the key that cann
 The same keys are also accessed during the Windows boot phase by the main thread of Smss (Session Manager) which starts the Winlogon process, the Winlogon process required to load the Local Security Subsystem (Lsass) which in turn loads the Security Accounts Manager
 (SAM) service (the interface to the SAM database), and the bootkey generation phase by Syskey.exe tool.
 
-# References
+## References
 
 * https://docs.microsoft.com/en-us/security-updates/securitybulletins/1999/ms99-056
 * https://download.openwall.net/pub/projects/john/contrib/pwdump/syskey.txt

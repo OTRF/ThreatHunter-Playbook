@@ -1,7 +1,7 @@
 import nbformat as nbf
 import glob
 import yaml
-from os import path
+import os
 import json
 import copy
 from jinja2 import Template
@@ -26,19 +26,23 @@ attack_paths = {
 summary_table = [
     {
         "platform" : "Windows",
-        "analytic" : []
+        "analytic" : [],
+        "tactics" : []
     },
     {
         "platform" : "Linux",
-        "analytic" : []
+        "analytic" : [],
+        "tactics" : []
     },
     {
         "platform" : "Mac",
-        "analytic" : []
+        "analytic" : [],
+        "tactics" : []
     },
     {
         "platform" : "AWS",
-        "analytic" : []
+        "analytic" : [],
+        "tactics" : []
     }
 ]
 
@@ -48,7 +52,7 @@ with open('templates/toc_template.json') as json_file:
 
 # ******** Open every analytic yaml file available ****************
 print("[+] Opening analytic yaml files..")
-analytics_files = glob.glob(path.join(path.dirname(__file__), "..", "playbooks", "*.yaml"))
+analytics_files = glob.glob(os.path.join(os.path.dirname(__file__), "..", "playbooks", "*.yaml"))
 analytics_loaded = []
 for analytic_file in analytics_files:
     print(analytic_file)
@@ -194,35 +198,54 @@ df.show(10,False)""".format(a['logic'])
                     analytic['location'] = attack_paths[tactic]
                     if analytic not in table['analytic']:
                         table['analytic'].append(analytic)
+                    if attack_paths[tactic] not in table['tactics']:
+                        table['tactics'].append(attack_paths[tactic])
 
-    # ***** Update main TOC template and creating notebook *****
+    # ***** Create Notebooks *****
     for attack in analytic['attack_mappings']:
-        for toc in toc_template:
-            if 'chapters' in toc.keys():
-                for chapter in toc['chapters']:
-                    if "notebooks/{}/{}".format(platform,platform) in chapter.values():
-                        for section in chapter['sections']:
-                            for tactic in attack['tactics']:
-                                if attack_paths[tactic] in section['file']:
-                                    analyticDict = {
-                                        "file" : "notebooks/{}/{}/{}".format(platform,attack_paths[tactic], analytic['id'])
-                                    }
-                                    if analyticDict not in chapter['sections']:
-                                        print("    [>>] Adding {} to {} path..".format(analytic['id'], attack_paths[tactic]))
-                                        section['sections'].append(analyticDict)
-                                        print("    [>>] Writing {} as a notebook to {}..".format(analytic['title'], attack_paths[tactic]))
-                                        nbf.write(nb, "../docs/notebooks/{}/{}/{}.ipynb".format(platform,attack_paths[tactic],analytic['id']))
+        for tactic in attack['tactics']:
+            nbf.write(nb, "../docs/notebooks/{}/{}/{}.ipynb".format(platform,attack_paths[tactic],analytic['id']))
 
-# ****** Removing empty lists ********
-print("\n[+] Removing empty platforms and empty lists..")
-for toc in toc_template[:]:
-    if 'chapters' in toc.keys():
-        for chapter in toc['chapters']:
-            if 'sections' in chapter.keys() and len(chapter['sections']) > 0:
-                for section in chapter['sections'][:]:
-                    if 'sections' in section and not section['sections']:
-                        print("  [>>] Removing {} ..".format(section['file']))
-                        chapter['sections'].remove(section)
+# ****** Updating Detections TOC File ********
+print("\n[+] Creating detection entries in TOC file..")
+for toc in toc_template:
+    if 'part' in toc.keys():
+        if toc['part'] == 'Targeted Notebooks':
+            for table in summary_table:
+                table_platform = table['platform'].lower()
+                if len(table['analytic']) > 0:
+                    analytic_platform = {
+                        "file": "notebooks/{}/intro".format(table_platform),
+                        "sections": [
+                            {
+                                "file": "notebooks/{}/{}/intro".format(table_platform,tactic),
+                                "sections": [
+                                    {
+                                        "file": "notebooks/{}/{}/{}".format(table_platform,tactic,analytic['id'])
+                                    } for analytic in table['analytic'] for maps in analytic['attack_mappings'] for t in maps['tactics'] if attack_paths[t] == tactic
+                                ]
+                            } for tactic in sorted(table['tactics'])
+                        ]
+                    }
+                    toc['chapters'].append(analytic_platform)
+
+# ***** Update Knowledge Library Content *****
+print("\n[+] Creating Knowledge Library entries in TOC file..")
+for toc in toc_template:
+    if 'part' in toc.keys():
+        if toc['part'] == 'Knowledge Library':
+            subfolders = [ f.name for f in os.scandir("../docs/library/") if f.is_dir() ]
+            for category in subfolders:
+                if len(os.listdir("../docs/library/{}/".format(category))) > 1:
+                    librarydocs = {
+                        "file" : "library/{}/intro".format(category),
+                        "sections": [
+                            {
+                                "file": "library/{}/{}".format(category,filename.split('.md')[0])
+                            } for filename in os.listdir("../docs/library/{}/".format(category)) if filename != 'intro.md'
+                        ]
+                    }
+                    toc['chapters'].append(librarydocs)
 
 # ****** Creating Analytics Summaries ******
 print("\n[+] Creating ATT&CK navigator layers for each platform..")
@@ -243,7 +266,7 @@ for summary in summary_table:
                     if metadata not in techniques_mappings[technique]:
                         techniques_mappings[technique].append(metadata)
         
-        VERSION = "4.0"
+        VERSION = "4.1"
         NAME = "THP {} Analytics".format(summary['platform'])
         DESCRIPTION = "Analytics covered by the Threat Hunter Playbook {} detection notebooks".format(summary['platform'])
         DOMAIN = "mitre-enterprise"
@@ -286,7 +309,7 @@ for summary in summary_table:
         print("  [>>] Creating summary table for {} analytics..".format(summary['platform']))
         summary_for_render = copy.deepcopy(summary)
         markdown = summary_template.render(summary=summary_for_render)
-        open('../docs/notebooks/{}/{}.md'.format(summary['platform'].lower(),summary['platform'].lower()), 'w').write(markdown)
+        open('../docs/notebooks/{}/intro.md'.format(summary['platform'].lower()), 'w').write(markdown)
 
 # ******* Update Jupyter Book TOC File *************
 print("\n[+] Writing final TOC file for Jupyter book..")

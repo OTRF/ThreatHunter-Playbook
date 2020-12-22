@@ -82,7 +82,7 @@ While unprotecting data, if DPAPI cannot use the MasterKey protected by the user
 * Azure sync accounts
 * Wifi passwords
 
-# References
+## References
 
 * https://docs.microsoft.com/en-us/dotnet/standard/security/how-to-use-data-protection
 * https://support.microsoft.com/en-us/help/309408/how-to-troubleshoot-the-data-protection-api-dpapi
