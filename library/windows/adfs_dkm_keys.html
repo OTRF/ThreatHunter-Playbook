@@ -1,0 +1,494 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Active Directory Federation Services (ADFS) Distributed Key Manager (DKM) Keys &#8212; Threat Hunter Playbook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-dropdown.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://threathunterplaybook.com/library/windows/adfs_dkm_keys.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="SysKey" href="syskey.html" />
+    <link rel="prev" title="Security Account Manager Remote Protocol (SAMRP)" href="security_account_manager_protocol.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://threathunterplaybook.com/library/windows/adfs_dkm_keys.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Active Directory Federation Services (ADFS) Distributed Key Manager (DKM) Keys" />
+<meta property="og:description" content="Active Directory Federation Services (ADFS) Distributed Key Manager (DKM) Keys  ADFS  Active Directory Federation Service (AD FS) enables Federated Identity and" />
+<meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Threat Hunter Playbook</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <p class="caption">
+ <span class="caption-text">
+  Knowledge Library
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="intro.html">
+   Windows
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="service_control_manager.html">
+     Service Control Manager
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="mimikatz_openprocess_modules.html">
+     Mimikatz OpenProcess Modules
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="security_account_manager_database.html">
+     Security Account Manager (SAM) Database
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="security_account_manager_protocol.html">
+     Security Account Manager Remote Protocol (SAMRP)
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Active Directory Federation Services (ADFS) Distributed Key Manager (DKM) Keys
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="syskey.html">
+     SysKey
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="logon_session.html">
+     Logon Session
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="security_assertion_markup_language.html">
+     Security Assertion Markup Language (SAML)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="active_directory_replication.html">
+     Active Directory Replication
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lsa_policy_objects.html">
+     LSA Policy Objects
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="process_access_rights.html">
+     Process Security and Access Rights
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="data_protection_api.html">
+     Data Protection API
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="task_scheduler_service.html">
+     Task Scheduler Service
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Pre-Hunt Activities
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../pre-hunt/data_management.html">
+   Data Management
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Campaign Notebooks
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../evals/intro.html">
+   ATT&amp;CK Evaluations
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Targeted Notebooks
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/windows/intro.html">
+   Windows
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Tutorials
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../tutorials/jupyter/introduction.html">
+   Jupyter Notebooks
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/library/windows/adfs_dkm_keys.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/OTRF/ThreatHunter-Playbook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/OTRF/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Flibrary/windows/adfs_dkm_keys.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/OTRF/ThreatHunter-Playbook/edit/master/docs/library/windows/adfs_dkm_keys.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adfs">
+   ADFS
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dkm">
+   DKM
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adfs-service-startup-process">
+   ADFS Service Startup Process
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adfs-dkm-master-key">
+   ADFS DKM Master Key
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#audit-rule-on-adfs-dkm-container">
+   Audit Rule on ADFS DKM Container
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="active-directory-federation-services-adfs-distributed-key-manager-dkm-keys">
+<h1>Active Directory Federation Services (ADFS) Distributed Key Manager (DKM) Keys<a class="headerlink" href="#active-directory-federation-services-adfs-distributed-key-manager-dkm-keys" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="adfs">
+<h2>ADFS<a class="headerlink" href="#adfs" title="Permalink to this headline">¶</a></h2>
+<p>Active Directory Federation Service (AD FS) enables Federated Identity and Access Management by securely sharing digital identity and entitlements rights across security and enterprise boundaries. AD FS extends the ability to use single sign-on functionality that is available within a single security or enterprise boundary to Internet-facing applications to enable customers, partners, and suppliers a streamlined user experience while accessing the web-based applications of an organization.</p>
+</div>
+<div class="section" id="dkm">
+<h2>DKM<a class="headerlink" href="#dkm" title="Permalink to this headline">¶</a></h2>
+<p>Distributed Key Manager (DKM) is a client-side functionality that uses a set of secret keys to encrypt and decrypt information. Only members of a specific security group in Active Directory Domain Services can access those keys in order to decrypt the data that is encrypted by DKM.</p>
+</div>
+<div class="section" id="adfs-service-startup-process">
+<h2>ADFS Service Startup Process<a class="headerlink" href="#adfs-service-startup-process" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>ADFS Service starts</p></li>
+<li><p>It reads service settings from the database (Windows Internal Database (WID)) in XML format</p></li>
+<li><p>As part of the process, it loads the ADFS certificate collection (Reads certificate encrypted PFX blob (base64 encoded) from the XML object)</p></li>
+<li><p>Decodes Base64 string</p></li>
+<li><p>ADFS DKM Master Key is not used to decrypt certificate. DKM Key is derived (standard NIST SP 800-108)</p></li>
+<li><p>Derived key is used and certificate is decrypted</p></li>
+</ul>
+</div>
+<div class="section" id="adfs-dkm-master-key">
+<h2>ADFS DKM Master Key<a class="headerlink" href="#adfs-dkm-master-key" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>The ADFS DKM master key(s) are stored in Active Directory.</p></li>
+<li><p>ADFS DKM Container: <code class="docutils literal notranslate"><span class="pre">CN=ADFS,CN=Microsoft,CN=Program</span> <span class="pre">Data,DC=azsentinel,DC=local</span></code></p></li>
+<li><p>One could read the DKM key as a byte array and convert it to a usable string from AD by running the following command:</p></li>
+</ul>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nv">$key</span><span class="p">=(</span><span class="nb">Get-ADObject</span> <span class="n">-filter</span> <span class="s1">&#39;ObjectClass -eq &quot;Contact&quot; -and name -ne &quot;CryptoPolicy&quot;&#39;</span> <span class="n">-SearchBase</span> <span class="s2">&quot;CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local&quot;</span> <span class="n">-Properties</span> <span class="n">thumbnailPhoto</span><span class="p">).</span><span class="n">thumbnailPhoto</span>
+
+<span class="no">[System.BitConverter]</span><span class="p">::</span><span class="n">ToString</span><span class="p">(</span><span class="nv">$key</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>An adversary would need to obtain the ADFS DKM Master Key to then use it to decrypt a signing certificate. Then, the adversary can use the signing certificate to sign SAML tokens.</p>
+</div>
+<div class="section" id="audit-rule-on-adfs-dkm-container">
+<h2>Audit Rule on ADFS DKM Container<a class="headerlink" href="#audit-rule-on-adfs-dkm-container" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>An Access Control Entry (ACE) in the System Access Control List (SACL) of the DKM container (Active Directory Object)</p></li>
+<li><p>Rule documentation: https://github.com/OTRF/Set-AuditRule/blob/master/rules/activedirectory/adfs_cryptopolicy_thumbnailphoto.yml</p></li>
+<li><p>Rule logic:</p></li>
+</ul>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-AuditRule</span> <span class="n">-AdObjectPath</span> <span class="s1">&#39;AD:\CN=CryptoPolicy,CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local&#39;</span> <span class="n">-WellKnownSidType</span> <span class="n">NetworkSid</span> <span class="n">-Rights</span> <span class="n">GenericRead</span> <span class="n">-InheritanceFlags</span> <span class="n">None</span> <span class="n">-AuditFlags</span> <span class="n">Success</span> <span class="n">-AttributeGUID</span> <span class="s1">&#39;8d3bca50-1d7e-11d0-a081-00aa006c33ed&#39;</span>
+</pre></div>
+</div>
+<p><strong>Results</strong>:</p>
+<ul class="simple">
+<li><p>Event 4662 does not translate the thumbnailPhoto GUI to the “thumbnailPhoto” string by default. That needs to be an enrichment.</p></li>
+<li><p>thumbnailPhoto Attribute GUID: 8d3bca50-1d7e-11d0-a081-00aa006c33ed</p></li>
+<li><p>The attribute is not part of the object name in the security event. It is an attribute/property. Therefore, the value would show up in the field name Properties</p></li>
+<li><p>We can filter events also by using the ObjectType GUID of class type contact and then look for the thumbnailPhoto GUID value.</p></li>
+</ul>
+<p><strong>Example</strong></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>- <span class="nt">&lt;Event</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/win/2004/08/events/event&quot;</span><span class="nt">&gt;</span> 
+- <span class="nt">&lt;System&gt;</span> 
+<span class="nt">&lt;Provider</span> <span class="na">Name=</span><span class="s">&quot;Microsoft-Windows-Security-Auditing&quot;</span> <span class="na">Guid=</span><span class="s">&quot;{54849625-5478-4994-a5ba-3e3b0328c30d}&quot;</span> <span class="nt">/&gt;</span> 
+<span class="nt">&lt;EventID&gt;</span>4662<span class="nt">&lt;/EventID&gt;</span> 
+<span class="nt">&lt;Version&gt;</span>0<span class="nt">&lt;/Version&gt;</span> 
+<span class="nt">&lt;Level&gt;</span>0<span class="nt">&lt;/Level&gt;</span> 
+<span class="nt">&lt;Task&gt;</span>14080<span class="nt">&lt;/Task&gt;</span> 
+<span class="nt">&lt;Opcode&gt;</span>0<span class="nt">&lt;/Opcode&gt;</span> 
+<span class="nt">&lt;Keywords&gt;</span>0x8020000000000000<span class="nt">&lt;/Keywords&gt;</span> 
+<span class="nt">&lt;TimeCreated</span> <span class="na">SystemTime=</span><span class="s">&quot;2020-12-20T07:53:41.092054600Z&quot;</span> <span class="nt">/&gt;</span> 
+<span class="nt">&lt;EventRecordID&gt;</span>330446<span class="nt">&lt;/EventRecordID&gt;</span> 
+<span class="nt">&lt;Correlation</span> <span class="nt">/&gt;</span> 
+<span class="nt">&lt;Execution</span> <span class="na">ProcessID=</span><span class="s">&quot;708&quot;</span> <span class="na">ThreadID=</span><span class="s">&quot;836&quot;</span> <span class="nt">/&gt;</span> 
+<span class="nt">&lt;Channel&gt;</span>Security<span class="nt">&lt;/Channel&gt;</span> 
+<span class="nt">&lt;Computer&gt;</span>DC01.azsentinel.local<span class="nt">&lt;/Computer&gt;</span> 
+<span class="nt">&lt;Security</span> <span class="nt">/&gt;</span> 
+<span class="nt">&lt;/System&gt;</span> 
+- <span class="nt">&lt;EventData&gt;</span> 
+<span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;SubjectUserSid&quot;</span><span class="nt">&gt;</span>S-1-5-21-1640822366-3528877384-3060188657-1103<span class="nt">&lt;/Data&gt;</span> 
+<span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;SubjectUserName&quot;</span><span class="nt">&gt;</span>adfsuser<span class="nt">&lt;/Data&gt;</span> 
+<span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;SubjectDomainName&quot;</span><span class="nt">&gt;</span>AZSENTINEL<span class="nt">&lt;/Data&gt;</span> 
+<span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;SubjectLogonId&quot;</span><span class="nt">&gt;</span>0x4235ba<span class="nt">&lt;/Data&gt;</span> 
+<span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ObjectServer&quot;</span><span class="nt">&gt;</span>DS<span class="nt">&lt;/Data&gt;</span> 
+<span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ObjectType&quot;</span><span class="nt">&gt;</span>%{5cb41ed0-0e4c-11d0-a286-00aa003049e2}<span class="nt">&lt;/Data&gt;</span> 
+<span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ObjectName&quot;</span><span class="nt">&gt;</span>%{8cd0a7fa-b3c9-4572-85e5-9359c2783031}<span class="nt">&lt;/Data&gt;</span> 
+<span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;OperationType&quot;</span><span class="nt">&gt;</span>Object Access<span class="nt">&lt;/Data&gt;</span> 
+<span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;HandleId&quot;</span><span class="nt">&gt;</span>0x0<span class="nt">&lt;/Data&gt;</span> 
+<span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;AccessList&quot;</span><span class="nt">&gt;</span>%%7684<span class="nt">&lt;/Data&gt;</span> 
+<span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;AccessMask&quot;</span><span class="nt">&gt;</span>0x10<span class="nt">&lt;/Data&gt;</span> 
+<span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;Properties&quot;</span><span class="nt">&gt;</span>%%7684 {77b5b886-944a-11d1-aebd-0000f80367c1} {8d3bca50-1d7e-11d0-a081-00aa006c33ed} {5cb41ed0-0e4c-11d0-a286-00aa003049e2}<span class="nt">&lt;/Data&gt;</span> 
+<span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;AdditionalInfo&quot;</span><span class="nt">&gt;</span>-<span class="nt">&lt;/Data&gt;</span> 
+<span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;AdditionalInfo2&quot;</span> <span class="nt">/&gt;</span> 
+<span class="nt">&lt;/EventData&gt;</span> 
+<span class="nt">&lt;/Event&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/ad-fs-overview</p></li>
+<li><p>https://docs.microsoft.com/en-us/microsoft-365/compliance/exchange-online-secures-email-secrets?view=o365-worldwide</p></li>
+<li><p>https://www.youtube.com/watch?v=5dj4vOqqGZw</p></li>
+<li><p>https://github.com/fireeye/ADFSDump/tree/master/ADFSDump</p></li>
+<li><p>https://www.powershellgallery.com/packages/AADInternals/0.2.5/Content/ADFS_utils.ps1</p></li>
+<li><p>https://www.powershellgallery.com/packages/AADInternals/0.2.3/Content/Export-ADFSSigninCertificate.ps1</p></li>
+<li><p>https://msresource.wordpress.com/2016/05/04/the-use-of-distributed-key-manager-dkm-in-active-directory-federation-services-ad-fs/</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "OTRF/ThreatHunter-Playbook",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./library/windows"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="security_account_manager_protocol.html" title="previous page">Security Account Manager Remote Protocol (SAMRP)</a>
+    <a class='right-next' id="next-link" href="syskey.html" title="next page">SysKey</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Roberto Rodriguez @Cyb3rWard0g<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../../_static/js/index.js"></script>
+    
+  </body>
+</html>

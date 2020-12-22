@@ -1,0 +1,444 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LSA Policy Objects &#8212; Threat Hunter Playbook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-dropdown.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://threathunterplaybook.com/library/windows/lsa_policy_objects.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Process Security and Access Rights" href="process_access_rights.html" />
+    <link rel="prev" title="Active Directory Replication" href="active_directory_replication.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://threathunterplaybook.com/library/windows/lsa_policy_objects.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="LSA Policy Objects" />
+<meta property="og:description" content="LSA Policy Objects  The LSA stores local security policy information in a set of objects. Your application can query or edit the local security policy by access" />
+<meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Threat Hunter Playbook</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <p class="caption">
+ <span class="caption-text">
+  Knowledge Library
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="intro.html">
+   Windows
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="service_control_manager.html">
+     Service Control Manager
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="mimikatz_openprocess_modules.html">
+     Mimikatz OpenProcess Modules
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="security_account_manager_database.html">
+     Security Account Manager (SAM) Database
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="security_account_manager_protocol.html">
+     Security Account Manager Remote Protocol (SAMRP)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="adfs_dkm_keys.html">
+     Active Directory Federation Services (ADFS) Distributed Key Manager (DKM) Keys
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="syskey.html">
+     SysKey
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="logon_session.html">
+     Logon Session
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="security_assertion_markup_language.html">
+     Security Assertion Markup Language (SAML)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="active_directory_replication.html">
+     Active Directory Replication
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     LSA Policy Objects
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="process_access_rights.html">
+     Process Security and Access Rights
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="data_protection_api.html">
+     Data Protection API
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="task_scheduler_service.html">
+     Task Scheduler Service
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Pre-Hunt Activities
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../pre-hunt/data_management.html">
+   Data Management
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Campaign Notebooks
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../evals/intro.html">
+   ATT&amp;CK Evaluations
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Targeted Notebooks
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/windows/intro.html">
+   Windows
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Tutorials
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../tutorials/jupyter/introduction.html">
+   Jupyter Notebooks
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/library/windows/lsa_policy_objects.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/OTRF/ThreatHunter-Playbook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/OTRF/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Flibrary/windows/lsa_policy_objects.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/OTRF/ThreatHunter-Playbook/edit/master/docs/library/windows/lsa_policy_objects.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#policy-object">
+   Policy Object
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#trusteddomain-object">
+   TrustedDomain Object
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#account-object">
+   Account Object
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#private-data-object">
+     Private Data Object
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#local-private-data-objects-l">
+     Local private data objects (L$)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#global-private-data-objects-g">
+     Global private data objects (G$)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#machine-private-data-objects-m">
+     Machine private data objects (M$)
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="lsa-policy-objects">
+<h1>LSA Policy Objects<a class="headerlink" href="#lsa-policy-objects" title="Permalink to this headline">¶</a></h1>
+<p>The LSA stores local security policy information in a set of objects. Your application can query or edit the local security policy by accessing these objects.</p>
+<p>The set consists of the following four objects:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Policy</span></code> contains global policy information.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TrustedDomain</span></code> contains information about a trusted domain.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Account</span></code> contains information about a user, group, or local group account.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Private</span> <span class="pre">Data</span></code> contains protected information, such as server account passwords. This information is stored as encrypted strings.</p></li>
+</ul>
+<div class="section" id="policy-object">
+<h2>Policy Object<a class="headerlink" href="#policy-object" title="Permalink to this headline">¶</a></h2>
+<p>The Policy object is used to control access to the Local Security Authority (LSA) database and contains information that applies to the entire system or establishes defaults for the system. Each system has only one Policy object. This Policy object is created by the LSA when the system starts up, and applications cannot create or destroy it.</p>
+</div>
+<div class="section" id="trusteddomain-object">
+<h2>TrustedDomain Object<a class="headerlink" href="#trusteddomain-object" title="Permalink to this headline">¶</a></h2>
+<p>The TrustedDomain object stores information about a trust relationship with a domain. A TrustedDomain object is created on the trusting system to identify an account within the trusted domain that can be used to submit authentication requests and to perform other operations, such as name and security identifier (SID) translations.</p>
+</div>
+<div class="section" id="account-object">
+<h2>Account Object<a class="headerlink" href="#account-object" title="Permalink to this headline">¶</a></h2>
+<p>The Account object is used to assign privileges, system access, and special quotas to individual users or to members of local groups or groups.</p>
+<div class="section" id="private-data-object">
+<h3>Private Data Object<a class="headerlink" href="#private-data-object" title="Permalink to this headline">¶</a></h3>
+<p>A limited number of private data objects are available on each system for the purpose of storing information in a protected, encrypted, fashion.</p>
+<p>Private data objects are provided primarily to support storage of server account passwords. This is useful for servers that run in a specific account. The password of the server account is private data that should be secured but is needed to log the server on.</p>
+<p>Private data objects may be general purpose, or they may be one of three specialized types: local, global, and machine.</p>
+</div>
+<div class="section" id="local-private-data-objects-l">
+<h3>Local private data objects (L$)<a class="headerlink" href="#local-private-data-objects-l" title="Permalink to this headline">¶</a></h3>
+<p>They can only be read locally from the computer storing the object. Attempting to read them remotely results in a STATUS_ACCESS_DENIED error. Local private data objects have key names that begin with the prefix “L<span class="math notranslate nohighlight">\(&quot;. In addition to the local private objects you create, the operating system defines the following local private objects: \)</span>machine.acc, SAC, SAI, and SANSC.</p>
+</div>
+<div class="section" id="global-private-data-objects-g">
+<h3>Global private data objects (G$)<a class="headerlink" href="#global-private-data-objects-g" title="Permalink to this headline">¶</a></h3>
+<p>They are global in the sense that if they are created on a domain controller, they will be automatically replicated to all domain controllers in that domain. In other words, each domain controller in that domain will have access to the values the global private data object contains. In contrast, global private data objects created on a system that is not a domain controller, as well as nonglobal private data objects, are not replicated. Global private data objects have key names beginning with “G$”.</p>
+<p>Examples:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">G$BCKUPKEY_PREFERRED</span></code> LSA secret: It contains key pair identifier (16-byte GUID) of object that holds the current modern key</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">G$BCKUPKEY_P</span></code> LSA secret: It contains GUID of object that holds the legacy key</p></li>
+</ul>
+</div>
+<div class="section" id="machine-private-data-objects-m">
+<h3>Machine private data objects (M$)<a class="headerlink" href="#machine-private-data-objects-m" title="Permalink to this headline">¶</a></h3>
+<p>They can be accessed only by the operating system. These objects have key names that begin with “M$”.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "OTRF/ThreatHunter-Playbook",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./library/windows"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="active_directory_replication.html" title="previous page">Active Directory Replication</a>
+    <a class='right-next' id="next-link" href="process_access_rights.html" title="next page">Process Security and Access Rights</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Roberto Rodriguez @Cyb3rWard0g<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../../_static/js/index.js"></script>
+    
+  </body>
+</html>

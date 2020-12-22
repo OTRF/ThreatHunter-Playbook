@@ -1,0 +1,680 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Windows &#8212; Threat Hunter Playbook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-dropdown.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://threathunterplaybook.com/notebooks/windows/intro.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Execution" href="02_execution/intro.html" />
+    <link rel="prev" title="Free Telemetry Notebook" href="../campaigns/apt29Evals.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://threathunterplaybook.com/notebooks/windows/intro.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Windows" />
+<meta property="og:description" content="Windows  ATT&amp;CK Navigator View  &lt;iframe src=&#34;https://mitre-attack.github.io/attack-navigator/enterprise/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FOTRF" />
+<meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Threat Hunter Playbook</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <p class="caption">
+ <span class="caption-text">
+  Knowledge Library
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../library/windows/intro.html">
+   Windows
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Pre-Hunt Activities
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../pre-hunt/data_management.html">
+   Data Management
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Campaign Notebooks
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../evals/intro.html">
+   ATT&amp;CK Evaluations
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Targeted Notebooks
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Windows
+  </a>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="02_execution/intro.html">
+     Execution
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="02_execution/WIN-190815181010.html">
+       Remote Service creation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="02_execution/WIN-190810201010.html">
+       WMI Win32_Process Class and Create Method for Remote Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="02_execution/WIN-201009173318.html">
+       Remote WMI Wbemcomn DLL Hijack
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="02_execution/WIN-190410151110.html">
+       Basic PowerShell Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="02_execution/WIN-190813181020.html">
+       Service Creation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="02_execution/WIN-190610201010.html">
+       Alternate PowerShell Hosts
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="02_execution/WIN-190811201010.html">
+       WMI Module Load
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="02_execution/WIN-190511223310.html">
+       PowerShell Remote Session
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="03_persistence/intro.html">
+     Persistence
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="03_persistence/WIN-190810170510.html">
+       WMI Eventing
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="03_persistence/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="04_privilege_escalation/intro.html">
+     Privilege Escalation
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="04_privilege_escalation/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="05_defense_evasion/intro.html">
+     Defense Evasion
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="05_defense_evasion/WIN-180719170510.html">
+       DLL Injection via CreateRemoteThread and LoadLibrary
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="05_defense_evasion/WIN-201012183248.html">
+       Wuauclt CreateRemoteThread Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="05_defense_evasion/WIN-191224222300.html">
+       Extended NetNTLM Downgrade
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="05_defense_evasion/WIN-190407183310.html">
+       Enable Remote Desktop Conections Registry
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="05_defense_evasion/WIN-190510202010.html">
+       WDigest Downgrade
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="05_defense_evasion/WIN-190101151110.html">
+       Active Directory Replication User Backdoor
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="06_credential_access/intro.html">
+     Credential Access
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="06_credential_access/WIN-190620024610.html">
+       Domain DPAPI Backup Key Extraction
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="06_credential_access/WIN-190725024610.html">
+       SAM Registry Hive Handle Request
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="06_credential_access/WIN-180815210510.html">
+       Active Directory Replication From Non-Domain-Controller Accounts
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="06_credential_access/WIN-191030201010.html">
+       Remote Interactive Task Manager LSASS Dump
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="06_credential_access/WIN-170105221010.html">
+       LSASS Access from Non System Account
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="07_discovery/intro.html">
+     Discovery
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="07_discovery/WIN-190725024610.html">
+       SAM Registry Hive Handle Request
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="07_discovery/WIN-190625024610.html">
+       SysKey Registry Keys Access
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="07_discovery/WIN-190826010110.html">
+       Remote Service Control Manager Handle
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="08_lateral_movement/intro.html">
+     Lateral Movement
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="08_lateral_movement/WIN-190815181010.html">
+       Remote Service creation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="08_lateral_movement/WIN-190810201010.html">
+       WMI Win32_Process Class and Create Method for Remote Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="08_lateral_movement/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="08_lateral_movement/WIN-201012004336.html">
+       SMB Create Remote File
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="08_lateral_movement/WIN-201009173318.html">
+       Remote WMI Wbemcomn DLL Hijack
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="08_lateral_movement/WIN-201009183000.html">
+       Remote DCOM IErtUtil DLL Hijack
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="08_lateral_movement/WIN-190511223310.html">
+       PowerShell Remote Session
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="09_collection/intro.html">
+     Collection
+    </a>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="09_collection/WIN-200609225055.html">
+       Access to Microphone Device
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Tutorials
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../tutorials/jupyter/introduction.html">
+   Jupyter Notebooks
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/notebooks/windows/intro.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/OTRF/ThreatHunter-Playbook"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/OTRF/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Fnotebooks/windows/intro.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/OTRF/ThreatHunter-Playbook/edit/master/docs/notebooks/windows/intro.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#att-ck-navigator-view">
+   ATT&amp;CK Navigator View
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#table-view">
+   Table View
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="windows">
+<h1>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="att-ck-navigator-view">
+<h2>ATT&amp;CK Navigator View<a class="headerlink" href="#att-ck-navigator-view" title="Permalink to this headline">¶</a></h2>
+<iframe src="https://mitre-attack.github.io/attack-navigator/enterprise/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FOTRF%2FThreatHunter-Playbook%2Fmaster%2Fdocs%2Fnotebooks%2Fwindows%2Fwindows.json&tabs=false&selecting_techniques=false" width="950" height="450"></iframe>
+</div>
+<div class="section" id="table-view">
+<h2>Table View<a class="headerlink" href="#table-view" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Created</p></th>
+<th class="text-align:left head"><p>Analytic</p></th>
+<th class="text-align:left head"><p>Hypothesis</p></th>
+<th class="text-align:left head"><p>Author</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/09</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/09_collection/WIN-200609225055.html">Access to Microphone Device</a></p></td>
+<td class="text-align:left"><p>Adversaries might be accessing the microphone in endpoints over the network.</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2018/08/15</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/06_credential_access/WIN-180815210510.html">Active Directory Replication From Non-Domain-Controller Accounts</a></p></td>
+<td class="text-align:left"><p>Adversaries might attempt to pull the NTLM hash of a user via active directory replication apis from a non-domain-controller account with permissions to do so.</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2019/01/01</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/WIN-190101151110.html">Active Directory Replication User Backdoor</a></p></td>
+<td class="text-align:left"><p>Adversaries with enough permissions (domain admin) might be adding an ACL to the Root Domain for any user to abuse active directory replication services.</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2019/08/15</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/02_execution/WIN-190610201010.html">Alternate PowerShell Hosts</a></p></td>
+<td class="text-align:left"><p>Adversaries might be leveraging alternate PowerShell Hosts to execute PowerShell evading traditional PowerShell detections that look for powershell.exe in my environment.</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2019/04/10</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/02_execution/WIN-190410151110.html">Basic PowerShell Execution</a></p></td>
+<td class="text-align:left"><p>Adversaries might be leveraging PowerShell to execute code within my environment</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2018/07/19</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/WIN-180719170510.html">DLL Injection via CreateRemoteThread and LoadLibrary</a></p></td>
+<td class="text-align:left"><p>Adversaries might be injecting a dll to another process to execute code via CreateRemoteThread and LoadLibrary functions.</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2019/06/20</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/06_credential_access/WIN-190620024610.html">Domain DPAPI Backup Key Extraction</a></p></td>
+<td class="text-align:left"><p>Adversaries might be extracting the DPAPI domain backup key from my DC to be able to decrypt any domain user master key files.</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2019/04/07</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/WIN-190407183310.html">Enable Remote Desktop Conections Registry</a></p></td>
+<td class="text-align:left"><p>Adversaries might be modifying registry key values to enable remote desktop connections in my environment</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2019/12/24</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/WIN-191224222300.html">Extended NetNTLM Downgrade</a></p></td>
+<td class="text-align:left"><p>Adversaries might be downgrading the challenge/response authentication protocol used for network logons, the minimum security negotiated for applications using NTLMSSP, and security settings that restrict outgoing NTLM traffic to remote servers in my environment</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2017/01/05</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/06_credential_access/WIN-170105221010.html">LSASS Access from Non System Account</a></p></td>
+<td class="text-align:left"><p>Adversaries might be using a non system account to access LSASS and extract credentials from memory.</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’]</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2019/05/11</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-190511223310.html">PowerShell Remote Session</a></p></td>
+<td class="text-align:left"><p>Adversaries might be leveraging remote powershell sessions to execute code on remote systems throughout my environment</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/10/09</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-201009183000.html">Remote DCOM IErtUtil DLL Hijack</a></p></td>
+<td class="text-align:left"><p>Threat actors might be copying files remotely to abuse a DLL hijack opportunity found on the DCOM InternetExplorer.Application Class.</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2019/10/30</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/06_credential_access/WIN-191030201010.html">Remote Interactive Task Manager LSASS Dump</a></p></td>
+<td class="text-align:left"><p>Adversaries might be RDPing to computers in my environment and interactively dumping the memory contents of LSASS with task manager.</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2019/08/26</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/07_discovery/WIN-190826010110.html">Remote Service Control Manager Handle</a></p></td>
+<td class="text-align:left"><p>Adversaries might be attempting to open up a handle to the service control manager (SCM) database on remote endpoints to check for local admin access in my environment.</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2019/08/15</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-190815181010.html">Remote Service creation</a></p></td>
+<td class="text-align:left"><p>Adversaries might be creating new services remotely to execute code and move laterally in my environment</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/09/02</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-200902020333.html">Remote WMI ActiveScriptEventConsumers</a></p></td>
+<td class="text-align:left"><p>Adversaries might be leveraging WMI ActiveScriptEventConsumers remotely to move laterally in my network.</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/10/09</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/02_execution/WIN-201009173318.html">Remote WMI Wbemcomn DLL Hijack</a></p></td>
+<td class="text-align:left"><p>Threat actors might be copying files remotely to abuse a DLL hijack opportunity found on the WMI provider host (wmiprvse.exe).</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2019/07/25</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/07_discovery/WIN-190725024610.html">SAM Registry Hive Handle Request</a></p></td>
+<td class="text-align:left"><p>Adversaries might be getting a handle to the SAM database to extract credentials in my environment</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2019/08/13</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/02_execution/WIN-190813181020.html">Service Creation</a></p></td>
+<td class="text-align:left"><p>Adversaries might be creating new services to execute code on a compromised endpoint in my environment</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/10/12</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-201012004336.html">SMB Create Remote File</a></p></td>
+<td class="text-align:left"><p>Adversaries might be creating a file remotely via the Server Message Block (SMB) Protocol.</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2019/06/25</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/07_discovery/WIN-190625024610.html">SysKey Registry Keys Access</a></p></td>
+<td class="text-align:left"><p>Adversaries might be calculating the SysKey from registry key values to decrypt SAM entries</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2019/05/10</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/WIN-190510202010.html">WDigest Downgrade</a></p></td>
+<td class="text-align:left"><p>Adversaries might have updated the property value UseLogonCredential of HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest to 1 in order to be able to extract clear text passwords from memory contents of lsass.</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2019/08/10</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/03_persistence/WIN-190810170510.html">WMI Eventing</a></p></td>
+<td class="text-align:left"><p>Adversaries might be leveraging WMI eventing for persistence in my environment.</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2019/08/11</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/02_execution/WIN-190811201010.html">WMI Module Load</a></p></td>
+<td class="text-align:left"><p>Adversaries might be leveraging WMI modules to execute WMI tasks bypassing controls monitoring for wmiprvse.exe or wmiapsrv.exe activity</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2019/08/10</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/08_lateral_movement/WIN-190810201010.html">WMI Win32_Process Class and Create Method for Remote Execution</a></p></td>
+<td class="text-align:left"><p>Adversaries might be leveraging WMI Win32_Process class and method Create to execute code remotely across my environment</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’, ‘Jose Rodriguez &#64;Cyb3rPandaH’]</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/10/12</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://threathunterplaybook.com/notebooks/windows/05_defense_evasion/WIN-201012183248.html">Wuauclt CreateRemoteThread Execution</a></p></td>
+<td class="text-align:left"><p>Adversaries might be proxy executing code via the Windows Update client utility in my environment and creating and running a thread in the virtual address space of another process via the CreateRemoteThread API to bypass rules looking for it calling out to the Internet.</p></td>
+<td class="text-align:left"><p>[‘Roberto Rodriguez &#64;Cyb3rWard0g’]</p></td>
+</tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "OTRF/ThreatHunter-Playbook",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebooks/windows"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../campaigns/apt29Evals.html" title="previous page">Free Telemetry Notebook</a>
+    <a class='right-next' id="next-link" href="02_execution/intro.html" title="next page">Execution</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Roberto Rodriguez @Cyb3rWard0g<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../../_static/js/index.js"></script>
+    
+  </body>
+</html>
