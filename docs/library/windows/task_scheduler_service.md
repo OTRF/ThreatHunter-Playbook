@@ -4,10 +4,13 @@ The Task Scheduler service allows you to perform automated tasks on a chosen com
 
 ## Task Scheduler Service Remote Protocol
 
-* **RPC Server**
-    * **Name**: ITaskSchedulerService
-    * **UUID**: 86d35949-83c9-4044-b424-db363231fd0c
-    * **FilePath**: C:\Windows\System32\schedsvc.dll
+## ITaskSchedulerService RPC Server
+The ITaskSchedulerService interface uses the **ncacn_ip_tcp** RPC protocol sequence and RPC dynamic endpoints.
+
+### RPC Server
+* **Name**: ITaskSchedulerService
+* **UUID**: 86d35949-83c9-4044-b424-db363231fd0c
+* **FilePath**: C:\Windows\System32\schedsvc.dll
 
 ```
 InterfaceId           : 86d35949-83c9-4044-b424-db363231fd0c
@@ -30,16 +33,55 @@ EndpointCount         : 3
 Client                : False 
 ```
 
-* **RPC Clients**:
-    * taskcomp.dll
-    * taskschd.dll
-    * wmicmiplugin.dll 
+### RPC Clients
+* taskcomp.dll
+* taskschd.dll
+* wmicmiplugin.dll 
 
-## RPC Methods
+### RPC Methods
 
 * SchRpcRegisterTask (Opnum 1)- The SchRpcRegisterTask method registers a task with the server (i.e. Updates).
 * SchRpcRetrieveTask (Opnum 2) - The SchRpcRetrieveTask method returns a task definition.
 * SchRpcRun (Opnum 12) - The SchRpcRun method runs a task specified by a path.
+
+## ATSvc RPC Server
+When using the ATSvc interface, the Task Scheduler Remoting Protocol client and server MUST specify **ncacn_np** as the RPC protocol sequence.
+The ATSvc interface uses a well-known endpoint **\PIPE\atsvc**.
+
+### RPC Server
+* **Name**: ATSvc
+* **UUID**: 1ff70682-0a51-30e8-076d-740be8cee98b
+* **FilePath**: C:\Windows\System32\taskcomp.dll
+
+```
+InterfaceId           : 1ff70682-0a51-30e8-076d-740be8cee98b
+InterfaceVersion      : 1.0
+TransferSyntaxId      : 8a885d04-1ceb-11c9-9fe8-08002b104860
+TransferSyntaxVersion : 2.0
+ProcedureCount        : 4
+Procedures            : {NetrJobAdd, NetrJobDel, NetrJobEnum, NetrJobGetInfo}
+Server                : UUID: 1ff70682-0a51-30e8-076d-740be8cee98b
+ComplexTypes          : {Struct_0, Struct_1, Struct_2}
+FilePath              : C:\Windows\System32\taskcomp.dll
+Name                  : taskcomp.dll
+Offset                : 322256
+ServiceName           : 
+ServiceDisplayName    : 
+IsServiceRunning      : False
+Endpoints             : {[1ff70682-0a51-30e8-076d-740be8cee98b, 1.0] ncalrpc:[LRPC-b858137bbb082a0e8d]}
+EndpointCount         : 1
+Client                : False
+```
+
+### RPC Clients
+* mstask.dll
+* schedcli.dll
+
+### RPC Methods
+* NetrJobAdd (Opnum 0)- The NetrJobAdd method MUST add a single AT task to the server's task store.
+* NetrJobDel (Opnum 1) - The NetrJobDel method MUST delete a specified range of tasks from the task store. The method is capable of deleting all AT tasks or just a subset of the tasks, as determined by the values of the MinJobId and MaxJobId parameters.
+* NetrJobEnum (Opnum 2) - The NetrJobEnum method MUST return an enumeration of all AT tasks on the specified server.
+* NetrJobGetInfo (Opnum 3) - The NetrJobGetInfo method MUST return information for a specified ATSvc task. The task identifier MUST be used to locate the task configuration.
 
 ## Task Actions
 * ComHandler Action - This action fires a COM handler.
@@ -246,6 +288,8 @@ EventID 7: Image Loaded
 * taskcomp.dll
 * taskschd.dll
 * wmicmiplugin.dll
+* mstask.dll
+* schedcli.dll
 
 ## References
 * https://winprotocoldoc.blob.core.windows.net/productionwindowsarchives/MS-TSCH/%5BMS-TSCH%5D-170915-diff.pdf
@@ -253,3 +297,5 @@ EventID 7: Image Loaded
 * https://docs.microsoft.com/en-us/windows/win32/taskschd/displaying-task-names-and-state--scripting-
 * https://docs.microsoft.com/en-us/windows/win32/taskschd/trigger-type
 * https://docs.microsoft.com/en-us/windows/win32/taskschd/tasksettings
+* https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-tsch/fbab083e-f79f-4216-af4c-d5104a913d40
+* https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-tsch/4d44c426-fad2-4cc7-9677-bfcd235dca33
