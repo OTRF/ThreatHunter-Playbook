@@ -18,7 +18,8 @@ detection:
         ObjectType: 'SC_MANAGER OBJECT'
         ObjectName: 'servicesactive'
         PrivilegeList: 'SeTakeOwnershipPrivilege'
-        SubjectLogonId: "0x3e4"
+    filter:
+        SubjectLogonId: "0x3e4" and not filter
     condition: selection
 falsepositives:
     - Unknown
