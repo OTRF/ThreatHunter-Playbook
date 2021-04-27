@@ -19,8 +19,8 @@ Distributed Key Manager (DKM) is a client-side functionality that uses a set of 
 
 ## ADFS DKM Master Key
 
-* The ADFS DKM master key(s) are stored in Active Directory.
-* ADFS DKM Container: `CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local`
+* The ADFS DKM master key(s) are stored in Active Directory (AD).
+* An examplle of an ADFS DKM Container in AD would be `CN=b274f3f4-cd78-4d0b-9ccc-6704a5fbb79e,CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local`
 * One could read the DKM key as a byte array and convert it to a usable string from AD by running the following command:
 
 ```PowerShell
@@ -29,16 +29,16 @@ $key=(Get-ADObject -filter 'ObjectClass -eq "Contact" -and name -ne "CryptoPolic
 [System.BitConverter]::ToString($key)
 ```
 
-An adversary would need to obtain the ADFS DKM Master Key to then use it to decrypt a signing certificate. Then, the adversary can use the signing certificate to sign SAML tokens.
+A threat actor would need to obtain the ADFS DKM Master Key to then use it to decrypt AD FS certificates. If the AD FS token signing certificate is exported, it can then be used sign new SAML tokens and impersonate users in a federated network.
 
 ## Audit Rule on ADFS DKM Container
 
-* An Access Control Entry (ACE) in the System Access Control List (SACL) of the DKM container (Active Directory Object)
-* Rule documentation: https://github.com/OTRF/Set-AuditRule/blob/master/rules/activedirectory/adfs_cryptopolicy_thumbnailphoto.yml
+* An Access Control Entry (ACE) in the System Access Control List (SACL) of the AD FS DKM contact object that holds the DKM master encryption key.
+* Rule documentation: https://github.com/OTRF/Set-AuditRule/blob/master/rules/activedirectory/adfs_dkm_contact_object.yml
 * Rule logic:
 
 ```PowerShell
-Set-AuditRule -AdObjectPath 'AD:\CN=CryptoPolicy,CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local' -WellKnownSidType NetworkSid -Rights GenericRead -InheritanceFlags None -AuditFlags Success -AttributeGUID '8d3bca50-1d7e-11d0-a081-00aa006c33ed'
+Set-AuditRule -AdObjectPath 'AD:\CN=<Contact Object>,CN=<DKM Container>,CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local' -WellKnownSidType WorldSid -Rights GenericRead -InheritanceFlags None -AuditFlags Success
 ```
 
 **Results**:

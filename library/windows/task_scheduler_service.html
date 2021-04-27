@@ -88,6 +88,11 @@
  </span>
 </p>
 <ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../azure/intro.html">
+   Azure
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="reference internal" href="intro.html">
    Windows
@@ -126,6 +131,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="logon_session.html">
      Logon Session
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="adfs_certificates.html">
+     Active Directory Federation Services (ADFS) Certificates
     </a>
    </li>
    <li class="toctree-l2">
@@ -302,9 +312,48 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#rpc-methods">
-   RPC Methods
+  <a class="reference internal nav-link" href="#itaskschedulerservice-rpc-server">
+   ITaskSchedulerService RPC Server
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rpc-server">
+     RPC Server
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rpc-clients">
+     RPC Clients
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rpc-methods">
+     RPC Methods
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#atsvc-rpc-server">
+   ATSvc RPC Server
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     RPC Server
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     RPC Clients
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     RPC Methods
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#task-actions">
@@ -370,14 +419,16 @@
 <p>The Task Scheduler service allows you to perform automated tasks on a chosen computer. With this service, you can schedule any program to run at a convenient time for you or when a specific event occurs.</p>
 <div class="section" id="task-scheduler-service-remote-protocol">
 <h2>Task Scheduler Service Remote Protocol<a class="headerlink" href="#task-scheduler-service-remote-protocol" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="itaskschedulerservice-rpc-server">
+<h2>ITaskSchedulerService RPC Server<a class="headerlink" href="#itaskschedulerservice-rpc-server" title="Permalink to this headline">¶</a></h2>
+<p>The ITaskSchedulerService interface uses the <strong>ncacn_ip_tcp</strong> RPC protocol sequence and RPC dynamic endpoints.</p>
+<div class="section" id="rpc-server">
+<h3>RPC Server<a class="headerlink" href="#rpc-server" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p><strong>RPC Server</strong></p>
-<ul>
 <li><p><strong>Name</strong>: ITaskSchedulerService</p></li>
 <li><p><strong>UUID</strong>: 86d35949-83c9-4044-b424-db363231fd0c</p></li>
 <li><p><strong>FilePath</strong>: C:\Windows\System32\schedsvc.dll</p></li>
-</ul>
-</li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">InterfaceId</span>           <span class="p">:</span> <span class="mi">86</span><span class="n">d35949</span><span class="o">-</span><span class="mi">83</span><span class="n">c9</span><span class="o">-</span><span class="mi">4044</span><span class="o">-</span><span class="n">b424</span><span class="o">-</span><span class="n">db363231fd0c</span>
 <span class="n">InterfaceVersion</span>      <span class="p">:</span> <span class="mf">1.0</span>
@@ -399,23 +450,71 @@
 <span class="n">Client</span>                <span class="p">:</span> <span class="kc">False</span> 
 </pre></div>
 </div>
+</div>
+<div class="section" id="rpc-clients">
+<h3>RPC Clients<a class="headerlink" href="#rpc-clients" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p><strong>RPC Clients</strong>:</p>
-<ul>
 <li><p>taskcomp.dll</p></li>
 <li><p>taskschd.dll</p></li>
 <li><p>wmicmiplugin.dll</p></li>
 </ul>
-</li>
-</ul>
 </div>
 <div class="section" id="rpc-methods">
-<h2>RPC Methods<a class="headerlink" href="#rpc-methods" title="Permalink to this headline">¶</a></h2>
+<h3>RPC Methods<a class="headerlink" href="#rpc-methods" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>SchRpcRegisterTask (Opnum 1)- The SchRpcRegisterTask method registers a task with the server (i.e. Updates).</p></li>
 <li><p>SchRpcRetrieveTask (Opnum 2) - The SchRpcRetrieveTask method returns a task definition.</p></li>
 <li><p>SchRpcRun (Opnum 12) - The SchRpcRun method runs a task specified by a path.</p></li>
 </ul>
+</div>
+</div>
+<div class="section" id="atsvc-rpc-server">
+<h2>ATSvc RPC Server<a class="headerlink" href="#atsvc-rpc-server" title="Permalink to this headline">¶</a></h2>
+<p>When using the ATSvc interface, the Task Scheduler Remoting Protocol client and server MUST specify <strong>ncacn_np</strong> as the RPC protocol sequence.
+The ATSvc interface uses a well-known endpoint <strong>\PIPE\atsvc</strong>.</p>
+<div class="section" id="id1">
+<h3>RPC Server<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Name</strong>: ATSvc</p></li>
+<li><p><strong>UUID</strong>: 1ff70682-0a51-30e8-076d-740be8cee98b</p></li>
+<li><p><strong>FilePath</strong>: C:\Windows\System32\taskcomp.dll</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">InterfaceId</span>           <span class="p">:</span> <span class="mi">1</span><span class="n">ff70682</span><span class="o">-</span><span class="mi">0</span><span class="n">a51</span><span class="o">-</span><span class="mf">30e8</span><span class="o">-</span><span class="mi">076</span><span class="n">d</span><span class="o">-</span><span class="mi">740</span><span class="n">be8cee98b</span>
+<span class="n">InterfaceVersion</span>      <span class="p">:</span> <span class="mf">1.0</span>
+<span class="n">TransferSyntaxId</span>      <span class="p">:</span> <span class="mi">8</span><span class="n">a885d04</span><span class="o">-</span><span class="mi">1</span><span class="n">ceb</span><span class="o">-</span><span class="mi">11</span><span class="n">c9</span><span class="o">-</span><span class="mi">9</span><span class="n">fe8</span><span class="o">-</span><span class="mi">08002</span><span class="n">b104860</span>
+<span class="n">TransferSyntaxVersion</span> <span class="p">:</span> <span class="mf">2.0</span>
+<span class="n">ProcedureCount</span>        <span class="p">:</span> <span class="mi">4</span>
+<span class="n">Procedures</span>            <span class="p">:</span> <span class="p">{</span><span class="n">NetrJobAdd</span><span class="p">,</span> <span class="n">NetrJobDel</span><span class="p">,</span> <span class="n">NetrJobEnum</span><span class="p">,</span> <span class="n">NetrJobGetInfo</span><span class="p">}</span>
+<span class="n">Server</span>                <span class="p">:</span> <span class="n">UUID</span><span class="p">:</span> <span class="mi">1</span><span class="n">ff70682</span><span class="o">-</span><span class="mi">0</span><span class="n">a51</span><span class="o">-</span><span class="mf">30e8</span><span class="o">-</span><span class="mi">076</span><span class="n">d</span><span class="o">-</span><span class="mi">740</span><span class="n">be8cee98b</span>
+<span class="n">ComplexTypes</span>          <span class="p">:</span> <span class="p">{</span><span class="n">Struct_0</span><span class="p">,</span> <span class="n">Struct_1</span><span class="p">,</span> <span class="n">Struct_2</span><span class="p">}</span>
+<span class="n">FilePath</span>              <span class="p">:</span> <span class="n">C</span><span class="p">:</span>\<span class="n">Windows</span>\<span class="n">System32</span>\<span class="n">taskcomp</span><span class="o">.</span><span class="n">dll</span>
+<span class="n">Name</span>                  <span class="p">:</span> <span class="n">taskcomp</span><span class="o">.</span><span class="n">dll</span>
+<span class="n">Offset</span>                <span class="p">:</span> <span class="mi">322256</span>
+<span class="n">ServiceName</span>           <span class="p">:</span> 
+<span class="n">ServiceDisplayName</span>    <span class="p">:</span> 
+<span class="n">IsServiceRunning</span>      <span class="p">:</span> <span class="kc">False</span>
+<span class="n">Endpoints</span>             <span class="p">:</span> <span class="p">{[</span><span class="mi">1</span><span class="n">ff70682</span><span class="o">-</span><span class="mi">0</span><span class="n">a51</span><span class="o">-</span><span class="mf">30e8</span><span class="o">-</span><span class="mi">076</span><span class="n">d</span><span class="o">-</span><span class="mi">740</span><span class="n">be8cee98b</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span> <span class="n">ncalrpc</span><span class="p">:[</span><span class="n">LRPC</span><span class="o">-</span><span class="n">b858137bbb082a0e8d</span><span class="p">]}</span>
+<span class="n">EndpointCount</span>         <span class="p">:</span> <span class="mi">1</span>
+<span class="n">Client</span>                <span class="p">:</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>RPC Clients<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>mstask.dll</p></li>
+<li><p>schedcli.dll</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>RPC Methods<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>NetrJobAdd (Opnum 0)- The NetrJobAdd method MUST add a single AT task to the server’s task store.</p></li>
+<li><p>NetrJobDel (Opnum 1) - The NetrJobDel method MUST delete a specified range of tasks from the task store. The method is capable of deleting all AT tasks or just a subset of the tasks, as determined by the values of the MinJobId and MaxJobId parameters.</p></li>
+<li><p>NetrJobEnum (Opnum 2) - The NetrJobEnum method MUST return an enumeration of all AT tasks on the specified server.</p></li>
+<li><p>NetrJobGetInfo (Opnum 3) - The NetrJobGetInfo method MUST return information for a specified ATSvc task. The task identifier MUST be used to locate the task configuration.</p></li>
+</ul>
+</div>
 </div>
 <div class="section" id="task-actions">
 <h2>Task Actions<a class="headerlink" href="#task-actions" title="Permalink to this headline">¶</a></h2>
@@ -637,6 +736,8 @@
 <li><p>taskcomp.dll</p></li>
 <li><p>taskschd.dll</p></li>
 <li><p>wmicmiplugin.dll</p></li>
+<li><p>mstask.dll</p></li>
+<li><p>schedcli.dll</p></li>
 </ul>
 </div>
 <div class="section" id="references">
@@ -647,6 +748,8 @@
 <li><p>https://docs.microsoft.com/en-us/windows/win32/taskschd/displaying-task-names-and-state–scripting-</p></li>
 <li><p>https://docs.microsoft.com/en-us/windows/win32/taskschd/trigger-type</p></li>
 <li><p>https://docs.microsoft.com/en-us/windows/win32/taskschd/tasksettings</p></li>
+<li><p>https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-tsch/fbab083e-f79f-4216-af4c-d5104a913d40</p></li>
+<li><p>https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-tsch/4d44c426-fad2-4cc7-9677-bfcd235dca33</p></li>
 </ul>
 </div>
 </div>

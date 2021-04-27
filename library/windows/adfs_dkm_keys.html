@@ -88,6 +88,11 @@
  </span>
 </p>
 <ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../azure/intro.html">
+   Azure
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="reference internal" href="intro.html">
    Windows
@@ -126,6 +131,11 @@
    <li class="toctree-l2">
     <a class="reference internal" href="logon_session.html">
      Logon Session
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="adfs_certificates.html">
+     Active Directory Federation Services (ADFS) Certificates
     </a>
    </li>
    <li class="toctree-l2">
@@ -360,8 +370,8 @@
 <div class="section" id="adfs-dkm-master-key">
 <h2>ADFS DKM Master Key<a class="headerlink" href="#adfs-dkm-master-key" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>The ADFS DKM master key(s) are stored in Active Directory.</p></li>
-<li><p>ADFS DKM Container: <code class="docutils literal notranslate"><span class="pre">CN=ADFS,CN=Microsoft,CN=Program</span> <span class="pre">Data,DC=azsentinel,DC=local</span></code></p></li>
+<li><p>The ADFS DKM master key(s) are stored in Active Directory (AD).</p></li>
+<li><p>An examplle of an ADFS DKM Container in AD would be <code class="docutils literal notranslate"><span class="pre">CN=b274f3f4-cd78-4d0b-9ccc-6704a5fbb79e,CN=ADFS,CN=Microsoft,CN=Program</span> <span class="pre">Data,DC=azsentinel,DC=local</span></code></p></li>
 <li><p>One could read the DKM key as a byte array and convert it to a usable string from AD by running the following command:</p></li>
 </ul>
 <div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nv">$key</span><span class="p">=(</span><span class="nb">Get-ADObject</span> <span class="n">-filter</span> <span class="s1">&#39;ObjectClass -eq &quot;Contact&quot; -and name -ne &quot;CryptoPolicy&quot;&#39;</span> <span class="n">-SearchBase</span> <span class="s2">&quot;CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local&quot;</span> <span class="n">-Properties</span> <span class="n">thumbnailPhoto</span><span class="p">).</span><span class="n">thumbnailPhoto</span>
@@ -369,16 +379,16 @@
 <span class="no">[System.BitConverter]</span><span class="p">::</span><span class="n">ToString</span><span class="p">(</span><span class="nv">$key</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>An adversary would need to obtain the ADFS DKM Master Key to then use it to decrypt a signing certificate. Then, the adversary can use the signing certificate to sign SAML tokens.</p>
+<p>A threat actor would need to obtain the ADFS DKM Master Key to then use it to decrypt AD FS certificates. If the AD FS token signing certificate is exported, it can then be used sign new SAML tokens and impersonate users in a federated network.</p>
 </div>
 <div class="section" id="audit-rule-on-adfs-dkm-container">
 <h2>Audit Rule on ADFS DKM Container<a class="headerlink" href="#audit-rule-on-adfs-dkm-container" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>An Access Control Entry (ACE) in the System Access Control List (SACL) of the DKM container (Active Directory Object)</p></li>
-<li><p>Rule documentation: https://github.com/OTRF/Set-AuditRule/blob/master/rules/activedirectory/adfs_cryptopolicy_thumbnailphoto.yml</p></li>
+<li><p>An Access Control Entry (ACE) in the System Access Control List (SACL) of the AD FS DKM contact object that holds the DKM master encryption key.</p></li>
+<li><p>Rule documentation: https://github.com/OTRF/Set-AuditRule/blob/master/rules/activedirectory/adfs_dkm_contact_object.yml</p></li>
 <li><p>Rule logic:</p></li>
 </ul>
-<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-AuditRule</span> <span class="n">-AdObjectPath</span> <span class="s1">&#39;AD:\CN=CryptoPolicy,CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local&#39;</span> <span class="n">-WellKnownSidType</span> <span class="n">NetworkSid</span> <span class="n">-Rights</span> <span class="n">GenericRead</span> <span class="n">-InheritanceFlags</span> <span class="n">None</span> <span class="n">-AuditFlags</span> <span class="n">Success</span> <span class="n">-AttributeGUID</span> <span class="s1">&#39;8d3bca50-1d7e-11d0-a081-00aa006c33ed&#39;</span>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-AuditRule</span> <span class="n">-AdObjectPath</span> <span class="s1">&#39;AD:\CN=&lt;Contact Object&gt;,CN=&lt;DKM Container&gt;,CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local&#39;</span> <span class="n">-WellKnownSidType</span> <span class="n">WorldSid</span> <span class="n">-Rights</span> <span class="n">GenericRead</span> <span class="n">-InheritanceFlags</span> <span class="n">None</span> <span class="n">-AuditFlags</span> <span class="n">Success</span>
 </pre></div>
 </div>
 <p><strong>Results</strong>:</p>
