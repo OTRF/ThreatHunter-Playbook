@@ -5,7 +5,6 @@ import os
 import json
 import copy
 from jinja2 import Template
-from msticpy.data.sql_to_kql import sql_to_kql
 
 # ******* Paths for notebooks ********
 attack_paths = {

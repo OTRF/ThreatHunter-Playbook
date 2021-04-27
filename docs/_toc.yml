@@ -1,6 +1,12 @@
 - file: introduction
 - part: Knowledge Library
   chapters:
+  - file: library/azure/intro
+    sections:
+    - file: library/azure/identity_provider
+    - file: library/azure/access_token
+    - file: library/azure/primary_refresh_token
+    - file: library/azure/oauth2
   - file: library/windows/intro
     sections:
     - file: library/windows/service_control_manager
@@ -10,6 +16,7 @@
     - file: library/windows/adfs_dkm_keys
     - file: library/windows/syskey
     - file: library/windows/logon_session
+    - file: library/windows/adfs_certificates
     - file: library/windows/security_assertion_markup_language
     - file: library/windows/active_directory_replication
     - file: library/windows/lsa_policy_objects
