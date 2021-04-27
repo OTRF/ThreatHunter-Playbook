@@ -34,7 +34,7 @@ A threat actor would need to obtain the ADFS DKM Master Key to then use it to de
 ## Audit Rule on ADFS DKM Container
 
 * An Access Control Entry (ACE) in the System Access Control List (SACL) of the AD FS DKM contact object that holds the DKM master encryption key.
-* Rule documentation: https://github.com/OTRF/Set-AuditRule/blob/master/rules/activedirectory/adfs_cryptopolicy_thumbnailphoto.yml
+* Rule documentation: https://github.com/OTRF/Set-AuditRule/blob/master/rules/activedirectory/adfs_dkm_contact_object.yml
 * Rule logic:
 
 ```PowerShell
