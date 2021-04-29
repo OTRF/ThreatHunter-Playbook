@@ -20,7 +20,9 @@ Distributed Key Manager (DKM) is a client-side functionality that uses a set of 
 ## ADFS DKM Master Key
 
 * The ADFS DKM master key(s) are stored in Active Directory (AD).
-* An examplle of an ADFS DKM Container in AD would be `CN=b274f3f4-cd78-4d0b-9ccc-6704a5fbb79e,CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local`
+* An examplle of an ADFS DKM Container in AD would be `CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local`
+* Inside of the AD container there are groups and inside of one of them there is an AD contact object that contains the DKM key used to decrypt AD FS certificates.
+* The DKM key is stored in the `thumbnailPhoto` attribute of the AD contact object.
 * One could read the DKM key as a byte array and convert it to a usable string from AD by running the following command:
 
 ```PowerShell
@@ -29,23 +31,30 @@ $key=(Get-ADObject -filter 'ObjectClass -eq "Contact" -and name -ne "CryptoPolic
 [System.BitConverter]::ToString($key)
 ```
 
-A threat actor would need to obtain the ADFS DKM Master Key to then use it to decrypt AD FS certificates. If the AD FS token signing certificate is exported, it can then be used sign new SAML tokens and impersonate users in a federated network.
+A threat actor would need to obtain the ADFS DKM Master Key to then use it in the process to decrypt AD FS certificates. If the AD FS token signing certificate is decrypted from the AD FS configuration settings and exported, it can then be used sign new SAML tokens and impersonate users in a federated environment.
 
 ## Audit Rule on ADFS DKM Container
 
-* An Access Control Entry (ACE) in the System Access Control List (SACL) of the AD FS DKM contact object that holds the DKM master encryption key.
-* Rule documentation: https://github.com/OTRF/Set-AuditRule/blob/master/rules/activedirectory/adfs_dkm_contact_object.yml
-* Rule logic:
+* We can create an audit rule on the DKM container or directly on the AD contact object that contains the DKM key.
+* We need to add an Access Control Entry (ACE) to the System Access Control List (SACL) of the AD object and audit access requests to it.
+
+**Audit Rule on DKM Container**
+
+```PowerShell
+Set-AuditRule -AdObjectPath 'AD:\CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local' -WellKnownSidType WorldSid -Rights GenericRead -InheritanceFlags None -AuditFlags Success
+```
+
+**Audit Rule on Specific AD Contact Object**
 
 ```PowerShell
 Set-AuditRule -AdObjectPath 'AD:\CN=<Contact Object>,CN=<DKM Container>,CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local' -WellKnownSidType WorldSid -Rights GenericRead -InheritanceFlags None -AuditFlags Success
 ```
 
 **Results**:
-* Event 4662 does not translate the thumbnailPhoto GUI to the "thumbnailPhoto" string by default. That needs to be an enrichment.
-* thumbnailPhoto Attribute GUID: 8d3bca50-1d7e-11d0-a081-00aa006c33ed
-* The attribute is not part of the object name in the security event. It is an attribute/property. Therefore, the value would show up in the field name Properties
-* We can filter events also by using the ObjectType GUID of class type contact and then look for the thumbnailPhoto GUID value.
+* Event 4662 does not translate the thumbnailPhoto GUID to the "thumbnailPhoto" string by default. That needs to be an enrichment.
+    * thumbnailPhoto Attribute GUID: `8d3bca50-1d7e-11d0-a081-00aa006c33ed`
+    * The attribute is not part of the object name in the security event. It is an attribute/property. Therefore, the value would show up in the field name Properties
+* We can filter events also by using the ObjectType GUID of the AD contact object and then look for the thumbnailPhoto GUID value.
 
 **Example**
 

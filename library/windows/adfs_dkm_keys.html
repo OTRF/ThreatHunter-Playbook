@@ -371,7 +371,9 @@
 <h2>ADFS DKM Master Key<a class="headerlink" href="#adfs-dkm-master-key" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>The ADFS DKM master key(s) are stored in Active Directory (AD).</p></li>
-<li><p>An examplle of an ADFS DKM Container in AD would be <code class="docutils literal notranslate"><span class="pre">CN=b274f3f4-cd78-4d0b-9ccc-6704a5fbb79e,CN=ADFS,CN=Microsoft,CN=Program</span> <span class="pre">Data,DC=azsentinel,DC=local</span></code></p></li>
+<li><p>An examplle of an ADFS DKM Container in AD would be <code class="docutils literal notranslate"><span class="pre">CN=ADFS,CN=Microsoft,CN=Program</span> <span class="pre">Data,DC=azsentinel,DC=local</span></code></p></li>
+<li><p>Inside of the AD container there are groups and inside of one of them there is an AD contact object that contains the DKM key used to decrypt AD FS certificates.</p></li>
+<li><p>The DKM key is stored in the <code class="docutils literal notranslate"><span class="pre">thumbnailPhoto</span></code> attribute of the AD contact object.</p></li>
 <li><p>One could read the DKM key as a byte array and convert it to a usable string from AD by running the following command:</p></li>
 </ul>
 <div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nv">$key</span><span class="p">=(</span><span class="nb">Get-ADObject</span> <span class="n">-filter</span> <span class="s1">&#39;ObjectClass -eq &quot;Contact&quot; -and name -ne &quot;CryptoPolicy&quot;&#39;</span> <span class="n">-SearchBase</span> <span class="s2">&quot;CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local&quot;</span> <span class="n">-Properties</span> <span class="n">thumbnailPhoto</span><span class="p">).</span><span class="n">thumbnailPhoto</span>
@@ -379,24 +381,31 @@
 <span class="no">[System.BitConverter]</span><span class="p">::</span><span class="n">ToString</span><span class="p">(</span><span class="nv">$key</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>A threat actor would need to obtain the ADFS DKM Master Key to then use it to decrypt AD FS certificates. If the AD FS token signing certificate is exported, it can then be used sign new SAML tokens and impersonate users in a federated network.</p>
+<p>A threat actor would need to obtain the ADFS DKM Master Key to then use it in the process to decrypt AD FS certificates. If the AD FS token signing certificate is decrypted from the AD FS configuration settings and exported, it can then be used sign new SAML tokens and impersonate users in a federated environment.</p>
 </div>
 <div class="section" id="audit-rule-on-adfs-dkm-container">
 <h2>Audit Rule on ADFS DKM Container<a class="headerlink" href="#audit-rule-on-adfs-dkm-container" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>An Access Control Entry (ACE) in the System Access Control List (SACL) of the AD FS DKM contact object that holds the DKM master encryption key.</p></li>
-<li><p>Rule documentation: https://github.com/OTRF/Set-AuditRule/blob/master/rules/activedirectory/adfs_dkm_contact_object.yml</p></li>
-<li><p>Rule logic:</p></li>
+<li><p>We can create an audit rule on the DKM container or directly on the AD contact object that contains the DKM key.</p></li>
+<li><p>We need to add an Access Control Entry (ACE) to the System Access Control List (SACL) of the AD object and audit access requests to it.</p></li>
 </ul>
+<p><strong>Audit Rule on DKM Container</strong></p>
+<div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-AuditRule</span> <span class="n">-AdObjectPath</span> <span class="s1">&#39;AD:\CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local&#39;</span> <span class="n">-WellKnownSidType</span> <span class="n">WorldSid</span> <span class="n">-Rights</span> <span class="n">GenericRead</span> <span class="n">-InheritanceFlags</span> <span class="n">None</span> <span class="n">-AuditFlags</span> <span class="n">Success</span>
+</pre></div>
+</div>
+<p><strong>Audit Rule on Specific AD Contact Object</strong></p>
 <div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nb">Set-AuditRule</span> <span class="n">-AdObjectPath</span> <span class="s1">&#39;AD:\CN=&lt;Contact Object&gt;,CN=&lt;DKM Container&gt;,CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local&#39;</span> <span class="n">-WellKnownSidType</span> <span class="n">WorldSid</span> <span class="n">-Rights</span> <span class="n">GenericRead</span> <span class="n">-InheritanceFlags</span> <span class="n">None</span> <span class="n">-AuditFlags</span> <span class="n">Success</span>
 </pre></div>
 </div>
 <p><strong>Results</strong>:</p>
 <ul class="simple">
-<li><p>Event 4662 does not translate the thumbnailPhoto GUI to the “thumbnailPhoto” string by default. That needs to be an enrichment.</p></li>
-<li><p>thumbnailPhoto Attribute GUID: 8d3bca50-1d7e-11d0-a081-00aa006c33ed</p></li>
+<li><p>Event 4662 does not translate the thumbnailPhoto GUID to the “thumbnailPhoto” string by default. That needs to be an enrichment.</p>
+<ul>
+<li><p>thumbnailPhoto Attribute GUID: <code class="docutils literal notranslate"><span class="pre">8d3bca50-1d7e-11d0-a081-00aa006c33ed</span></code></p></li>
 <li><p>The attribute is not part of the object name in the security event. It is an attribute/property. Therefore, the value would show up in the field name Properties</p></li>
-<li><p>We can filter events also by using the ObjectType GUID of class type contact and then look for the thumbnailPhoto GUID value.</p></li>
+</ul>
+</li>
+<li><p>We can filter events also by using the ObjectType GUID of the AD contact object and then look for the thumbnailPhoto GUID value.</p></li>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span>- <span class="nt">&lt;Event</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/win/2004/08/events/event&quot;</span><span class="nt">&gt;</span> 
