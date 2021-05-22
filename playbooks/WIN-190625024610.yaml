@@ -22,8 +22,8 @@ offensive_tradecraft: |-
   Adversaries can calculate the Syskey by using RegOpenKeyEx/RegQueryInfoKey API calls to query the appropriate class info and values from the HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\JD, HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\Skew1, HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\GBG, and HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\Data keys.
   
   Additional reading
-  * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/security_account_manager_database.md
-  * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/library/syskey.md
+  * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/windows/security_account_manager_database.md
+  * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/windows/syskey.md
 test_data:
   metadata: https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-190625103712.html
   link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/host/empire_mimikatz_sam_access.zip

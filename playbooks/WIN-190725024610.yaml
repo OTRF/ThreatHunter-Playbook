@@ -29,8 +29,8 @@ offensive_tradecraft: |-
   In addition, adversaries can use the built-in Reg.exe utility to dump the SAM hive in order to crack it offline.
   
   Additional reading
-  * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/security_account_manager_database.md
-  * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/syskey.md
+  * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/windows/security_account_manager_database.md
+  * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/windows/syskey.md
 test_data:
   metadata: https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-190625103712.html
   link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/host/empire_mimikatz_sam_access.zip
