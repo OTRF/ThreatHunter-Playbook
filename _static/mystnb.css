@@ -7,7 +7,6 @@ div.container.cell {
 /* Removing all background formatting so we can control at the div level */
 .cell_input div.highlight, .cell_input pre, .cell_output .output * {
   border: none;
-  background-color: transparent;
   box-shadow: none;
 }
 

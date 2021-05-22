@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 
 <html>
@@ -7,15 +6,33 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>59F37185-0BE4-4D81-8B81-FBFBD8055587 &#8212; Threat Hunter Playbook</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
-    <link href="../../../_static/css/index.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.css" type="text/css" />
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet" />
+  <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-dropdown.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
+
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
@@ -24,8 +41,8 @@
     <script src="../../../_static/togglebutton.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/sphinx-book-theme.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
@@ -39,23 +56,14 @@
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="docsearch:language" content="en">
-
-
-<!-- Opengraph tags -->
-<meta property="og:url"         content="https://threathunterplaybook.com/evals/apt29/detections/9.C.3_59F37185-0BE4-4D81-8B81-FBFBD8055587.html" />
-<meta property="og:type"        content="article" />
-<meta property="og:title"       content="59F37185-0BE4-4D81-8B81-FBFBD8055587" />
-<meta property="og:description" content="59F37185-0BE4-4D81-8B81-FBFBD8055587  Data Sources  Microsoft-Windows-Sysmon/Operational&lt;br&gt;  Logic  SELECT Message FROM apt29Host j INNER JOIN (     SELECT h.P" />
-<meta property="og:image"       content="https://threathunterplaybook.com/_static/logo.png" />
-
-<meta name="twitter:card" content="summary" />
-
-
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
     
 
     <div class="container-xl">
@@ -64,37 +72,101 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="../../../index.html">
-  
-  <img src="../../../_static/logo.png" class="logo" alt="logo">
-  
-  
-  <h1 class="site-logo" id="site-title">Threat Hunter Playbook</h1>
-  
-</a>
-</div>
-
-<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+      <img src="../../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Threat Hunter Playbook</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form>
-
-<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <p class="caption">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <p class="caption">
  <span class="caption-text">
   Knowledge Library
  </span>
 </p>
-<ul class="nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../../library/azure/intro.html">
-   Azure
-  </a>
- </li>
- <li class="toctree-l1">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../../library/windows/intro.html">
    Windows
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/service_control_manager.html">
+     Service Control Manager
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/mimikatz_openprocess_modules.html">
+     Mimikatz OpenProcess Modules
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/security_account_manager_database.html">
+     Security Account Manager (SAM) Database
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/security_account_manager_protocol.html">
+     Security Account Manager Remote Protocol (SAMRP)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/adfs_dkm_keys.html">
+     Active Directory Federation Services (ADFS) Distributed Key Manager (DKM) Keys
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/syskey.html">
+     SysKey
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/logon_session.html">
+     Logon Session
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/security_assertion_markup_language.html">
+     Security Assertion Markup Language (SAML)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/active_directory_replication.html">
+     Active Directory Replication
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/lsa_policy_objects.html">
+     LSA Policy Objects
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/process_access_rights.html">
+     Process Security and Access Rights
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/data_protection_api.html">
+     Data Protection API
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/task_scheduler_service.html">
+     Task Scheduler Service
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 <p class="caption">
@@ -102,11 +174,38 @@
   Pre-Hunt Activities
  </span>
 </p>
-<ul class="nav sidenav_l1">
- <li class="toctree-l1">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../../pre-hunt/data_management.html">
    Data Management
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../pre-hunt/data_documentation.html">
+     Data Documentation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../pre-hunt/data_standardization.html">
+     Data Standardization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../pre-hunt/data_modeling.html">
+     Data Modeling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../pre-hunt/data_quality.html">
+     Data Quality
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 <p class="caption">
@@ -114,11 +213,40 @@
   Campaign Notebooks
  </span>
 </p>
-<ul class="nav sidenav_l1">
- <li class="toctree-l1">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../intro.html">
    ATT&amp;CK Evaluations
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../intro.html">
+     APT 29
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+    <label for="toctree-checkbox-4">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../report.html">
+       Free Telemetry Report
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/campaigns/apt29Evals.html">
+       Free Telemetry Notebook
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
  </li>
 </ul>
 <p class="caption">
@@ -126,11 +254,279 @@
   Targeted Notebooks
  </span>
 </p>
-<ul class="nav sidenav_l1">
- <li class="toctree-l1">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../../notebooks/windows/intro.html">
    Windows
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../notebooks/windows/02_execution/intro.html">
+     Execution
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+    <label for="toctree-checkbox-6">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190815181010.html">
+       Remote Service creation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190810201010.html">
+       WMI Win32_Process Class and Create Method for Remote Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-201009173318.html">
+       Remote WMI Wbemcomn DLL Hijack
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190410151110.html">
+       Basic PowerShell Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190813181020.html">
+       Service Creation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190610201010.html">
+       Alternate PowerShell Hosts
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190811201010.html">
+       WMI Module Load
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190511223310.html">
+       PowerShell Remote Session
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../notebooks/windows/03_persistence/intro.html">
+     Persistence
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+    <label for="toctree-checkbox-7">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/03_persistence/WIN-190810170510.html">
+       WMI Eventing
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/03_persistence/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../notebooks/windows/04_privilege_escalation/intro.html">
+     Privilege Escalation
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+    <label for="toctree-checkbox-8">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/04_privilege_escalation/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/intro.html">
+     Defense Evasion
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+    <label for="toctree-checkbox-9">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-180719170510.html">
+       DLL Injection via CreateRemoteThread and LoadLibrary
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-201012183248.html">
+       Wuauclt CreateRemoteThread Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-191224222300.html">
+       Extended NetNTLM Downgrade
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-190407183310.html">
+       Enable Remote Desktop Conections Registry
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-190510202010.html">
+       WDigest Downgrade
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-190101151110.html">
+       Active Directory Replication User Backdoor
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../notebooks/windows/06_credential_access/intro.html">
+     Credential Access
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+    <label for="toctree-checkbox-10">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-190620024610.html">
+       Domain DPAPI Backup Key Extraction
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-190725024610.html">
+       SAM Registry Hive Handle Request
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-180815210510.html">
+       Active Directory Replication From Non-Domain-Controller Accounts
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-191030201010.html">
+       Remote Interactive Task Manager LSASS Dump
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-170105221010.html">
+       LSASS Access from Non System Account
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../notebooks/windows/07_discovery/intro.html">
+     Discovery
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+    <label for="toctree-checkbox-11">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/07_discovery/WIN-190725024610.html">
+       SAM Registry Hive Handle Request
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/07_discovery/WIN-190625024610.html">
+       SysKey Registry Keys Access
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/07_discovery/WIN-190826010110.html">
+       Remote Service Control Manager Handle
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/intro.html">
+     Lateral Movement
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+    <label for="toctree-checkbox-12">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-190815181010.html">
+       Remote Service creation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-190810201010.html">
+       WMI Win32_Process Class and Create Method for Remote Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-201012004336.html">
+       SMB Create Remote File
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-201009173318.html">
+       Remote WMI Wbemcomn DLL Hijack
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-201009183000.html">
+       Remote DCOM IErtUtil DLL Hijack
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-190511223310.html">
+       PowerShell Remote Session
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../notebooks/windows/09_collection/intro.html">
+     Collection
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+    <label for="toctree-checkbox-13">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/09_collection/WIN-200609225055.html">
+       Access to Microphone Device
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
  </li>
 </ul>
 <p class="caption">
@@ -138,17 +534,43 @@
   Tutorials
  </span>
 </p>
-<ul class="nav sidenav_l1">
- <li class="toctree-l1">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../../tutorials/jupyter/introduction.html">
    Jupyter Notebooks
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../tutorials/jupyter/installing_jupyter.html">
+     Jupyter Server Installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../tutorials/jupyter/notebooks/01_intro_to_python.html">
+     Introduction to Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../tutorials/jupyter/notebooks/02_intro_to_numpy_arrays.html">
+     Introduction to Python NumPy Arrays
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../tutorials/jupyter/notebooks/03_intro_to_pandas.html">
+     Introduction to Pandas
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
-</nav>
-
- <!-- To handle the deprecated key -->
+    </div>
+</nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
   Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
@@ -163,25 +585,25 @@
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        <div class="dropdown-buttons-trigger">
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
             class="fas fa-download"></i></button>
 
-    
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
         
@@ -193,9 +615,9 @@
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
-    
 </div>
-        <!-- Source interaction buttons -->
+
+            <!-- Source interaction buttons -->
 
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
@@ -215,23 +637,25 @@
     </div>
 </div>
 
+            <!-- Full screen (wrap in <a> to have style consistency -->
 
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
 
-        <!-- Launch buttons -->
+            <!-- Launch buttons -->
 
-    </div>
-
-    <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
         </div>
-        <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#data-sources">
    Data Sources
@@ -249,7 +673,8 @@
  </li>
 </ul>
 
-        </nav>
+            </nav>
+        </div>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -352,13 +777,13 @@
 
               </div>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
         
+        <div class='prev-next-bottom'>
+            
 
+        </div>
+        
+        </div>
     </div>
     <footer class="footer mt-5 mt-md-0">
     <div class="container">
@@ -375,8 +800,9 @@
 
       </div>
     </div>
+  
+  <script src="../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-    <script src="../../../_static/js/index.js"></script>
-    
+  
   </body>
 </html>
