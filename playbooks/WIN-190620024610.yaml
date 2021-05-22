@@ -27,8 +27,8 @@ offensive_tradecraft: |-
   It uses the LsaOpenPolicy/LsaRetrievePrivateData API calls (instead of MS-BKRP) to retrieve the value for the G$BCKUPKEY_PREFERRED and G$BCKUPKEY_P LSA secrets.
   
   Additional reading
-  * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/data_protection_api.md
-  * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/lsa_policy_objects.md
+  * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/windows/data_protection_api.md
+  * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/windows/lsa_policy_objects.md
 test_data:
   metadata: https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-190518235535.html
   link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/host/empire_mimikatz_backupkeys_dcerpc_smb_lsarpc.zip
