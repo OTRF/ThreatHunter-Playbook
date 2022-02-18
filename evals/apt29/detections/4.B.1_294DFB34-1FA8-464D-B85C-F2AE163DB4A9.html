@@ -7,23 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>294DFB34-1FA8-464D-B85C-F2AE163DB4A9 &#8212; Threat Hunter Playbook</title>
     
-  <link href="../../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
-
+    <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
     
-  <link rel="stylesheet"
-    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-
+    <link rel="stylesheet"
+      href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
     
       
-
+  
     
-    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
@@ -31,21 +31,21 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
-
+    <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/language_data.js"></script>
-    <script src="../../../_static/togglebutton.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
+    <script >let toggleHintShow = 'Click to show';</script>
+    <script >let toggleHintHide = 'Click to hide';</script>
+    <script >let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe,.cell"
         const thebe_selector_input = "pre,.cell_input div.highlight"
@@ -57,7 +57,10 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -74,6 +77,10 @@
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
       <img src="../../../_static/logo.png" class="logo" alt="logo">
       
       
@@ -83,7 +90,7 @@
 </div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <p class="caption">
  <span class="caption-text">
@@ -102,13 +109,38 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../library/windows/service_control_manager.html">
-     Service Control Manager
+    <a class="reference internal" href="../../../library/windows/active_directory_replication.html">
+     Active Directory Replication
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/adfs_dkm_keys.html">
+     Active Directory Federation Services (ADFS) Distributed Key Manager (DKM) Keys
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/data_protection_api.html">
+     Data Protection API
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/logon_session.html">
+     Logon Session
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/lsa_policy_objects.html">
+     LSA Policy Objects
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../library/windows/mimikatz_openprocess_modules.html">
      Mimikatz OpenProcess Modules
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/process_access_rights.html">
+     Process Security and Access Rights
     </a>
    </li>
    <li class="toctree-l2">
@@ -122,43 +154,18 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../library/windows/adfs_dkm_keys.html">
-     Active Directory Federation Services (ADFS) Distributed Key Manager (DKM) Keys
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../library/windows/syskey.html">
-     SysKey
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../library/windows/logon_session.html">
-     Logon Session
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../../../library/windows/security_assertion_markup_language.html">
      Security Assertion Markup Language (SAML)
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../library/windows/active_directory_replication.html">
-     Active Directory Replication
+    <a class="reference internal" href="../../../library/windows/service_control_manager.html">
+     Service Control Manager
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../library/windows/lsa_policy_objects.html">
-     LSA Policy Objects
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../library/windows/process_access_rights.html">
-     Process Security and Access Rights
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../library/windows/data_protection_api.html">
-     Data Protection API
+    <a class="reference internal" href="../../../library/windows/syskey.html">
+     SysKey
     </a>
    </li>
    <li class="toctree-l2">
@@ -276,28 +283,13 @@
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190815181010.html">
-       Remote Service creation
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190810201010.html">
-       WMI Win32_Process Class and Create Method for Remote Execution
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-201009173318.html">
-       Remote WMI Wbemcomn DLL Hijack
-      </a>
-     </li>
-     <li class="toctree-l3">
       <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190410151110.html">
        Basic PowerShell Execution
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190813181020.html">
-       Service Creation
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190511223310.html">
+       PowerShell Remote Session
       </a>
      </li>
      <li class="toctree-l3">
@@ -306,13 +298,28 @@
       </a>
      </li>
      <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190810201010.html">
+       WMI Win32_Process Class and Create Method for Remote Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190811201010.html">
        WMI Module Load
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190511223310.html">
-       PowerShell Remote Session
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190813181020.html">
+       Service Creation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190815181010.html">
+       Remote Service creation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-201009173318.html">
+       Remote WMI Wbemcomn DLL Hijack
       </a>
      </li>
     </ul>
@@ -372,13 +379,8 @@
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-201012183248.html">
-       Wuauclt CreateRemoteThread Execution
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-191224222300.html">
-       Extended NetNTLM Downgrade
+      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-190101151110.html">
+       Active Directory Replication User Backdoor
       </a>
      </li>
      <li class="toctree-l3">
@@ -392,8 +394,13 @@
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-190101151110.html">
-       Active Directory Replication User Backdoor
+      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-191224222300.html">
+       Extended NetNTLM Downgrade
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-201012183248.html">
+       Wuauclt CreateRemoteThread Execution
       </a>
      </li>
     </ul>
@@ -409,6 +416,16 @@
     </label>
     <ul>
      <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-170105221010.html">
+       LSASS Access from Non System Account
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-180815210510.html">
+       Active Directory Replication From Non-Domain-Controller Accounts
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-190620024610.html">
        Domain DPAPI Backup Key Extraction
       </a>
@@ -419,18 +436,8 @@
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-180815210510.html">
-       Active Directory Replication From Non-Domain-Controller Accounts
-      </a>
-     </li>
-     <li class="toctree-l3">
       <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-191030201010.html">
        Remote Interactive Task Manager LSASS Dump
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-170105221010.html">
-       LSASS Access from Non System Account
       </a>
      </li>
     </ul>
@@ -446,13 +453,13 @@
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/07_discovery/WIN-190725024610.html">
-       SAM Registry Hive Handle Request
+      <a class="reference internal" href="../../../notebooks/windows/07_discovery/WIN-190625024610.html">
+       SysKey Registry Keys Access
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/07_discovery/WIN-190625024610.html">
-       SysKey Registry Keys Access
+      <a class="reference internal" href="../../../notebooks/windows/07_discovery/WIN-190725024610.html">
+       SAM Registry Hive Handle Request
       </a>
      </li>
      <li class="toctree-l3">
@@ -473,8 +480,8 @@
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-190815181010.html">
-       Remote Service creation
+      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-190511223310.html">
+       PowerShell Remote Session
       </a>
      </li>
      <li class="toctree-l3">
@@ -483,13 +490,13 @@
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-200902020333.html">
-       Remote WMI ActiveScriptEventConsumers
+      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-190815181010.html">
+       Remote Service creation
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-201012004336.html">
-       SMB Create Remote File
+      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
       </a>
      </li>
      <li class="toctree-l3">
@@ -503,8 +510,8 @@
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-190511223310.html">
-       PowerShell Remote Session
+      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-201012004336.html">
+       SMB Create Remote File
       </a>
      </li>
     </ul>
@@ -613,7 +620,7 @@
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -649,12 +656,12 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
             </div>
-            <nav id="bd-toc-nav">
+            <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#data-sources">
@@ -679,10 +686,43 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>294DFB34-1FA8-464D-B85C-F2AE163DB4A9</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-sources">
+   Data Sources
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#logic">
+   Logic
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#output">
+   Output
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
-  <div class="section" id="dfb34-1fa8-464d-b85c-f2ae163db4a9">
+  <div class="tex2jax_ignore mathjax_ignore section" id="dfb34-1fa8-464d-b85c-f2ae163db4a9">
 <h1>294DFB34-1FA8-464D-B85C-F2AE163DB4A9<a class="headerlink" href="#dfb34-1fa8-464d-b85c-f2ae163db4a9" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="data-sources">
 <h2>Data Sources<a class="headerlink" href="#data-sources" title="Permalink to this headline">¶</a></h2>
@@ -751,7 +791,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./evals/apt29/detections"
+            path: "./evals\apt29\detections"
         },
         predefinedOutput: true
     }
@@ -760,32 +800,28 @@
 
               </div>
               
-        
-        <div class='prev-next-bottom'>
             
-
-        </div>
-        
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
-    <div class="container">
-      <p>
-        
-          By Roberto Rodriguez @Cyb3rWard0g<br/>
-        
-            &copy; Copyright 2020.<br/>
-      </p>
-    </div>
-  </footer>
+    <footer class="footer">
+  <p>
+    
+      By Roberto Rodriguez @Cyb3rWard0g<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 
       </div>
     </div>
   
-  <script src="../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
-
+    <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
   
   </body>
 </html>

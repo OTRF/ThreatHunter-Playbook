@@ -7,23 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Introduction to Pandas &#8212; Threat Hunter Playbook</title>
     
-  <link href="../../../_static/css/theme.css" rel="stylesheet" />
-  <link href="../../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
-
+    <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
     
-  <link rel="stylesheet"
-    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-
+    <link rel="stylesheet"
+      href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
     
       
-
+  
     
-    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
@@ -31,21 +31,21 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
-
+    <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
     <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/language_data.js"></script>
-    <script src="../../../_static/togglebutton.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
+    <script >let toggleHintShow = 'Click to show';</script>
+    <script >let toggleHintHide = 'Click to hide';</script>
+    <script >let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe,.cell"
         const thebe_selector_input = "pre,.cell_input div.highlight"
@@ -58,7 +58,10 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="prev" title="Introduction to Python NumPy Arrays" href="02_intro_to_numpy_arrays.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -75,6 +78,10 @@
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
       <img src="../../../_static/logo.png" class="logo" alt="logo">
       
       
@@ -84,7 +91,7 @@
 </div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <p class="caption">
  <span class="caption-text">
@@ -103,13 +110,38 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../library/windows/service_control_manager.html">
-     Service Control Manager
+    <a class="reference internal" href="../../../library/windows/active_directory_replication.html">
+     Active Directory Replication
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/adfs_dkm_keys.html">
+     Active Directory Federation Services (ADFS) Distributed Key Manager (DKM) Keys
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/data_protection_api.html">
+     Data Protection API
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/logon_session.html">
+     Logon Session
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/lsa_policy_objects.html">
+     LSA Policy Objects
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../../library/windows/mimikatz_openprocess_modules.html">
      Mimikatz OpenProcess Modules
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/process_access_rights.html">
+     Process Security and Access Rights
     </a>
    </li>
    <li class="toctree-l2">
@@ -123,43 +155,18 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../library/windows/adfs_dkm_keys.html">
-     Active Directory Federation Services (ADFS) Distributed Key Manager (DKM) Keys
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../library/windows/syskey.html">
-     SysKey
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../library/windows/logon_session.html">
-     Logon Session
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../../../library/windows/security_assertion_markup_language.html">
      Security Assertion Markup Language (SAML)
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../library/windows/active_directory_replication.html">
-     Active Directory Replication
+    <a class="reference internal" href="../../../library/windows/service_control_manager.html">
+     Service Control Manager
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../library/windows/lsa_policy_objects.html">
-     LSA Policy Objects
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../library/windows/process_access_rights.html">
-     Process Security and Access Rights
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../../library/windows/data_protection_api.html">
-     Data Protection API
+    <a class="reference internal" href="../../../library/windows/syskey.html">
+     SysKey
     </a>
    </li>
    <li class="toctree-l2">
@@ -277,28 +284,13 @@
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190815181010.html">
-       Remote Service creation
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190810201010.html">
-       WMI Win32_Process Class and Create Method for Remote Execution
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-201009173318.html">
-       Remote WMI Wbemcomn DLL Hijack
-      </a>
-     </li>
-     <li class="toctree-l3">
       <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190410151110.html">
        Basic PowerShell Execution
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190813181020.html">
-       Service Creation
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190511223310.html">
+       PowerShell Remote Session
       </a>
      </li>
      <li class="toctree-l3">
@@ -307,13 +299,28 @@
       </a>
      </li>
      <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190810201010.html">
+       WMI Win32_Process Class and Create Method for Remote Execution
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190811201010.html">
        WMI Module Load
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190511223310.html">
-       PowerShell Remote Session
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190813181020.html">
+       Service Creation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190815181010.html">
+       Remote Service creation
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-201009173318.html">
+       Remote WMI Wbemcomn DLL Hijack
       </a>
      </li>
     </ul>
@@ -373,13 +380,8 @@
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-201012183248.html">
-       Wuauclt CreateRemoteThread Execution
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-191224222300.html">
-       Extended NetNTLM Downgrade
+      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-190101151110.html">
+       Active Directory Replication User Backdoor
       </a>
      </li>
      <li class="toctree-l3">
@@ -393,8 +395,13 @@
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-190101151110.html">
-       Active Directory Replication User Backdoor
+      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-191224222300.html">
+       Extended NetNTLM Downgrade
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-201012183248.html">
+       Wuauclt CreateRemoteThread Execution
       </a>
      </li>
     </ul>
@@ -410,6 +417,16 @@
     </label>
     <ul>
      <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-170105221010.html">
+       LSASS Access from Non System Account
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-180815210510.html">
+       Active Directory Replication From Non-Domain-Controller Accounts
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-190620024610.html">
        Domain DPAPI Backup Key Extraction
       </a>
@@ -420,18 +437,8 @@
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-180815210510.html">
-       Active Directory Replication From Non-Domain-Controller Accounts
-      </a>
-     </li>
-     <li class="toctree-l3">
       <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-191030201010.html">
        Remote Interactive Task Manager LSASS Dump
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-170105221010.html">
-       LSASS Access from Non System Account
       </a>
      </li>
     </ul>
@@ -447,13 +454,13 @@
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/07_discovery/WIN-190725024610.html">
-       SAM Registry Hive Handle Request
+      <a class="reference internal" href="../../../notebooks/windows/07_discovery/WIN-190625024610.html">
+       SysKey Registry Keys Access
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/07_discovery/WIN-190625024610.html">
-       SysKey Registry Keys Access
+      <a class="reference internal" href="../../../notebooks/windows/07_discovery/WIN-190725024610.html">
+       SAM Registry Hive Handle Request
       </a>
      </li>
      <li class="toctree-l3">
@@ -474,8 +481,8 @@
     </label>
     <ul>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-190815181010.html">
-       Remote Service creation
+      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-190511223310.html">
+       PowerShell Remote Session
       </a>
      </li>
      <li class="toctree-l3">
@@ -484,13 +491,13 @@
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-200902020333.html">
-       Remote WMI ActiveScriptEventConsumers
+      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-190815181010.html">
+       Remote Service creation
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-201012004336.html">
-       SMB Create Remote File
+      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-200902020333.html">
+       Remote WMI ActiveScriptEventConsumers
       </a>
      </li>
      <li class="toctree-l3">
@@ -504,8 +511,8 @@
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-190511223310.html">
-       PowerShell Remote Session
+      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-201012004336.html">
+       SMB Create Remote File
       </a>
      </li>
     </ul>
@@ -614,7 +621,7 @@
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -675,12 +682,12 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
             </div>
-            <nav id="bd-toc-nav">
+            <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#goals">
@@ -762,10 +769,100 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Introduction to Pandas</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals">
+   Goals:
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#import-pandas-library">
+     Import pandas library
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-a-serie">
+     Create a Serie
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-a-data-frame">
+     Create a data frame
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#previewing-the-data-frame">
+     Previewing the data frame
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sorting">
+     Sorting
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#selecting-querying">
+     Selecting/Querying
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#combining-data-frames">
+     Combining data frames
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inner-merge">
+     Inner Merge
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#left-merge">
+     Left Merge
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#right-merge">
+     Right Merge
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#outer-merge">
+     Outer Merge
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dropping-columns">
+     Dropping Columns
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#basic-plotting">
+     Basic plotting
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
-  <div class="section" id="introduction-to-pandas">
+  <div class="tex2jax_ignore mathjax_ignore section" id="introduction-to-pandas">
 <h1>Introduction to Pandas<a class="headerlink" href="#introduction-to-pandas" title="Permalink to this headline">¶</a></h1>
 <hr class="docutils" />
 <div class="section" id="goals">
@@ -1232,8 +1329,8 @@ dtype: object
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Great Dane              2
 Golden Retriever        1
-Doberman                1
 Maltese                 1
+Doberman                1
 Austrailian Shepherd    1
 Name: breed, dtype: int64
 </pre></div>
@@ -1671,7 +1768,7 @@ Name: breed, dtype: int64
 </div>
 </div>
 </div>
-<p><strong><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.merge.html#pandas.DataFrame.merge">DataFrame.merge(right, how=’inner’, on=None, left_on=None, right_on=None, left_index=False, right_index=False, sort=False, suffixes=(‘_x’, ‘_y’), copy=True, indicator=False, validate=None)</a></strong></p>
+<p><strong><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.merge.html#pandas.DataFrame.merge">DataFrame.merge(right, how=‘inner’, on=None, left_on=None, right_on=None, left_index=False, right_index=False, sort=False, suffixes=(‘_x’, ‘_y’), copy=True, indicator=False, validate=None)</a></strong></p>
 <ul class="simple">
 <li><p>Merge DataFrame or named Series objects with a database-style join.</p></li>
 <li><p>The join is done on columns or indexes. If joining columns on columns, the DataFrame indexes will be ignored. Otherwise if joining indexes on indexes or indexes on a column or columns, the index will be passed on</p></li>
@@ -2045,30 +2142,6 @@ Name: breed, dtype: int64
     </tr>
     <tr>
       <th>1</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Clementine</td>
-      <td>Golden Retriever</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Norah</td>
-      <td>Great Dane</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Mabel</td>
-      <td>Austrailian Shepherd</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>4</th>
       <td>Gandalf</td>
       <td>Bear</td>
       <td>Bear</td>
@@ -2076,12 +2149,36 @@ Name: breed, dtype: int64
       <td>4</td>
     </tr>
     <tr>
-      <th>5</th>
+      <th>2</th>
       <td>Sam</td>
       <td>Bill</td>
       <td>Bill</td>
       <td>Great Dane</td>
       <td>10</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Clementine</td>
+      <td>Golden Retriever</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Norah</td>
+      <td>Great Dane</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Mabel</td>
+      <td>Austrailian Shepherd</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
@@ -2185,7 +2282,7 @@ Name: breed, dtype: int64
 </div>
 <div class="section" id="dropping-columns">
 <h3>Dropping Columns<a class="headerlink" href="#dropping-columns" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html#pandas.DataFrame.drop"><strong>DataFrame.drop(labels=None, axis=0, index=None, columns=None, level=None, inplace=False, errors=’raise’)</strong></a></p>
+<p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html#pandas.DataFrame.drop"><strong>DataFrame.drop(labels=None, axis=0, index=None, columns=None, level=None, inplace=False, errors=‘raise’)</strong></a></p>
 <ul class="simple">
 <li><p>Drop specified labels from rows or columns.</p></li>
 <li><p>Remove rows or columns by specifying label names and corresponding axis, or by specifying directly index or column names.</p></li>
@@ -2296,7 +2393,7 @@ Name: breed, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f997c1d18d0&gt;
 </pre></div>
 </div>
 <img alt="../../../_images/03_intro_to_pandas_72_1.png" src="../../../_images/03_intro_to_pandas_72_1.png" />
@@ -2309,7 +2406,7 @@ Name: breed, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f997c1756a0&gt;
 </pre></div>
 </div>
 <img alt="../../../_images/03_intro_to_pandas_73_1.png" src="../../../_images/03_intro_to_pandas_73_1.png" />
@@ -2322,7 +2419,7 @@ Name: breed, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f997c0b8080&gt;
 </pre></div>
 </div>
 <img alt="../../../_images/03_intro_to_pandas_74_1.png" src="../../../_images/03_intro_to_pandas_74_1.png" />
@@ -2345,7 +2442,7 @@ Name: breed, dtype: int64
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./tutorials/jupyter/notebooks"
+            path: "./tutorials\jupyter\notebooks"
         },
         predefinedOutput: true
     }
@@ -2354,33 +2451,35 @@ Name: breed, dtype: int64
 
               </div>
               
-        
-        <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="02_intro_to_numpy_arrays.html" title="previous page">Introduction to Python NumPy Arrays</a>
-
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="02_intro_to_numpy_arrays.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Introduction to Python NumPy Arrays</p>
         </div>
-        
+    </a>
+</div>
+            
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
-    <div class="container">
-      <p>
-        
-          By Roberto Rodriguez @Cyb3rWard0g<br/>
-        
-            &copy; Copyright 2020.<br/>
-      </p>
-    </div>
-  </footer>
+    <footer class="footer">
+  <p>
+    
+      By Roberto Rodriguez @Cyb3rWard0g<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
 </main>
 
 
       </div>
     </div>
   
-  <script src="../../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
-
+    <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
   
   </body>
 </html>
