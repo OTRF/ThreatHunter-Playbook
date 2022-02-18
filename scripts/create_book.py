@@ -266,7 +266,7 @@ for summary in summary_table:
                     if metadata not in techniques_mappings[technique]:
                         techniques_mappings[technique].append(metadata)
         
-        LAYER_VERSION = "4.2"
+        LAYER_VERSION = "4.3"
         NAVIGATOR_VERSION = "4.5.5"
         NAME = "THP {} Analytics".format(summary['platform'])
         DESCRIPTION = "Analytics covered by the Threat Hunter Playbook {} detection notebooks".format(summary['platform'])
