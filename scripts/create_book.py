@@ -128,7 +128,7 @@ spark = get_spark()"""
     nb['cells'].append(nbf.v4.new_markdown_cell("### Download & Process Security Dataset"))
     nb['cells'].append(nbf.v4.new_code_cell(
         """sd_file = "{}"
-registerSDSQLTable(spark, sd_file, "sdTable")""".format(analytic['test_data']['link'])
+registerMordorSQLTable(spark, sd_file, "sdTable")""".format(analytic['test_data']['link'])
     ))
     ## *** PROCESSING EACH ANALYTIC ***
     for a in analytic['analytics']:
