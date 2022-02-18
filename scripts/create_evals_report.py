@@ -183,7 +183,7 @@ spark.conf.set("spark.sql.caseSensitive", "true")"""
 
 # **** DECOMPRESS HOST DATASETS ****
 nb['cells'].append(nbf.v4.new_markdown_cell("## Decompress Dataset"))
-nb['cells'].append(nbf.v4.new_code_cell("!wget https://github.com/OTRF/mordor/raw/master/datasets/large/apt29/day1/apt29_evals_day1_manual.zip"))
+nb['cells'].append(nbf.v4.new_code_cell("!wget https://github.com/OTRF/Security-Datasets/raw/master/datasets/compound/apt29/day1/apt29_evals_day1_manual.zip"))
 nb['cells'].append(nbf.v4.new_code_cell("!unzip apt29_evals_day1_manual.zip"))
 
 # **** IMPORT HOST DATASETS ****

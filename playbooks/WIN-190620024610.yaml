@@ -30,8 +30,8 @@ offensive_tradecraft: |-
   * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/windows/data_protection_api.md
   * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/windows/lsa_policy_objects.md
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-190518235535.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/host/empire_mimikatz_backupkeys_dcerpc_smb_lsarpc.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/credential_access/SDWIN-190518235535.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/credential_access/host/empire_mimikatz_backupkeys_dcerpc_smb_lsarpc.zip
 analytics:
   - name: Analytic I
     description: Monitor for any SecretObject with the string BCKUPKEY in the ObjectName
@@ -45,7 +45,7 @@ analytics:
               event_id: 4662
     logic: |-
       SELECT `@timestamp`, Hostname, ObjectServer, ObjectType, ObjectName
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 4662
           AND AccessMask = "0x2"
@@ -69,10 +69,10 @@ analytics:
               event_id: 4662
     logic: |-
       SELECT o.`@timestamp`, o.Hostname, o.ObjectName, a.IpAddress
-      FROM mordorTable o
+      FROM sdTable o
       INNER JOIN (
           SELECT Hostname,TargetUserName,TargetLogonId,IpAddress
-          FROM mordorTable
+          FROM sdTable
           WHERE LOWER(Channel) = "security"
               AND EventID = 4624
               AND LogonType = 3
@@ -96,7 +96,7 @@ analytics:
               event_id: 5145
     logic: |-
       SELECT `@timestamp`, Hostname, SubjectUserName, ShareName, RelativeTargetName, AccessMask, IpAddress
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 5145
           AND ShareName LIKE "%IPC%"
@@ -113,7 +113,7 @@ analytics:
               event_id: 4692
     logic: |-
       SELECT `@timestamp`, Hostname, SubjectUserName
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 4692
 known_bypasses:

@@ -28,8 +28,8 @@ offensive_tradecraft: |-
   Additional reading
   * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/windows/service_control_manager.md
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/07_discovery/SDWIN-190518224039.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/discovery/host/empire_find_localadmin_smb_svcctl_OpenSCManager.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/07_discovery/SDWIN-190518224039.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/discovery/host/empire_find_localadmin_smb_svcctl_OpenSCManager.zip
 analytics:
   - name: Analytic I
     description: Detects non-system users failing to get a handle of the SCM database.
@@ -43,7 +43,7 @@ analytics:
               event_id: 4656
     logic: |-
       SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 4656
           AND ObjectType = "SC_MANAGER OBJECT"
@@ -62,7 +62,7 @@ analytics:
               event_id: 4674
     logic: |-
       SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName, PrivilegeList, ObjectServer
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 4674
           AND ObjectType = "SC_MANAGER OBJECT"
@@ -88,7 +88,7 @@ analytics:
               event_id: 5156
     logic: |-
       SELECT `@timestamp`, Hostname, Application, SourcePort, SourceAddress, DestPort, DestAddress
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 5156
           AND Application LIKE "%\\\services.exe"
@@ -112,7 +112,7 @@ analytics:
               event_id: 3
     logic: |-
       SELECT `@timestamp`, Hostname, User, SourcePort, SourceIp, DestinationPort, DestinationIp
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 3
           AND Image LIKE "%\\\services.exe"
@@ -135,10 +135,10 @@ analytics:
               event_id: 4656
     logic: |-
       SELECT o.`@timestamp`, o.Hostname, o.SubjectUserName, o.ObjectType,o.ObjectName, o.PrivilegeList, a.IpAddress
-      FROM mordorTable o
+      FROM sdTable o
       INNER JOIN (
           SELECT Hostname,TargetUserName,TargetLogonId,IpAddress
-          FROM mordorTable
+          FROM sdTable
           WHERE LOWER(Channel) = "security"
               AND EventID = 4624
               AND LogonType = 3

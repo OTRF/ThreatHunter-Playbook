@@ -17,11 +17,11 @@ hypothesis: Adversaries might be RDPing to computers in my environment and inter
 technical_context:
 offensive_tradecraft: |-
   The Windows Task Manager may be used to dump the memory space of lsass.exe to disk for processing with a credential access tool such as Mimikatz.
-  This is performed by launching Task Manager as a privileged user, selecting lsass.exe, and clicking “Create dump file”.
+  This is performed by launching Task Manager as a privileged user, selecting lsass.exe, and clicking "Create dump file".
   This saves a dump file to disk with a deterministic name that includes the name of the process being dumped.
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-191027055035.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/host/rdp_interactive_taskmanager_lsass_dump.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/credential_access/SDWIN-191027055035.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/credential_access/host/rdp_interactive_taskmanager_lsass_dump.zip
 analytics:
   - name: Analytic I
     description: Look for taskmgr creating files which name contains the string lsass and with extension .dmp.
@@ -35,7 +35,7 @@ analytics:
               event_id: 11
     logic: |-
       SELECT `@timestamp`, Hostname, Image, TargetFilename, ProcessGuid
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 11
           AND Image LIKE "%taskmgr.exe"
@@ -52,7 +52,7 @@ analytics:
               event_id: 10
     logic: |-
       SELECT `@timestamp`, Hostname, SourceImage, TargetImage, GrantedAccess
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 10
           AND lower(SourceImage) LIKE "%taskmgr.exe"
@@ -70,7 +70,7 @@ analytics:
     description: Look for any process accessing lsass and with functions from dbgcore.dll or dbghelp.dll libraries
     logic: |-
       SELECT `@timestamp`, Hostname, SourceImage, TargetImage, GrantedAccess
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 10
           AND lower(TargetImage) LIKE "%lsass.exe"
@@ -90,10 +90,10 @@ analytics:
               event_id: 1
     logic: |-
       SELECT o.`@timestamp`, o.Hostname, o.Image, o.LogonId, o.ProcessGuid, a.SourceProcessGUID, o.CommandLine
-      FROM mordorTable o
+      FROM sdTable o
       INNER JOIN (
           SELECT Hostname,SourceProcessGUID
-          FROM mordorTable
+          FROM sdTable
           WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
               AND EventID = 10
               AND lower(TargetImage) LIKE "%lsass.exe"
@@ -124,15 +124,15 @@ analytics:
               event_id: 4778
     logic: |-
       SELECT o.`@timestamp`, o.Hostname, o.SessionName, o.AccountName, o.ClientName, o.ClientAddress, a.Image, a.CommandLine
-      FROM mordorTable o
+      FROM sdTable o
       INNER JOIN (
           SELECT LogonId, Image, CommandLine
           FROM (
               SELECT o.Image, o.LogonId, o.CommandLine
-              FROM mordorTable o
+              FROM sdTable o
               INNER JOIN (
                   SELECT Hostname,SourceProcessGUID
-                  FROM mordorTable
+                  FROM sdTable
                   WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
                       AND EventID = 10
                       AND lower(TargetImage) LIKE "%lsass.exe"

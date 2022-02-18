@@ -32,8 +32,8 @@ offensive_tradecraft: |-
   * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/windows/security_account_manager_database.md
   * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/windows/syskey.md
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-190625103712.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/host/empire_mimikatz_sam_access.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/credential_access/SDWIN-190625103712.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/credential_access/host/empire_mimikatz_sam_access.zip
 analytics:
   - name: Analytic I
     description: Monitor for any handle requested for the SAM registry hive
@@ -50,7 +50,7 @@ analytics:
               event_id: 4656
     logic: |-
       SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName, AccessMask
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 4656
           AND ObjectType = "Key"

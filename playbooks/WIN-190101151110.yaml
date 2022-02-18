@@ -32,8 +32,8 @@ offensive_tradecraft: |-
   Additional reading
   * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/active_directory_replication.md
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-190301125905.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/host/empire_powerview_ldap_ntsecuritydescriptor.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/defense_evasion/SDWIN-190301125905.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/defense_evasion/host/empire_powerview_ldap_ntsecuritydescriptor.zip
 analytics:
   - name: Analytic I
     description: Look for any user accessing directory service objects with replication permissions GUIDs
@@ -47,7 +47,7 @@ analytics:
               event_id: 4662
     logic: |-
       SELECT `@timestamp`, Hostname, SubjectUserName, ObjectName, OperationType
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 4662
           AND ObjectServer = "DS"
@@ -65,7 +65,7 @@ analytics:
               event_id: 5136
     logic: |-
       SELECT `@timestamp`, Hostname, SubjectUserName, ObjectDN, AttributeLDAPDisplayName
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 5136
           AND lower(AttributeLDAPDisplayName) = "ntsecuritydescriptor"

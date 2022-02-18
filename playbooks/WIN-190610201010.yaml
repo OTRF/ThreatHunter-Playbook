@@ -20,10 +20,10 @@ offensive_tradecraft: |-
   Characteristics of a PowerShell host (Matt Graeber @mattifestation) >
   * These binaries are almost always C#/.NET .exes/.dlls
   * These binaries have System.Management.Automation.dll as a referenced assembly
-  * These may not always be “built in” binaries
+  * These may not always be "built in" binaries
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/02_execution/SDWIN-190518211456.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/empire_psremoting_stager.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/execution/SDWIN-190518211456.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/lateral_movement/host/empire_psremoting_stager.zip
 analytics:
   - name: Analytic I
     description: Within the classic PowerShell log, event ID 400 indicates when a new PowerShell host process has started. Excluding PowerShell.exe is a good way to find alternate PowerShell hosts
@@ -42,7 +42,7 @@ analytics:
               event_id: 4103
     logic: |-
       SELECT `@timestamp`, Hostname, Channel
-      FROM mordorTable
+      FROM sdTable
       WHERE (Channel = "Microsoft-Windows-PowerShell/Operational" OR Channel = "Windows PowerShell")
           AND (EventID = 400 OR EventID = 4103)
           AND NOT Message LIKE "%Host Application%powershell%"
@@ -58,7 +58,7 @@ analytics:
               event_id: 7
     logic: |-
       SELECT `@timestamp`, Hostname, Image, Description
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 7
           AND (lower(Description) = "system.management.automation" OR lower(ImageLoaded) LIKE "%system.management.automation%")
@@ -75,7 +75,7 @@ analytics:
               event_id: 17
     logic: |-
       SELECT `@timestamp`, Hostname, Image, PipeName
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 17
           AND lower(PipeName) LIKE "\\\pshost%"

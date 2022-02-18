@@ -15,7 +15,7 @@ attack_mappings:
 hypothesis: Adversaries might be using a non system account to access LSASS and extract credentials from memory.
 technical_context: |-
   After a user logs on, a variety of credentials are generated and stored in the Local Security Authority Subsystem Service (LSASS) process in memory.
-  This is meant to facilitate single sign-on (SSO) ensuring a user isn’t prompted each time resource access is requested.
+  This is meant to facilitate single sign-on (SSO) ensuring a user is not prompted each time resource access is requested.
   The credential data may include Kerberos tickets, NTLM password hashes, LM password hashes (if the password is <15 characters, depending on Windows OS version and patch level), and even clear-text passwords (to support WDigest and SSP authentication among others.
 offensive_tradecraft: |-
   Adversaries look to get access to the credential data and do it so by finding a way to access the contents of memory of the LSASS process.
@@ -23,8 +23,8 @@ offensive_tradecraft: |-
   The module uses a Kernel32 function called OpenProcess to get a handle to lsass to then access LSASS and dump password data for currently logged on (or recently logged on) accounts as well as services running under the context of user credentials.
   Even though most adversaries might inject into a System process to blend in with most applications accessing LSASS, there are ocassions where adversaries do not elevate to System and use the available administrator rights from the user since that is the minimum requirement to access LSASS.
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-190518202151.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/host/empire_mimikatz_logonpasswords.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/credential_access/SDWIN-190518202151.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/credential_access/host/empire_mimikatz_logonpasswords.zip
 analytics:
   - name: Analytic I
     description: Look for non-system accounts getting a handle to and accessing lsass
@@ -41,7 +41,7 @@ analytics:
           event_id: 4656
     logic: |-
       SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName, AccessMask, EventID
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND (EventID = 4663 OR EventID = 4656)
           AND ObjectName LIKE "%lsass.exe"
@@ -58,7 +58,7 @@ analytics:
               event_id: 10
     logic: |-
       SELECT `@timestamp`, Hostname, SourceImage, TargetImage, GrantedAccess, SourceProcessGUID
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 10
           AND TargetImage LIKE "%lsass.exe"
@@ -75,7 +75,7 @@ analytics:
               event_id: 7
     logic: |-
       SELECT ProcessGuid,Image, COUNT(DISTINCT ImageLoaded) AS hits
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 7
           AND ( 
@@ -108,10 +108,10 @@ analytics:
               event_id: 10
     logic: |-
       SELECT a.`@timestamp`, a.Hostname, m.Image, a.SourceProcessGUID
-      FROM mordorTable a
+      FROM sdTable a
       INNER JOIN (
           SELECT ProcessGuid,Image, COUNT(DISTINCT ImageLoaded) AS hits
-          FROM mordorTable
+          FROM sdTable
           WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
               AND EventID = 7
               AND ( 
@@ -152,13 +152,13 @@ analytics:
               event_id: 1
     logic: |-
       SELECT p.`@timestamp`, p.Hostname, p.Image, p.User
-      FROM mordorTable p
+      FROM sdTable p
       INNER JOIN (
           SELECT a.SourceProcessGUID
-          FROM mordorTable a
+          FROM sdTable a
           INNER JOIN (
               SELECT ProcessGuid,Image, COUNT(DISTINCT ImageLoaded) AS hits
-              FROM mordorTable
+              FROM sdTable
               WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
                   AND EventID = 7
                   AND ( 

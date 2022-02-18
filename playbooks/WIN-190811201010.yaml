@@ -16,7 +16,7 @@ hypothesis: Adversaries might be leveraging WMI modules to execute WMI tasks byp
 technical_context: |-
   WMI is the Microsoft implementation of the Web-Based Enterprise Management (WBEM) and Common Information Model (CIM).
   Both standards aim to provide an industry-agnostic means of collecting and transmitting information related to any managed component in an enterprise. An example of a managed component in WMI would be a running process, registry key, installed service, file information, etc.
-  At a high level, Microsoft’s implementation of these standards can be summarized as follows > Managed Components Managed components are represented as WMI objects — class instances representing highly structured operating system data. Microsoft provides a wealth of WMI objects that communicate information related to the operating system. E.g. Win32_Process, Win32_Service, AntiVirusProduct, Win32_StartupCommand, etc.
+  At a high level, Microsoft's implementation of these standards can be summarized as follows > Managed Components Managed components are represented as WMI objects — class instances representing highly structured operating system data. Microsoft provides a wealth of WMI objects that communicate information related to the operating system. E.g. Win32_Process, Win32_Service, AntiVirusProduct, Win32_StartupCommand, etc.
   WMI modules loaded by legit processes such as wmiprvse.exe or wmiapsrv.exe are the following
 
   C:\Windows\System32\wmiclnt.dll
@@ -26,8 +26,8 @@ technical_context: |-
 offensive_tradecraft: |-
   Adversaries could leverage the WMI modules above to execute WMI tasks bypassing controls looking for wmiprvse.exe or wmiapsrv.exe activity.
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-190518200432.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/host/empire_psinject_PEinjection.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/defense_evasion/SDWIN-190518200432.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/defense_evasion/host/empire_psinject_PEinjection.zip
 analytics:
   - name: Analytic I
     description: Look for processes (non wmiprvse.exe or WmiApSrv.exe) loading wmi modules
@@ -41,7 +41,7 @@ analytics:
               event_id: 7
     logic: |-
       SELECT `@timestamp`, Hostname, Image, ImageLoaded
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 7
           AND (

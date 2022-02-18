@@ -90,8 +90,8 @@ offensive_tradecraft: |-
     * Key -> HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0
     * Property -> RestrictSendingNTLMTraffic
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-191225045202.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/host/empire_monologue_netntlm_downgrade.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/defense_evasion/SDWIN-191225045202.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/defense_evasion/host/empire_monologue_netntlm_downgrade.zip
 analytics:
   - name: Analytic I
     description: Look for non-system accounts getting a handle and accessing \REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa and \REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa\MSV1_0 registry keys from a non-lsass process
@@ -114,7 +114,7 @@ analytics:
               event_id: 4656
     logic: |-
       SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName, AccessMask, EventID, SubjectLogonId
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID IN (4663, 4656)
           AND ObjectType = 'Key'
@@ -133,7 +133,7 @@ analytics:
               event_id: 4657
     logic: |-
       SELECT `@timestamp`, Hostname, SubjectUserName, ProcessName, ObjectName, OldValue, NewValue, SubjectLogonId
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 4657
           AND ObjectValueName in ("LMCompatibilityLevel","NtlmMinClientSec","RestrictSendingNTLMTraffic")
@@ -149,7 +149,7 @@ analytics:
               event_id: 13
     logic: |-
       SELECT `@timestamp`, Hostname, Image, TargetObject, Details
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 13
           AND (

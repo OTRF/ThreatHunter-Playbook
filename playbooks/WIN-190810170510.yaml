@@ -16,17 +16,17 @@ hypothesis: Adversaries might be leveraging WMI eventing for persistence in my e
 technical_context: |-
   WMI is the Microsoft implementation of the Web-Based Enterprise Management (WBEM) and Common Information Model (CIM). Both standards aim to provide an industry-agnostic means of collecting and transmitting information related to any managed component in an enterprise.
   An example of a managed component in WMI would be a running process, registry key, installed service, file information, etc.
-  At a high level, Microsoft’s implementation of these standards can be summarized as follows > Managed Components Managed components are represented as WMI objects — class instances representing highly structured operating system data. Microsoft provides a wealth of WMI objects that communicate information related to the operating system. E.g. Win32_Process, Win32_Service, AntiVirusProduct, Win32_StartupCommand, etc.
+  At a high level, Microsoft implementation of these standards can be summarized as follows > Managed Components Managed components are represented as WMI objects — class instances representing highly structured operating system data. Microsoft provides a wealth of WMI objects that communicate information related to the operating system. E.g. Win32_Process, Win32_Service, AntiVirusProduct, Win32_StartupCommand, etc.
 offensive_tradecraft: |-
   From an offensive perspective WMI has the ability to trigger off nearly any conceivable event, making it a good technique for persistence.
   
   Three requirements
-  * Filter – An action to trigger off of
-  * Consumer – An action to take upon triggering the filter
-  * Binding – Registers a FilterConsumer
+  * Filter - An action to trigger off of
+  * Consumer - An action to take upon triggering the filter
+  * Binding - Registers a FilterConsumer
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/03_persistence/SDWIN-190518184306.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/persistence/host/empire_wmi_local_event_subscriptions_elevated_user.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/persistence/SDWIN-190518184306.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/persistence/host/empire_wmi_local_event_subscriptions_elevated_user.zip
 analytics:
   - name: Analytic I
     description: Look for WMI event filters registered
@@ -40,7 +40,7 @@ analytics:
               event_id: 19
     logic: |-
       SELECT `@timestamp`, Hostname, User, EventNamespace, Name, Query
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 19
   - name: Analytic II
@@ -55,7 +55,7 @@ analytics:
               event_id: 20
     logic: |-
       SELECT `@timestamp`, Hostname, User, Name, Type, Destination
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 20
   - name: Analytic III
@@ -70,7 +70,7 @@ analytics:
               event_id: 21
     logic: |-
       SELECT `@timestamp`, Hostname, User, Operation, Consumer, Filter
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 21
   - name: Analytic IV
@@ -85,7 +85,7 @@ analytics:
               event_id: 5861
     logic: |-
       SELECT `@timestamp`, Hostname, Message
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-WMI-Activity/Operational"
           AND EventID = 5861
 known_bypasses:

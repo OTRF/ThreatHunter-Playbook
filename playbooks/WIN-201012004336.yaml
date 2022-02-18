@@ -19,8 +19,8 @@ technical_context: |-
 offensive_tradecraft: |-
   Adversaries leverage SMB to copy files over the network to either execute code remotely or exfiltrate data.
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/08_lateral_movement/SDWIN-200806015757.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_copy_smb_CreateRequest.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/lateral_movement/SDWIN-200806015757.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/lateral_movement/host/covenant_copy_smb_CreateRequest.zip
 analytics:
   - name: Analytic I
     description: Look for non-system accounts SMB connecting (Tree Connect) to a file share that is not IPC$.
@@ -34,7 +34,7 @@ analytics:
               event_id: 5140
     logic: |-
       SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, SubjectLogonId,  AccessMask
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = 'security'
           AND (EventID = 5140)
           AND NOT ShareName LIKE '%IPC$'
@@ -51,10 +51,10 @@ analytics:
               event_id: 5140
     logic: |-
       SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, b.SubjectLogonId, IpAddress, IpPort
-      FROM mordorTable b
+      FROM sdTable b
       INNER JOIN (
           SELECT SubjectLogonId
-          FROM mordorTable
+          FROM sdTable
           WHERE LOWER(Channel) = "security"
               AND EventID = 5140
               AND ShareName LIKE '%IPC$'
@@ -77,7 +77,7 @@ analytics:
               event_id: 5145
     logic: |-
       SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, SubjectLogonId, IpAddress, IpPort, RelativeTargetName
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 5145
           AND ShareName LIKE '%C$'
@@ -98,13 +98,13 @@ analytics:
               event_id: 5145
     logic: |-
       SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, d.SubjectLogonId, IpAddress, IpPort, RelativeTargetName
-      FROM mordorTable d
+      FROM sdTable d
       INNER JOIN (
           SELECT b.SubjectLogonId
-          FROM mordorTable b
+          FROM sdTable b
           INNER JOIN (
               SELECT SubjectLogonId
-              FROM mordorTable
+              FROM sdTable
               WHERE LOWER(Channel) = "security"
                   AND EventID = 5140
                   AND ShareName LIKE '%IPC$'
@@ -137,10 +137,10 @@ analytics:
               event_id: 11
     logic: |-
       SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, SubjectLogonId, IpAddress, IpPort, RelativeTargetName
-      FROM mordorTable b
+      FROM sdTable b
       INNER JOIN (
           SELECT LOWER(REVERSE(SPLIT(TargetFilename, '\'))[0]) as TargetFilename
-          FROM mordorTable
+          FROM sdTable
           WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'
               AND Image = 'System'
               AND EventID = 11

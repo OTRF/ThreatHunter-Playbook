@@ -26,8 +26,8 @@ offensive_tradecraft: |-
   Setting UserAuthentication=0 in the Microsoft-Windows-TerminalServices-RDP-WinStationExtensions component (HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp) helps make sure that users can connect remotely from computers that don't run Remote Desktop by using network-level authentication.
   This is the equivalent of Allow connections from computers running any version of Remote Desktop (less secure) security setting.
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-190518203650.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/host/empire_enable_rdp.tar.gz
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/defense_evasion/SDWIN-190518203650.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/defense_evasion/host/empire_enable_rdp.tar.gz
 analytics:
   - name: Analytic I
     description: Look for any process updating fDenyTSConnections or UserAuthentication registry key values
@@ -41,7 +41,7 @@ analytics:
               event_id: 13
     logic: |-
       SELECT `@timestamp`, Hostname, Image, TargetObject
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 13
           AND (TargetObject LIKE "%fDenyTSConnections"

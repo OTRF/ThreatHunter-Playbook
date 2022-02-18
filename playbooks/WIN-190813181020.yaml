@@ -18,8 +18,8 @@ offensive_tradecraft: |-
     Adversaries may execute a binary, command, or script via a method that interacts with Windows services, such as the Service Control Manager.
     This can be done by by adversaries creating a new service.
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/08_lateral_movement/SDWIN-190518210652.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/empire_psexec_dcerpc_tcp_svcctl.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/lateral_movement/SDWIN-190518210652.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/lateral_movement/host/empire_psexec_dcerpc_tcp_svcctl.zip
 analytics:
   - name: Analytic I
     description: Look for new services being created in your environment and stack the values of it
@@ -33,7 +33,7 @@ analytics:
               event_id: 4697
     logic: |-
       SELECT `@timestamp`, Hostname, SubjectUserName ServiceName, ServiceType, ServiceStartType, ServiceAccount
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security" AND EventID = 4697
 known_bypasses:
 false_positives:

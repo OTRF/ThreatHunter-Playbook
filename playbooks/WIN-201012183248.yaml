@@ -17,8 +17,8 @@ technical_context: |-
 offensive_tradecraft: |-
   Adversaries can leverage this utility to proxy the execution of code by specifying an arbitrary DLL with the following command line `wuauclt.exe /UpdateDeploymentProvider <Full_Path_To_DLL> /RunHandlerComServer`
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-201012183248.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/host/covenant_lolbin_wuauclt_createremotethread.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/defense_evasion/SDWIN-201012183248.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/defense_evasion/host/covenant_lolbin_wuauclt_createremotethread.zip
 analytics:
   - name: Analytic I
     description: Look for wuauclt with the specific parameters used to load and execute a DLL.
@@ -32,7 +32,7 @@ analytics:
               event_id: 1
     logic: |-
       SELECT `@timestamp`, Hostname, Image, CommandLine
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'
           AND EventID = 1
           AND Image LIKE '%wuauclt.exe'
@@ -49,7 +49,7 @@ analytics:
               event_id: 7
     logic: |-
       SELECT `@timestamp`, Hostname, Image, ImageLoaded
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'
           AND EventID = 7
           AND Image LIKE '%wuauclt.exe'
@@ -66,7 +66,7 @@ analytics:
               event_id: 8
     logic: |-
       SELECT `@timestamp`, Hostname, TargetImage
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'
           AND EventID = 8
           AND SourceImage LIKE '%wuauclt.exe'
@@ -85,10 +85,10 @@ analytics:
               event_id: 7
     logic: |-
       SELECT `@timestamp`, Hostname, ImageLoaded
-      FROM mordorTable b
+      FROM sdTable b
       INNER JOIN (
           SELECT TargetFilename, ProcessGuid
-          FROM mordorTable
+          FROM sdTable
           WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'
               AND EventID = 11
           ) a
@@ -114,13 +114,13 @@ analytics:
               event_id: 8
     logic: |-
       SELECT `@timestamp`, Hostname, d.TargetImage, c.ImageLoaded
-      FROM mordorTable d
+      FROM sdTable d
       INNER JOIN (
           SELECT b.ProcessGuid, b.ImageLoaded
-          FROM mordorTable b
+          FROM sdTable b
           INNER JOIN (
             SELECT TargetFilename, ProcessGuid
-            FROM mordorTable
+            FROM sdTable
             WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'
                 AND EventID = 11
           ) a

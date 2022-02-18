@@ -94,7 +94,7 @@ for analytic in analytics_loaded:
         playbooks_related= [p for p in analytic['playbooks_related']]
     collaborators = [c for c in analytic['collaborators']]
     nb['cells'].append(nbf.v4.new_markdown_cell("""
-|                   |    |
+|     Metadata      |  Value  |
 |:------------------|:---|
 | collaborators     | {} |
 | creation date     | {} |
@@ -111,11 +111,11 @@ for analytic in analytics_loaded:
     nb['cells'].append(nbf.v4.new_markdown_cell("""## Offensive Tradecraft
 {}""".format(analytic['offensive_tradecraft'])))
     # *** TEST DATA ***
-    nb['cells'].append(nbf.v4.new_markdown_cell("## Mordor Test Data"))
+    nb['cells'].append(nbf.v4.new_markdown_cell("## Security Datasets"))
     nb['cells'].append(nbf.v4.new_markdown_cell("""
-|           |           |
+| Metadata  |    Value  |
 |:----------|:----------|
-| metadata  | {}        |
+| docs      | {}        |
 | link      | [{}]({})  |""".format(analytic['test_data']['metadata'], analytic['test_data']['link'],analytic['test_data']['link'])
     ))
     # *** ANALYTICS ****
@@ -125,10 +125,10 @@ for analytic in analytics_loaded:
         """from openhunt.mordorutils import *
 spark = get_spark()"""
     ))
-    nb['cells'].append(nbf.v4.new_markdown_cell("### Download & Process Mordor Dataset"))
+    nb['cells'].append(nbf.v4.new_markdown_cell("### Download & Process Security Dataset"))
     nb['cells'].append(nbf.v4.new_code_cell(
-        """mordor_file = "{}"
-registerMordorSQLTable(spark, mordor_file, "mordorTable")""".format(analytic['test_data']['link'])
+        """sd_file = "{}"
+registerSDSQLTable(spark, sd_file, "sdTable")""".format(analytic['test_data']['link'])
     ))
     ## *** PROCESSING EACH ANALYTIC ***
     for a in analytic['analytics']:
@@ -164,8 +164,8 @@ df.show(10,False)""".format(a['logic'])
         for b in analytic['known_bypasses']:
             playbook_link = "https://github.com/OTRF/ThreatHunter-Playbook/blob/master/playbooks/{}.yaml".format(b['playbook'])
             table_list.append("| {} | [{}]({}) |".format(b['idea'],b['playbook'],playbook_link))
-    table_strings = '\n'.join(map(str, table_list))
-    nb['cells'].append(nbf.v4.new_markdown_cell(table_strings))
+        table_strings = '\n'.join(map(str, table_list))
+        nb['cells'].append(nbf.v4.new_markdown_cell(table_strings))
     # *** FALSE POSITIVES ****
     nb['cells'].append(nbf.v4.new_markdown_cell("""## False Positives
 {}""".format(analytic['false_positives'])))
@@ -180,13 +180,13 @@ df.show(10,False)""".format(a['logic'])
         for output in analytic['research_output']:
             output_table += """
 | {} | [{}]({}) |""".format(output['type'],output['link'],output['link'])   
-    nb['cells'].append(nbf.v4.new_markdown_cell("""## Hunt Output
+        nb['cells'].append(nbf.v4.new_markdown_cell("""## Hunt Output
 {}""".format(output_table)))
     # *** REFERENCES ****
     references = ''
     if analytic['references']:
         references = analytic['references']
-    nb['cells'].append(nbf.v4.new_markdown_cell("""## References
+        nb['cells'].append(nbf.v4.new_markdown_cell("""## References
 {}""".format(references)))
     
     platform = analytic['platform'].lower()
@@ -208,9 +208,9 @@ df.show(10,False)""".format(a['logic'])
 
 # ****** Updating Detections TOC File ********
 print("\n[+] Creating detection entries in TOC file..")
-for toc in toc_template:
-    if 'part' in toc.keys():
-        if toc['part'] == 'Targeted Notebooks':
+for toc in toc_template['parts']:
+    if 'caption' in toc.keys():
+        if toc['caption'] == 'Targeted Notebooks':
             for table in summary_table:
                 table_platform = table['platform'].lower()
                 if len(table['analytic']) > 0:
@@ -231,9 +231,9 @@ for toc in toc_template:
 
 # ***** Update Knowledge Library Content *****
 print("\n[+] Creating Knowledge Library entries in TOC file..")
-for toc in toc_template:
-    if 'part' in toc.keys():
-        if toc['part'] == 'Knowledge Library':
+for toc in toc_template['parts']:
+    if 'caption' in toc.keys():
+        if toc['caption'] == 'Knowledge Library':
             subfolders = [ f.name for f in os.scandir("../docs/library/") if f.is_dir() ]
             for category in subfolders:
                 if len(os.listdir("../docs/library/{}/".format(category))) > 1:
@@ -266,7 +266,8 @@ for summary in summary_table:
                     if metadata not in techniques_mappings[technique]:
                         techniques_mappings[technique].append(metadata)
         
-        VERSION = "4.1"
+        LAYER_VERSION = "4.2"
+        NAVIGATOR_VERSION = "4.5.5"
         NAME = "THP {} Analytics".format(summary['platform'])
         DESCRIPTION = "Analytics covered by the Threat Hunter Playbook {} detection notebooks".format(summary['platform'])
         DOMAIN = "mitre-enterprise"
@@ -277,7 +278,11 @@ for summary in summary_table:
             "description": DESCRIPTION,
             "name": NAME,
             "domain": DOMAIN,
-            "version": VERSION,
+            "versions": {
+                "attack": "10",
+                "navigator": NAVIGATOR_VERSION,
+                "layer": LAYER_VERSION
+            },
             "techniques": [
                 {
                     "score": 1,

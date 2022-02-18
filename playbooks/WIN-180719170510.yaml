@@ -20,7 +20,7 @@ technical_context: |-
   After finding the target process, the malware gets the handle of the target process by calling OpenProcess.
   
   There are two processes involved in this attack > your DLLInjector process (Process A), and the remote process you want to inject with a DLL (Process B).
-  To interact with the remote process, Process A must call OpenProcess() while passing the remote process’s process ID as an argument. OpenProcess will then return to Process A a Handle to Process B.
+  To interact with the remote process, Process A must call OpenProcess() while passing the remote process process ID as an argument. OpenProcess will then return to Process A a Handle to Process B.
   Having a Handle to the remote process allows Process A to interact with it in powerful ways. Process A can allocate memory, write memory, and create an execution thread in Process B by calling functions like VirtualAllocEx, WriteProcessMemory, and CreateRemoteThread and passing the Handle to Process B as an argument to those functions.
   
   ### Get address of the LoadLibraryA function
@@ -28,11 +28,11 @@ technical_context: |-
   When LoadLibrary is called in a certain process, it maps a DLL into that process.
   LoadLibrary needs to know what DLL to load, so you need to provide it the path to the DLL on your system.
   LoadLibrary will then find the DLL at that path and load that DLL into memory for you.
-  Note > LoadLibraryA is the function name. “A” means you provide the DLL path as an ASCII string.
+  Note > LoadLibraryA is the function name. "A" means you provide the DLL path as an ASCII string.
   
   ### Allocate Memory for DLL
   Why do we write the DLL path to Process B using VirtualAllocEx and then WriteRemoteMemory? This is because LoadLibrary needs to know what DLL you want to inject.
-  The string it accepts as a parameter needs to be present in Process B’s memory.
+  The string it accepts as a parameter needs to be present in Process B memory.
   The malware calls VirtualAllocEx to have a space to write the path to its DLL.
   The malware then calls WriteProcessMemory to write the path in the allocated memory.
   
@@ -48,8 +48,8 @@ offensive_tradecraft: |-
   This technique is one of the most common techniques used to inject malware into another process.
   The malware writes the path to its malicious dynamic-link library (DLL) in the virtual address space of another process, and ensures the remote process loads it by creating a remote thread in the target process.
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-190518221344.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/host/empire_dllinjection_LoadLibrary_CreateRemoteThread.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/defense_evasion/SDWIN-190518221344.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/defense_evasion/host/empire_dllinjection_LoadLibrary_CreateRemoteThread.zip
 analytics:
   - name: Analytic I
     description: Look for any use of the CreateRemoteThread function to create a remote thread starting at the memory address (which means this will execute LoadLibrary in the remote process)
@@ -63,7 +63,7 @@ analytics:
               event_id: 8
     logic: |-
       SELECT `@timestamp`, Hostname, SourceImage, TargetImage
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 8
           AND lower(StartModule) LIKE "%kernel32.dll"
@@ -87,10 +87,10 @@ analytics:
               event_id: 11
     logic: |-
       SELECT f.`@timestamp` AS file_date, m.`@timestamp` AS module_date, f.Hostname, f.Image AS file_image, m.Image AS module_image, m.ImageLoaded, f.TargetFilename
-      FROM mordorTable f
+      FROM sdTable f
       INNER JOIN (
           SELECT `@timestamp`,Hostname,Image,ImageLoaded,TargetLogonId,IpAddress
-          FROM mordorTable
+          FROM sdTable
           WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
               AND EventID = 7
           ) m
@@ -102,7 +102,7 @@ known_bypasses:
   - idea: |-
       Instead of passing the address of the LoadLibrary, adversaries can copy the malicious code into an existing open process and cause it to execute (either via a small shellcode, or by calling CreateRemoteThread) via a technique known as PE injection.
       The advantage of this is that the adversary does not have to drop a malicious DLL on the disk.
-      Similar to the basic dll injection technique, the malware allocates memory in a host process (e.g. VirtualAllocEx), and instead of writing a “DLL path” it writes its malicious code by calling WriteProcessMemory.
+      Similar to the basic dll injection technique, the malware allocates memory in a host process (e.g. VirtualAllocEx), and instead of writing a "DLL path" it writes its malicious code by calling WriteProcessMemory.
     playbook:
 false_positives:
 additional_notes: |-
