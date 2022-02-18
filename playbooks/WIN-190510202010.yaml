@@ -14,13 +14,13 @@ attack_mappings:
     sub_technique: None
 hypothesis: Adversaries might have updated the property value UseLogonCredential of HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest to 1 in order to be able to extract clear text passwords from memory contents of lsass.
 technical_context: |-
-  Windows 8.1 introduced a registry setting that allows for disabling the storage of the user’s logon credential in clear text for the WDigest provider.
+  Windows 8.1 introduced a registry setting that allows for disabling the storage of the users logon credential in clear text for the WDigest provider.
 offensive_tradecraft: |-
   This setting can be modified in the property UseLogonCredential for the registry key HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest.
   If this key does not exists, you can create it and set it to 1 to enable clear text passwords.
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/05_defense_evasion/SDWIN-190518201922.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/defense_evasion/host/empire_wdigest_downgrade.tar.gz
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/defense_evasion/SDWIN-190518201922.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/defense_evasion/host/empire_wdigest_downgrade.tar.gz
 analytics:
   - name: Analytic I
     description: Look for any process updating UseLogonCredential registry key value
@@ -34,7 +34,7 @@ analytics:
               event_id: 13
     logic: |-
       SELECT `@timestamp`, Hostname, Image, TargetObject
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 13
           AND TargetObject LIKE "%UseLogonCredential"

@@ -32,8 +32,8 @@ offensive_tradecraft: |-
   When the malicious DLL is loaded, there are various approaches to hijacking execution, but most likely a threat actor would want the DLL to act as a proxy to the real DLL to minimize the chances of interrupting normal operations.
   One way to do this is by cloning the export table from one DLL to another one. One known tool that can help with it is [Koppeling](https://github.com/monoxgas/Koppeling). 
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/08_lateral_movement/SDWIN-201009173318.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_wmi_wbemcomn_dll_hijack.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/lateral_movement/SDWIN-201009173318.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/lateral_movement/host/covenant_wmi_wbemcomn_dll_hijack.zip
 analytics:
   - name: Analytic I
     description: Look for non-system accounts SMB accessing a `C:\Windows\System32\wbem\wbemcomn.dll` with write (0x2) access mask via an administrative share (i.e C$).
@@ -47,7 +47,7 @@ analytics:
               event_id: 5145
     logic: |-
       SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, SubjectLogonId, IpAddress, IpPort, RelativeTargetName
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 5145
           AND RelativeTargetName LIKE '%wbem\\\wbemcomn.dll'
@@ -70,10 +70,10 @@ analytics:
               event_id: 11
     logic: |-
       SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, SubjectLogonId, IpAddress, IpPort, RelativeTargetName
-      FROM mordorTable b
+      FROM sdTable b
       INNER JOIN (
           SELECT LOWER(REVERSE(SPLIT(TargetFilename, '\'))[0]) as TargetFilename
-          FROM mordorTable
+          FROM sdTable
           WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'
               AND Image = 'System'
               AND EventID = 11
@@ -100,10 +100,10 @@ analytics:
               event_id: 11
     logic: |-
       SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, SubjectLogonId, IpAddress, IpPort, RelativeTargetName
-      FROM mordorTable b
+      FROM sdTable b
       INNER JOIN (
           SELECT LOWER(REVERSE(SPLIT(TargetFilename, '\'))[0]) as TargetFilename
-          FROM mordorTable
+          FROM sdTable
           WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'
               AND Image = 'System'
               AND EventID = 11
@@ -135,13 +135,13 @@ analytics:
               event_id: 7
     logic: |-
       SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, SubjectLogonId, IpAddress, IpPort, RelativeTargetName
-      FROM mordorTable d
+      FROM sdTable d
       INNER JOIN (
           SELECT LOWER(REVERSE(SPLIT(TargetFilename, '\'))[0]) as TargetFilename
-          FROM mordorTable b
+          FROM sdTable b
           INNER JOIN (
               SELECT ImageLoaded
-              FROM mordorTable
+              FROM sdTable
               WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'
                   AND EventID = 7
                   AND LOWER(Image) LIKE '%wmiprvse.exe'

@@ -7,8 +7,21 @@ email: ""
 description: >- # this means to ignore newlines until "baseurl:"
   This is the first interactive Jupyter book in the infosec community!
 execute:
-  execute_notebooks: cache
-  run_in_temp: true
+  execute_notebooks: 'off'
+
+# Define the name of the latex output file for PDF builds
+latex:
+  latex_documents:
+    targetname: book.tex
+
+# Add a bibtex file so that we can create citations
+#bibtex_bibfiles:
+#  - references.bib
+
+repository:
+  url: https://github.com/OTRF/ThreatHunter-Playbook
+  path_to_book: docs
+  branch: master
 
 html:
   favicon: images/logo/favicon.ico
@@ -18,13 +31,21 @@ html:
   use_issues_button: true
   baseurl: https://threathunterplaybook.com/
 
-repository:
-  url: https://github.com/OTRF/ThreatHunter-Playbook
-  branch: master
-  path_to_book: docs
-
 launch_buttons:
   notebook_interface: "classic" # The interface interactive links will activate ["classic", "jupyterlab"]
   binderhub_url: "https://mybinder.org"
   colab_url: "https://colab.research.google.com"
   thebe: true
+
+parse:
+  myst_enable_extensions:  # default extensions to enable in the myst parser. See https://myst-parser.readthedocs.io/en/latest/using/syntax-optional.html
+    - amsmath
+    - colon_fence
+    - deflist
+    - dollarmath
+    - html_admonition
+    - html_image
+    - linkify
+    - replacements
+    - smartquotes
+    - substitution

@@ -19,8 +19,8 @@ offensive_tradecraft: |-
   Based on some research from [@svch0st](https://twitter.com/svch0st) you can to determine when and how long a process had access to the microphone of an endpoint by monitoring the following registry key
     * HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\.
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/09_collection/SDWIN-200609225055.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/collection/host/msf_record_mic.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/collection/SDWIN-200609225055.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/collection/host/msf_record_mic.zip
 analytics:
   - name: Analytic I
     description: Look for any creation or modification of registry keys under HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone\NonPackaged
@@ -43,7 +43,7 @@ analytics:
               event_id: 14
     logic: |-
       SELECT EventID, Message
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'
         AND EventID IN (12,13,14)
         AND LOWER(TargetObject) RLIKE '.*consentstore\\\\\\\microphone.*'
@@ -74,7 +74,7 @@ analytics:
               event_id: 4657
     logic: |-
       SELECT EventID, Message
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = 'security'
         AND EventID IN (4656,4663,4657)
         AND LOWER(ObjectName) RLIKE '.*consentstore\\\\\\\microphone.*'

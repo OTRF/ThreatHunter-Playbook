@@ -33,8 +33,8 @@ offensive_tradecraft: |-
   According to [Matt Graeber](https://twitter.com/mattifestation), if an attacker wanted to execute a single payload however, the respective event consumer would just need to delete its corresponding event filter, consumer, and filter to consumer binding.
   The advantage of this technique is that the payload runs as SYSTEM, and it avoids having a payload be displayed in plaintext in the presence of command line auditing.
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/08_lateral_movement/SDWIN-200724174200.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/lateral_movement/SDWIN-200724174200.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/lateral_movement/host/covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers.zip
 analytics:
   - name: Analytic I
     description: Look for the creation of Event consumers of script type.
@@ -48,7 +48,7 @@ analytics:
               event_id: 20
     logic: |-
       SELECT EventID, EventType
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = 'Microsoft-Windows-Sysmon/Operational'
         AND EventID = 20
         AND LOWER(Message) Like '%type: script%'
@@ -64,7 +64,7 @@ analytics:
               event_id: 5861
     logic: |-
       SELECT EventID, SourceName
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = 'Microsoft-Windows-WMI-Activity/Operational'
         AND EventID = 5861
         AND LOWER(Message) LIKE '%scriptingengine = "vbscript"%'
@@ -80,7 +80,7 @@ analytics:
               event_id: 1
     logic: |-
       SELECT ParentImage, Image, CommandLine, ProcessId, ProcessGuid
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 1
           AND Image LIKE '%scrcons%'
@@ -96,7 +96,7 @@ analytics:
               event_id: 4688
     logic: |-
       SELECT ParentProcessName, NewProcessName, CommandLine, NewProcessId
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 4688
           AND NewProcessName LIKE '%scrcons%'
@@ -112,7 +112,7 @@ analytics:
               event_id: 7
     logic: |-
       SELECT Image, ImageLoaded, Description, ProcessGuid
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 7
           AND LOWER(ImageLoaded) IN (
@@ -144,13 +144,13 @@ analytics:
               event_id: 7
     logic: |-
       SELECT d.`@timestamp`, c.Image, d.DestinationIp, d.ProcessId
-      FROM mordorTable d
+      FROM sdTable d
       INNER JOIN (
           SELECT b.ImageLoaded, a.CommandLine, b.ProcessGuid, a.Image
-          FROM mordorTable b
+          FROM sdTable b
           INNER JOIN (
               SELECT ProcessGuid, CommandLine, Image
-              FROM mordorTable
+              FROM sdTable
               WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
                   AND EventID = 1
                   AND Image LIKE '%scrcons.exe'
@@ -195,13 +195,13 @@ analytics:
               event_id: 4624
     logic: |-
       SELECT d.`@timestamp`, d.TargetUserName, c.Image, c.ProcessId
-      FROM mordorTable d
+      FROM sdTable d
       INNER JOIN (
           SELECT b.ImageLoaded, a.CommandLine, b.ProcessGuid, a.Image, b.ProcessId
-          FROM mordorTable b
+          FROM sdTable b
           INNER JOIN (
               SELECT ProcessGuid, CommandLine, Image
-              FROM mordorTable
+              FROM sdTable
               WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
                   AND EventID = 1
                   AND Image LIKE '%scrcons.exe'
@@ -233,7 +233,7 @@ analytics:
               event_id: 4624
     logic: |-
       SELECT `@timestamp`, TargetUserName,ImpersonationLevel, LogonType, ProcessName
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 4624
           AND LogonType = 3

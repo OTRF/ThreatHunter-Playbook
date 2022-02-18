@@ -11,7 +11,7 @@ The Threat Hunter Playbook is a community-based open source project developed to
 
 In addition, the analytics shared in this project represent specific chains of events exclusively at the host and network level and in a SQL-like format so that you can take them and apply the logic in your preferred tool or query format. The analytics provided in this repo also follow the structure of [MITRE ATT&CK](https://attack.mitre.org/wiki/Main_Page) categorizing post-compromise adversary behavior in tactical groups.
 
-Finally, the project documents detection strategies in the form of [interactive notebooks](https://github.com/hunters-forge/notebooks-forge#what-is-a-notebook) to provide an easy and flexible way to visualize the expected output and be able to run the analytics against [pre-recorded mordor datasets](https://github.com/OTRF/mordor) through [BinderHub](https://mybinder.readthedocs.io/en/latest/index.html) cloud computing environments.
+Finally, the project documents detection strategies in the form of [interactive notebooks](https://github.com/hunters-forge/notebooks-forge#what-is-a-notebook) to provide an easy and flexible way to visualize the expected output and be able to run the analytics against [pre-recorded security datasets](https://securitydatasets.com) through [BinderHub](https://mybinder.readthedocs.io/en/latest/index.html) cloud computing environments.
 
 # Goals
 

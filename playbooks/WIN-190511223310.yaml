@@ -24,8 +24,8 @@ offensive_tradecraft: |-
   In addition, it can be used to execute code remotely via Windows Remote Management (WinRM) services.
   Therefore, it is important to understand the basic artifacts left when PowerShell is used to execute code remotely via a remote powershell session.
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/02_execution/SDWIN-190518211456.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/lateral_movement/host/empire_psremoting_stager.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/execution/SDWIN-190518211456.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/lateral_movement/host/empire_psremoting_stager.zip
 analytics:
   - name: Analytic I
     description: Process wsmprovhost hosts the active remote session on the target. Therefore, it is important to monitor for any the initialization of the PowerShell host wsmprovhost
@@ -44,7 +44,7 @@ analytics:
               event_id: 4103
     logic: |-
       SELECT `@timestamp`, Hostname, Channel
-      FROM mordorTable
+      FROM sdTable
       WHERE (Channel = "Microsoft-Windows-PowerShell/Operational" OR Channel = "Windows PowerShell")
           AND (EventID = 400 OR EventID = 4103)
           AND Message LIKE "%HostApplication%wsmprovhost%"
@@ -60,7 +60,7 @@ analytics:
               event_id: 5156
     logic: |-
       SELECT `@timestamp`, Hostname, Application, SourceAddress, DestAddress, LayerName, LayerRTID
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 5156
           AND (DestPort = 5985 OR DestPort = 5986)
@@ -77,7 +77,7 @@ analytics:
               event_id: 4688
     logic: |-
       SELECT `@timestamp`, Hostname, ParentProcessName, NewProcessName
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 4688
           AND (ParentProcessName LIKE "%wsmprovhost.exe" OR NewProcessName LIKE "%wsmprovhost.exe")
@@ -93,7 +93,7 @@ analytics:
               event_id: 1
     logic: |-
       SELECT `@timestamp`, Hostname, ParentImage, Image
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 1
           AND (ParentImage LIKE "%wsmprovhost.exe" OR Image LIKE "%wsmprovhost.exe")
@@ -109,7 +109,7 @@ analytics:
               event_id: 3
     logic: |-
       SELECT `@timestamp`, Hostname, User, Initiated, Image, SourceIp, DestinationIp
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 3
           AND (DestinationPort = 5985 OR DestinationPort = 5986)

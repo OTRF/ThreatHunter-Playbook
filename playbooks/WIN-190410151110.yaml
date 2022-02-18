@@ -18,11 +18,11 @@ offensive_tradecraft: |-
   Adversaries can use PowerShell to perform a number of actions, including discovery of information and execution of code.
   Therefore, it is important to understand the basic artifacts left when PowerShell is used in your environment.
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/02_execution/SDWIN-190518182022.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/execution/host/empire_launcher_vbs.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/execution/SDWIN-190518182022.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/execution/host/empire_launcher_vbs.zip
 analytics:
   - name: Analytic I
-    description: Within the classic PowerShell log, event ID 400 indicates when a new PowerShell host process has started. You can filter on powershell.exe as a host application if you want to or leave it without a filter to captuer every single PowerShell host
+    description: Within the classic PowerShell log, event ID 400 indicates when a new PowerShell host process has started. You can filter on powershell.exe as a host application if you want to or leave it without a filter to capture every single PowerShell host
     data_sources:
       - name: Powershell
         event_providers:
@@ -38,7 +38,7 @@ analytics:
               event_id: 4103
     logic: |-
       SELECT `@timestamp`, Hostname, Channel
-      FROM mordorTable
+      FROM sdTable
       WHERE (Channel = "Microsoft-Windows-PowerShell/Operational" OR Channel = "Windows PowerShell")
           AND (EventID = 400 OR EventID = 4103)
   - name: Analytic II
@@ -53,7 +53,7 @@ analytics:
               event_id: 4688
     logic: |-
       SELECT `@timestamp`, Hostname, NewProcessName, ParentProcessName
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 4688
           AND NewProcessName LIKE "%powershell.exe"
@@ -70,7 +70,7 @@ analytics:
               event_id: 1
     logic: |-
       SELECT `@timestamp`, Hostname, Image, ParentImage
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 1
           AND Image LIKE "%powershell.exe"
@@ -87,7 +87,7 @@ analytics:
               event_id: 7
     logic: |-
       SELECT `@timestamp`, Hostname, Image, ImageLoaded
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 7
           AND (lower(Description) = "system.management.automation" OR lower(ImageLoaded) LIKE "%system.management.automation%")
@@ -103,12 +103,12 @@ analytics:
               event_id: 17
     logic: |-
       SELECT `@timestamp`, Hostname, Image, PipeName
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-Sysmon/Operational"
           AND EventID = 17
           AND lower(PipeName) LIKE "\\\\pshost%"
   - name: Analytic VI
-    description: The “PowerShell Named Pipe IPC” event will indicate the name of the PowerShell AppDomain that started. Sign of PowerShell execution
+    description: The "PowerShell Named Pipe IPC" event will indicate the name of the PowerShell AppDomain that started. Sign of PowerShell execution
     data_sources:
       - name: Powershell
         event_providers:
@@ -119,7 +119,7 @@ analytics:
               event_id: 53504
     logic: |-
       SELECT `@timestamp`, Hostname, Message
-      FROM mordorTable
+      FROM sdTable
       WHERE Channel = "Microsoft-Windows-PowerShell/Operational"
           AND EventID = 53504
 known_bypasses:

@@ -34,8 +34,8 @@ offensive_tradecraft: |-
   Additional reading
   * https://github.com/OTRF/ThreatHunter-Playbook/tree/master/docs/library/windows/active_directory_replication.md
 test_data:
-  metadata: https://mordordatasets.com/notebooks/small/windows/06_credential_access/SDWIN-190301174830.html
-  link: https://raw.githubusercontent.com/OTRF/mordor/master/datasets/small/windows/credential_access/host/empire_dcsync_dcerpc_drsuapi_DsGetNCChanges.zip
+  metadata: https://securitydatasets.com/notebooks/atomic/windows/credential_access/SDWIN-190301174830.html
+  link: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/credential_access/host/empire_dcsync_dcerpc_drsuapi_DsGetNCChanges.zip
 analytics:
   - name: Analytic I
     description: Monitoring for non-dc machine accounts accessing active directory objects on domain controllers with replication rights might be suspicious
@@ -49,7 +49,7 @@ analytics:
               event_id: 4662
     logic: |-
       SELECT `@timestamp`, Hostname, SubjectUserName, SubjectLogonId
-      FROM mordorTable
+      FROM sdTable
       WHERE LOWER(Channel) = "security"
           AND EventID = 4662
           AND AccessMask = "0x100"
@@ -78,10 +78,10 @@ analytics:
               event_id: 4662
     logic: |-
       SELECT o.`@timestamp`, o.Hostname, o.SubjectUserName, o.SubjectLogonId, a.IpAddress
-      FROM mordorTable o
+      FROM sdTable o
       INNER JOIN (
           SELECT Hostname,TargetUserName,TargetLogonId,IpAddress
-          FROM mordorTable
+          FROM sdTable
           WHERE LOWER(Channel) = "security"
               AND EventID = 4624
               AND LogonType = 3
