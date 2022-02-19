@@ -77,4 +77,4 @@ In this activity, hunters could build data dictionaries for each event log being
 
 ## References
 
-* https://github.com/OTRF/OSSEM)
+* https://github.com/OTRF/OSSEM
