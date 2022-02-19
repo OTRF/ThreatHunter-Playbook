@@ -163,8 +163,10 @@ additional_notes: |-
   * Baseline wmiprvse execution and modules loaded (i.e signed and un-signed)
 research_output:
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_wmiprvse_wbemcomn_dll_hijack.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/builtin/security/win_wmiprvse_wbemcomn_dll_hijack.yml
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_wmiprvse_wbemcomn_dll_hijack.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/file_event/file_event_wmiprvse_wbemcomn_dll_hijack.yml
+  - type: Sigma Rule
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/image_load/image_load_wmiprvse_wbemcomn_dll_hijack.yml
 references: |-
   * https://docs.microsoft.com/en-us/windows/win32/wmisdk/about-wmi

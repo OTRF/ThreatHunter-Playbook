@@ -87,11 +87,13 @@ additional_notes: |-
   * You can also run the script below named PowerShellHostFinder.ps1 by Matt Graber and audit PS host binaries in your environment.
 research_output:
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/powershell_alternate_powershell_hosts.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/powershell/powershell_module/posh_pm_alternate_powershell_hosts.yml
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_alternate_powershell_hosts_moduleload.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/powershell/powershell_classic/posh_pc_alternate_powershell_hosts.yml
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_alternate_powershell_hosts_pipe.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/image_load/sysmon_alternate_powershell_hosts_moduleload.yml
+  - type: Sigma Rule
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/pipe_created/sysmon_alternate_powershell_hosts_pipe.yml
 references: |-
   * https://twitter.com/mattifestation/status/971840487882506240
   * https://gist.githubusercontent.com/mattifestation/fcae777470f1bdeb9e4b32f93c245fd3/raw/abbe79c660829ab9aad58581baf681655f6ba305/PowerShellHostFinder.ps1

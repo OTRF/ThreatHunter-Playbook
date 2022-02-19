@@ -122,13 +122,15 @@ additional_notes: |-
   * Layer 44 translatest to layer filter FWPM_LAYER_ALE_AUTH_RECV_ACCEPT_V4 / FWPM_LAYER_ALE_AUTH_RECV_ACCEPT_V6. This filtering layer allows for authorizing accept requests for incoming TCP connections, as well as authorizing incoming non-TCP traffic based on the first packet received. Looking for destination ports related to remote PowerShell Sessions and Layer 44 is very helpful.
 research_output:
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/powershell_remote_powershell_session.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/powershell/powershell_module/posh_pm_remote_powershell_session.yml
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_remote_powershell_session_network.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/powershell/powershell_classic/posh_pc_remote_powershell_session.yml
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_remote_powershell_session_process.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/network_connection/sysmon_remote_powershell_session_network.yml
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_remote_powershell_session.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/win_remote_powershell_session_process.yml
+  - type: Sigma Rule
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/builtin/security/win_remote_powershell_session.yml
 references: |-
   * https://docs.microsoft.com/en-us/powershell/scripting/learn/remoting/running-remote-commands?view=powershell-6#windows-powershell-remoting
   * https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_remote_requirements?view=powershell-6

@@ -198,7 +198,7 @@ additional_notes: |-
   * You could use a stack counting technique to stack all the values of the permissions invoked by processes accessing Lsass.exe. You will have to do some filtering to reduce the number of false positives. You could then group the results with other events such as modules being loaded (EID 7). A time window of 1-2 seconds could help to get to a reasonable number of events for analysis.
 research_output:
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_lsass_access_non_system_account.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/builtin/security/win_lsass_access_non_system_account.yml
 references: |-
   * https://tyranidslair.blogspot.com/2017/10/bypassing-sacl-auditing-on-lsass.htmls
   * https://adsecurity.org/?page_id=1821#SEKURLSALogonPasswords

@@ -44,7 +44,7 @@ false_positives:
 additional_notes:
 research_output:
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/tree/master/signatures/sigma/sysmon_wdigest_registry_modification.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/registry_event/sysmon_wdigest_enable_uselogoncredential.yml
 references: |-
   * https://github.com/samratashok/nishang/blob/master/Gather/Invoke-MimikatzWDigestDowngrade.ps1
   * https://blog.stealthbits.com/wdigest-clear-text-passwords-stealing-more-than-a-hash/

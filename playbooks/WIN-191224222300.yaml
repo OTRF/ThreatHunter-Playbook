@@ -164,7 +164,9 @@ additional_notes: |-
   * You can take the ProcessId of the process that performed the downgrade and explore its parents.
 research_output:
   - type: Sigma Rule
-    link: https://github.com/Neo23x0/sigma/blob/master/rules/windows/builtin/win_net_ntlm_downgrade.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/builtin/security/win_net_ntlm_downgrade.yml
+  - type: Sigma Rule
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/registry_event/registry_event_net_ntlm_downgrade.yml
 references: |-
   * https://shenaniganslabs.io/2019/01/14/Internal-Monologue.html
   * https://jeffpar.github.io/kbarchive/kb/147/Q147706/
