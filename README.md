@@ -15,9 +15,9 @@ The Threat Hunter Playbook is a community-driven, open source project to share d
 
 * Expedite the development of techniques an hypothesis for hunting campaigns.
 * Help security researchers understand patterns of behavior observed during post-exploitation.
-* Share resources to validate analytics through cloud computing environments for free.
+* Share resources to validate analytics locally or remotely through cloud computing environments for free.
 * Map pre-recorded datasets to adversarial techniques.
-* Accelerate infosec lerning through open source resources.
+* Accelerate infosec learning through open source resources.
 
 ## Author
 
