@@ -109,7 +109,7 @@ additional_notes: |-
   * You can correlate security events 4662 and 4624 (Logon Type 3) by their Logon ID on the Domain Controller (DC) that received the replication request. This will tell you where the AD replication request came from. This will also allow you to know if it came from another DC or not.
 research_output:
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_ad_replication_non_machine_account.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/builtin/security/win_ad_replication_non_machine_account.yml
 references: |-
   * https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/1522b774-6464-41a3-87a5-1e5633c3fbbb
   * https://docs.microsoft.com/en-us/windows/desktop/adschema/c-domain

@@ -83,8 +83,8 @@ false_positives:
 additional_notes:
 research_output:
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_camera_microphone_access.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/registry_event/sysmon_susp_mic_cam_access.yml
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_camera_microphone_access.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/builtin/security/win_camera_microphone_access.yml
 references: |-
   * https://medium.com/@7a616368/can-you-track-processes-accessing-the-camera-and-microphone-7e6885b37072

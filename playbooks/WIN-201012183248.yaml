@@ -139,9 +139,11 @@ additional_notes: |-
   * Baseline your environment to identify normal activity from wuauclt. You will have to do some stacking on images loaded by wuauclt (Split it on signed and un-signed (if applicable))
 research_output:
   - type: Sigma Rule
-    link: https://github.com/Neo23x0/sigma/blob/2cb540f95ed2d02f7d8a2bf84d9bf4a5962f156d/rules/windows/process_creation/sysmon_proxy_execution_wuauclt.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/sysmon_proxy_execution_wuauclt.yml
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/sysmon_proxy_execution_wuauclt_createremotethread.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/sysmon_proxy_execution_wuauclt.yml
+  - type: Sigma Rule
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/win_lolbas_execution_of_wuauclt.yml
 references: |-
   * https://dtm.uk/wuauclt/
   * https://docs.microsoft.com/zh-cn/security-updates/windowsupdateservices/21740782

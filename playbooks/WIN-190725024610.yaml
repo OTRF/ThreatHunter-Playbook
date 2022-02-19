@@ -60,9 +60,9 @@ false_positives:
 additional_notes:
 research_output:
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_sam_registry_hive_handle_request.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/builtin/security/win_sam_registry_hive_handle_request.yml
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_sam_registry_hive_dump_via_reg_utility.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/win_grabbing_sensitive_hives_via_reg.yml
 references: |-
   * http://www.harmj0y.net/blog/activedirectory/remote-hash-extraction-on-demand-via-host-security-descriptor-modification/
   * https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump

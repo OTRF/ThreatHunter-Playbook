@@ -244,7 +244,7 @@ additional_notes: |-
   * Baseline your environment to identify normal activity. Apparently, SCCM leverages WMI event subscriptions.
 research_output:
   - type: Sigma Rule
-    link: https://github.com/OTRF/ThreatHunter-Playbook/blob/master/signatures/sigma/win_scrcons_remote_wmi_scripteventconsumer.yml
+    link: https://github.com/SigmaHQ/sigma/blob/master/rules/windows/builtin/security/win_scrcons_remote_wmi_scripteventconsumer.yml
 references: |-
   * https://www.mdsec.co.uk/2020/09/i-like-to-move-it-windows-lateral-movement-part-1-wmi-event-subscription/
   * https://www.fireeye.com/content/dam/fireeye-www/services/pdfs/sans-dfir-2015.pdf
