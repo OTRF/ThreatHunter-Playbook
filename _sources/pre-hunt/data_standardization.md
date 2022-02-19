@@ -28,7 +28,7 @@ Defining data objects allow you to categorize/group event fields and be able to 
 * process_guid
 * process_id
 
-one example for **"Process"** can be found in the [OSSEM project](https://github.com/OTRF/OSSEM/blob/master/common_information_model/entities/process.md)
+one example for **"Process"** can be found in the [OSSEM Common Data Model project](https://github.com/OTRF/OSSEM-CDM/blob/master/schemas/entities/process.yml)
 
 ### Apply CIM to Events
 Next, you can take the schemas defined for each data object and apply them to event logs you collect.
@@ -80,7 +80,7 @@ Next, you can take the schemas defined for each data object and apply them to ev
 </Event>
 ```
 
-* We could easily standardize its event fields and combine them with data dictionaries as shown in [here](https://github.com/OTRF/OSSEM/blob/master/data_dictionaries/windows/sysmon/events/event-1.md) by the [OSSEM project](https://github.com/OTRF/OSSEM).
+* We could easily standardize its event fields and combine them with data dictionaries as shown in [here](https://github.com/OTRF/OSSEM-DD/blob/main/windows/sysmon/events/event-1.yml) by the [OSSEM project](https://github.com/OTRF/OSSEM).
 
 ## When?
 Depending on your priorities and the resources allocated to your team, you can either start your own CIM based on all the data soures available at once, or gradually create it from each data sources used as you build analytics.

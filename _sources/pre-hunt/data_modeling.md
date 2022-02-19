@@ -19,7 +19,7 @@ First, you need to have a good understanding of the events you are collecting. T
 ### Identify Relationships
 Each event log collected is triggered by a specific action, and each event contains a specific structure and data elements that represent data objects in the Cyber domain such as a process, IP address, e-mail, user, etc.
 
-For example, [Windows Sysmon Event ID 1](https://github.com/OTRF/OSSEM/blob/master/data_dictionaries/windows/sysmon/events/event-1.md) is triggered when a **Process** is created, and contains the following information:
+For example, [Windows Sysmon Event ID 1](https://github.com/OTRF/OSSEM-DD/blob/main/windows/sysmon/events/event-1.yml) is triggered when a **Process** is created, and contains the following information:
 
 ```
 <Data Name="RuleName" /> 
@@ -53,7 +53,7 @@ Based on the definition and data structure of the Sysmon event ID 1 provided abo
 Understanding events at this level allows you to map data relationships to specific event logs and expedite the development of analytics.
 
 ### Document Relationships
-Once you identify those relationships, start documenting them in a way that it is easy for others to read. One perfect example is [this document](https://docs.google.com/spreadsheets/d/1ow7YRDEDJs67kcKMZZ66_5z1ipJry9QrsDQkjQvizJM/edit?usp=sharing) developed in the [OSSEM project](https://github.com/OTRF/OSSEM) that shows relationships identified on several Windows event logs.
+Once you identify those relationships, start documenting them in a way that it is easy for others to read. One perfect example is [this document](https://github.com/OTRF/OSSEM-DM/blob/main/use-cases/mitre_attack/attack_events_mapping.csv) developed in the [OSSEM Detection Model project](https://github.com/OTRF/OSSEM-DM) that shows relationships identified on several Windows event logs.
 
 ![](../images/DATA_MODELING_TABLE.png)
 
@@ -70,4 +70,4 @@ Once again, documenting event logs structure and identifying relationships among
 ## References:
 
 * http://docs.oasis-open.org/cti/stix/v2.0/stix-v2.0-part4-cyber-observable-objects.html
-* https://docs.google.com/spreadsheets/d/1ow7YRDEDJs67kcKMZZ66_5z1ipJry9QrsDQkjQvizJM/edit#gid=0
+* https://github.com/OTRF/OSSEM-DM/blob/main/use-cases/mitre_attack/attack_events_mapping.csv
