@@ -1,3 +1,18 @@
+---
+jupyter:
+  jupytext:
+    formats: md:myst
+    text_representation:
+      extension: .md
+      format_name: myst
+      format_version: '1.3'
+      jupytext_version: 1.14.1
+  kernelspec:
+    display_name: Python
+    language: python
+    name: python3
+---
+
 # Jupyter Server Installation
 
 I am sure you are anxious to install Jupyter and start exploring its capabilities, but first you have to decide if you want to install the Jupyter Notebook server directly on your system or host it on a virtual machine or a docker container.
