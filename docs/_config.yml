@@ -1,6 +1,6 @@
 #######################################################################################
 # Book settings
-title: "Threat Hunter Playbook"
+title: Threat Hunter Playbook
 logo: images/logo/logo.png
 author: Roberto Rodriguez @Cyb3rWard0g
 email: ""
@@ -18,11 +18,6 @@ latex:
 #bibtex_bibfiles:
 #  - references.bib
 
-repository:
-  url: https://github.com/OTRF/ThreatHunter-Playbook
-  path_to_book: docs
-  branch: master
-
 html:
   favicon: images/logo/favicon.ico
   home_page_in_navbar: false
@@ -30,6 +25,11 @@ html:
   use_repository_button: true
   use_issues_button: true
   baseurl: https://threathunterplaybook.com/
+
+repository:
+  url: https://github.com/OTRF/ThreatHunter-Playbook
+  path_to_book: docs
+  branch: master
 
 launch_buttons:
   notebook_interface: "classic" # The interface interactive links will activate ["classic", "jupyterlab"]
@@ -49,3 +49,6 @@ parse:
     - replacements
     - smartquotes
     - substitution
+
+# Disable building files that aren’t in the Table of Contents
+only_build_toc_files: true

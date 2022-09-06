@@ -6,6 +6,12 @@ import json
 import copy
 from jinja2 import Template
 
+###### Variables #####
+current_directory = os.path.dirname(__file__)
+docs_directory = os.path.join(current_directory, "../../", "docs")
+playbooks_meta_directory = os.path.join(docs_directory, "..", "playbooks")
+playbooks_directory = os.path.join(docs_directory, "playbooks")
+
 # ******* Paths for notebooks ********
 attack_paths = {
     "TA0001" : "01_initial_access",
@@ -52,7 +58,7 @@ with open('templates/toc_template.json') as json_file:
 
 # ******** Open every analytic yaml file available ****************
 print("[+] Opening analytic yaml files..")
-analytics_files = glob.glob(os.path.join(os.path.dirname(__file__), "..", "playbooks", "*.yaml"))
+analytics_files = glob.glob(os.path.join(analytics_meta_directory, "*.yaml"))
 analytics_loaded = []
 for analytic_file in analytics_files:
     print(analytic_file)
@@ -204,7 +210,7 @@ df.show(10,False)""".format(a['logic'])
     # ***** Create Notebooks *****
     for attack in analytic['attack_mappings']:
         for tactic in attack['tactics']:
-            nbf.write(nb, "../docs/notebooks/{}/{}/{}.ipynb".format(platform,attack_paths[tactic],analytic['id']))
+            nbf.write(nb, "../../docs/notebooks/{}/{}/{}.ipynb".format(platform,attack_paths[tactic],analytic['id']))
 
 # ****** Updating Detections TOC File ********
 print("\n[+] Creating detection entries in TOC file..")
@@ -236,13 +242,13 @@ for toc in toc_template['parts']:
         if toc['caption'] == 'Knowledge Library':
             subfolders = [ f.name for f in os.scandir("../docs/library/") if f.is_dir() ]
             for category in subfolders:
-                if len(os.listdir("../docs/library/{}/".format(category))) > 1:
+                if len(os.listdir("../../docs/library/{}/".format(category))) > 1:
                     librarydocs = {
                         "file" : "library/{}/intro".format(category),
                         "sections": [
                             {
                                 "file": "library/{}/{}".format(category,filename.split('.md')[0])
-                            } for filename in os.listdir("../docs/library/{}/".format(category)) if filename != 'intro.md'
+                            } for filename in os.listdir("../../docs/library/{}/".format(category)) if filename != 'intro.md'
                         ]
                     }
                     toc['chapters'].append(librarydocs)
@@ -305,7 +311,7 @@ for summary in summary_table:
                 }
             ]
         }
-        open('../docs/notebooks/{}/{}.json'.format(PLATFORM,PLATFORM), 'w').write(json.dumps(thp_layer))
+        open('../../docs/notebooks/{}/{}.json'.format(PLATFORM,PLATFORM), 'w').write(json.dumps(thp_layer))
     
 print("\n[+] Creating analytic summary tables for each platform..")
 summary_template = Template(open('templates/summary_template.md').read())
@@ -314,9 +320,9 @@ for summary in summary_table:
         print("  [>>] Creating summary table for {} analytics..".format(summary['platform']))
         summary_for_render = copy.deepcopy(summary)
         markdown = summary_template.render(summary=summary_for_render)
-        open('../docs/notebooks/{}/intro.md'.format(summary['platform'].lower()), 'w').write(markdown)
+        open('../../docs/notebooks/{}/intro.md'.format(summary['platform'].lower()), 'w').write(markdown)
 
 # ******* Update Jupyter Book TOC File *************
 print("\n[+] Writing final TOC file for Jupyter book..")
-with open(r'../docs/_toc.yml', 'w') as file:
+with open(r'../../docs/_toc.yml', 'w') as file:
     yaml.dump(toc_template, file, sort_keys=False)
