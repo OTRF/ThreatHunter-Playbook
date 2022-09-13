@@ -1,5 +1,5 @@
 format: jb-book
-root: introduction
+root: intro
 parts:
 - caption: Knowledge Library
   chapters:
@@ -26,67 +26,36 @@ parts:
     - file: pre-hunt/data_standardization
     - file: pre-hunt/data_modeling
     - file: pre-hunt/data_quality
-- caption: Campaign Notebooks
+- caption: Guided Hunts
   chapters:
-  - file: evals/intro
+  - file: hunts/windows/intro
     sections:
-    - file: evals/apt29/intro
-      sections:
-      - file: evals/apt29/report
-      - file: notebooks/campaigns/apt29Evals
-- caption: Targeted Notebooks
-  chapters:
-  - file: notebooks/windows/intro
-    sections:
-    - file: notebooks/windows/02_execution/intro
-      sections:
-      - file: notebooks/windows/02_execution/WIN-190410151110
-      - file: notebooks/windows/02_execution/WIN-190511223310
-      - file: notebooks/windows/02_execution/WIN-190610201010
-      - file: notebooks/windows/02_execution/WIN-190810201010
-      - file: notebooks/windows/02_execution/WIN-190811201010
-      - file: notebooks/windows/02_execution/WIN-190813181020
-      - file: notebooks/windows/02_execution/WIN-190815181010
-      - file: notebooks/windows/02_execution/WIN-201009173318
-    - file: notebooks/windows/03_persistence/intro
-      sections:
-      - file: notebooks/windows/03_persistence/WIN-190810170510
-      - file: notebooks/windows/03_persistence/WIN-200902020333
-    - file: notebooks/windows/04_privilege_escalation/intro
-      sections:
-      - file: notebooks/windows/04_privilege_escalation/WIN-200902020333
-    - file: notebooks/windows/05_defense_evasion/intro
-      sections:
-      - file: notebooks/windows/05_defense_evasion/WIN-180719170510
-      - file: notebooks/windows/05_defense_evasion/WIN-190101151110
-      - file: notebooks/windows/05_defense_evasion/WIN-190407183310
-      - file: notebooks/windows/05_defense_evasion/WIN-190510202010
-      - file: notebooks/windows/05_defense_evasion/WIN-191224222300
-      - file: notebooks/windows/05_defense_evasion/WIN-201012183248
-    - file: notebooks/windows/06_credential_access/intro
-      sections:
-      - file: notebooks/windows/06_credential_access/WIN-170105221010
-      - file: notebooks/windows/06_credential_access/WIN-180815210510
-      - file: notebooks/windows/06_credential_access/WIN-190620024610
-      - file: notebooks/windows/06_credential_access/WIN-190725024610
-      - file: notebooks/windows/06_credential_access/WIN-191030201010
-    - file: notebooks/windows/07_discovery/intro
-      sections:
-      - file: notebooks/windows/07_discovery/WIN-190625024610
-      - file: notebooks/windows/07_discovery/WIN-190725024610
-      - file: notebooks/windows/07_discovery/WIN-190826010110
-    - file: notebooks/windows/08_lateral_movement/intro
-      sections:
-      - file: notebooks/windows/08_lateral_movement/WIN-190511223310
-      - file: notebooks/windows/08_lateral_movement/WIN-190810201010
-      - file: notebooks/windows/08_lateral_movement/WIN-190815181010
-      - file: notebooks/windows/08_lateral_movement/WIN-200902020333
-      - file: notebooks/windows/08_lateral_movement/WIN-201009173318
-      - file: notebooks/windows/08_lateral_movement/WIN-201009183000
-      - file: notebooks/windows/08_lateral_movement/WIN-201012004336
-    - file: notebooks/windows/09_collection/intro
-      sections:
-      - file: notebooks/windows/09_collection/WIN-200609225055
+    - file: hunts/windows/170105-LSASSMemoryReadAccess/notebook
+    - file: hunts/windows/180719-DLLProcessInjectionCreateRemoteThread/notebook
+    - file: hunts/windows/180815-ADObjectAccessReplication/notebook
+    - file: hunts/windows/190101-ADModDirectoryReplication/notebook
+    - file: hunts/windows/190407-RegModEnableRDPConnections/notebook
+    - file: hunts/windows/190410-LocalPwshExecution/notebook
+    - file: hunts/windows/190510-RegModWDigestDowngrade/notebook
+    - file: hunts/windows/190511-RemotePwshExecution/notebook
+    - file: hunts/windows/190610-PwshAlternateHosts/notebook
+    - file: hunts/windows/190620-DomainDPAPIBackupKeyExtraction/notebook
+    - file: hunts/windows/190625-RegKeyAccessSyskey/notebook
+    - file: hunts/windows/190725-SAMRegistryHiveHandleRequest/notebook
+    - file: hunts/windows/190810-RemoteWMIExecution/notebook
+    - file: hunts/windows/190810-WMIEventing/notebook
+    - file: hunts/windows/190811-WMIModuleLoad/notebook
+    - file: hunts/windows/190813-LocalServiceInstallation/notebook
+    - file: hunts/windows/190815-RemoteServiceInstallation/notebook
+    - file: hunts/windows/190826-RemoteSCMHandle/notebook
+    - file: hunts/windows/191030-RemoteInteractiveTaskMgrLsassDump/notebook
+    - file: hunts/windows/191224-RegModExtendedNetNTLMDowngrade/notebook
+    - file: hunts/windows/200609-MicrophoneDvcAccess/notebook
+    - file: hunts/windows/200902-RemoteWMIActiveScriptEventConsumers/notebook
+    - file: hunts/windows/201009-RemoteDCOMIErtUtilDLLHijack/notebook
+    - file: hunts/windows/201009-RemoteWMIWbemcomnDLLHijack/notebook
+    - file: hunts/windows/201012-RemoteCreateFileSMB/notebook
+    - file: hunts/windows/201012-WuaucltCreateRemoteThread/notebook
 - caption: Tutorials
   chapters:
   - file: tutorials/jupyter/introduction

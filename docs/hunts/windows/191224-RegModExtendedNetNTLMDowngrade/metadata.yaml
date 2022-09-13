@@ -1,0 +1,21 @@
+id: 191224-RegModExtendedNetNTLMDowngrade
+title: Registry Modification for Extended NetNTLM Downgrade
+hypothesis: Adversaries might be downgrading the challenge/response authentication protocol used for network logons, the minimum security negotiated for applications using NTLMSSP, and security settings that restrict outgoing NTLM traffic to remote servers in my environment
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2019/12/24
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0005
+    technique: T1112
+    sub_technique: None
+
+datasets:
+  - name: Empire Invoke InternalMonologue
+    docs: https://securitydatasets.com/notebooks/atomic/windows/defense_evasion/SDWIN-191225045202.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/defense_evasion/host/empire_monologue_netntlm_downgrade.zip

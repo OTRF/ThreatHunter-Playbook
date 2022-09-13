@@ -1,0 +1,58 @@
+{
+    "format": "jb-book",
+    "root": "intro",
+    "parts": [
+        {
+            "caption": "Knowledge Library",
+            "chapters": []
+        },
+        {
+            "caption": "Pre-Hunt Activities",
+            "chapters": [
+                {
+                    "file": "pre-hunt/data_management",
+                    "sections": [
+                        {
+                            "file": "pre-hunt/data_documentation"
+                        },
+                        {
+                            "file": "pre-hunt/data_standardization"
+                        },
+                        {
+                            "file": "pre-hunt/data_modeling"
+                        },
+                        {
+                            "file": "pre-hunt/data_quality"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "caption": "Guided Hunts",
+            "chapters": []
+        },
+        {
+            "caption": "Tutorials",
+            "chapters": [
+                {
+                    "file": "tutorials/jupyter/introduction",
+                    "sections": [
+                        {
+                            "file": "tutorials/jupyter/installing_jupyter"
+                        },
+                        {
+                            "file": "tutorials/jupyter/notebooks/01_intro_to_python"
+                        },
+                        {
+                            "file": "tutorials/jupyter/notebooks/02_intro_to_numpy_arrays"
+                        },
+                        {
+                            "file": "tutorials/jupyter/notebooks/03_intro_to_pandas"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

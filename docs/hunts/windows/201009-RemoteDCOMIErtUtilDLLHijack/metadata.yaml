@@ -1,0 +1,21 @@
+id: 201009-RemoteDCOMIErtUtilDLLHijack
+title: Remote DCOM IErtUtil DLL Hijack
+hypothesis: Threat actors might be copying files remotely to abuse a DLL hijack opportunity found on the DCOM InternetExplorer.Application Class.
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2020/10/09
+modification_date: 2020/10/09
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0008
+    technique: T1021
+    sub-technique: "003"
+
+datasets:
+  - name: Covenant Remote DCOM Iertutil DLL Hijacking
+    docs: https://securitydatasets.com/notebooks/atomic/windows/lateral_movement/SDWIN-201009183000.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/lateral_movement/host/covenant_dcom_iertutil_dll_hijack.zip

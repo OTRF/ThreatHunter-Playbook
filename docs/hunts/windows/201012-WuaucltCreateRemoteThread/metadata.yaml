@@ -1,0 +1,20 @@
+id: 201012-WuaucltCreateRemoteThread
+title: Wuauclt CreateRemoteThread Execution
+hypothesis: Adversaries might be proxy executing code via the Windows Update client utility in my environment and creating and running a thread in the virtual address space of another process via the CreateRemoteThread API to bypass rules looking for it calling out to the Internet.
+
+collaborators:
+  - '@Cyb3rWard0g'
+creation_date: 2020/10/12
+modification_date: 2020/10/12
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0005
+    technique: T1218
+    sub-technique:
+
+detections:
+  - name: Covenant Wuauclt CreateRemoteThread Execution
+    docs: https://securitydatasets.com/notebooks/atomic/windows/defense_evasion/SDWIN-201012183248.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/defense_evasion/host/covenant_lolbin_wuauclt_createremotethread.zip

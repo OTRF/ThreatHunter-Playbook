@@ -1,0 +1,21 @@
+id: 190810-WMIEventing
+title: WMI Eventing
+hypothesis: Adversaries might be leveraging WMI eventing for persistence in my environment.
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2019/08/10
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0003
+    technique: T1546
+    sub_technique: "003"
+
+datasets:
+  - name: Empire Elevated WMI Eventing
+    docs: https://securitydatasets.com/notebooks/atomic/windows/persistence/SDWIN-190518184306.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/persistence/host/empire_wmi_local_event_subscriptions_elevated_user.zip

@@ -1,0 +1,21 @@
+id: 190510-RegModWDigestDowngrade
+title: WDigest Downgrade
+hypothesis: Adversaries might have updated the property value UseLogonCredential of HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest to 1 in order to be able to extract clear text passwords from memory contents of lsass.
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2019/05/10
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0005
+    technique: T1112
+    sub_technique: None
+
+datasets:
+  - name: Empire WDigest Downgrade
+    docs: https://securitydatasets.com/notebooks/atomic/windows/defense_evasion/SDWIN-190518201922.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/defense_evasion/host/empire_wdigest_downgrade.tar.gz

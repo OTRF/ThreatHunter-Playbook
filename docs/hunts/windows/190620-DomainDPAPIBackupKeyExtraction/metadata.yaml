@@ -1,0 +1,21 @@
+id: 190620-DomainDPAPIBackupKeyExtraction
+title: Domain DPAPI Backup Key Extraction
+hypothesis: Adversaries might be extracting the DPAPI domain backup key from my DC to be able to decrypt any domain user master key files.
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2019/06/20
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0006
+    technique: T1003
+    sub_technique: "004"
+
+datasets:
+  - name: Empire Mimikatz Backup Keys
+    docs: https://securitydatasets.com/notebooks/atomic/windows/credential_access/SDWIN-190518235535.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/credential_access/host/empire_mimikatz_backupkeys_dcerpc_smb_lsarpc.zip

@@ -1,42 +1,50 @@
 #######################################################################################
 # Book settings
-title: "Threat Hunter Playbook"
-logo: images/logo/logo.png
-author: Roberto Rodriguez @Cyb3rWard0g
-email: ""
-description: >- # this means to ignore newlines until "baseurl:"
-  This is the first interactive Jupyter book in the infosec community!
-execute:
-  execute_notebooks: 'off'
+title                       : Threat Hunter Playbook
+author                      : Roberto Rodriguez @Cyb3rWard0g
+copyright                   : "2022"  # Copyright year to be placed in the footer
+logo                        : images/logo/logo.png
+only_build_toc_files        : true # Disable building files that aren’t in the Table of Contents
 
+#######################################################################################
+# Execution settings
+execute:
+  execute_notebooks         : 'auto'
+  exclude_patterns          : ['notebook.md']
+
+#######################################################################################
+# LaTeX-specific settings
 # Define the name of the latex output file for PDF builds
 latex:
   latex_documents:
-    targetname: book.tex
+    targetname              : book.tex
 
-# Add a bibtex file so that we can create citations
-#bibtex_bibfiles:
-#  - references.bib
-
-repository:
-  url: https://github.com/OTRF/ThreatHunter-Playbook
-  path_to_book: docs
-  branch: master
-
+#######################################################################################
+# HTML-specific settings
 html:
   favicon: images/logo/favicon.ico
-  home_page_in_navbar: false
-  use_edit_page_button: true
-  use_repository_button: true
-  use_issues_button: true
-  baseurl: https://threathunterplaybook.com/
+  home_page_in_navbar       : false
+  use_edit_page_button      : true
+  use_repository_button     : true
+  use_issues_button         : true
+  baseurl                   : https://threathunterplaybook.com/
+  announcement              : "" # A banner announcement at the top of the site.
+
+#######################################################################################
+# Launch button settings
+repository:
+  url                       : https://github.com/OTRF/ThreatHunter-Playbook
+  path_to_book              : docs
+  branch                    : master
 
 launch_buttons:
-  notebook_interface: "classic" # The interface interactive links will activate ["classic", "jupyterlab"]
-  binderhub_url: "https://mybinder.org"
-  colab_url: "https://colab.research.google.com"
-  thebe: true
+  notebook_interface        : classic  # The interface interactive links will activate ["classic", "jupyterlab"]
+  binderhub_url             : https://mybinder.org  # The URL of the BinderHub (e.g., https://mybinder.org)
+  colab_url                 : https://colab.research.google.com # The URL of Google Colab (https://colab.research.google.com)
+  thebe                     : true
 
+#######################################################################################
+# Parse and render settings
 parse:
   myst_enable_extensions:  # default extensions to enable in the myst parser. See https://myst-parser.readthedocs.io/en/latest/using/syntax-optional.html
     - amsmath
@@ -49,3 +57,10 @@ parse:
     - replacements
     - smartquotes
     - substitution
+
+sphinx:
+  extra_extensions:
+    - sphinx_inline_tabs
+  config:
+    html_js_files:
+    - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js

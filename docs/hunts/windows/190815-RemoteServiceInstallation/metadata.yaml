@@ -1,0 +1,22 @@
+id: 190815-RemoteServiceInstallation
+title: Remote Service creation
+hypothesis: Adversaries might be creating new services remotely to execute code and move laterally in my environment
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2019/08/15
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0002
+      - TA0008
+    technique: T1569
+    sub_technique: "002"
+
+datasets:
+  - name: Empire Invoke PsExec
+    docs: https://securitydatasets.com/notebooks/atomic/windows/lateral_movement/SDWIN-190518210652.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/lateral_movement/host/empire_psexec_dcerpc_tcp_svcctl.zip

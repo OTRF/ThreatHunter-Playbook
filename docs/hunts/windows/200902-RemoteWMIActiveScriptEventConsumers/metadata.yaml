@@ -1,0 +1,23 @@
+id: 200902-RemoteWMIActiveScriptEventConsumers
+title: Remote WMI ActiveScriptEventConsumers
+hypothesis: Adversaries might be leveraging WMI ActiveScriptEventConsumers remotely to move laterally in my network.
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2020/09/02
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0003
+      - TA0004
+      - TA0008
+    technique: T1546
+    sub-technique: "003"
+
+datasets:
+  - name: Covenant Remote WMI Eventing ActiveScriptEventConsumers
+    docs: https://securitydatasets.com/notebooks/atomic/windows/lateral_movement/SDWIN-200724174200.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/lateral_movement/host/covenant_wmi_remote_event_subscription_ActiveScriptEventConsumers.zip

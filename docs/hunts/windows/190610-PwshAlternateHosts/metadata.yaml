@@ -1,0 +1,21 @@
+id: 190610-PwshAlternateHosts
+title: Alternate PowerShell Hosts
+hypothesis: Adversaries might be leveraging alternate PowerShell Hosts to execute PowerShell evading traditional PowerShell detections that look for powershell.exe in my environment.
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2019/08/15
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0002
+    technique: T1059
+    sub_technique: "001"
+
+datasets:
+  - name: Empire Invoke PSRemoting
+    docs: https://securitydatasets.com/notebooks/atomic/windows/execution/SDWIN-190518211456.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/lateral_movement/host/empire_psremoting_stager.zip

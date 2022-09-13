@@ -1,0 +1,21 @@
+id: 190407-RegModEnableRDPConnections
+title: Registry Modification to Enable Remote Desktop Conections
+hypothesis: Adversaries might be modifying registry key values to enable remote desktop connections in my environment.
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2019/04/07
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0005
+    technique: T1112
+    sub_technique: None
+
+datasets:
+  - name: Empire Enable RDP
+    docs: https://securitydatasets.com/notebooks/atomic/windows/defense_evasion/SDWIN-190518203650.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/defense_evasion/host/empire_enable_rdp.tar.gz

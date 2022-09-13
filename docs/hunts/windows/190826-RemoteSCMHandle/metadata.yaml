@@ -1,0 +1,21 @@
+id: 190826-RemoteSCMHandle
+title: Remote Service Control Manager Handle
+hypothesis: Adversaries might be attempting to open up a handle to the service control manager (SCM) database on remote endpoints to check for local admin access in my environment.
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2019/08/26
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0007
+    technique: T1007
+    sub_technique: None
+
+datasets:
+  - name: Empire Find Local Admin Access
+    docs: https://securitydatasets.com/notebooks/atomic/windows/discovery/SDWIN-190518224039.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/discovery/host/empire_find_localadmin_smb_svcctl_OpenSCManager.zip

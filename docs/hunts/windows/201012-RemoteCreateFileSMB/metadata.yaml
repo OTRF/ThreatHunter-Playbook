@@ -1,0 +1,21 @@
+id: 201012-RemoteCreateFileSMB
+title: SMB Create Remote File
+hypothesis: Adversaries might be creating a file remotely via the Server Message Block (SMB) Protocol.
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2020/10/12
+modification_date: 2020/10/12
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0008
+    technique: T1021
+    sub-technique: "002"
+
+datasets:
+  - name: Covenant Remote File Copy
+    docs: https://securitydatasets.com/notebooks/atomic/windows/lateral_movement/SDWIN-200806015757.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/lateral_movement/host/covenant_copy_smb_CreateRequest.zip
