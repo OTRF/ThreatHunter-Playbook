@@ -7,50 +7,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Introduction to Pandas &#8212; Threat Hunter Playbook</title>
     
-    <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-    <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
-    <script >let toggleHintShow = 'Click to show';</script>
-    <script >let toggleHintHide = 'Click to hide';</script>
-    <script >let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../../_static/togglebutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe,.cell"
-        const thebe_selector_input = "pre,.cell_input div.highlight"
-        const thebe_selector_output = ".output,.cell_output"
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../../../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://threathunterplaybook.com/tutorials/jupyter/notebooks/03_intro_to_pandas.html" />
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
@@ -64,7 +64,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -73,9 +87,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -93,7 +108,7 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <p class="caption">
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Knowledge Library
  </span>
@@ -177,7 +192,7 @@
   </ul>
  </li>
 </ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Pre-Hunt Activities
  </span>
@@ -216,15 +231,15 @@
   </ul>
  </li>
 </ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Campaign Notebooks
+  Guided Hunts
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../evals/intro.html">
-   ATT&amp;CK Evaluations
+  <a class="reference internal" href="../../../hunts/windows/intro.html">
+   Windows
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -232,312 +247,140 @@
    </i>
   </label>
   <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../../evals/apt29/intro.html">
-     APT 29
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/170105-LSASSMemoryReadAccess/notebook.html">
+     LSASS Memory Read Access
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-    <label for="toctree-checkbox-4">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../evals/apt29/report.html">
-       Free Telemetry Report
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/campaigns/apt29Evals.html">
-       Free Telemetry Notebook
-      </a>
-     </li>
-    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/180719-DLLProcessInjectionCreateRemoteThread/notebook.html">
+     DLL Process Injection via CreateRemoteThread and LoadLibrary
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/180815-ADObjectAccessReplication/notebook.html">
+     Active Directory Object Access via Replication Services
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/190101-ADModDirectoryReplication/notebook.html">
+     Active Directory Root Domain Modification for Replication Services
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/190407-RegModEnableRDPConnections/notebook.html">
+     Registry Modification to Enable Remote Desktop Conections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/190410-LocalPwshExecution/notebook.html">
+     Local PowerShell Execution
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/190510-RegModWDigestDowngrade/notebook.html">
+     WDigest Downgrade
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/190511-RemotePwshExecution/notebook.html">
+     PowerShell Remote Session
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/190610-PwshAlternateHosts/notebook.html">
+     Alternate PowerShell Hosts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/190620-DomainDPAPIBackupKeyExtraction/notebook.html">
+     Domain DPAPI Backup Key Extraction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/190625-RegKeyAccessSyskey/notebook.html">
+     SysKey Registry Keys Access
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/190725-SAMRegistryHiveHandleRequest/notebook.html">
+     SAM Registry Hive Handle Request
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/190810-RemoteWMIExecution/notebook.html">
+     WMI Win32_Process Class and Create Method for Remote Execution
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/190810-WMIEventing/notebook.html">
+     WMI Eventing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/190811-WMIModuleLoad/notebook.html">
+     WMI Module Load
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/190813-LocalServiceInstallation/notebook.html">
+     Local Service Installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/190815-RemoteServiceInstallation/notebook.html">
+     Remote Service creation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/190826-RemoteSCMHandle/notebook.html">
+     Remote Service Control Manager Handle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/191030-RemoteInteractiveTaskMgrLsassDump/notebook.html">
+     Remote Interactive Task Manager LSASS Dump
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/191224-RegModExtendedNetNTLMDowngrade/notebook.html">
+     Registry Modification for Extended NetNTLM Downgrade
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/200609-MicrophoneDvcAccess/notebook.html">
+     Access to Microphone Device
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/200902-RemoteWMIActiveScriptEventConsumers/notebook.html">
+     Remote WMI ActiveScriptEventConsumers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/201009-RemoteDCOMIErtUtilDLLHijack/notebook.html">
+     Remote DCOM IErtUtil DLL Hijack
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/201009-RemoteWMIWbemcomnDLLHijack/notebook.html">
+     Remote WMI Wbemcomn DLL Hijack
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/201012-RemoteCreateFileSMB/notebook.html">
+     SMB Create Remote File
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../hunts/windows/201012-WuaucltCreateRemoteThread/notebook.html">
+     Wuauclt CreateRemoteThread Execution
+    </a>
    </li>
   </ul>
  </li>
 </ul>
-<p class="caption">
- <span class="caption-text">
-  Targeted Notebooks
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../notebooks/windows/intro.html">
-   Windows
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../../notebooks/windows/02_execution/intro.html">
-     Execution
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-    <label for="toctree-checkbox-6">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190410151110.html">
-       Basic PowerShell Execution
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190511223310.html">
-       PowerShell Remote Session
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190610201010.html">
-       Alternate PowerShell Hosts
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190810201010.html">
-       WMI Win32_Process Class and Create Method for Remote Execution
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190811201010.html">
-       WMI Module Load
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190813181020.html">
-       Service Creation
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-190815181010.html">
-       Remote Service creation
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/02_execution/WIN-201009173318.html">
-       Remote WMI Wbemcomn DLL Hijack
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../../notebooks/windows/03_persistence/intro.html">
-     Persistence
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-    <label for="toctree-checkbox-7">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/03_persistence/WIN-190810170510.html">
-       WMI Eventing
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/03_persistence/WIN-200902020333.html">
-       Remote WMI ActiveScriptEventConsumers
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../../notebooks/windows/04_privilege_escalation/intro.html">
-     Privilege Escalation
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-    <label for="toctree-checkbox-8">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/04_privilege_escalation/WIN-200902020333.html">
-       Remote WMI ActiveScriptEventConsumers
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/intro.html">
-     Defense Evasion
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-    <label for="toctree-checkbox-9">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-180719170510.html">
-       DLL Injection via CreateRemoteThread and LoadLibrary
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-190101151110.html">
-       Active Directory Replication User Backdoor
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-190407183310.html">
-       Enable Remote Desktop Conections Registry
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-190510202010.html">
-       WDigest Downgrade
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-191224222300.html">
-       Extended NetNTLM Downgrade
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/05_defense_evasion/WIN-201012183248.html">
-       Wuauclt CreateRemoteThread Execution
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../../notebooks/windows/06_credential_access/intro.html">
-     Credential Access
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-    <label for="toctree-checkbox-10">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-170105221010.html">
-       LSASS Access from Non System Account
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-180815210510.html">
-       Active Directory Replication From Non-Domain-Controller Accounts
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-190620024610.html">
-       Domain DPAPI Backup Key Extraction
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-190725024610.html">
-       SAM Registry Hive Handle Request
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/06_credential_access/WIN-191030201010.html">
-       Remote Interactive Task Manager LSASS Dump
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../../notebooks/windows/07_discovery/intro.html">
-     Discovery
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-    <label for="toctree-checkbox-11">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/07_discovery/WIN-190625024610.html">
-       SysKey Registry Keys Access
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/07_discovery/WIN-190725024610.html">
-       SAM Registry Hive Handle Request
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/07_discovery/WIN-190826010110.html">
-       Remote Service Control Manager Handle
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/intro.html">
-     Lateral Movement
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-    <label for="toctree-checkbox-12">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-190511223310.html">
-       PowerShell Remote Session
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-190810201010.html">
-       WMI Win32_Process Class and Create Method for Remote Execution
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-190815181010.html">
-       Remote Service creation
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-200902020333.html">
-       Remote WMI ActiveScriptEventConsumers
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-201009173318.html">
-       Remote WMI Wbemcomn DLL Hijack
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-201009183000.html">
-       Remote DCOM IErtUtil DLL Hijack
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/08_lateral_movement/WIN-201012004336.html">
-       SMB Create Remote File
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../../notebooks/windows/09_collection/intro.html">
-     Collection
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
-    <label for="toctree-checkbox-13">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../../notebooks/windows/09_collection/WIN-200609225055.html">
-       Access to Microphone Device
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
-</ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Tutorials
  </span>
@@ -547,8 +390,8 @@
   <a class="reference internal" href="../introduction.html">
    Jupyter Notebooks
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -578,117 +421,197 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../../_sources/tutorials/jupyter/notebooks/03_intro_to_pandas.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/OTRF/ThreatHunter-Playbook"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/OTRF/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Ftutorials/jupyter/notebooks/03_intro_to_pandas.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/OTRF/ThreatHunter-Playbook/edit/master/docs/tutorials/jupyter/notebooks/03_intro_to_pandas.ipynb"><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/OTRF/ThreatHunter-Playbook/master?urlpath=tree/docs/tutorials/jupyter/notebooks/03_intro_to_pandas.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../../../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/OTRF/ThreatHunter-Playbook/blob/master/docs/tutorials/jupyter/notebooks/03_intro_to_pandas.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../../../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        <button type="button" class="btn btn-secondary topbarbtn"
-            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
-                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/OTRF/ThreatHunter-Playbook"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/OTRF/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Ftutorials/jupyter/notebooks/03_intro_to_pandas.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/OTRF/ThreatHunter-Playbook/edit/master/docs/tutorials/jupyter/notebooks/03_intro_to_pandas.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/tutorials/jupyter/notebooks/03_intro_to_pandas.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#goals">
    Goals:
@@ -763,12 +686,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Introduction to Pandas</h1>
@@ -859,14 +781,15 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="introduction-to-pandas">
-<h1>Introduction to Pandas<a class="headerlink" href="#introduction-to-pandas" title="Permalink to this headline">¶</a></h1>
+<h1>Introduction to Pandas<a class="headerlink" href="#introduction-to-pandas" title="Permalink to this headline">#</a></h1>
 <hr class="docutils" />
 <div class="section" id="goals">
-<h2>Goals:<a class="headerlink" href="#goals" title="Permalink to this headline">¶</a></h2>
+<h2>Goals:<a class="headerlink" href="#goals" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Learn how to use pandas dataframes</p></li>
 <li><p>Plot basic charts using dataframes and matplotlib</p></li>
@@ -879,13 +802,9 @@
 </ul>
 <p>It is a Python package providing fast, flexible, and expressive data structures designed to make working with “relational” or “labeled” data both easy and intuitive. It aims to be the fundamental high-level building block for doing practical, real world data analysis in Python.</p>
 <div class="section" id="import-pandas-library">
-<h3>Import pandas library<a class="headerlink" href="#import-pandas-library" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<h3>Import pandas library<a class="headerlink" href="#import-pandas-library" title="Permalink to this headline">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p>Pandas is well suited for many different kinds of data:</p>
 <ul class="simple">
@@ -902,11 +821,9 @@
 </ul>
 </div>
 <div class="section" id="create-a-serie">
-<h3>Create a Serie<a class="headerlink" href="#create-a-serie" title="Permalink to this headline">¶</a></h3>
+<h3>Create a Serie<a class="headerlink" href="#create-a-serie" title="Permalink to this headline">#</a></h3>
 <p>A 1D array similar to a column in spreadsheet</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;d&#39;</span><span class="p">])</span>
@@ -915,23 +832,10 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    a
-1    b
-2    c
-3    d
-dtype: object
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 <div class="section" id="create-a-data-frame">
-<h3>Create a data frame<a class="headerlink" href="#create-a-data-frame" title="Permalink to this headline">¶</a></h3>
+<h3>Create a data frame<a class="headerlink" href="#create-a-data-frame" title="Permalink to this headline">#</a></h3>
 <p>A dataframe is the tabular representation of data. Think of a dataframe as a spreadsheet with column headers and rows.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_data</span><span class="o">=</span><span class="p">[</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_data</span><span class="o">=</span><span class="p">[</span>
     <span class="p">[</span><span class="s1">&#39;Pedro&#39;</span><span class="p">,</span><span class="s1">&#39;Doberman&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>\
     <span class="p">[</span><span class="s1">&#39;Clementine&#39;</span><span class="p">,</span><span class="s1">&#39;Golden Retriever&#39;</span><span class="p">,</span><span class="mi">8</span><span class="p">],</span>\
     <span class="p">[</span><span class="s1">&#39;Norah&#39;</span><span class="p">,</span><span class="s1">&#39;Great Dane&#39;</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span>\
@@ -941,264 +845,46 @@ dtype: object
 <span class="p">]</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dog_data</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;breed&#39;</span><span class="p">,</span><span class="s1">&#39;age&#39;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dog_data</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;breed&#39;</span><span class="p">,</span><span class="s1">&#39;age&#39;</span><span class="p">])</span>
 <span class="n">dog_df</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>name</th>
-      <th>breed</th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Pedro</td>
-      <td>Doberman</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Clementine</td>
-      <td>Golden Retriever</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Norah</td>
-      <td>Great Dane</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Mabel</td>
-      <td>Austrailian Shepherd</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Bear</td>
-      <td>Maltese</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>Bill</td>
-      <td>Great Dane</td>
-      <td>10</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">dog_df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">dog_df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;numpy.int64&#39;&gt;
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="previewing-the-data-frame">
-<h3>Previewing the data frame<a class="headerlink" href="#previewing-the-data-frame" title="Permalink to this headline">¶</a></h3>
+<h3>Previewing the data frame<a class="headerlink" href="#previewing-the-data-frame" title="Permalink to this headline">#</a></h3>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html#pandas.DataFrame.head"><strong>DataFrame.head(n=5)</strong></a></p>
 <ul class="simple">
 <li><p>This function returns the first n rows for the object based on position. It is useful for quickly testing if your object has the right type of data in it</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>name</th>
-      <th>breed</th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Pedro</td>
-      <td>Doberman</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Clementine</td>
-      <td>Golden Retriever</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Norah</td>
-      <td>Great Dane</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Mabel</td>
-      <td>Austrailian Shepherd</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Bear</td>
-      <td>Maltese</td>
-      <td>4</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.tail.html#pandas.DataFrame.tail"><strong>DataFrame.tail(n=5)</strong></a></p>
 <ul class="simple">
 <li><p>This function returns last n rows from the object based on position. It is useful for quickly verifying data, for example, after sorting or appending rows</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>name</th>
-      <th>breed</th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>3</th>
-      <td>Mabel</td>
-      <td>Austrailian Shepherd</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Bear</td>
-      <td>Maltese</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>Bill</td>
-      <td>Great Dane</td>
-      <td>10</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.shape.html#pandas.DataFrame.shape"><strong>DataFrame.shape</strong></a></p>
 <ul class="simple">
 <li><p>Return a tuple representing the dimensionality of the DataFrame.</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(6, 3)
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">dog_df</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">dog_df</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6
-</pre></div>
-</div>
-</div>
 </div>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.columns.html#pandas.DataFrame.columns"><strong>DataFrame.columns</strong></a></p>
 <ul class="simple">
 <li><p>The column labels of the DataFrame</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">columns</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">columns</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;name&#39;, &#39;breed&#39;, &#39;age&#39;], dtype=&#39;object&#39;)
-</pre></div>
-</div>
-</div>
 </div>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dtypes.html#pandas.DataFrame.dtypes"><strong>DataFrame.dtypes</strong></a></p>
 <ul class="simple">
@@ -1207,20 +893,8 @@ dtype: object
 <li><p>The result’s index is the original DataFrame’s columns.</p></li>
 <li><p>Columns with mixed types are stored with the object dtype.</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">dtypes</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">dtypes</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>name     object
-breed    object
-age       int64
-dtype: object
-</pre></div>
-</div>
-</div>
 </div>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.values.html#pandas.DataFrame.values"><strong>DataFrame.values</strong></a></p>
 <ul class="simple">
@@ -1228,184 +902,33 @@ dtype: object
 <li><p>Python documentation recommends using DataFrame.to_numpy() instead.</p></li>
 <li><p>Only the values in the DataFrame will be returned, the axes labels will be removed.</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">values</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">values</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&#39;Pedro&#39;, &#39;Doberman&#39;, 3],
-       [&#39;Clementine&#39;, &#39;Golden Retriever&#39;, 8],
-       [&#39;Norah&#39;, &#39;Great Dane&#39;, 6],
-       [&#39;Mabel&#39;, &#39;Austrailian Shepherd&#39;, 1],
-       [&#39;Bear&#39;, &#39;Maltese&#39;, 4],
-       [&#39;Bill&#39;, &#39;Great Dane&#39;, 10]], dtype=object)
-</pre></div>
-</div>
-</div>
 </div>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html#pandas.DataFrame.describe"><strong>DataFrame.describe(percentiles=None, include=None, exclude=None)</strong></a></p>
 <ul class="simple">
 <li><p>Generate descriptive statistics that summarize the central tendency, dispersion and shape of a dataset’s distribution, excluding NaN values.</p></li>
 <li><p>Analyzes both numeric and object series, as well as DataFrame column sets of mixed data types. The output will vary depending on what is provided.</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>6.000000</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>5.333333</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>3.326660</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>3.250000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>5.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>7.500000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>10.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.value_counts.html"><strong>Series.value_counts(normalize=False, sort=True, ascending=False, bins=None, dropna=True)</strong></a></p>
 <ul class="simple">
 <li><p>Return a Series containing counts of unique values.</p></li>
 <li><p>The resulting object will be in descending order so that the first element is the most frequently-occurring element. Excludes NA values by default.</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="p">[</span><span class="s1">&#39;breed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="p">[</span><span class="s1">&#39;breed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Great Dane              2
-Golden Retriever        1
-Maltese                 1
-Doberman                1
-Austrailian Shepherd    1
-Name: breed, dtype: int64
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="sorting">
-<h3>Sorting<a class="headerlink" href="#sorting" title="Permalink to this headline">¶</a></h3>
+<h3>Sorting<a class="headerlink" href="#sorting" title="Permalink to this headline">#</a></h3>
 </div>
 <div class="section" id="selecting-querying">
-<h3>Selecting/Querying<a class="headerlink" href="#selecting-querying" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="p">[[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;age&#39;</span><span class="p">]]</span>
+<h3>Selecting/Querying<a class="headerlink" href="#selecting-querying" title="Permalink to this headline">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="p">[[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;age&#39;</span><span class="p">]]</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>name</th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Pedro</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Clementine</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Norah</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Mabel</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Bear</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>Bill</td>
-      <td>10</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.iloc.html#pandas.DataFrame.iloc"><strong>DataFrame.iloc</strong></a></p>
 <ul class="simple">
@@ -1420,426 +943,44 @@ Name: breed, dtype: int64
 <li><p>A boolean array.</p></li>
 <li><p>A callable function with one argument (the calling Series, DataFrame or Panel) and that returns valid output for indexing (one of the above). This is useful in method chains, when you don’t have a reference to the calling object, but would like to base your selection on some value.</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>name</th>
-      <th>breed</th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2</th>
-      <td>Norah</td>
-      <td>Great Dane</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Mabel</td>
-      <td>Austrailian Shepherd</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>name</th>
-      <th>breed</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>Clementine</td>
-      <td>Golden Retriever</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Norah</td>
-      <td>Great Dane</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Mabel</td>
-      <td>Austrailian Shepherd</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="p">[</span><span class="n">dog_df</span><span class="p">[</span><span class="s1">&#39;breed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Great Dane&#39;</span><span class="p">,</span> <span class="s1">&#39;Maltese&#39;</span><span class="p">])]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="p">[</span><span class="n">dog_df</span><span class="p">[</span><span class="s1">&#39;breed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Great Dane&#39;</span><span class="p">,</span> <span class="s1">&#39;Maltese&#39;</span><span class="p">])]</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>name</th>
-      <th>breed</th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2</th>
-      <td>Norah</td>
-      <td>Great Dane</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Bear</td>
-      <td>Maltese</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>Bill</td>
-      <td>Great Dane</td>
-      <td>10</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="p">[</span><span class="n">dog_df</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Norah&#39;</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="p">[</span><span class="n">dog_df</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Norah&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>name</th>
-      <th>breed</th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2</th>
-      <td>Norah</td>
-      <td>Great Dane</td>
-      <td>6</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="p">[(</span><span class="n">dog_df</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Bill&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">dog_df</span><span class="p">[</span><span class="s1">&#39;breed&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Great Dane&#39;</span><span class="p">)]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="p">[(</span><span class="n">dog_df</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Bill&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">dog_df</span><span class="p">[</span><span class="s1">&#39;breed&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Great Dane&#39;</span><span class="p">)]</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>name</th>
-      <th>breed</th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>5</th>
-      <td>Bill</td>
-      <td>Great Dane</td>
-      <td>10</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="p">[</span><span class="n">dog_df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="p">[</span><span class="n">dog_df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>name</th>
-      <th>breed</th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Pedro</td>
-      <td>Doberman</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Mabel</td>
-      <td>Austrailian Shepherd</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Bear</td>
-      <td>Maltese</td>
-      <td>4</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="p">[</span><span class="n">dog_df</span><span class="p">[</span><span class="s1">&#39;breed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;G&#39;</span><span class="p">)]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dog_df</span><span class="p">[</span><span class="n">dog_df</span><span class="p">[</span><span class="s1">&#39;breed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;G&#39;</span><span class="p">)]</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>name</th>
-      <th>breed</th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>Clementine</td>
-      <td>Golden Retriever</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Norah</td>
-      <td>Great Dane</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>Bill</td>
-      <td>Great Dane</td>
-      <td>10</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 </div>
 <div class="section" id="combining-data-frames">
-<h3>Combining data frames<a class="headerlink" href="#combining-data-frames" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">owner_data</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;Bilbo&#39;</span><span class="p">,</span><span class="s1">&#39;Pedro&#39;</span><span class="p">],[</span><span class="s1">&#39;Gandalf&#39;</span><span class="p">,</span><span class="s1">&#39;Bear&#39;</span><span class="p">],[</span><span class="s1">&#39;Sam&#39;</span><span class="p">,</span><span class="s1">&#39;Bill&#39;</span><span class="p">]]</span>
+<h3>Combining data frames<a class="headerlink" href="#combining-data-frames" title="Permalink to this headline">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">owner_data</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;Bilbo&#39;</span><span class="p">,</span><span class="s1">&#39;Pedro&#39;</span><span class="p">],[</span><span class="s1">&#39;Gandalf&#39;</span><span class="p">,</span><span class="s1">&#39;Bear&#39;</span><span class="p">],[</span><span class="s1">&#39;Sam&#39;</span><span class="p">,</span><span class="s1">&#39;Bill&#39;</span><span class="p">]]</span>
 <span class="n">owner_df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">owner_data</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;owner_name&#39;</span><span class="p">,</span><span class="s1">&#39;dog_name&#39;</span><span class="p">])</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p><strong><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.merge.html#pandas.DataFrame.merge">DataFrame.merge(right, how=‘inner’, on=None, left_on=None, right_on=None, left_index=False, right_index=False, sort=False, suffixes=(‘_x’, ‘_y’), copy=True, indicator=False, validate=None)</a></strong></p>
 <ul class="simple">
 <li><p>Merge DataFrame or named Series objects with a database-style join.</p></li>
 <li><p>The join is done on columns or indexes. If joining columns on columns, the DataFrame indexes will be ignored. Otherwise if joining indexes on indexes or indexes on a column or columns, the index will be passed on</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">owner_df</span><span class="p">,</span><span class="n">dog_df</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;dog_name&#39;</span><span class="p">,</span><span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">owner_df</span><span class="p">,</span><span class="n">dog_df</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;dog_name&#39;</span><span class="p">,</span><span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>owner_name</th>
-      <th>dog_name</th>
-      <th>name</th>
-      <th>breed</th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Bilbo</td>
-      <td>Pedro</td>
-      <td>Pedro</td>
-      <td>Doberman</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Gandalf</td>
-      <td>Bear</td>
-      <td>Bear</td>
-      <td>Maltese</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Sam</td>
-      <td>Bill</td>
-      <td>Bill</td>
-      <td>Great Dane</td>
-      <td>10</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>More details on merge parameters:</p>
 <ul class="simple">
@@ -1885,545 +1026,94 @@ Name: breed, dtype: int64
 </table>
 </div>
 <div class="section" id="inner-merge">
-<h3>Inner Merge<a class="headerlink" href="#inner-merge" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inner_df</span> <span class="o">=</span> <span class="n">owner_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dog_df</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;dog_name&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+<h3>Inner Merge<a class="headerlink" href="#inner-merge" title="Permalink to this headline">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inner_df</span> <span class="o">=</span> <span class="n">owner_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dog_df</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;dog_name&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inner_df</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inner_df</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>owner_name</th>
-      <th>dog_name</th>
-      <th>name</th>
-      <th>breed</th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Bilbo</td>
-      <td>Pedro</td>
-      <td>Pedro</td>
-      <td>Doberman</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Gandalf</td>
-      <td>Bear</td>
-      <td>Bear</td>
-      <td>Maltese</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Sam</td>
-      <td>Bill</td>
-      <td>Bill</td>
-      <td>Great Dane</td>
-      <td>10</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inner_df</span><span class="o">=</span><span class="n">inner_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;name&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inner_df</span><span class="o">=</span><span class="n">inner_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;name&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inner_df</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inner_df</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>owner_name</th>
-      <th>dog_name</th>
-      <th>breed</th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Bilbo</td>
-      <td>Pedro</td>
-      <td>Doberman</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Gandalf</td>
-      <td>Bear</td>
-      <td>Maltese</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Sam</td>
-      <td>Bill</td>
-      <td>Great Dane</td>
-      <td>10</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 </div>
 <div class="section" id="left-merge">
-<h3>Left Merge<a class="headerlink" href="#left-merge" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">left_df</span> <span class="o">=</span> <span class="n">owner_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dog_df</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;dog_name&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<h3>Left Merge<a class="headerlink" href="#left-merge" title="Permalink to this headline">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">left_df</span> <span class="o">=</span> <span class="n">owner_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dog_df</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;dog_name&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">left_df</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">left_df</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>owner_name</th>
-      <th>dog_name</th>
-      <th>name</th>
-      <th>breed</th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Bilbo</td>
-      <td>Pedro</td>
-      <td>Pedro</td>
-      <td>Doberman</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Gandalf</td>
-      <td>Bear</td>
-      <td>Bear</td>
-      <td>Maltese</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Sam</td>
-      <td>Bill</td>
-      <td>Bill</td>
-      <td>Great Dane</td>
-      <td>10</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 </div>
 <div class="section" id="right-merge">
-<h3>Right Merge<a class="headerlink" href="#right-merge" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">right_df</span> <span class="o">=</span> <span class="n">owner_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dog_df</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;dog_name&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+<h3>Right Merge<a class="headerlink" href="#right-merge" title="Permalink to this headline">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">right_df</span> <span class="o">=</span> <span class="n">owner_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dog_df</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;dog_name&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">right_df</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">right_df</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>owner_name</th>
-      <th>dog_name</th>
-      <th>name</th>
-      <th>breed</th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Bilbo</td>
-      <td>Pedro</td>
-      <td>Pedro</td>
-      <td>Doberman</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Gandalf</td>
-      <td>Bear</td>
-      <td>Bear</td>
-      <td>Maltese</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Sam</td>
-      <td>Bill</td>
-      <td>Bill</td>
-      <td>Great Dane</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Clementine</td>
-      <td>Golden Retriever</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Norah</td>
-      <td>Great Dane</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Mabel</td>
-      <td>Austrailian Shepherd</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 </div>
 <div class="section" id="outer-merge">
-<h3>Outer Merge<a class="headerlink" href="#outer-merge" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">outer_df</span> <span class="o">=</span> <span class="n">owner_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dog_df</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;dog_name&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+<h3>Outer Merge<a class="headerlink" href="#outer-merge" title="Permalink to this headline">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">outer_df</span> <span class="o">=</span> <span class="n">owner_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">dog_df</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;dog_name&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">outer_df</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">outer_df</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>owner_name</th>
-      <th>dog_name</th>
-      <th>name</th>
-      <th>breed</th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Bilbo</td>
-      <td>Pedro</td>
-      <td>Pedro</td>
-      <td>Doberman</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Gandalf</td>
-      <td>Bear</td>
-      <td>Bear</td>
-      <td>Maltese</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Sam</td>
-      <td>Bill</td>
-      <td>Bill</td>
-      <td>Great Dane</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Clementine</td>
-      <td>Golden Retriever</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Norah</td>
-      <td>Great Dane</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>Mabel</td>
-      <td>Austrailian Shepherd</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 </div>
 <div class="section" id="dropping-columns">
-<h3>Dropping Columns<a class="headerlink" href="#dropping-columns" title="Permalink to this headline">¶</a></h3>
+<h3>Dropping Columns<a class="headerlink" href="#dropping-columns" title="Permalink to this headline">#</a></h3>
 <p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html#pandas.DataFrame.drop"><strong>DataFrame.drop(labels=None, axis=0, index=None, columns=None, level=None, inplace=False, errors=‘raise’)</strong></a></p>
 <ul class="simple">
 <li><p>Drop specified labels from rows or columns.</p></li>
 <li><p>Remove rows or columns by specifying label names and corresponding axis, or by specifying directly index or column names.</p></li>
 <li><p>When using a multi-index, labels on different levels can be removed by specifying the level.</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;name&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;name&#39;</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>owner_name</th>
-      <th>dog_name</th>
-      <th>breed</th>
-      <th>age</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Bilbo</td>
-      <td>Pedro</td>
-      <td>Doberman</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Gandalf</td>
-      <td>Bear</td>
-      <td>Maltese</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Sam</td>
-      <td>Bill</td>
-      <td>Great Dane</td>
-      <td>10</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 </div>
 <div class="section" id="basic-plotting">
-<h3>Basic plotting<a class="headerlink" href="#basic-plotting" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span>
+<h3>Basic plotting<a class="headerlink" href="#basic-plotting" title="Permalink to this headline">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p>Matplotlib is a Python 2D plotting library which produces publication quality figures in a variety of hardcopy formats and interactive environments across platforms.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Will allow us to embed images in the notebook</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Will allow us to embed images in the notebook</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
     <span class="s1">&#39;col1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
     <span class="s1">&#39;col2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
     <span class="s1">&#39;col3&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
 <span class="p">})</span>
 </pre></div>
 </div>
-</div>
-</div>
 <p><a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html">**matplotlib.pyplot.plot(*args, scalex=True, scaley=True, data=None, <strong>kwargs)</strong></a></p>
 <ul class="simple">
 <li><p>Plot y versus x as lines and/or markers.</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_df</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_df</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f997c1d18d0&gt;
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;box&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../../../_images/03_intro_to_pandas_72_1.png" src="../../../_images/03_intro_to_pandas_72_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;box&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plot_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f997c1756a0&gt;
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
-</div>
-<img alt="../../../_images/03_intro_to_pandas_73_1.png" src="../../../_images/03_intro_to_pandas_73_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f997c0b8080&gt;
-</pre></div>
-</div>
-<img alt="../../../_images/03_intro_to_pandas_74_1.png" src="../../../_images/03_intro_to_pandas_74_1.png" />
-</div>
 </div>
 </div>
 </div>
@@ -2451,8 +1141,10 @@ Name: breed, dtype: int64
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
 <div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="02_intro_to_numpy_arrays.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -2462,24 +1154,28 @@ Name: breed, dtype: int64
         </div>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Roberto Rodriguez @Cyb3rWard0g<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Roberto Rodriguez @Cyb3rWard0g<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-    <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
   </body>
 </html>

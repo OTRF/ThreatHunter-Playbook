@@ -7,50 +7,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Security Account Manager Remote Protocol (SAMRP) &#8212; Threat Hunter Playbook</title>
     
-    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
+
     
-    <link rel="stylesheet"
-      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script >let toggleHintShow = 'Click to show';</script>
-    <script >let toggleHintHide = 'Click to hide';</script>
-    <script >let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../../_static/tabs.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../../_static/togglebutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
-        const thebe_selector = ".thebe,.cell"
-        const thebe_selector_input = "pre,.cell_input div.highlight"
-        const thebe_selector_output = ".output,.cell_output"
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="canonical" href="https://threathunterplaybook.com/library/windows/security_account_manager_protocol.html" />
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
@@ -65,7 +65,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -74,9 +88,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -94,7 +109,7 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <p class="caption">
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Knowledge Library
  </span>
@@ -178,7 +193,7 @@
   </ul>
  </li>
 </ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Pre-Hunt Activities
  </span>
@@ -217,15 +232,15 @@
   </ul>
  </li>
 </ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Campaign Notebooks
+  Guided Hunts
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../evals/intro.html">
-   ATT&amp;CK Evaluations
+  <a class="reference internal" href="../../hunts/windows/intro.html">
+   Windows
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -233,312 +248,140 @@
    </i>
   </label>
   <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../evals/apt29/intro.html">
-     APT 29
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/170105-LSASSMemoryReadAccess/notebook.html">
+     LSASS Memory Read Access
     </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-    <label for="toctree-checkbox-4">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../evals/apt29/report.html">
-       Free Telemetry Report
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/campaigns/apt29Evals.html">
-       Free Telemetry Notebook
-      </a>
-     </li>
-    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/180719-DLLProcessInjectionCreateRemoteThread/notebook.html">
+     DLL Process Injection via CreateRemoteThread and LoadLibrary
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/180815-ADObjectAccessReplication/notebook.html">
+     Active Directory Object Access via Replication Services
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/190101-ADModDirectoryReplication/notebook.html">
+     Active Directory Root Domain Modification for Replication Services
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/190407-RegModEnableRDPConnections/notebook.html">
+     Registry Modification to Enable Remote Desktop Conections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/190410-LocalPwshExecution/notebook.html">
+     Local PowerShell Execution
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/190510-RegModWDigestDowngrade/notebook.html">
+     WDigest Downgrade
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/190511-RemotePwshExecution/notebook.html">
+     PowerShell Remote Session
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/190610-PwshAlternateHosts/notebook.html">
+     Alternate PowerShell Hosts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/190620-DomainDPAPIBackupKeyExtraction/notebook.html">
+     Domain DPAPI Backup Key Extraction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/190625-RegKeyAccessSyskey/notebook.html">
+     SysKey Registry Keys Access
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/190725-SAMRegistryHiveHandleRequest/notebook.html">
+     SAM Registry Hive Handle Request
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/190810-RemoteWMIExecution/notebook.html">
+     WMI Win32_Process Class and Create Method for Remote Execution
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/190810-WMIEventing/notebook.html">
+     WMI Eventing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/190811-WMIModuleLoad/notebook.html">
+     WMI Module Load
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/190813-LocalServiceInstallation/notebook.html">
+     Local Service Installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/190815-RemoteServiceInstallation/notebook.html">
+     Remote Service creation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/190826-RemoteSCMHandle/notebook.html">
+     Remote Service Control Manager Handle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/191030-RemoteInteractiveTaskMgrLsassDump/notebook.html">
+     Remote Interactive Task Manager LSASS Dump
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/191224-RegModExtendedNetNTLMDowngrade/notebook.html">
+     Registry Modification for Extended NetNTLM Downgrade
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/200609-MicrophoneDvcAccess/notebook.html">
+     Access to Microphone Device
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/200902-RemoteWMIActiveScriptEventConsumers/notebook.html">
+     Remote WMI ActiveScriptEventConsumers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/201009-RemoteDCOMIErtUtilDLLHijack/notebook.html">
+     Remote DCOM IErtUtil DLL Hijack
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/201009-RemoteWMIWbemcomnDLLHijack/notebook.html">
+     Remote WMI Wbemcomn DLL Hijack
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/201012-RemoteCreateFileSMB/notebook.html">
+     SMB Create Remote File
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../hunts/windows/201012-WuaucltCreateRemoteThread/notebook.html">
+     Wuauclt CreateRemoteThread Execution
+    </a>
    </li>
   </ul>
  </li>
 </ul>
-<p class="caption">
- <span class="caption-text">
-  Targeted Notebooks
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../notebooks/windows/intro.html">
-   Windows
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-  <label for="toctree-checkbox-5">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../notebooks/windows/02_execution/intro.html">
-     Execution
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-    <label for="toctree-checkbox-6">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/02_execution/WIN-190410151110.html">
-       Basic PowerShell Execution
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/02_execution/WIN-190511223310.html">
-       PowerShell Remote Session
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/02_execution/WIN-190610201010.html">
-       Alternate PowerShell Hosts
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/02_execution/WIN-190810201010.html">
-       WMI Win32_Process Class and Create Method for Remote Execution
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/02_execution/WIN-190811201010.html">
-       WMI Module Load
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/02_execution/WIN-190813181020.html">
-       Service Creation
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/02_execution/WIN-190815181010.html">
-       Remote Service creation
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/02_execution/WIN-201009173318.html">
-       Remote WMI Wbemcomn DLL Hijack
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../notebooks/windows/03_persistence/intro.html">
-     Persistence
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
-    <label for="toctree-checkbox-7">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/03_persistence/WIN-190810170510.html">
-       WMI Eventing
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/03_persistence/WIN-200902020333.html">
-       Remote WMI ActiveScriptEventConsumers
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../notebooks/windows/04_privilege_escalation/intro.html">
-     Privilege Escalation
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
-    <label for="toctree-checkbox-8">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/04_privilege_escalation/WIN-200902020333.html">
-       Remote WMI ActiveScriptEventConsumers
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../notebooks/windows/05_defense_evasion/intro.html">
-     Defense Evasion
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
-    <label for="toctree-checkbox-9">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/05_defense_evasion/WIN-180719170510.html">
-       DLL Injection via CreateRemoteThread and LoadLibrary
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/05_defense_evasion/WIN-190101151110.html">
-       Active Directory Replication User Backdoor
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/05_defense_evasion/WIN-190407183310.html">
-       Enable Remote Desktop Conections Registry
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/05_defense_evasion/WIN-190510202010.html">
-       WDigest Downgrade
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/05_defense_evasion/WIN-191224222300.html">
-       Extended NetNTLM Downgrade
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/05_defense_evasion/WIN-201012183248.html">
-       Wuauclt CreateRemoteThread Execution
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../notebooks/windows/06_credential_access/intro.html">
-     Credential Access
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
-    <label for="toctree-checkbox-10">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/06_credential_access/WIN-170105221010.html">
-       LSASS Access from Non System Account
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/06_credential_access/WIN-180815210510.html">
-       Active Directory Replication From Non-Domain-Controller Accounts
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/06_credential_access/WIN-190620024610.html">
-       Domain DPAPI Backup Key Extraction
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/06_credential_access/WIN-190725024610.html">
-       SAM Registry Hive Handle Request
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/06_credential_access/WIN-191030201010.html">
-       Remote Interactive Task Manager LSASS Dump
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../notebooks/windows/07_discovery/intro.html">
-     Discovery
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
-    <label for="toctree-checkbox-11">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/07_discovery/WIN-190625024610.html">
-       SysKey Registry Keys Access
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/07_discovery/WIN-190725024610.html">
-       SAM Registry Hive Handle Request
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/07_discovery/WIN-190826010110.html">
-       Remote Service Control Manager Handle
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../notebooks/windows/08_lateral_movement/intro.html">
-     Lateral Movement
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
-    <label for="toctree-checkbox-12">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/08_lateral_movement/WIN-190511223310.html">
-       PowerShell Remote Session
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/08_lateral_movement/WIN-190810201010.html">
-       WMI Win32_Process Class and Create Method for Remote Execution
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/08_lateral_movement/WIN-190815181010.html">
-       Remote Service creation
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/08_lateral_movement/WIN-200902020333.html">
-       Remote WMI ActiveScriptEventConsumers
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/08_lateral_movement/WIN-201009173318.html">
-       Remote WMI Wbemcomn DLL Hijack
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/08_lateral_movement/WIN-201009183000.html">
-       Remote DCOM IErtUtil DLL Hijack
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/08_lateral_movement/WIN-201012004336.html">
-       SMB Create Remote File
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../notebooks/windows/09_collection/intro.html">
-     Collection
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
-    <label for="toctree-checkbox-13">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3">
-      <a class="reference internal" href="../../notebooks/windows/09_collection/WIN-200609225055.html">
-       Access to Microphone Device
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
-</ul>
-<p class="caption">
+<p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Tutorials
  </span>
@@ -548,8 +391,8 @@
   <a class="reference internal" href="../../tutorials/jupyter/introduction.html">
    Jupyter Notebooks
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
-  <label for="toctree-checkbox-14">
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -579,92 +422,197 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/library/windows/security_account_manager_protocol.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/OTRF/ThreatHunter-Playbook"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/OTRF/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Flibrary/windows/security_account_manager_protocol.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/OTRF/ThreatHunter-Playbook/edit/master/docs/library/windows/security_account_manager_protocol.md"><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/OTRF/ThreatHunter-Playbook"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/OTRF/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Flibrary/windows/security_account_manager_protocol.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/OTRF/ThreatHunter-Playbook/edit/master/docs/library/windows/security_account_manager_protocol.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/library/windows/security_account_manager_protocol.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#security-account-manager-remote-protocol-samrp-client-to-server">
    Security Account Manager Remote Protocol (SAMRP) Client-To-Server ©
@@ -714,12 +662,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Security Account Manager Remote Protocol (SAMRP)</h1>
@@ -785,24 +732,25 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="security-account-manager-remote-protocol-samrp">
-<h1>Security Account Manager Remote Protocol (SAMRP)<a class="headerlink" href="#security-account-manager-remote-protocol-samrp" title="Permalink to this headline">¶</a></h1>
+<h1>Security Account Manager Remote Protocol (SAMRP)<a class="headerlink" href="#security-account-manager-remote-protocol-samrp" title="Permalink to this headline">#</a></h1>
 <p>Accounts are always created relative to an issuing authority. In Windows, the issuing authority is referred to as a domain. A domain can be either a local domain or extend across a network. Domains store information about their accounts in an account database. Windows uses Active Directory as the account database in domain-based environments, whereas in environments that are not domain-based, it uses the security account manager (SAM) built-in database as the account database.</p>
 <div class="section" id="security-account-manager-remote-protocol-samrp-client-to-server">
-<h2>Security Account Manager Remote Protocol (SAMRP) Client-To-Server ©<a class="headerlink" href="#security-account-manager-remote-protocol-samrp-client-to-server" title="Permalink to this headline">¶</a></h2>
+<h2>Security Account Manager Remote Protocol (SAMRP) Client-To-Server ©<a class="headerlink" href="#security-account-manager-remote-protocol-samrp-client-to-server" title="Permalink to this headline">#</a></h2>
 <p>The Security Account Manager (SAM) Remote Protocol (Client-to-Server) depends on the RPC protocol (uses RPC as a transport), and provides management functionality for an account store or directory containing users and groups. The goal of this protocol is to enable IT administrators and end users to manage users, groups, and computers. This protocol achieves its goal by enabling the creation, reading, updating, and deleting of security principal information. These security principals could be in any account store. Windows implements this protocol, for example, in a directory service (Active Directory) and in a computer-local security account database known as the Security Account Manager (SAM) database.</p>
 <p>This protocol follows two perspectives when understanding and implementing this protocol:</p>
 </div>
 <div class="section" id="object-based-perspective">
-<h2>Object-based perspective<a class="headerlink" href="#object-based-perspective" title="Permalink to this headline">¶</a></h2>
+<h2>Object-based perspective<a class="headerlink" href="#object-based-perspective" title="Permalink to this headline">#</a></h2>
 <p>The object-based perspective shows that the protocol exposes five main object abstractions: a server object, a domain object, a group object, an alias object (an “alias” being a type of group), and a user object. A client obtains a “handle” (an RPC context handle) to one of these objects and then performs one or more actions on the object.</p>
 <p>You can find the list of methods that operate on each of the respective object types in <a class="reference external" href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-samr/8aaff2f7-1edd-41a0-ab58-4807ac6124c5">here</a></p>
 </div>
 <div class="section" id="method-based-perspective">
-<h2>Method Based Perspective<a class="headerlink" href="#method-based-perspective" title="Permalink to this headline">¶</a></h2>
+<h2>Method Based Perspective<a class="headerlink" href="#method-based-perspective" title="Permalink to this headline">#</a></h2>
 <p>The method-based perspective is used to show a common set of operations for each object type. The operations fall into patterns. A list of the patterns and associated methods, along with a description of each pattern, is available <a class="reference external" href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-samr/d7b62596-4a46-4556-92dc-3aba6d517907">here</a>. A brief description is available below:</p>
 <table class="colwidths-auto table">
 <thead>
@@ -854,7 +802,7 @@
 </table>
 </div>
 <div class="section" id="transport">
-<h2>Transport<a class="headerlink" href="#transport" title="Permalink to this headline">¶</a></h2>
+<h2>Transport<a class="headerlink" href="#transport" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>This protocol uses UUID 12345778-1234-ABCD-EF00-0123456789AC to identify the RPC interface</p></li>
 <li><p>This protocol uses the following RPC protocol sequences:</p>
@@ -866,29 +814,29 @@
 </ul>
 </div>
 <div class="section" id="protocol-details">
-<h2>Protocol Details<a class="headerlink" href="#protocol-details" title="Permalink to this headline">¶</a></h2>
+<h2>Protocol Details<a class="headerlink" href="#protocol-details" title="Permalink to this headline">#</a></h2>
 <div class="section" id="server">
-<h3>Server<a class="headerlink" href="#server" title="Permalink to this headline">¶</a></h3>
+<h3>Server<a class="headerlink" href="#server" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>This protocol enables create, read, update, and delete semantics over an account domain. Five abstract objects are exposed through this protocol: server, domain, group, alias, and user. User, group, and alias objects can be created and deleted; all objects can be updated and read.</p></li>
 <li><p>For methods that accept a context handle, the security model is a handle-based security model. A client obtains a handle with a client-specified access for that handle. The handle can then be used for operations that require the granted access.</p></li>
 </ul>
 </div>
 <div class="section" id="client">
-<h3>Client<a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h3>
+<h3>Client<a class="headerlink" href="#client" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>The client MUST create a secure RPC session such that the server can identify and determine the authorization for the client.</p></li>
 </ul>
 </div>
 </div>
 <div class="section" id="abusing-remote-calls-to-sam">
-<h2>Abusing Remote Calls to SAM<a class="headerlink" href="#abusing-remote-calls-to-sam" title="Permalink to this headline">¶</a></h2>
+<h2>Abusing Remote Calls to SAM<a class="headerlink" href="#abusing-remote-calls-to-sam" title="Permalink to this headline">#</a></h2>
 <p>The SAMRPC protocol makes it possible for a low privileged user to query a machine on a network for data. For example, a user can use SAMRPC to enumerate users, including privileged accounts such as local or domain administrators, or to enumerate groups and group memberships from the local SAM and Active Directory. This information can provide important context and serve as a starting point for an attacker to compromise a domain or networking environment.</p>
 <p>By default, the SAM can be accessed remotely (via SAMR) by any authenticated user, including network connected users, which effectively means that any domain user is able to access it. Windows 10 had introduced an option to control the remote access to the SAM, through a specific registry value. On Windows Anniversary update (Windows 10 Version 1607) the default permissions were changed to allow remote access only to administrators. An accompanying Group Policy setting was added, which gives a user-friendly interface to alter these default permissions.</p>
 <p>There are corresponding events that indicate when remote calls to the SAM are restricted, what accounts attempted to read from the SAM database, and more <a class="reference external" href="https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-access-restrict-clients-allowed-to-make-remote-sam-calls#related-events">here</a>.</p>
 </div>
 <div class="section" id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-access-restrict-clients-allowed-to-make-remote-sam-calls#audit-only-mode">https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-access-restrict-clients-allowed-to-make-remote-sam-calls#audit-only-mode</a></p></li>
 <li><p><a class="reference external" href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-samr/8aaff2f7-1edd-41a0-ab58-4807ac6124c5">https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-samr/8aaff2f7-1edd-41a0-ab58-4807ac6124c5</a></p></li>
@@ -919,8 +867,10 @@
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
 <div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="security_account_manager_database.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -937,24 +887,28 @@
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Roberto Rodriguez @Cyb3rWard0g<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Roberto Rodriguez @Cyb3rWard0g<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
   </body>
 </html>

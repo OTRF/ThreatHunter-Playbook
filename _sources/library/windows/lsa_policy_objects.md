@@ -31,7 +31,7 @@ Private data objects may be general purpose, or they may be one of three special
 
 ### Local private data objects (L$)
 
-They can only be read locally from the computer storing the object. Attempting to read them remotely results in a STATUS_ACCESS_DENIED error. Local private data objects have key names that begin with the prefix "L$". In addition to the local private objects you create, the operating system defines the following local private objects: $machine.acc, SAC, SAI, and SANSC.
+They can only be read locally from the computer storing the object. Attempting to read them remotely results in a STATUS_ACCESS_DENIED error. Local private data objects have key names that begin with the prefix `L$`. In addition to the local private objects you create, the operating system defines the following local private objects: $machine.acc, SAC, SAI, and SANSC.
 
 ### Global private data objects (G$)
 

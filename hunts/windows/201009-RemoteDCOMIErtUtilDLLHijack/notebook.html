@@ -1,0 +1,1370 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Remote DCOM IErtUtil DLL Hijack &#8212; Threat Hunter Playbook</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../../../_static/tabs.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://threathunterplaybook.com/hunts/windows/201009-RemoteDCOMIErtUtilDLLHijack/notebook.html" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Remote WMI Wbemcomn DLL Hijack" href="../201009-RemoteWMIWbemcomnDLLHijack/notebook.html" />
+    <link rel="prev" title="Remote WMI ActiveScriptEventConsumers" href="../200902-RemoteWMIActiveScriptEventConsumers/notebook.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Threat Hunter Playbook</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Knowledge Library
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../library/windows/intro.html">
+   Windows
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/active_directory_replication.html">
+     Active Directory Replication
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/adfs_dkm_keys.html">
+     Active Directory Federation Services (ADFS) Distributed Key Manager (DKM) Keys
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/data_protection_api.html">
+     Data Protection API
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/logon_session.html">
+     Logon Session
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/lsa_policy_objects.html">
+     LSA Policy Objects
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/mimikatz_openprocess_modules.html">
+     Mimikatz OpenProcess Modules
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/process_access_rights.html">
+     Process Security and Access Rights
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/security_account_manager_database.html">
+     Security Account Manager (SAM) Database
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/security_account_manager_protocol.html">
+     Security Account Manager Remote Protocol (SAMRP)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/security_assertion_markup_language.html">
+     Security Assertion Markup Language (SAML)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/service_control_manager.html">
+     Service Control Manager
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/syskey.html">
+     SysKey
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../library/windows/task_scheduler_service.html">
+     Task Scheduler Service
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Pre-Hunt Activities
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../pre-hunt/data_management.html">
+   Data Management
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../pre-hunt/data_documentation.html">
+     Data Documentation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../pre-hunt/data_standardization.html">
+     Data Standardization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../pre-hunt/data_modeling.html">
+     Data Modeling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../pre-hunt/data_quality.html">
+     Data Quality
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Guided Hunts
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../intro.html">
+   Windows
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../170105-LSASSMemoryReadAccess/notebook.html">
+     LSASS Memory Read Access
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../180719-DLLProcessInjectionCreateRemoteThread/notebook.html">
+     DLL Process Injection via CreateRemoteThread and LoadLibrary
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../180815-ADObjectAccessReplication/notebook.html">
+     Active Directory Object Access via Replication Services
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../190101-ADModDirectoryReplication/notebook.html">
+     Active Directory Root Domain Modification for Replication Services
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../190407-RegModEnableRDPConnections/notebook.html">
+     Registry Modification to Enable Remote Desktop Conections
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../190410-LocalPwshExecution/notebook.html">
+     Local PowerShell Execution
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../190510-RegModWDigestDowngrade/notebook.html">
+     WDigest Downgrade
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../190511-RemotePwshExecution/notebook.html">
+     PowerShell Remote Session
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../190610-PwshAlternateHosts/notebook.html">
+     Alternate PowerShell Hosts
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../190620-DomainDPAPIBackupKeyExtraction/notebook.html">
+     Domain DPAPI Backup Key Extraction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../190625-RegKeyAccessSyskey/notebook.html">
+     SysKey Registry Keys Access
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../190725-SAMRegistryHiveHandleRequest/notebook.html">
+     SAM Registry Hive Handle Request
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../190810-RemoteWMIExecution/notebook.html">
+     WMI Win32_Process Class and Create Method for Remote Execution
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../190810-WMIEventing/notebook.html">
+     WMI Eventing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../190811-WMIModuleLoad/notebook.html">
+     WMI Module Load
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../190813-LocalServiceInstallation/notebook.html">
+     Local Service Installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../190815-RemoteServiceInstallation/notebook.html">
+     Remote Service creation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../190826-RemoteSCMHandle/notebook.html">
+     Remote Service Control Manager Handle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../191030-RemoteInteractiveTaskMgrLsassDump/notebook.html">
+     Remote Interactive Task Manager LSASS Dump
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../191224-RegModExtendedNetNTLMDowngrade/notebook.html">
+     Registry Modification for Extended NetNTLM Downgrade
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../200609-MicrophoneDvcAccess/notebook.html">
+     Access to Microphone Device
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../200902-RemoteWMIActiveScriptEventConsumers/notebook.html">
+     Remote WMI ActiveScriptEventConsumers
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Remote DCOM IErtUtil DLL Hijack
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../201009-RemoteWMIWbemcomnDLLHijack/notebook.html">
+     Remote WMI Wbemcomn DLL Hijack
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../201012-RemoteCreateFileSMB/notebook.html">
+     SMB Create Remote File
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../201012-WuaucltCreateRemoteThread/notebook.html">
+     Wuauclt CreateRemoteThread Execution
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../tutorials/jupyter/introduction.html">
+   Jupyter Notebooks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../tutorials/jupyter/installing_jupyter.html">
+     Jupyter Server Installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../tutorials/jupyter/notebooks/01_intro_to_python.html">
+     Introduction to Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../tutorials/jupyter/notebooks/02_intro_to_numpy_arrays.html">
+     Introduction to Python NumPy Arrays
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../tutorials/jupyter/notebooks/03_intro_to_pandas.html">
+     Introduction to Pandas
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/OTRF/ThreatHunter-Playbook/master?urlpath=tree/docs/hunts/windows/201009-RemoteDCOMIErtUtilDLLHijack/notebook.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/OTRF/ThreatHunter-Playbook/blob/master/docs/hunts/windows/201009-RemoteDCOMIErtUtilDLLHijack/notebook.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/OTRF/ThreatHunter-Playbook"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/OTRF/ThreatHunter-Playbook/issues/new?title=Issue%20on%20page%20%2Fhunts/windows/201009-RemoteDCOMIErtUtilDLLHijack/notebook.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/OTRF/ThreatHunter-Playbook/edit/master/docs/hunts/windows/201009-RemoteDCOMIErtUtilDLLHijack/notebook.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/hunts/windows/201009-RemoteDCOMIErtUtilDLLHijack/notebook.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="../../../_sources/hunts/windows/201009-RemoteDCOMIErtUtilDLLHijack/notebook.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hypothesis">
+   Hypothesis
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#technical-context">
+   Technical Context
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#offensive-tradecraft">
+   Offensive Tradecraft
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pre-recorded-security-datasets">
+   Pre-Recorded Security Datasets
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#download-dataset">
+     Download Dataset
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#read-dataset">
+     Read Dataset
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#analytics">
+   Analytics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#analytic-i">
+     Analytic I
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#logic">
+       Logic
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#pandas-query">
+       Pandas Query
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#analytic-ii">
+     Analytic II
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Logic
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Pandas Query
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#analytic-iii">
+     Analytic III
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Logic
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       Pandas Query
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#known-bypasses">
+   Known Bypasses
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#false-positives">
+   False Positives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hunter-notes">
+   Hunter Notes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hunt-output">
+   Hunt Output
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Remote DCOM IErtUtil DLL Hijack</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hypothesis">
+   Hypothesis
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#technical-context">
+   Technical Context
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#offensive-tradecraft">
+   Offensive Tradecraft
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pre-recorded-security-datasets">
+   Pre-Recorded Security Datasets
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#download-dataset">
+     Download Dataset
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#read-dataset">
+     Read Dataset
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#analytics">
+   Analytics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#analytic-i">
+     Analytic I
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#logic">
+       Logic
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#pandas-query">
+       Pandas Query
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#analytic-ii">
+     Analytic II
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Logic
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Pandas Query
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#analytic-iii">
+     Analytic III
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Logic
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       Pandas Query
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#known-bypasses">
+   Known Bypasses
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#false-positives">
+   False Positives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hunter-notes">
+   Hunter Notes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hunt-output">
+   Hunt Output
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="remote-dcom-iertutil-dll-hijack">
+<h1>Remote DCOM IErtUtil DLL Hijack<a class="headerlink" href="#remote-dcom-iertutil-dll-hijack" title="Permalink to this headline">#</a></h1>
+<div class="section" id="hypothesis">
+<h2>Hypothesis<a class="headerlink" href="#hypothesis" title="Permalink to this headline">#</a></h2>
+<p>Threat actors might be copying files remotely to abuse a DLL hijack opportunity found on the DCOM InternetExplorer.Application Class.</p>
+</div>
+<div class="section" id="technical-context">
+<h2>Technical Context<a class="headerlink" href="#technical-context" title="Permalink to this headline">#</a></h2>
+</div>
+<div class="section" id="offensive-tradecraft">
+<h2>Offensive Tradecraft<a class="headerlink" href="#offensive-tradecraft" title="Permalink to this headline">#</a></h2>
+<p>A threat actor could use a known DLL hijack vulnerability on the DCOM InternetExplorer.Application Class while instantiating the object remotely.
+When the object instantiate, it looks for <code class="docutils literal notranslate"><span class="pre">iertutil.dll</span></code> in the <code class="docutils literal notranslate"><span class="pre">c:\Program</span> <span class="pre">Files\Internet</span> <span class="pre">Explorer\</span></code> directory. That DLL does not exist in that folder. Therefore, a threat actor could easily copy its own DLL in that folder and execute it by instantiating an object via the DCOM InternetExplorer.Application Class remotely.
+When the malicious DLL is loaded, there are various approaches to hijacking execution, but most likely a threat actor would want the DLL to act as a proxy to the real DLL to minimize the chances of interrupting normal operations.
+One way to do this is by cloning the export table from one DLL to another one. One known tool that can help with it is <a class="reference external" href="https://github.com/monoxgas/Koppeling">Koppeling</a>.</p>
+</div>
+<div class="section" id="pre-recorded-security-datasets">
+<h2>Pre-Recorded Security Datasets<a class="headerlink" href="#pre-recorded-security-datasets" title="Permalink to this headline">#</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Metadata</p></th>
+<th class="text-align:left head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>docs</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://securitydatasets.com/notebooks/atomic/windows/lateral_movement/SDWIN-201009183000.html">https://securitydatasets.com/notebooks/atomic/windows/lateral_movement/SDWIN-201009183000.html</a></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>link</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/lateral_movement/host/covenant_dcom_iertutil_dll_hijack.zip">https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/lateral_movement/host/covenant_dcom_iertutil_dll_hijack.zip</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="download-dataset">
+<h3>Download Dataset<a class="headerlink" href="#download-dataset" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">zipfile</span> <span class="kn">import</span> <span class="n">ZipFile</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/lateral_movement/host/covenant_dcom_iertutil_dll_hijack.zip&#39;</span>
+<span class="n">zipFileRequest</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">zipFile</span> <span class="o">=</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">zipFileRequest</span><span class="o">.</span><span class="n">content</span><span class="p">))</span>
+<span class="n">datasetJSONPath</span> <span class="o">=</span> <span class="n">zipFile</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">zipFile</span><span class="o">.</span><span class="n">namelist</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="read-dataset">
+<h3>Read Dataset<a class="headerlink" href="#read-dataset" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pandas.io</span> <span class="kn">import</span> <span class="n">json</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">path_or_buf</span><span class="o">=</span><span class="n">datasetJSONPath</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="analytics">
+<h2>Analytics<a class="headerlink" href="#analytics" title="Permalink to this headline">#</a></h2>
+<p>A few initial ideas to explore your data and validate your detection logic:</p>
+<div class="section" id="analytic-i">
+<h3>Analytic I<a class="headerlink" href="#analytic-i" title="Permalink to this headline">#</a></h3>
+<p>Look for non-system accounts SMB accessing a <code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files\Internet</span> <span class="pre">Explorer\iertutil.dll</span></code> with write (0x2) access mask via an administrative share (i.e C$).</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>File</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>User accessed File</p></td>
+<td><p>5145</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="logic">
+<h4>Logic<a class="headerlink" href="#logic" title="Permalink to this headline">#</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, SubjectLogonId, IpAddress, IpPort, RelativeTargetName
+FROM dataTable
+WHERE LOWER(Channel) = &quot;security&quot;
+    AND EventID = 5145
+    AND RelativeTargetName LIKE &#39;%Internet Explorer\\\iertutil.dll&#39;
+    AND NOT SubjectUserName LIKE &#39;%$&#39;
+    AND AccessMask = &#39;0x2&#39;
+</pre></div>
+</div>
+</div>
+<div class="section" id="pandas-query">
+<h4>Pandas Query<a class="headerlink" href="#pandas-query" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+<span class="n">df</span><span class="p">[[</span><span class="s1">&#39;@timestamp&#39;</span><span class="p">,</span><span class="s1">&#39;Hostname&#39;</span><span class="p">,</span><span class="s1">&#39;ShareName&#39;</span><span class="p">,</span><span class="s1">&#39;SubjectUserName&#39;</span><span class="p">,</span><span class="s1">&#39;SubjectLogonId&#39;</span><span class="p">,</span><span class="s1">&#39;IpAddress&#39;</span><span class="p">,</span><span class="s1">&#39;IpPort&#39;</span><span class="p">,</span><span class="s1">&#39;RelativeTargetName&#39;</span><span class="p">]]</span>
+
+<span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Channel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;security&#39;</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;EventID&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">5145</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;RelativeTargetName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;internet explorer</span><span class="se">\\</span><span class="s1">iertutil.dll&#39;</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;AccessMask&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;0x2&#39;</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;SubjectUserName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;$&#39;</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="p">]</span>
+<span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="analytic-ii">
+<h3>Analytic II<a class="headerlink" href="#analytic-ii" title="Permalink to this headline">#</a></h3>
+<p>Look for <code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files\Internet</span> <span class="pre">Explorer\iertutil.dll</span></code> being accessed over the network with write (0x2) access mask via an administrative share (i.e C$) and created by the System process on the target system.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>File</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>User accessed File</p></td>
+<td><p>5145</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>File</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process created File</p></td>
+<td><p>11</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id1">
+<h4>Logic<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, SubjectLogonId, IpAddress, IpPort, RelativeTargetName
+FROM dataTable b
+INNER JOIN (
+    SELECT LOWER(REVERSE(SPLIT(TargetFilename, &#39;\&#39;))[0]) as TargetFilename
+    FROM dataTable
+    WHERE Channel = &#39;Microsoft-Windows-Sysmon/Operational&#39;
+        AND Image = &#39;System&#39;
+        AND EventID = 11
+        AND TargetFilename LIKE &#39;%Internet Explorer\\\iertutil.dll&#39;
+) a
+ON LOWER(REVERSE(SPLIT(RelativeTargetName, &#39;\&#39;))[0]) = a.TargetFilename
+WHERE LOWER(b.Channel) = &#39;security&#39;
+    AND b.EventID = 5145
+    AND b.AccessMask = &#39;0x2&#39;
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h4>Pandas Query<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fileCreateDf</span> <span class="o">=</span> <span class="p">(</span>
+<span class="n">df</span><span class="p">[[</span><span class="s1">&#39;@timestamp&#39;</span><span class="p">,</span><span class="s1">&#39;Hostname&#39;</span><span class="p">,</span><span class="s1">&#39;Image&#39;</span><span class="p">,</span><span class="s1">&#39;TargetFilename&#39;</span><span class="p">]]</span>
+
+<span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Channel&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Microsoft-Windows-Sysmon/Operational&#39;</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;EventID&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">11</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Image&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;system&#39;</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;TargetFilename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;internet explorer</span><span class="se">\\</span><span class="s1">iertutil.dll&#39;</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">fileCreateDf</span><span class="p">[</span><span class="s1">&#39;Filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fileCreateDf</span><span class="p">[</span><span class="s1">&#39;TargetFilename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">fileAccessedDf</span> <span class="o">=</span> <span class="p">(</span>
+<span class="n">df</span><span class="p">[[</span><span class="s1">&#39;@timestamp&#39;</span><span class="p">,</span><span class="s1">&#39;Hostname&#39;</span><span class="p">,</span><span class="s1">&#39;ShareName&#39;</span><span class="p">,</span><span class="s1">&#39;SubjectUserName&#39;</span><span class="p">,</span><span class="s1">&#39;SubjectLogonId&#39;</span><span class="p">,</span><span class="s1">&#39;IpAddress&#39;</span><span class="p">,</span><span class="s1">&#39;IpPort&#39;</span><span class="p">,</span><span class="s1">&#39;RelativeTargetName&#39;</span><span class="p">]]</span>
+
+<span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Channel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;security&#39;</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;EventID&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">5145</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;AccessMask&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;0x2&#39;</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">fileAccessedDf</span><span class="p">[</span><span class="s1">&#39;Filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fileAccessedDf</span><span class="p">[</span><span class="s1">&#39;RelativeTargetName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="p">(</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fileCreateDf</span><span class="p">,</span> <span class="n">fileAccessedDf</span><span class="p">,</span>
+    <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;Filename&#39;</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="analytic-iii">
+<h3>Analytic III<a class="headerlink" href="#analytic-iii" title="Permalink to this headline">#</a></h3>
+<p>Look for <code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files\Internet</span> <span class="pre">Explorer\iertutil.dll</span></code> being accessed over the network with write (0x2) access mask via an administrative share (i.e C$), created by the System process and loaded by <code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files\Internet</span> <span class="pre">Explorer\iexplore.exe</span></code>. All happening on the target system.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Data source</p></th>
+<th class="text-align:left head"><p>Event Provider</p></th>
+<th class="head"><p>Relationship</p></th>
+<th class="head"><p>Event</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>File</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Security-Auditing</p></td>
+<td><p>User accessed File</p></td>
+<td><p>5145</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>File</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process created File</p></td>
+<td><p>11</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>File</p></td>
+<td class="text-align:left"><p>Microsoft-Windows-Sysmon/Operational</p></td>
+<td><p>Process loaded Dll</p></td>
+<td><p>7</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id3">
+<h4>Logic<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>SELECT `@timestamp`, Hostname, ShareName, SubjectUserName, SubjectLogonId, IpAddress, IpPort, RelativeTargetName
+FROM dataTable d
+INNER JOIN (
+    SELECT LOWER(REVERSE(SPLIT(TargetFilename, &#39;\&#39;))[0]) as TargetFilename
+    FROM dataTable b
+    INNER JOIN (
+        SELECT ImageLoaded
+        FROM dataTable
+        WHERE Channel = &#39;Microsoft-Windows-Sysmon/Operational&#39;
+            AND EventID = 7
+            AND LOWER(Image) LIKE &#39;%iexplore.exe&#39;
+            AND ImageLoaded LIKE &#39;%Internet Explorer\\\iertutil.dll&#39;
+    ) a
+    ON b.TargetFilename = a.ImageLoaded
+    WHERE b.Channel = &#39;Microsoft-Windows-Sysmon/Operational&#39;
+        AND b.Image = &#39;System&#39;
+        AND b.EventID = 11
+) c
+ON LOWER(REVERSE(SPLIT(RelativeTargetName, &#39;\&#39;))[0]) = c.TargetFilename
+WHERE LOWER(d.Channel) = &#39;security&#39;
+    AND d.EventID = 5145
+    AND d.AccessMask = &#39;0x2&#39;
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h4>Pandas Query<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fileCreateDf</span> <span class="o">=</span> <span class="p">(</span>
+<span class="n">df</span><span class="p">[[</span><span class="s1">&#39;@timestamp&#39;</span><span class="p">,</span><span class="s1">&#39;Hostname&#39;</span><span class="p">,</span><span class="s1">&#39;Image&#39;</span><span class="p">,</span><span class="s1">&#39;TargetFilename&#39;</span><span class="p">]]</span>
+
+<span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Channel&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Microsoft-Windows-Sysmon/Operational&#39;</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;EventID&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">11</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Image&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;system&#39;</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;TargetFilename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;internet explorer</span><span class="se">\\</span><span class="s1">iertutil.dll&#39;</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">imageLoadedDf</span> <span class="o">=</span> <span class="p">(</span>
+<span class="n">df</span><span class="p">[[</span><span class="s1">&#39;@timestamp&#39;</span><span class="p">,</span><span class="s1">&#39;Hostname&#39;</span><span class="p">,</span><span class="s1">&#39;ImageLoaded&#39;</span><span class="p">,</span><span class="s1">&#39;Image&#39;</span><span class="p">]]</span>
+
+<span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Channel&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Microsoft-Windows-Sysmon/Operational&#39;</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;EventID&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">7</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Image&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;iexplore.exe&#39;</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ImageLoaded&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;internet explorer</span><span class="se">\\</span><span class="s1">iertutil.dll&#39;</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">firstJoinDf</span> <span class="o">=</span> <span class="p">(</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fileCreateDf</span><span class="p">,</span> <span class="n">imageLoadedDf</span><span class="p">,</span>
+    <span class="n">left_on</span> <span class="o">=</span> <span class="s1">&#39;TargetFilename&#39;</span><span class="p">,</span> <span class="n">right_on</span> <span class="o">=</span> <span class="s1">&#39;ImageLoaded&#39;</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">firstJoinDf</span><span class="p">[</span><span class="s1">&#39;Filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">firstJoinDf</span><span class="p">[</span><span class="s1">&#39;TargetFilename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">fileAccessedDf</span> <span class="o">=</span> <span class="p">(</span>
+<span class="n">df</span><span class="p">[[</span><span class="s1">&#39;@timestamp&#39;</span><span class="p">,</span><span class="s1">&#39;Hostname&#39;</span><span class="p">,</span><span class="s1">&#39;ShareName&#39;</span><span class="p">,</span><span class="s1">&#39;SubjectUserName&#39;</span><span class="p">,</span><span class="s1">&#39;SubjectLogonId&#39;</span><span class="p">,</span><span class="s1">&#39;IpAddress&#39;</span><span class="p">,</span><span class="s1">&#39;IpPort&#39;</span><span class="p">,</span><span class="s1">&#39;RelativeTargetName&#39;</span><span class="p">]]</span>
+
+<span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Channel&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;security&#39;</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;EventID&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">5145</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;AccessMask&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;0x2&#39;</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">fileAccessedDf</span><span class="p">[</span><span class="s1">&#39;Filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fileAccessedDf</span><span class="p">[</span><span class="s1">&#39;RelativeTargetName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="p">(</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">firstJoinDf</span><span class="p">,</span> <span class="n">fileAccessedDf</span><span class="p">,</span>
+    <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;Filename&#39;</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="known-bypasses">
+<h2>Known Bypasses<a class="headerlink" href="#known-bypasses" title="Permalink to this headline">#</a></h2>
+</div>
+<div class="section" id="false-positives">
+<h2>False Positives<a class="headerlink" href="#false-positives" title="Permalink to this headline">#</a></h2>
+</div>
+<div class="section" id="hunter-notes">
+<h2>Hunter Notes<a class="headerlink" href="#hunter-notes" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Baseline your environment to identify normal activity. Document all accounts creating files over the network via administrative shares.</p></li>
+<li><p>Baseline iexplore.exe execution and modules loaded (i.e signed and un-signed)</p></li>
+</ul>
+</div>
+<div class="section" id="hunt-output">
+<h2>Hunt Output<a class="headerlink" href="#hunt-output" title="Permalink to this headline">#</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Type</p></th>
+<th class="text-align:left head"><p>Link</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>Sigma Rule</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://github.com/SigmaHQ/sigma/blob/master/rules/windows/builtin/security/win_dcom_iertutil_dll_hijack.yml">https://github.com/SigmaHQ/sigma/blob/master/rules/windows/builtin/security/win_dcom_iertutil_dll_hijack.yml</a></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Sigma Rule</p></td>
+<td class="text-align:left"><p><a class="reference external" href="https://github.com/SigmaHQ/sigma/blob/master/rules/windows/sysmon/sysmon_dcom_iertutil_dll_hijack.yml">https://github.com/SigmaHQ/sigma/blob/master/rules/windows/sysmon/sysmon_dcom_iertutil_dll_hijack.yml</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dcom/64af4c57-5466-4fdf-9761-753ea926a494">https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dcom/64af4c57-5466-4fdf-9761-753ea926a494</a></p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "OTRF/ThreatHunter-Playbook",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./hunts\windows\201009-RemoteDCOMIErtUtilDLLHijack"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../200902-RemoteWMIActiveScriptEventConsumers/notebook.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Remote WMI ActiveScriptEventConsumers</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../201009-RemoteWMIWbemcomnDLLHijack/notebook.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Remote WMI Wbemcomn DLL Hijack</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Roberto Rodriguez @Cyb3rWard0g<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
