@@ -12,13 +12,13 @@ kernelspec:
   name: python3
 ---
 
-# {{platform}}
-{% if analytic_count > 0 %}
+# Windows
+
 ## ATT&CK Navigator View
 
-<iframe src="https://mitre-attack.github.io/attack-navigator/enterprise/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FOTRF%2FThreatHunter-Playbook%2Fmaster%2Fdocs%2Fhunts%2F{{platform|lower}}%2Fattack_navigator.json&tabs=false&selecting_techniques=false" width="950" height="450"></iframe>
+<iframe src="https://mitre-attack.github.io/attack-navigator/enterprise/#layerURL=https%3A%2F%2Fraw.githubusercontent.com%2FOTRF%2FThreatHunter-Playbook%2Fmaster%2Fdocs%2Fhunts%2Fwindows%2Fattack_navigator.json&tabs=false&selecting_techniques=false" width="950" height="450"></iframe>
 
-## Interactive Table: {{analytic_count}} Hunts
+## Interactive Table: 26 Hunts
 
 ```{code-cell} Ipython3
 :tags: ['remove-input']
@@ -31,11 +31,10 @@ opt.classes = ["display", "cell-border"]
 init_notebook_mode(all_interactive=True)
 
 def make_clickable(id,name):
-    return f'<a href="https://threathunterplaybook.com/hunts/{{platform|lower}}/{id}/notebook.html">{name}</a>'
+    return f'<a href="https://threathunterplaybook.com/hunts/windows/{id}/notebook.html">{name}</a>'
 
 df = pd.read_csv('analytic_summary.csv')
 df['Title'] = df.apply(lambda x: make_clickable(x['Id'], x['Title']), axis=1)
 df.drop('Id', axis=1, inplace=True)
 df
 ```
-{% endif %}

@@ -1,0 +1,21 @@
+id: 190811-WMIModuleLoad
+title: WMI Module Load
+hypothesis: Adversaries might be leveraging WMI modules to execute WMI tasks bypassing controls monitoring for wmiprvse.exe or wmiapsrv.exe activity.
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2019/08/11
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+- tactics:
+    - TA0002
+  technique: T1047
+  sub_technique: None
+
+datasets:
+  - name: Empire PSInject
+    docs: https://securitydatasets.com/notebooks/atomic/windows/defense_evasion/SDWIN-190518200432.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/defense_evasion/host/empire_psinject_PEinjection.zip

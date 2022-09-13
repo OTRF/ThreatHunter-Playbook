@@ -1,0 +1,25 @@
+id: 190725-SAMRegistryHiveHandleRequest
+title: SAM Registry Hive Handle Request
+hypothesis: Adversaries might be getting a handle to the SAM database to extract credentials in my environment
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2019/07/25
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0006
+    technique: T1003
+    sub_technique: "002"
+  - tactics:
+      - TA0007
+    technique: T1012
+    sub_technique: None
+
+datasets:
+  - name: Empire Mimikatz SAM Extract Hashes
+    docs: https://securitydatasets.com/notebooks/atomic/windows/credential_access/SDWIN-190625103712.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/credential_access/host/empire_mimikatz_sam_access.zip

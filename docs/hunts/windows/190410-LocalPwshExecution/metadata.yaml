@@ -1,0 +1,21 @@
+id: 190410-LocalPwshExecution
+title: Local PowerShell Execution
+hypothesis: Adversaries might be leveraging PowerShell to execute code within my environment
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2019/04/10
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0002
+    technique: T1059
+    sub_technique: "001"
+
+datasets:
+  - name: Empire VBS Execution
+    docs: https://securitydatasets.com/notebooks/atomic/windows/execution/SDWIN-190518182022.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/execution/host/empire_launcher_vbs.zip

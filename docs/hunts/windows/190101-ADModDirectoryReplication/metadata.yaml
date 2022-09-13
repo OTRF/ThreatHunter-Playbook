@@ -1,0 +1,21 @@
+id: 190101-ADModDirectoryReplication
+title: Active Directory Root Domain Modification for Replication Services
+hypothesis: Adversaries with enough permissions (domain admin) might be adding an ACL to the Root Domain for any user to abuse active directory replication services.
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2019/01/01
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0005
+    technique: T1222
+    sub_technique: "001"
+
+datasets:
+  - name: Empire Powerview Add-DomainObjectAcl
+    docs: https://securitydatasets.com/notebooks/atomic/windows/defense_evasion/SDWIN-190301125905.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/defense_evasion/host/empire_powerview_ldap_ntsecuritydescriptor.zip

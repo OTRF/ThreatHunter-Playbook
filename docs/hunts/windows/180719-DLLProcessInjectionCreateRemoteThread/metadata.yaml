@@ -1,0 +1,21 @@
+id: 180719-DLLProcessInjectionCreateRemoteThread
+title: DLL Process Injection via CreateRemoteThread and LoadLibrary
+hypothesis: Adversaries might be injecting a dll to another process to execute code via CreateRemoteThread and LoadLibrary functions.
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2018/07/19
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0005
+    technique: T1055
+    sub_technique: "001"
+
+datasets:
+  - name: Empire Invoke DLL Injection
+    docs: https://securitydatasets.com/notebooks/atomic/windows/defense_evasion/SDWIN-190518221344.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/defense_evasion/host/empire_dllinjection_LoadLibrary_CreateRemoteThread.zip

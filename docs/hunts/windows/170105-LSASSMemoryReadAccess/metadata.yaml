@@ -1,0 +1,20 @@
+id: 170105-LSASSMemoryReadAccess
+title: LSASS Memory Read Access
+hypothesis: Adversaries might be access LSASS and extract credentials from memory.
+
+collaborators:
+  - '@Cyb3rWard0g'
+creation_date: 2017/01/05
+modification_date: 2022/09/06
+platform: Windows
+
+attack_mappings:
+  - tactics:
+    - TA0006
+    technique: T1003
+    sub-technique: "001"
+
+datasets:
+  - name: Empire Mimikatz LogonPasswords
+    docs: https://securitydatasets.com/notebooks/atomic/windows/credential_access/SDWIN-190518202151.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/credential_access/host/empire_mimikatz_logonpasswords.zip

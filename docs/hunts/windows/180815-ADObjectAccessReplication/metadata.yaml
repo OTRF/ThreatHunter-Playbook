@@ -1,0 +1,21 @@
+id: 180815-ADObjectAccessReplication
+title: Active Directory Object Access via Replication Services
+hypothesis: Adversaries might attempt to pull the NTLM hash of a user via active directory replication apis from a non-domain-controller account with permissions to do so.
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2018/08/15
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0006
+    technique: T1003
+    sub_technique: "006"
+
+datasets:
+  - name: Empire DCSync
+    docs: https://securitydatasets.com/notebooks/atomic/windows/credential_access/SDWIN-190301174830.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/credential_access/host/empire_dcsync_dcerpc_drsuapi_DsGetNCChanges.zip

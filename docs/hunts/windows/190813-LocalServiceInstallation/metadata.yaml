@@ -1,0 +1,21 @@
+id: 190813-LocalServiceInstallation
+title: Service Creation
+hypothesis: Adversaries might be creating new services to execute code on a compromised endpoint in my environment
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2019/08/13
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0002
+    technique: T1569
+    sub_technique: "002"
+
+datasets:
+  - name: Empire Invoke PsExec
+    docs: https://securitydatasets.com/notebooks/atomic/windows/lateral_movement/SDWIN-190518210652.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/lateral_movement/host/empire_psexec_dcerpc_tcp_svcctl.zip

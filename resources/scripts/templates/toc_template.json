@@ -1,6 +1,6 @@
 {
     "format": "jb-book",
-    "root": "introduction",
+    "root": "intro",
     "parts": [
         {
             "caption": "Knowledge Library",
@@ -29,28 +29,7 @@
             ]
         },
         {
-            "caption": "Campaign Notebooks",
-            "chapters": [
-                {
-                    "file": "evals/intro",
-                    "sections": [
-                        {
-                            "file": "evals/apt29/intro",
-                            "sections": [
-                                {
-                                    "file": "evals/apt29/report"
-                                },
-                                {
-                                    "file": "notebooks/campaigns/apt29Evals"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "caption": "Targeted Notebooks",
+            "caption": "Guided Hunts",
             "chapters": []
         },
         {

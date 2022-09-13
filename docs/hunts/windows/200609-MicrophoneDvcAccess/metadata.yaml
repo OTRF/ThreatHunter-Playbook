@@ -1,0 +1,21 @@
+id: 200609-MicrophoneDvcAccess
+title: Access to Microphone Device
+hypothesis: Adversaries might be accessing the microphone in endpoints over the network.
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2020/06/09
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0009
+    technique: T1123
+    sub_technique: None
+
+datasets:
+  - name: MSF Record Mic
+    docs: https://securitydatasets.com/notebooks/atomic/windows/collection/SDWIN-200609225055.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/collection/host/msf_record_mic.zip

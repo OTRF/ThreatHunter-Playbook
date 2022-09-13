@@ -1,0 +1,25 @@
+id: 190511-RemotePwshExecution
+title: PowerShell Remote Session
+hypothesis: Adversaries might be leveraging remote powershell sessions to execute code on remote systems throughout my environment
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2019/05/11
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0002
+    technique: T1059
+    sub_technique: "001"
+  - tactics:
+      - TA0008
+    technique: T1021
+    sub_technique: "006"
+
+datasets:
+  - name: Empire Invoke PSRemoting
+    docs: https://securitydatasets.com/notebooks/atomic/windows/execution/SDWIN-190518211456.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/lateral_movement/host/empire_psremoting_stager.zip

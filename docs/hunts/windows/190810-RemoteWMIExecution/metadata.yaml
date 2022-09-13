@@ -1,0 +1,22 @@
+id: 190810-RemoteWMIExecution
+title: WMI Win32_Process Class and Create Method for Remote Execution
+hypothesis: Adversaries might be leveraging WMI Win32_Process class and method Create to execute code remotely across my environment
+
+collaborators:
+  - '@Cyb3rWard0g'
+  - '@Cyb3rPandaH'
+creation_date: 2019/08/10
+modification_date: 2020/09/20
+platform: Windows
+
+attack_mappings:
+  - tactics:
+      - TA0002
+      - TA0008
+    technique: T1047
+    sub_technique: None
+
+datasets:
+  - name: Empire Invoke WMI
+    docs: https://securitydatasets.com/notebooks/atomic/windows/lateral_movement/SDWIN-200921001437.html
+    dataset: https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/lateral_movement/host/empire_wmi_dcerpc_wmi_IWbemServices_ExecMethod.zip
