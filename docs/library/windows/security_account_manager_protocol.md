@@ -1,12 +1,12 @@
 # Security Account Manager Remote Protocol (SAMRP)
 
-Accounts are always created relative to an issuing authority. In Windows, the issuing authority is referred to as a domain. A domain can be either a local domain or extend across a network. Domains store information about their accounts in an account database. Windows uses Active Directory as the account database in domain-based environments, whereas in environments that are not domain-based, it uses the security account manager (SAM) built-in database as the account database.
+Accounts are always created relative to an issuing authority. In Windows, the issuing authority is referred to as a domain. A domain can be either a local domain or extend across a network. Domains store information about their accounts in an account database. Windows uses Active Directory as the account database in domain-based environments. In environments that are not domain-based, it uses the security account manager (SAM) built-in database as the account database.
 
 ## Security Account Manager Remote Protocol (SAMRP) Client-To-Server (C)
 
 The Security Account Manager (SAM) Remote Protocol (Client-to-Server) depends on the RPC protocol (uses RPC as a transport), and provides management functionality for an account store or directory containing users and groups. The goal of this protocol is to enable IT administrators and end users to manage users, groups, and computers. This protocol achieves its goal by enabling the creation, reading, updating, and deleting of security principal information. These security principals could be in any account store. Windows implements this protocol, for example, in a directory service (Active Directory) and in a computer-local security account database known as the Security Account Manager (SAM) database.
 
-This protocol follows two perspectives when understanding and implementing this protocol:
+This protocol follows two perspectives when understanding and implementing this protocol: object-based and method based.
 
 ## Object-based perspective
 
