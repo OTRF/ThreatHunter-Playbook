@@ -20,7 +20,7 @@ Distributed Key Manager (DKM) is a client-side functionality that uses a set of 
 ## ADFS DKM Master Key
 
 * The ADFS DKM master key(s) are stored in Active Directory (AD).
-* An examplle of an ADFS DKM Container in AD would be `CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local`
+* An example of an ADFS DKM Container in AD would be `CN=ADFS,CN=Microsoft,CN=Program Data,DC=azsentinel,DC=local`
 * Inside of the AD container there are groups and inside of one of them there is an AD contact object that contains the DKM key used to decrypt AD FS certificates.
 * The DKM key is stored in the `thumbnailPhoto` attribute of the AD contact object.
 * One could read the DKM key as a byte array and convert it to a usable string from AD by running the following command:
