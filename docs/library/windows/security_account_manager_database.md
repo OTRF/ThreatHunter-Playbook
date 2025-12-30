@@ -1,6 +1,6 @@
 # Security Account Manager (SAM) Database
 
-Every computer that runs Windows has its own local domain; that is, it has an account database for accounts that are specific to that computer. Conceptually, this is an account database like any other with accounts, groups, SIDs, and so on. These are referred to as local accounts, local groups, and so on. Because computers typically do not trust each other for account information, these identities stay local to the computer on which they were created.
+Every computer that runs Windows has its own local domain; that is, it has an account database for accounts that are specific to that computer. Conceptually, this is an account database like any other with accounts, groups, SIDs, and so on. These are referred to as local accounts, local groups, and so on. Since computers typically do not trust each other for account information, these identities stay local to the computer on which they were created.
 
 The Security Account Manager (SAM) is a database that is present on computers running Windows operating systems that stores user accounts and security descriptors for users on the local computer.
 

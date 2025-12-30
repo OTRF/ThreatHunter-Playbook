@@ -23,7 +23,7 @@ The Account object is used to assign privileges, system access, and special quot
 
 ### Private Data Object
 
-A limited number of private data objects are available on each system for the purpose of storing information in a protected, encrypted, fashion.
+A limited number of private data objects are available on each system for the purpose of protecting and encrypting information.
 
 Private data objects are provided primarily to support storage of server account passwords. This is useful for servers that run in a specific account. The password of the server account is private data that should be secured but is needed to log the server on.
 
