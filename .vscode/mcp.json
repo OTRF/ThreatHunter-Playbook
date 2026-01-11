@@ -1,0 +1,18 @@
+{
+	"servers": {
+		"tavily": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"-y",
+				"tavily-mcp@latest"
+			],
+			"envFile": "${workspaceFolder}/.env"
+		},
+		"MS Sentinel": {
+			"type": "http",
+			"url": "https://sentinel.microsoft.com/mcp/data-exploration"
+		}
+	},
+	"inputs": []
+}
