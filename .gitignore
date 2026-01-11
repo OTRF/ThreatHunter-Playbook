@@ -3,3 +3,5 @@ docs/_build/.jupyter_cache
 docs/_build/html
 docs/_build/jupyter_execute
 docs/_build/.doctrees
+.env
+repos/
