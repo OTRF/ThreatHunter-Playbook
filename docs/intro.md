@@ -56,6 +56,8 @@ In this project, Agent Skills are used to generate a structured hunt blueprint t
 
 For a detailed walkthrough and example of these workflows in action, see the accompanying blog post.
 
+https://blog.openthreatresearch.com/evolving-the-threat-hunter-playbook-planning-hunts-with-agent-skills/
+
 ## Authors
 
 * Roberto Rodriguez [@Cyb3rWard0g](https://twitter.com/Cyb3rWard0g)
