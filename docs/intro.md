@@ -12,6 +12,14 @@ kernelspec:
   name: python3
 ---
 
+
+# Introduction
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![](https://img.shields.io/twitter/follow/HunterPlaybook.svg?style=social&label=Follow)](https://twitter.com/HunterPlaybook)
+[![Open_Threat_Research Community](https://img.shields.io/badge/Open_Threat_Research-Community-brightgreen.svg)](https://twitter.com/OTR_Community)
+[![](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+
 The Threat Hunter Playbook is a community-driven, open source project focused on **documenting how threat hunters think, plan, and reason** before, during, and after a hunt. The project captures adversary tradecraft, detection logic, and supporting resources in a structured way to make threat hunting more effective and repeatable. All hunt documents follow the structure of [MITRE ATT&CK](https://attack.mitre.org/), organizing post-compromise behavior into tactical groups and expressing it through [interactive Jupyter notebooks](https://docs.jupyter.org/en/latest/projects/architecture/content-architecture.html#the-jupyter-notebook-format). These notebooks combine markdown, analytics, datasets, and validation queries, allowing hunts to be treated as executable documents that preserve intent and reasoning—not just results—and can be run locally or remotely using [pre-recorded security datasets](https://securitydatasets.com) and [BinderHub](https://mybinder.readthedocs.io/en/latest/index.html).
 
 > With recent advances in Generative AI, the project has entered a transformation phase focused on augmenting threat hunting workflows across planning, execution, and reporting. Rather than replacing existing practices, the goal is to integrate AI in a way that reinforces structure and intent throughout the lifecycle. As a first step, the project incorporates solutions such as [Agent Skills](https://agentskills.io/home) to capture hunting knowledge as explicit workflows, providing clear guidance, templates, and references. [Agent Skills](https://agentskills.io/home) guide reasoning and decision making, refining broad inputs into structured, testable hunt artifacts and laying the groundwork for deeper AI augmentation over time.
