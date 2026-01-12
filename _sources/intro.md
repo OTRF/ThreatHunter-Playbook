@@ -24,8 +24,6 @@ The Threat Hunter Playbook is a community-driven, open source project focused on
 
 > With recent advances in Generative AI, the project has entered a transformation phase focused on augmenting threat hunting workflows across planning, execution, and reporting. Rather than replacing existing practices, the goal is to integrate AI in a way that reinforces structure and intent throughout the lifecycle. As a first step, the project incorporates solutions such as [Agent Skills](https://agentskills.io/home) to capture hunting knowledge as explicit workflows, providing clear guidance, templates, and references. [Agent Skills](https://agentskills.io/home) guide reasoning and decision making, refining broad inputs into structured, testable hunt artifacts and laying the groundwork for deeper AI augmentation over time.
 
-## Docs: https://threathunterplaybook.com/
-
 ## Goals
 
 * Document and share how threat hunters plan, reason, and structure hunts across the full lifecycle.
