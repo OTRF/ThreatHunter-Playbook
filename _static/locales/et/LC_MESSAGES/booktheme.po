@@ -8,44 +8,53 @@ msgstr ""
 "Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Download this page"
-msgstr "Laadige see leht alla"
-
-msgid "Download notebook file"
-msgstr "Laadige sülearvuti fail alla"
-
-msgid "Open an issue"
-msgstr "Avage probleem"
-
-msgid "repository"
-msgstr "hoidla"
-
-msgid "Theme by the"
-msgstr "Teema"
-
-msgid "Contents"
-msgstr "Sisu"
-
-msgid "next page"
-msgstr "järgmine leht"
+msgid "suggest edit"
+msgstr "soovita muuta"
 
 msgid "Last updated on"
 msgstr "Viimati uuendatud"
 
+msgid "Edit this page"
+msgstr "Muutke seda lehte"
+
 msgid "Launch"
 msgstr "Käivitage"
 
-msgid "Edit this page"
-msgstr "Muutke seda lehte"
+msgid "Print to PDF"
+msgstr "Prindi PDF-i"
+
+msgid "open issue"
+msgstr "avatud küsimus"
+
+msgid "Download notebook file"
+msgstr "Laadige sülearvuti fail alla"
+
+msgid "Toggle navigation"
+msgstr "Lülita navigeerimine sisse"
 
 msgid "Source repository"
 msgstr "Allikahoidla"
 
-msgid "Download source file"
-msgstr "Laadige alla lähtefail"
+msgid "By the"
+msgstr "Autor"
+
+msgid "next page"
+msgstr "järgmine leht"
+
+msgid "repository"
+msgstr "hoidla"
 
 msgid "Sphinx Book Theme"
 msgstr "Sfinksiraamatu teema"
+
+msgid "Download source file"
+msgstr "Laadige alla lähtefail"
+
+msgid "Contents"
+msgstr "Sisu"
+
+msgid "By"
+msgstr "Kõrval"
 
 msgid "Copyright"
 msgstr "Autoriõigus"
@@ -53,29 +62,14 @@ msgstr "Autoriõigus"
 msgid "Fullscreen mode"
 msgstr "Täisekraanirežiim"
 
-msgid "Search the docs ..."
-msgstr "Dokumentidest otsimine ..."
-
-msgid "suggest edit"
-msgstr "soovita muuta"
-
-msgid "Search this book..."
-msgstr "Otsige sellest raamatust ..."
-
-msgid "By"
-msgstr "Kõrval"
-
-msgid "open issue"
-msgstr "avatud küsimus"
-
-msgid "Print to PDF"
-msgstr "Prindi PDF-i"
+msgid "Open an issue"
+msgstr "Avage probleem"
 
 msgid "previous page"
 msgstr "eelmine leht"
 
-msgid "Toggle navigation"
-msgstr "Lülita navigeerimine sisse"
+msgid "Download this page"
+msgstr "Laadige see leht alla"
 
-msgid "By the"
-msgstr "Autor"
+msgid "Theme by the"
+msgstr "Teema"

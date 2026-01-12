@@ -8,44 +8,53 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Download this page"
-msgstr "Descarga esta pagina"
-
-msgid "Download notebook file"
-msgstr "Descargar archivo de cuaderno"
-
-msgid "Open an issue"
-msgstr "Abrir un problema"
-
-msgid "repository"
-msgstr "repositorio"
-
-msgid "Theme by the"
-msgstr "Tema por el"
-
-msgid "Contents"
-msgstr "Contenido"
-
-msgid "next page"
-msgstr "siguiente página"
+msgid "suggest edit"
+msgstr "sugerir editar"
 
 msgid "Last updated on"
 msgstr "Ultima actualización en"
 
+msgid "Edit this page"
+msgstr "Edita esta página"
+
 msgid "Launch"
 msgstr "Lanzamiento"
 
-msgid "Edit this page"
-msgstr "Edita esta página"
+msgid "Print to PDF"
+msgstr "Imprimir en PDF"
+
+msgid "open issue"
+msgstr "Tema abierto"
+
+msgid "Download notebook file"
+msgstr "Descargar archivo de cuaderno"
+
+msgid "Toggle navigation"
+msgstr "Navegación de palanca"
 
 msgid "Source repository"
 msgstr "Repositorio de origen"
 
-msgid "Download source file"
-msgstr "Descargar archivo fuente"
+msgid "By the"
+msgstr "Por el"
+
+msgid "next page"
+msgstr "siguiente página"
+
+msgid "repository"
+msgstr "repositorio"
 
 msgid "Sphinx Book Theme"
 msgstr "Tema del libro de la esfinge"
+
+msgid "Download source file"
+msgstr "Descargar archivo fuente"
+
+msgid "Contents"
+msgstr "Contenido"
+
+msgid "By"
+msgstr "Por"
 
 msgid "Copyright"
 msgstr "Derechos de autor"
@@ -53,29 +62,14 @@ msgstr "Derechos de autor"
 msgid "Fullscreen mode"
 msgstr "Modo de pantalla completa"
 
-msgid "Search the docs ..."
-msgstr "Buscar los documentos ..."
-
-msgid "suggest edit"
-msgstr "sugerir editar"
-
-msgid "Search this book..."
-msgstr "Buscar este libro ..."
-
-msgid "By"
-msgstr "Por"
-
-msgid "open issue"
-msgstr "Tema abierto"
-
-msgid "Print to PDF"
-msgstr "Imprimir en PDF"
+msgid "Open an issue"
+msgstr "Abrir un problema"
 
 msgid "previous page"
 msgstr "pagina anterior"
 
-msgid "Toggle navigation"
-msgstr "Navegación de palanca"
+msgid "Download this page"
+msgstr "Descarga esta pagina"
 
-msgid "By the"
-msgstr "Por el"
+msgid "Theme by the"
+msgstr "Tema por el"

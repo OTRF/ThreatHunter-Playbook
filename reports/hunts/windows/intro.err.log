@@ -1,0 +1,206 @@
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/nbclient/client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wardog/Library/Python/3.12/lib/python/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py", line 684, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/nbclient/client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import pandas as pd
+import itables.options as opt
+from itables import init_notebook_mode
+
+opt.classes = ["display", "cell-border"]
+init_notebook_mode(all_interactive=True)
+
+def make_clickable(id,name):
+    return f'<a href="https://threathunterplaybook.com/hunts/windows/{id}/notebook.html">{name}</a>'
+
+df = pd.read_csv('analytic_summary.csv')
+df['Title'] = df.apply(lambda x: make_clickable(x['Id'], x['Title']), axis=1)
+df.drop('Id', axis=1, inplace=True)
+df
+------------------
+
+----- stderr -----
+
+A module that was compiled using NumPy 1.x cannot be run in
+NumPy 2.2.2 as it may crash. To support both 1.x and 2.x
+versions of NumPy, modules must be compiled with NumPy 2.0.
+Some module may need to rebuild instead e.g. with 'pybind11>=2.12'.
+
+If you are a user of the module, the easiest solution will be to
+downgrade to 'numpy<2' or try to upgrade the affected module.
+We expect that some modules will need time to support NumPy 2.
+
+Traceback (most recent call last):  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/wardog/Library/Python/3.12/lib/python/site-packages/ipykernel_launcher.py", line 17, in <module>
+    app.launch_new_instance()
+  File "/Users/wardog/Library/Python/3.12/lib/python/site-packages/traitlets/config/application.py", line 1075, in launch_instance
+    app.start()
+  File "/Users/wardog/Library/Python/3.12/lib/python/site-packages/ipykernel/kernelapp.py", line 701, in start
+    self.io_loop.start()
+  File "/Users/wardog/Library/Python/3.12/lib/python/site-packages/tornado/platform/asyncio.py", line 205, in start
+    self.asyncio_loop.run_forever()
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py", line 638, in run_forever
+    self._run_once()
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py", line 1971, in _run_once
+    handle._run()
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/events.py", line 84, in _run
+    self._context.run(self._callback, *self._args)
+  File "/Users/wardog/Library/Python/3.12/lib/python/site-packages/ipykernel/kernelbase.py", line 534, in dispatch_queue
+    await self.process_one()
+  File "/Users/wardog/Library/Python/3.12/lib/python/site-packages/ipykernel/kernelbase.py", line 523, in process_one
+    await dispatch(*args)
+  File "/Users/wardog/Library/Python/3.12/lib/python/site-packages/ipykernel/kernelbase.py", line 429, in dispatch_shell
+    await result
+  File "/Users/wardog/Library/Python/3.12/lib/python/site-packages/ipykernel/kernelbase.py", line 767, in execute_request
+    reply_content = await reply_content
+  File "/Users/wardog/Library/Python/3.12/lib/python/site-packages/ipykernel/ipkernel.py", line 429, in do_execute
+    res = shell.run_cell(
+  File "/Users/wardog/Library/Python/3.12/lib/python/site-packages/ipykernel/zmqshell.py", line 549, in run_cell
+    return super().run_cell(*args, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/IPython/core/interactiveshell.py", line 3009, in run_cell
+    result = self._run_cell(
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/IPython/core/interactiveshell.py", line 3064, in _run_cell
+    result = runner(coro)
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/IPython/core/async_helpers.py", line 129, in _pseudo_sync_runner
+    coro.send(None)
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/IPython/core/interactiveshell.py", line 3269, in run_cell_async
+    has_raised = await self.run_ast_nodes(code_ast.body, cell_name,
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/IPython/core/interactiveshell.py", line 3448, in run_ast_nodes
+    if await self.run_code(code, result, async_=asy):
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/IPython/core/interactiveshell.py", line 3508, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+  File "/var/folders/9z/8xhqw8x1611fcbhzl339yrs40000gn/T/ipykernel_76656/1556217999.py", line 1, in <module>
+    import pandas as pd
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/pandas/__init__.py", line 26, in <module>
+    from pandas.compat import (
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/pandas/compat/__init__.py", line 27, in <module>
+    from pandas.compat.pyarrow import (
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/pandas/compat/pyarrow.py", line 8, in <module>
+    import pyarrow as pa
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/pyarrow/__init__.py", line 65, in <module>
+    import pyarrow.lib as _lib
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mValueError[0m                                Traceback (most recent call last)
+Cell [0;32mIn[1], line 1[0m
+[0;32m----> 1[0m [38;5;28;01mimport[39;00m [38;5;21;01mpandas[39;00m [38;5;28;01mas[39;00m [38;5;21;01mpd[39;00m
+[1;32m      2[0m [38;5;28;01mimport[39;00m [38;5;21;01mitables[39;00m[38;5;21;01m.[39;00m[38;5;21;01moptions[39;00m [38;5;28;01mas[39;00m [38;5;21;01mopt[39;00m
+[1;32m      3[0m [38;5;28;01mfrom[39;00m [38;5;21;01mitables[39;00m [38;5;28;01mimport[39;00m init_notebook_mode
+
+File [0;32m/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/pandas/__init__.py:49[0m
+[1;32m     46[0m [38;5;66;03m# let init-time option registration happen[39;00m
+[1;32m     47[0m [38;5;28;01mimport[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcore[39;00m[38;5;21;01m.[39;00m[38;5;21;01mconfig_init[39;00m  [38;5;66;03m# pyright: ignore[reportUnusedImport] # noqa: F401[39;00m
+[0;32m---> 49[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcore[39;00m[38;5;21;01m.[39;00m[38;5;21;01mapi[39;00m [38;5;28;01mimport[39;00m (
+[1;32m     50[0m     [38;5;66;03m# dtype[39;00m
+[1;32m     51[0m     ArrowDtype,
+[1;32m     52[0m     Int8Dtype,
+[1;32m     53[0m     Int16Dtype,
+[1;32m     54[0m     Int32Dtype,
+[1;32m     55[0m     Int64Dtype,
+[1;32m     56[0m     UInt8Dtype,
+[1;32m     57[0m     UInt16Dtype,
+[1;32m     58[0m     UInt32Dtype,
+[1;32m     59[0m     UInt64Dtype,
+[1;32m     60[0m     Float32Dtype,
+[1;32m     61[0m     Float64Dtype,
+[1;32m     62[0m     CategoricalDtype,
+[1;32m     63[0m     PeriodDtype,
+[1;32m     64[0m     IntervalDtype,
+[1;32m     65[0m     DatetimeTZDtype,
+[1;32m     66[0m     StringDtype,
+[1;32m     67[0m     BooleanDtype,
+[1;32m     68[0m     [38;5;66;03m# missing[39;00m
+[1;32m     69[0m     NA,
+[1;32m     70[0m     isna,
+[1;32m     71[0m     isnull,
+[1;32m     72[0m     notna,
+[1;32m     73[0m     notnull,
+[1;32m     74[0m     [38;5;66;03m# indexes[39;00m
+[1;32m     75[0m     Index,
+[1;32m     76[0m     CategoricalIndex,
+[1;32m     77[0m     RangeIndex,
+[1;32m     78[0m     MultiIndex,
+[1;32m     79[0m     IntervalIndex,
+[1;32m     80[0m     TimedeltaIndex,
+[1;32m     81[0m     DatetimeIndex,
+[1;32m     82[0m     PeriodIndex,
+[1;32m     83[0m     IndexSlice,
+[1;32m     84[0m     [38;5;66;03m# tseries[39;00m
+[1;32m     85[0m     NaT,
+[1;32m     86[0m     Period,
+[1;32m     87[0m     period_range,
+[1;32m     88[0m     Timedelta,
+[1;32m     89[0m     timedelta_range,
+[1;32m     90[0m     Timestamp,
+[1;32m     91[0m     date_range,
+[1;32m     92[0m     bdate_range,
+[1;32m     93[0m     Interval,
+[1;32m     94[0m     interval_range,
+[1;32m     95[0m     DateOffset,
+[1;32m     96[0m     [38;5;66;03m# conversion[39;00m
+[1;32m     97[0m     to_numeric,
+[1;32m     98[0m     to_datetime,
+[1;32m     99[0m     to_timedelta,
+[1;32m    100[0m     [38;5;66;03m# misc[39;00m
+[1;32m    101[0m     Flags,
+[1;32m    102[0m     Grouper,
+[1;32m    103[0m     factorize,
+[1;32m    104[0m     unique,
+[1;32m    105[0m     value_counts,
+[1;32m    106[0m     NamedAgg,
+[1;32m    107[0m     array,
+[1;32m    108[0m     Categorical,
+[1;32m    109[0m     set_eng_float_format,
+[1;32m    110[0m     Series,
+[1;32m    111[0m     DataFrame,
+[1;32m    112[0m )
+[1;32m    114[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcore[39;00m[38;5;21;01m.[39;00m[38;5;21;01mdtypes[39;00m[38;5;21;01m.[39;00m[38;5;21;01mdtypes[39;00m [38;5;28;01mimport[39;00m SparseDtype
+[1;32m    116[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01mtseries[39;00m[38;5;21;01m.[39;00m[38;5;21;01mapi[39;00m [38;5;28;01mimport[39;00m infer_freq
+
+File [0;32m/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/pandas/core/api.py:1[0m
+[0;32m----> 1[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01m_libs[39;00m [38;5;28;01mimport[39;00m (
+[1;32m      2[0m     NaT,
+[1;32m      3[0m     Period,
+[1;32m      4[0m     Timedelta,
+[1;32m      5[0m     Timestamp,
+[1;32m      6[0m )
+[1;32m      7[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01m_libs[39;00m[38;5;21;01m.[39;00m[38;5;21;01mmissing[39;00m [38;5;28;01mimport[39;00m NA
+[1;32m      9[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01mcore[39;00m[38;5;21;01m.[39;00m[38;5;21;01mdtypes[39;00m[38;5;21;01m.[39;00m[38;5;21;01mdtypes[39;00m [38;5;28;01mimport[39;00m (
+[1;32m     10[0m     ArrowDtype,
+[1;32m     11[0m     CategoricalDtype,
+[0;32m   (...)[0m
+[1;32m     14[0m     PeriodDtype,
+[1;32m     15[0m )
+
+File [0;32m/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/pandas/_libs/__init__.py:18[0m
+[1;32m     16[0m [38;5;28;01mimport[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01m_libs[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpandas_parser[39;00m  [38;5;66;03m# isort: skip # type: ignore[reportUnusedImport][39;00m
+[1;32m     17[0m [38;5;28;01mimport[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01m_libs[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpandas_datetime[39;00m  [38;5;66;03m# noqa: F401 # isort: skip # type: ignore[reportUnusedImport][39;00m
+[0;32m---> 18[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01m_libs[39;00m[38;5;21;01m.[39;00m[38;5;21;01minterval[39;00m [38;5;28;01mimport[39;00m Interval
+[1;32m     19[0m [38;5;28;01mfrom[39;00m [38;5;21;01mpandas[39;00m[38;5;21;01m.[39;00m[38;5;21;01m_libs[39;00m[38;5;21;01m.[39;00m[38;5;21;01mtslibs[39;00m [38;5;28;01mimport[39;00m (
+[1;32m     20[0m     NaT,
+[1;32m     21[0m     NaTType,
+[0;32m   (...)[0m
+[1;32m     26[0m     iNaT,
+[1;32m     27[0m )
+
+File [0;32minterval.pyx:1[0m, in [0;36minit pandas._libs.interval[0;34m()[0m
+
+[0;31mValueError[0m: numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject
+

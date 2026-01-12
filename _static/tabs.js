@@ -2,6 +2,9 @@ var labels_by_text = {};
 
 function ready() {
   var li = document.getElementsByClassName("tab-label");
+  const urlParams = new URLSearchParams(window.location.search);
+  const tabs = urlParams.getAll("tabs");
+
   for (const label of li) {
     label.onclick = onLabelClick;
     const text = label.textContent;
@@ -10,12 +13,17 @@ function ready() {
     }
     labels_by_text[text].push(label);
   }
+
+  for (const tab of tabs) {
+    for (label of labels_by_text[tab]) {
+      label.previousSibling.checked = true;
+    }
+  }
 }
 
 function onLabelClick() {
   // Activate other labels with the same text.
   for (label of labels_by_text[this.textContent]) {
-    if (label === this) continue;
     label.previousSibling.checked = true;
   }
 }

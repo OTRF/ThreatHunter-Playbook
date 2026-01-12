@@ -8,44 +8,53 @@ msgstr ""
 "Language: ru\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Download this page"
-msgstr "Загрузите эту страницу"
-
-msgid "Download notebook file"
-msgstr "Скачать файл записной книжки"
-
-msgid "Open an issue"
-msgstr "Открыть вопрос"
-
-msgid "repository"
-msgstr "хранилище"
-
-msgid "Theme by the"
-msgstr "Тема от"
-
-msgid "Contents"
-msgstr "Содержание"
-
-msgid "next page"
-msgstr "Следующая страница"
+msgid "suggest edit"
+msgstr "предложить редактировать"
 
 msgid "Last updated on"
 msgstr "Последнее обновление"
 
+msgid "Edit this page"
+msgstr "Редактировать эту страницу"
+
 msgid "Launch"
 msgstr "Запуск"
 
-msgid "Edit this page"
-msgstr "Редактировать эту страницу"
+msgid "Print to PDF"
+msgstr "Распечатать в PDF"
+
+msgid "open issue"
+msgstr "открытый вопрос"
+
+msgid "Download notebook file"
+msgstr "Скачать файл записной книжки"
+
+msgid "Toggle navigation"
+msgstr "Переключить навигацию"
 
 msgid "Source repository"
 msgstr "Исходный репозиторий"
 
-msgid "Download source file"
-msgstr "Скачать исходный файл"
+msgid "By the"
+msgstr "Посредством"
+
+msgid "next page"
+msgstr "Следующая страница"
+
+msgid "repository"
+msgstr "хранилище"
 
 msgid "Sphinx Book Theme"
 msgstr "Тема книги Сфинкс"
+
+msgid "Download source file"
+msgstr "Скачать исходный файл"
+
+msgid "Contents"
+msgstr "Содержание"
+
+msgid "By"
+msgstr "По"
 
 msgid "Copyright"
 msgstr "авторское право"
@@ -53,29 +62,14 @@ msgstr "авторское право"
 msgid "Fullscreen mode"
 msgstr "Полноэкранный режим"
 
-msgid "Search the docs ..."
-msgstr "Искать в документах ..."
-
-msgid "suggest edit"
-msgstr "предложить редактировать"
-
-msgid "Search this book..."
-msgstr "Искать в этой книге ..."
-
-msgid "By"
-msgstr "По"
-
-msgid "open issue"
-msgstr "открытый вопрос"
-
-msgid "Print to PDF"
-msgstr "Распечатать в PDF"
+msgid "Open an issue"
+msgstr "Открыть вопрос"
 
 msgid "previous page"
 msgstr "Предыдущая страница"
 
-msgid "Toggle navigation"
-msgstr "Переключить навигацию"
+msgid "Download this page"
+msgstr "Загрузите эту страницу"
 
-msgid "By the"
-msgstr "Посредством"
+msgid "Theme by the"
+msgstr "Тема от"

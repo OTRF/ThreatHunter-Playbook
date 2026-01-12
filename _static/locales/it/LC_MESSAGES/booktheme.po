@@ -8,44 +8,53 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Download this page"
-msgstr "Scarica questa pagina"
-
-msgid "Download notebook file"
-msgstr "Scarica il file del taccuino"
-
-msgid "Open an issue"
-msgstr "Apri un problema"
-
-msgid "repository"
-msgstr "repository"
-
-msgid "Theme by the"
-msgstr "Tema di"
-
-msgid "Contents"
-msgstr "Contenuti"
-
-msgid "next page"
-msgstr "pagina successiva"
+msgid "suggest edit"
+msgstr "suggerisci modifica"
 
 msgid "Last updated on"
 msgstr "Ultimo aggiornamento il"
 
+msgid "Edit this page"
+msgstr "Modifica questa pagina"
+
 msgid "Launch"
 msgstr "Lanciare"
 
-msgid "Edit this page"
-msgstr "Modifica questa pagina"
+msgid "Print to PDF"
+msgstr "Stampa in PDF"
+
+msgid "open issue"
+msgstr "questione aperta"
+
+msgid "Download notebook file"
+msgstr "Scarica il file del taccuino"
+
+msgid "Toggle navigation"
+msgstr "Attiva / disattiva la navigazione"
 
 msgid "Source repository"
 msgstr "Repository di origine"
 
-msgid "Download source file"
-msgstr "Scarica il file sorgente"
+msgid "By the"
+msgstr "Dal"
+
+msgid "next page"
+msgstr "pagina successiva"
+
+msgid "repository"
+msgstr "repository"
 
 msgid "Sphinx Book Theme"
 msgstr "Tema del libro della Sfinge"
+
+msgid "Download source file"
+msgstr "Scarica il file sorgente"
+
+msgid "Contents"
+msgstr "Contenuti"
+
+msgid "By"
+msgstr "Di"
 
 msgid "Copyright"
 msgstr "Diritto d'autore"
@@ -53,29 +62,14 @@ msgstr "Diritto d'autore"
 msgid "Fullscreen mode"
 msgstr "Modalità schermo intero"
 
-msgid "Search the docs ..."
-msgstr "Cerca nei documenti ..."
-
-msgid "suggest edit"
-msgstr "suggerisci modifica"
-
-msgid "Search this book..."
-msgstr "Cerca in questo libro ..."
-
-msgid "By"
-msgstr "Di"
-
-msgid "open issue"
-msgstr "questione aperta"
-
-msgid "Print to PDF"
-msgstr "Stampa in PDF"
+msgid "Open an issue"
+msgstr "Apri un problema"
 
 msgid "previous page"
 msgstr "pagina precedente"
 
-msgid "Toggle navigation"
-msgstr "Attiva / disattiva la navigazione"
+msgid "Download this page"
+msgstr "Scarica questa pagina"
 
-msgid "By the"
-msgstr "Dal"
+msgid "Theme by the"
+msgstr "Tema di"

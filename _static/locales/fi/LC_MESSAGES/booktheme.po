@@ -8,44 +8,53 @@ msgstr ""
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Download this page"
-msgstr "Lataa tämä sivu"
-
-msgid "Download notebook file"
-msgstr "Lataa muistikirjatiedosto"
-
-msgid "Open an issue"
-msgstr "Avaa ongelma"
-
-msgid "repository"
-msgstr "arkisto"
-
-msgid "Theme by the"
-msgstr "Teeman tekijä"
-
-msgid "Contents"
-msgstr "Sisällys"
-
-msgid "next page"
-msgstr "seuraava sivu"
+msgid "suggest edit"
+msgstr "ehdottaa muokkausta"
 
 msgid "Last updated on"
 msgstr "Viimeksi päivitetty"
 
+msgid "Edit this page"
+msgstr "Muokkaa tätä sivua"
+
 msgid "Launch"
 msgstr "Tuoda markkinoille"
 
-msgid "Edit this page"
-msgstr "Muokkaa tätä sivua"
+msgid "Print to PDF"
+msgstr "Tulosta PDF-tiedostoon"
+
+msgid "open issue"
+msgstr "avoin ongelma"
+
+msgid "Download notebook file"
+msgstr "Lataa muistikirjatiedosto"
+
+msgid "Toggle navigation"
+msgstr "Vaihda navigointia"
 
 msgid "Source repository"
 msgstr "Lähteen arkisto"
 
-msgid "Download source file"
-msgstr "Lataa lähdetiedosto"
+msgid "By the"
+msgstr "Mukaan"
+
+msgid "next page"
+msgstr "seuraava sivu"
+
+msgid "repository"
+msgstr "arkisto"
 
 msgid "Sphinx Book Theme"
 msgstr "Sphinx-kirjan teema"
+
+msgid "Download source file"
+msgstr "Lataa lähdetiedosto"
+
+msgid "Contents"
+msgstr "Sisällys"
+
+msgid "By"
+msgstr "Tekijä"
 
 msgid "Copyright"
 msgstr "Tekijänoikeus"
@@ -53,29 +62,14 @@ msgstr "Tekijänoikeus"
 msgid "Fullscreen mode"
 msgstr "Koko näytön tila"
 
-msgid "Search the docs ..."
-msgstr "Hae dokumenteista ..."
-
-msgid "suggest edit"
-msgstr "ehdottaa muokkausta"
-
-msgid "Search this book..."
-msgstr "Hae tästä kirjasta ..."
-
-msgid "By"
-msgstr "Tekijä"
-
-msgid "open issue"
-msgstr "avoin ongelma"
-
-msgid "Print to PDF"
-msgstr "Tulosta PDF-tiedostoon"
+msgid "Open an issue"
+msgstr "Avaa ongelma"
 
 msgid "previous page"
 msgstr "Edellinen sivu"
 
-msgid "Toggle navigation"
-msgstr "Vaihda navigointia"
+msgid "Download this page"
+msgstr "Lataa tämä sivu"
 
-msgid "By the"
-msgstr "Mukaan"
+msgid "Theme by the"
+msgstr "Teeman tekijä"
